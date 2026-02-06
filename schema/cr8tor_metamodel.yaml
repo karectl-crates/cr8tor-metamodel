@@ -1,0 +1,1272 @@
+name: cr8tor-metamodel
+description: Cr8tor metamodel project
+title: cr8tor-metamodel
+see_also:
+- https://karectl-crates.github.io/cr8tor-metamodel
+id: https://w3id.org/karectl-crates/cr8tor-metamodel
+imports:
+- governance_model
+- data_model
+- deployment_model
+- linkml:types
+license: MIT
+prefixes:
+  cr8tor_metamodel:
+    prefix_prefix: cr8tor_metamodel
+    prefix_reference: https://w3id.org/karectl-crates/cr8tor-metamodel/
+  linkml:
+    prefix_prefix: linkml
+    prefix_reference: https://w3id.org/linkml/
+  biolink:
+    prefix_prefix: biolink
+    prefix_reference: https://w3id.org/biolink/
+  schema:
+    prefix_prefix: schema
+    prefix_reference: http://schema.org/
+  PATO:
+    prefix_prefix: PATO
+    prefix_reference: http://purl.obolibrary.org/obo/PATO_
+  example:
+    prefix_prefix: example
+    prefix_reference: https://example.org/
+default_prefix: cr8tor_metamodel
+default_range: string
+types:
+  string:
+    name: string
+    definition_uri: https://w3id.org/linkml/String
+    description: A character string
+    notes:
+    - In RDF serializations, a slot with range of string is treated as a literal or
+      type xsd:string.   If you are authoring schemas in LinkML YAML, the type is
+      referenced with the lower case "string".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Text
+    base: str
+    uri: xsd:string
+  integer:
+    name: integer
+    definition_uri: https://w3id.org/linkml/Integer
+    description: An integer
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "integer".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Integer
+    base: int
+    uri: xsd:integer
+  boolean:
+    name: boolean
+    definition_uri: https://w3id.org/linkml/Boolean
+    description: A binary (true or false) value
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "boolean".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Boolean
+    base: Bool
+    uri: xsd:boolean
+    repr: bool
+  float:
+    name: float
+    definition_uri: https://w3id.org/linkml/Float
+    description: A real number that conforms to the xsd:float specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "float".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Float
+    base: float
+    uri: xsd:float
+  double:
+    name: double
+    definition_uri: https://w3id.org/linkml/Double
+    description: A real number that conforms to the xsd:double specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "double".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    close_mappings:
+    - schema:Float
+    base: float
+    uri: xsd:double
+  decimal:
+    name: decimal
+    definition_uri: https://w3id.org/linkml/Decimal
+    description: A real number with arbitrary precision that conforms to the xsd:decimal
+      specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "decimal".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    broad_mappings:
+    - schema:Number
+    base: Decimal
+    uri: xsd:decimal
+  time:
+    name: time
+    definition_uri: https://w3id.org/linkml/Time
+    description: A time object represents a (local) time of day, independent of any
+      particular day
+    notes:
+    - URI is dateTime because OWL reasoners do not work with straight date or time
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "time".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Time
+    base: XSDTime
+    uri: xsd:time
+    repr: str
+  date:
+    name: date
+    definition_uri: https://w3id.org/linkml/Date
+    description: a date (year, month and day) in an idealized calendar
+    notes:
+    - URI is dateTime because OWL reasoners don't work with straight date or time
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "date".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Date
+    base: XSDDate
+    uri: xsd:date
+    repr: str
+  datetime:
+    name: datetime
+    definition_uri: https://w3id.org/linkml/Datetime
+    description: The combination of a date and time
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "datetime".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:DateTime
+    base: XSDDateTime
+    uri: xsd:dateTime
+    repr: str
+  date_or_datetime:
+    name: date_or_datetime
+    definition_uri: https://w3id.org/linkml/DateOrDatetime
+    description: Either a date or a datetime
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "date_or_datetime".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: linkml:DateOrDatetime
+    repr: str
+  uriorcurie:
+    name: uriorcurie
+    definition_uri: https://w3id.org/linkml/Uriorcurie
+    description: a URI or a CURIE
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "uriorcurie".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: URIorCURIE
+    uri: xsd:anyURI
+    repr: str
+  curie:
+    name: curie
+    definition_uri: https://w3id.org/linkml/Curie
+    conforms_to: https://www.w3.org/TR/curie/
+    description: a compact URI
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "curie".
+    comments:
+    - in RDF serializations this MUST be expanded to a URI
+    - in non-RDF serializations MAY be serialized as the compact representation
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: Curie
+    uri: xsd:string
+    repr: str
+  uri:
+    name: uri
+    definition_uri: https://w3id.org/linkml/Uri
+    conforms_to: https://www.ietf.org/rfc/rfc3987.txt
+    description: a complete URI
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "uri".
+    comments:
+    - in RDF serializations a slot with range of uri is treated as a literal or type
+      xsd:anyURI unless it is an identifier or a reference to an identifier, in which
+      case it is translated directly to a node
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    close_mappings:
+    - schema:URL
+    base: URI
+    uri: xsd:anyURI
+    repr: str
+  ncname:
+    name: ncname
+    definition_uri: https://w3id.org/linkml/Ncname
+    description: Prefix part of CURIE
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "ncname".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: NCName
+    uri: xsd:string
+    repr: str
+  objectidentifier:
+    name: objectidentifier
+    definition_uri: https://w3id.org/linkml/Objectidentifier
+    description: A URI or CURIE that represents an object in the model.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "objectidentifier".
+    comments:
+    - Used for inheritance and type checking
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: ElementIdentifier
+    uri: shex:iri
+    repr: str
+  nodeidentifier:
+    name: nodeidentifier
+    definition_uri: https://w3id.org/linkml/Nodeidentifier
+    description: A URI, CURIE or BNODE that represents a node in a model.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "nodeidentifier".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: NodeIdentifier
+    uri: shex:nonLiteral
+    repr: str
+  jsonpointer:
+    name: jsonpointer
+    definition_uri: https://w3id.org/linkml/Jsonpointer
+    conforms_to: https://datatracker.ietf.org/doc/html/rfc6901
+    description: A string encoding a JSON Pointer. The value of the string MUST conform
+      to JSON Point syntax and SHOULD dereference to a valid object within the current
+      instance document when encoded in tree form.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "jsonpointer".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+  jsonpath:
+    name: jsonpath
+    definition_uri: https://w3id.org/linkml/Jsonpath
+    conforms_to: https://www.ietf.org/archive/id/draft-goessner-dispatch-jsonpath-00.html
+    description: A string encoding a JSON Path. The value of the string MUST conform
+      to JSON Point syntax and SHOULD dereference to zero or more valid objects within
+      the current instance document when encoded in tree form.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "jsonpath".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+  sparqlpath:
+    name: sparqlpath
+    definition_uri: https://w3id.org/linkml/Sparqlpath
+    conforms_to: https://www.w3.org/TR/sparql11-query/#propertypaths
+    description: A string encoding a SPARQL Property Path. The value of the string
+      MUST conform to SPARQL syntax and SHOULD dereference to zero or more valid objects
+      within the current instance document when encoded as RDF.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "sparqlpath".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+enums:
+  GroupMembershipType:
+    name: GroupMembershipType
+    definition_uri: https://w3id.org/karectl-crates/governance-model/GroupMembershipType
+    description: Type of TRE group membership
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    permissible_values:
+      Manual:
+        text: Manual
+        description: Manually assigned group membership
+      Automatic:
+        text: Automatic
+        description: Automatically assigned group membership
+  DestinationType:
+    name: DestinationType
+    definition_uri: https://w3id.org/karectl-crates/data-model/DestinationType
+    from_schema: https://w3id.org/karectl-crates/data-model
+    permissible_values:
+      filestore:
+        text: filestore
+        description: Filestore endpoint
+      postgresql:
+        text: postgresql
+        description: PostgreSQL database endpoint
+slots:
+  cr8tor__governance:
+    name: cr8tor__governance
+    from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
+    slot_uri: cr8tor_metamodel:governance
+    alias: governance
+    owner: cr8tor
+    domain_of:
+    - cr8tor
+    range: Governance
+    required: true
+    inlined: true
+    inlined_as_list: true
+  cr8tor__ingress:
+    name: cr8tor__ingress
+    from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
+    slot_uri: cr8tor_metamodel:ingress
+    alias: ingress
+    owner: cr8tor
+    domain_of:
+    - cr8tor
+    range: Ingress
+    required: true
+    inlined: true
+    inlined_as_list: true
+  cr8tor__deployment:
+    name: cr8tor__deployment
+    from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
+    slot_uri: cr8tor_metamodel:deployment
+    alias: deployment
+    owner: cr8tor
+    domain_of:
+    - cr8tor
+    range: Deployment
+    required: true
+    inlined: true
+    inlined_as_list: true
+  governance__users:
+    name: governance__users
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:users
+    alias: users
+    owner: Governance
+    domain_of:
+    - Governance
+    range: User
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  governance__project:
+    name: governance__project
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:project
+    alias: project
+    owner: Governance
+    domain_of:
+    - Governance
+    range: Project
+    inlined: true
+    inlined_as_list: true
+  project__name:
+    name: project__name
+    description: Cr8tor project name
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:name
+    alias: name
+    owner: Project
+    domain_of:
+    - Project
+    range: string
+  project__description:
+    name: project__description
+    description: A brief description of the cr8tor project
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:description
+    alias: description
+    owner: Project
+    domain_of:
+    - Project
+    range: string
+  project__reference:
+    name: project__reference
+    description: Cr8tor project name
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:reference
+    alias: reference
+    owner: Project
+    domain_of:
+    - Project
+    range: string
+  user__id:
+    name: user__id
+    description: A unique identifier for a thing
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    mappings:
+    - schema-org:identifier
+    slot_uri: schema-org:identifier
+    identifier: true
+    alias: id
+    owner: User
+    domain_of:
+    - User
+    range: uriorcurie
+    required: true
+  user__username:
+    name: user__username
+    description: A unique identifier for a thing
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    mappings:
+    - schema-org:identifier
+    slot_uri: schema-org:identifier
+    alias: username
+    owner: User
+    domain_of:
+    - User
+    range: uriorcurie
+  user__given_name:
+    name: user__given_name
+    description: A human-readable name for a things
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    mappings:
+    - schema-org:name
+    slot_uri: schema-org:name
+    alias: given_name
+    owner: User
+    domain_of:
+    - User
+    range: string
+  user__family_name:
+    name: user__family_name
+    description: A human-readable name for a things
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:family_name
+    alias: family_name
+    owner: User
+    domain_of:
+    - User
+    range: string
+  user__affiliation:
+    name: user__affiliation
+    description: Name of affilitate organisation
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:affiliation
+    alias: affiliation
+    owner: User
+    domain_of:
+    - User
+    range: string
+  user__email:
+    name: user__email
+    description: Email address of the user
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:email
+    alias: email
+    owner: User
+    domain_of:
+    - User
+    range: string
+  user__groups:
+    name: user__groups
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:groups
+    alias: groups
+    owner: User
+    domain_of:
+    - User
+    range: Group
+    required: false
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  user__start_date:
+    name: user__start_date
+    description: Date and time of when the user's access to the project is active.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:start_date
+    alias: start_date
+    owner: User
+    domain_of:
+    - User
+    range: datetime
+  user__expiry_date:
+    name: user__expiry_date
+    description: Date and time of when the user's access to the Cr8tor project expires
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:expiry_date
+    alias: expiry_date
+    owner: User
+    domain_of:
+    - User
+    range: datetime
+  group__value:
+    name: group__value
+    annotations:
+      mutability:
+        tag: mutability
+        value: readOnly
+    description: The identifier of the User's group. Typically the group ID.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:value
+    alias: value
+    owner: Group
+    domain_of:
+    - Group
+    range: string
+    required: false
+  group__ref:
+    name: group__ref
+    annotations:
+      mutability:
+        tag: mutability
+        value: readOnly
+      reference_type:
+        tag: reference_type
+        value: Group
+    description: The URI of the corresponding Group resource
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:ref
+    alias: ref
+    owner: Group
+    domain_of:
+    - Group
+    range: uri
+    required: false
+  group__display:
+    name: group__display
+    annotations:
+      mutability:
+        tag: mutability
+        value: readOnly
+    description: A human-readable display name for the group
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:display
+    alias: display
+    owner: Group
+    domain_of:
+    - Group
+    range: string
+    required: false
+  group__type:
+    name: group__type
+    annotations:
+      mutability:
+        tag: mutability
+        value: readOnly
+    description: A label to convey the type of KARE group membership
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:type
+    alias: type
+    owner: Group
+    domain_of:
+    - Group
+    range: GroupMembershipType
+    required: false
+  ingress__source:
+    name: ingress__source
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slot_uri: cr8tor_metamodel:source
+    alias: source
+    owner: Ingress
+    domain_of:
+    - Ingress
+    range: Source
+    required: false
+    inlined: true
+    inlined_as_list: true
+  ingress__destination:
+    name: ingress__destination
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slot_uri: cr8tor_metamodel:destination
+    alias: destination
+    owner: Ingress
+    domain_of:
+    - Ingress
+    range: Destination
+    required: true
+    inlined: true
+    inlined_as_list: true
+  ingress__datasets:
+    name: ingress__datasets
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slot_uri: cr8tor_metamodel:datasets
+    alias: datasets
+    owner: Ingress
+    domain_of:
+    - Ingress
+    range: Dataset
+    required: false
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  source__url:
+    name: source__url
+    description: url
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slot_uri: cr8tor_metamodel:url
+    alias: url
+    owner: Source
+    domain_of:
+    - Source
+    range: string
+  destination__type:
+    name: destination__type
+    description: url
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slot_uri: cr8tor_metamodel:type
+    alias: type
+    owner: Destination
+    domain_of:
+    - Destination
+    range: DestinationType
+    required: true
+  destination__url:
+    name: destination__url
+    description: url
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slot_uri: cr8tor_metamodel:url
+    alias: url
+    owner: Destination
+    domain_of:
+    - Destination
+    range: string
+    required: false
+  dataset__name:
+    name: dataset__name
+    description: name of the dataset metadata description
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slot_uri: cr8tor_metamodel:name
+    alias: name
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: string
+    required: true
+  dataset__schema_name:
+    name: dataset__schema_name
+    description: name of the dataset schema in the target database
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slot_uri: cr8tor_metamodel:schema_name
+    alias: schema_name
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: string
+    required: true
+  dataset__tables:
+    name: dataset__tables
+    description: Target tabular data source
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slot_uri: cr8tor_metamodel:tables
+    alias: tables
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: Table
+    required: false
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  dataset__locations:
+    name: dataset__locations
+    description: List of data locations/URIs of the dataset during TRE ingestion workflow
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slot_uri: cr8tor_metamodel:locations
+    alias: locations
+    owner: Dataset
+    domain_of:
+    - Dataset
+    range: string
+    required: false
+    multivalued: true
+    inlined_as_list: true
+    any_of:
+    - range: string
+    - range: integer
+    - range: boolean
+  table__name:
+    name: table__name
+    description: Name of the table
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slot_uri: cr8tor_metamodel:name
+    alias: name
+    owner: Table
+    domain_of:
+    - Table
+    range: string
+    required: true
+  table__columns:
+    name: table__columns
+    description: Columns that make up the table
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slot_uri: cr8tor_metamodel:columns
+    alias: columns
+    owner: Table
+    domain_of:
+    - Table
+    range: Column
+    required: true
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  column__name:
+    name: column__name
+    description: Name of the column
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slot_uri: cr8tor_metamodel:name
+    alias: name
+    owner: Column
+    domain_of:
+    - Column
+    range: string
+    required: true
+  column__datatype:
+    name: column__datatype
+    description: Datatype of the column
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slot_uri: cr8tor_metamodel:datatype
+    alias: datatype
+    owner: Column
+    domain_of:
+    - Column
+    range: string
+    required: true
+  deployment__resources:
+    name: deployment__resources
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:resources
+    alias: resources
+    owner: Deployment
+    domain_of:
+    - Deployment
+    range: string
+    multivalued: true
+    inlined_as_list: true
+  deployment__environment:
+    name: deployment__environment
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:environment
+    alias: environment
+    owner: Deployment
+    domain_of:
+    - Deployment
+    range: Environment
+    inlined: true
+    inlined_as_list: true
+  resource__name:
+    name: resource__name
+    description: Requested resource name
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:name
+    alias: name
+    owner: Resource
+    domain_of:
+    - Resource
+    range: string
+    required: true
+  resource__type:
+    name: resource__type
+    description: Application type (e.g., jupyterhub, vdi)
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:type
+    alias: type
+    owner: Resource
+    domain_of:
+    - Resource
+    range: string
+    required: true
+  resource__url:
+    name: resource__url
+    description: URL endpoint for the application
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:url
+    alias: url
+    owner: Resource
+    domain_of:
+    - Resource
+    range: uri
+    required: true
+  resource__enabled:
+    name: resource__enabled
+    description: Indicates if the application is enabled
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:enabled
+    alias: enabled
+    owner: Resource
+    domain_of:
+    - Resource
+    range: boolean
+    required: true
+  jupyter__auth:
+    name: jupyter__auth
+    description: Indicates the type of authentication to use for jupyter
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:auth
+    alias: auth
+    owner: Jupyter
+    domain_of:
+    - Jupyter
+    range: string
+  keycloak__somethingspecific:
+    name: keycloak__somethingspecific
+    description: a keycloak specific attribute
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:somethingspecific
+    alias: somethingspecific
+    owner: Keycloak
+    domain_of:
+    - Keycloak
+    range: string
+  environment__name:
+    name: environment__name
+    description: Cr8tor project name
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:name
+    alias: name
+    owner: Environment
+    domain_of:
+    - Environment
+    range: string
+classes:
+  cr8tor:
+    name: cr8tor
+    definition_uri: https://w3id.org/karectl-crates/cr8tor-metamodel/Cr8tor
+    description: Container for all cr8tor data
+    from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
+    slots:
+    - cr8tor__governance
+    - cr8tor__ingress
+    - cr8tor__deployment
+    attributes:
+      governance:
+        name: governance
+        range: Governance
+        required: true
+      ingress:
+        name: ingress
+        range: Ingress
+        required: true
+      deployment:
+        name: deployment
+        range: Deployment
+        required: true
+    class_uri: cr8tor_metamodel:Cr8tor
+    tree_root: true
+  Governance:
+    name: Governance
+    definition_uri: https://w3id.org/karectl-crates/governance-model/Governance
+    description: A Cr8tor project's governance-specific information (e.g. user access
+      and mandatory project details)
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slots:
+    - governance__users
+    - governance__project
+    attributes:
+      users:
+        name: users
+        range: User
+        multivalued: true
+        inlined_as_list: true
+      project:
+        name: project
+        range: Project
+    class_uri: cr8tor_metamodel:Governance
+  Project:
+    name: Project
+    definition_uri: https://w3id.org/karectl-crates/governance-model/Project
+    description: Describes the core properties of a cr8tor project
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    narrow_mappings:
+    - schema-org:Project
+    slots:
+    - project__name
+    - project__description
+    - project__reference
+    attributes:
+      name:
+        name: name
+        description: Cr8tor project name
+      description:
+        name: description
+        description: A brief description of the cr8tor project
+      reference:
+        name: reference
+        description: Cr8tor project name
+    class_uri: cr8tor_metamodel:Project
+  User:
+    name: User
+    definition_uri: https://w3id.org/karectl-crates/governance-model/User
+    description: 'Represents a user entity associated with a cr8tor project.  '
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    narrow_mappings:
+    - schema-org:Person
+    - schema-org:Organization
+    - scim:User
+    slots:
+    - user__id
+    - user__username
+    - user__given_name
+    - user__family_name
+    - user__affiliation
+    - user__email
+    - user__groups
+    - user__start_date
+    - user__expiry_date
+    attributes:
+      id:
+        name: id
+        description: A unique identifier for a thing
+        slot_uri: schema-org:identifier
+        identifier: true
+        range: uriorcurie
+      username:
+        name: username
+        description: A unique identifier for a thing
+        slot_uri: schema-org:identifier
+        range: uriorcurie
+      given_name:
+        name: given_name
+        description: A human-readable name for a things
+        slot_uri: schema-org:name
+      family_name:
+        name: family_name
+        description: A human-readable name for a things
+      affiliation:
+        name: affiliation
+        description: Name of affilitate organisation
+      email:
+        name: email
+        description: Email address of the user
+      groups:
+        name: groups
+        range: Group
+        required: false
+        multivalued: true
+        inlined_as_list: true
+      start_date:
+        name: start_date
+        description: Date and time of when the user's access to the project is active.
+        range: datetime
+      expiry_date:
+        name: expiry_date
+        description: Date and time of when the user's access to the Cr8tor project
+          expires
+        range: datetime
+    class_uri: cr8tor_metamodel:User
+  Group:
+    name: Group
+    definition_uri: https://w3id.org/karectl-crates/governance-model/Group
+    description: Represents a KARE group associated with a project
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    narrow_mappings:
+    - scim:Group
+    slots:
+    - group__value
+    - group__ref
+    - group__display
+    - group__type
+    attributes:
+      value:
+        name: value
+        annotations:
+          mutability:
+            tag: mutability
+            value: readOnly
+        description: The identifier of the User's group. Typically the group ID.
+        range: string
+        required: false
+      ref:
+        name: ref
+        annotations:
+          mutability:
+            tag: mutability
+            value: readOnly
+          reference_type:
+            tag: reference_type
+            value: Group
+        description: The URI of the corresponding Group resource
+        range: uri
+        required: false
+      display:
+        name: display
+        annotations:
+          mutability:
+            tag: mutability
+            value: readOnly
+        description: A human-readable display name for the group
+        range: string
+        required: false
+      type:
+        name: type
+        annotations:
+          mutability:
+            tag: mutability
+            value: readOnly
+        description: A label to convey the type of KARE group membership
+        range: GroupMembershipType
+        required: false
+    class_uri: cr8tor_metamodel:Group
+  Ingress:
+    name: Ingress
+    definition_uri: https://w3id.org/karectl-crates/data-model/Ingress
+    description: Ingress
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slots:
+    - ingress__source
+    - ingress__destination
+    - ingress__datasets
+    attributes:
+      source:
+        name: source
+        range: Source
+        required: false
+      destination:
+        name: destination
+        range: Destination
+        required: true
+      datasets:
+        name: datasets
+        range: Dataset
+        required: false
+        multivalued: true
+        inlined_as_list: true
+    class_uri: cr8tor_metamodel:Ingress
+  Source:
+    name: Source
+    definition_uri: https://w3id.org/karectl-crates/data-model/Source
+    description: 'A source of data in a cr8tor project '
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slots:
+    - source__url
+    attributes:
+      url:
+        name: url
+        description: url
+        range: string
+    class_uri: cr8tor_metamodel:Source
+  Destination:
+    name: Destination
+    definition_uri: https://w3id.org/karectl-crates/data-model/Destination
+    description: 'A destination of data in a cr8tor project '
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slots:
+    - destination__type
+    - destination__url
+    attributes:
+      type:
+        name: type
+        description: url
+        range: DestinationType
+        required: true
+      url:
+        name: url
+        description: url
+        range: string
+        required: false
+    class_uri: cr8tor_metamodel:Destination
+  Dataset:
+    name: Dataset
+    definition_uri: https://w3id.org/karectl-crates/data-model/Dataset
+    description: Metadata of source dataset to be extracted that can comprise tables
+      and columns
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slots:
+    - dataset__name
+    - dataset__schema_name
+    - dataset__tables
+    - dataset__locations
+    attributes:
+      name:
+        name: name
+        description: name of the dataset metadata description
+        range: string
+        required: true
+      schema_name:
+        name: schema_name
+        description: name of the dataset schema in the target database
+        range: string
+        required: true
+      tables:
+        name: tables
+        description: Target tabular data source
+        range: Table
+        required: false
+        multivalued: true
+        inlined_as_list: true
+      locations:
+        name: locations
+        description: List of data locations/URIs of the dataset during TRE ingestion
+          workflow
+        required: false
+        multivalued: true
+        inlined_as_list: true
+        any_of:
+        - range: string
+        - range: integer
+        - range: boolean
+    class_uri: cr8tor_metamodel:Dataset
+  Table:
+    name: Table
+    definition_uri: https://w3id.org/karectl-crates/data-model/Table
+    description: A table within a dataset
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slots:
+    - table__name
+    - table__columns
+    attributes:
+      name:
+        name: name
+        description: Name of the table
+        range: string
+        required: true
+      columns:
+        name: columns
+        description: Columns that make up the table
+        range: Column
+        required: true
+        multivalued: true
+        inlined_as_list: true
+    class_uri: cr8tor_metamodel:Table
+  Column:
+    name: Column
+    definition_uri: https://w3id.org/karectl-crates/data-model/Column
+    description: A column within a table
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slots:
+    - column__name
+    - column__datatype
+    attributes:
+      name:
+        name: name
+        description: Name of the column
+        range: string
+        required: true
+      datatype:
+        name: datatype
+        description: Datatype of the column
+        range: string
+        required: true
+    class_uri: cr8tor_metamodel:Column
+  Deployment:
+    name: Deployment
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/Deployment
+    description: Specifies K8TRE resources including applications requested through
+      a cr8tor project
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slots:
+    - deployment__resources
+    - deployment__environment
+    attributes:
+      resources:
+        name: resources
+        range: string
+        multivalued: true
+        inlined_as_list: true
+      environment:
+        name: environment
+        range: Environment
+    class_uri: cr8tor_metamodel:Deployment
+  Resource:
+    name: Resource
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/Resource
+    description: Abstract class representing a K8TRE resource (e.g. K8TRE application)
+      that can be deployed through a cr8tor project
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slots:
+    - resource__name
+    - resource__type
+    - resource__url
+    - resource__enabled
+    attributes:
+      name:
+        name: name
+        description: Requested resource name
+        range: string
+        required: true
+      type:
+        name: type
+        description: Application type (e.g., jupyterhub, vdi)
+        range: string
+        required: true
+      url:
+        name: url
+        description: URL endpoint for the application
+        range: uri
+        required: true
+      enabled:
+        name: enabled
+        description: Indicates if the application is enabled
+        range: boolean
+        required: true
+    class_uri: cr8tor_metamodel:Resource
+  Jupyter:
+    name: Jupyter
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/Jupyter
+    description: Configuration for deploying Jupyter workspaces accessible to a cr8tor
+      project
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    is_a: Resource
+    slots:
+    - resource__name
+    - resource__type
+    - resource__url
+    - resource__enabled
+    - jupyter__auth
+    attributes:
+      auth:
+        name: auth
+        description: Indicates the type of authentication to use for jupyter
+    class_uri: cr8tor_metamodel:Jupyter
+  Keycloak:
+    name: Keycloak
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/Keycloak
+    description: Configuration for deploying Keycloak resources available to a cr8tor
+      project
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    is_a: Resource
+    slots:
+    - resource__name
+    - resource__type
+    - resource__url
+    - resource__enabled
+    - keycloak__somethingspecific
+    attributes:
+      somethingspecific:
+        name: somethingspecific
+        description: a keycloak specific attribute
+    class_uri: cr8tor_metamodel:Keycloak
+  Environment:
+    name: Environment
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/Environment
+    description: Definition of additional cr8tor project configuration for the target
+      trusted research environment (TRE)
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slots:
+    - environment__name
+    attributes:
+      name:
+        name: name
+        description: Cr8tor project name
+    class_uri: cr8tor_metamodel:Environment
+metamodel_version: 1.7.0
+source_file: cr8tor_metamodel.yaml
+source_file_date: '2026-02-06T18:53:08'
+source_file_size: 902
+generation_date: '2026-02-06T18:53:23'
+
