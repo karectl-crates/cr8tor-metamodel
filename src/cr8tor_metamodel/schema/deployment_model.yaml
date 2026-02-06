@@ -1,0 +1,74 @@
+---
+id: https://w3id.org/karectl-crates/deployment-model
+name: deployment-model
+title: deployment-model
+description: |-
+  Cr8tor metamodel project
+license: MIT
+see_also:
+  - https://karectl-crates.github.io/cr8tor-metamodel
+
+prefixes:
+  cr8tor: https://w3id.org/karectl-crates/cr8tor-metamodel/
+  schema-org: http://schema.org/
+  scim: "urn:ietf:params:scim:schemas:core:2.0"
+default_prefix: cr8tor_metamodel
+default_range: string
+
+imports:
+  - linkml:types
+
+classes:
+  Deployment:
+    description:  Specifies K8TRE resources including applications requested through a cr8tor project
+    attributes:
+      resources:
+        range: string
+        multivalued: true
+        inlined_as_list: true
+      environment:
+        range: Environment
+  
+  Resource:
+    description: >-
+      Abstract class representing a K8TRE resource (e.g. K8TRE application) that can be deployed through a cr8tor project
+    attributes:
+      name:
+        description: Requested resource name
+        range: string
+        required: true  
+      type:
+        description: Application type (e.g., jupyterhub, vdi)
+        range: string
+        required: true
+      url:
+        description: URL endpoint for the application
+        range: uri
+        required: true
+      enabled:
+        description: Indicates if the application is enabled
+        range: boolean
+        required: true
+
+  Jupyter:
+    is_a: Resource
+    description: >-
+      Configuration for deploying Jupyter workspaces accessible to a cr8tor project
+    attributes:
+      auth:
+        description: Indicates the type of authentication to use for jupyter
+
+  Keycloak:
+    is_a: Resource 
+    description: >-
+      Configuration for deploying Keycloak resources available to a cr8tor project
+    attributes:
+      somethingspecific:
+        description: a keycloak specific attribute
+
+  Environment:
+    description: >-
+      Definition of additional cr8tor project configuration for the target trusted research environment (TRE)
+    attributes:
+      name:
+        description: Cr8tor project name

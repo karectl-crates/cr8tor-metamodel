@@ -1,3 +1,3 @@
-# About cr8tor-metamodal
+# About Cr8tor model
 
-Cr8tor metamodel project
+XXX

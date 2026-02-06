@@ -1,4 +1,4 @@
-# Example data for cr8tor_metamodal
+# Example data for cr8tor_metamodel
 
 This folder contains example data for testing and demonstrating the datamodel`
 sorted in subfolders:

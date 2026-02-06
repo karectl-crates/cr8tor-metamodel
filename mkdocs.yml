@@ -1,5 +1,5 @@
 ---
-site_name: "cr8tor-metamodal"
+site_name: "cr8tor-metamodel"
 theme:
   name: material
   # palette:
@@ -22,7 +22,7 @@ plugins:
   #       - gen_pages.py  # or any other name or path
 
 watch:
-  - src/cr8tor_metamodal/schema
+  - src/cr8tor_metamodel/schema
 
 nav:
   - Home: index.md
@@ -32,8 +32,8 @@ nav:
 exclude_docs: |
   /templates-linkml/
 
-site_url: https://karectl-crates.github.io/cr8tor-metamodal
-repo_url: https://github.com/karectl-crates/cr8tor-metamodal
+site_url: https://karectl-crates.github.io/cr8tor-metamodel
+repo_url: https://github.com/karectl-crates/cr8tor-metamodel
 
 # Uncomment this block to enable use of Google Analytics.
 # Replace the property value with your own ID.

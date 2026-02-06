@@ -522,8 +522,8 @@ wheels = [
 ]
 
 [[package]]
-name = "cr8tor-metamodal"
-version = "0.0.0"
+name = "cr8tor-metamodel"
+version = "0.0.0.post1.dev0+a256602"
 source = { editable = "." }
 dependencies = [
     { name = "linkml-runtime" },

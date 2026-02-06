@@ -1,0 +1,55 @@
+governance:
+  project:
+    name: example-project
+    description: Example cr8tor project for demonstration
+    reference: CR8TOR-001
+
+  users:
+    - id: https://example.org/users/alice
+      username: alice
+      given_name: Alice
+      family_name: Smith
+      affiliation: Example University
+      email: alice@example.org
+      groups:
+        - value: researchers
+          display: Research Group
+          type: Manual
+      start_date: "2024-01-01T00:00:00Z"
+      expiry_date: "2026-01-01T00:00:00Z"
+
+ingress:
+  source:
+    url: https://data.example.org/source
+  destination:
+    type: postgresql
+    url: postgresql://db.example.org:5432/example
+  datasets:
+    - name: clinical_data
+      schema_name: omop
+      tables:
+        - name: person
+          columns:
+            - name: person_id
+              datatype: integer
+            - name: gender_concept_id
+              datatype: integer
+      locations:
+        - https://blob.example.org/clinical/person.csv
+
+deployment:
+  environment:
+    name: dev-tre
+
+  resources:
+    - name: jupyterhub-main
+      type: jupyterhub
+      url: https://jupyter.example.org
+      enabled: true
+      auth: oidc
+
+    - name: keycloak-main
+      type: keycloak
+      url: https://auth.example.org
+      enabled: true
+      somethingspecific: realm-config

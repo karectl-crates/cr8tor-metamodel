@@ -1,0 +1,47 @@
+# Example data object
+---
+
+governance:
+  users:
+    - id: https://example.org/users/jsmith
+      name: John Smith
+      description: Lead developer on the data modeling team
+    
+    - id: https://example.org/users/mjones
+      name: Mary Jones
+      description: Project manager and quality assurance specialist
+    
+    - id: https://example.org/users/rchen
+      name: Robert Chen
+      description: Documentation specialist
+
+  project:
+    primary_email: project-lead@example.org
+    birth_date: "2024-01-15"
+    age_in_years: 1
+    vital_status: ALIVE
+
+ingress:
+  source:
+    url: https://example.org/data/source.csv
+  destination:
+    type: filestore
+    url: https://example.org/data/sink.csv
+  datasets:
+    - name: example_dataset
+      schema_name: public
+      tables:
+        - name: abc_table
+          columns:
+            - name: user_id
+              datatype: integer
+            - name: email
+              datatype: varchar
+            - name: created_at
+              datatype: timestamp
+        - name: xyz_table
+          columns:
+            - name: user_id
+              datatype: varchar
+            - name: total_amount
+              datatype: varchar

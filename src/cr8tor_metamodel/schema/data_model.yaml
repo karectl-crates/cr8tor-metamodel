@@ -1,0 +1,118 @@
+---
+id: https://w3id.org/karectl-crates/data-model
+name: data-model
+title: data-model
+description: |-
+  Data model
+license: MIT
+see_also:
+  - https://karectl-crates.github.io/cr8tor-metamodel
+
+prefixes:
+  cr8tor: https://w3id.org/karectl-crates/cr8tor-metamodel/
+  schema-org: http://schema.org/
+default_prefix: cr8tor_metamodel
+default_range: string
+
+imports:
+  - linkml:types
+
+classes:
+
+  Ingress:
+    description:  >-
+      Ingress
+    attributes:
+      source:
+        range: Source
+        required: false
+      destination:
+        range: Destination
+        required: true
+      datasets:
+        range: Dataset
+        required: false
+        multivalued: true
+        inlined_as_list: true
+  Source:
+    description: >-
+      A source of data in a cr8tor project 
+    attributes:
+      url:
+        range: string
+        description: url
+  Destination:
+    description: >-
+      A destination of data in a cr8tor project 
+    attributes:
+      type:
+        range: DestinationType
+        description: url
+        required: true
+      url:
+        range: string
+        description: url
+        required: false
+  Dataset:
+    description: >-
+      Metadata of source dataset to be extracted that can comprise tables and columns
+    attributes:
+      name:
+        range: string
+        description: name of the dataset metadata description
+        required: true
+      schema_name:
+        range: string
+        description: name of the dataset schema in the target database
+        required: true
+      tables:
+        range: Table
+        description: Target tabular data source
+        required: false
+        multivalued: true
+        inlined_as_list: true
+      locations:
+        description: List of data locations/URIs of the dataset during TRE ingestion workflow 
+        required: false
+        multivalued: true
+        inlined_as_list: true
+        any_of:
+          - range: string
+          - range: integer
+          - range: boolean
+
+
+  Table:
+    description: >-
+      A table within a dataset
+    attributes:
+      name:
+        range: string
+        description: Name of the table
+        required: true
+      columns:
+        range: Column
+        description: Columns that make up the table
+        required: true
+        multivalued: true
+        inlined_as_list: true
+  Column:
+    description: >-
+      A column within a table
+    attributes:
+      name:
+        range: string
+        description: Name of the column
+        required: true
+      datatype:
+        range: string
+        description: Datatype of the column
+        required: true
+
+enums:
+  DestinationType:
+    permissible_values:
+      filestore:
+        description: Filestore endpoint
+      postgresql:
+        description: PostgreSQL database endpoint

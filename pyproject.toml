@@ -3,7 +3,7 @@ requires = ["hatchling", "uv-dynamic-versioning"]
 build-backend = "hatchling.build"
 
 [project]
-name = "cr8tor_metamodal"
+name = "cr8tor_metamodel"
 description = "Cr8tor metamodel project"
 authors = [
   {name = "Mike Harding", email = "m.harding@lancaster.ac.uk"},
@@ -50,8 +50,8 @@ skip = [
   "pyproject.toml",
   "uv.lock",
   "project/*",
-  "src/cr8tor_metamodal/datamodel/cr8tor_metamodal_pydantic.py",
-  "src/cr8tor_metamodal/datamodel/cr8tor_metamodal.py",
+  "src/cr8tor_metamodel/datamodel/cr8tor_metamodel_pydantic.py",
+  "src/cr8tor_metamodel/datamodel/cr8tor_metamodel.py",
 ]
 
 # Reminder: words have to be lowercased for the ignore-words-list
@@ -67,6 +67,6 @@ extend-exclude = [
   "uv.lock",
   "pyproject.toml",
   "project/*",
-  "src/cr8tor_metamodal/datamodel/cr8tor_metamodal_pydantic.py",
-  "src/cr8tor_metamodal/datamodel/cr8tor_metamodal.py",
+  "src/cr8tor_metamodel/datamodel/cr8tor_metamodel_pydantic.py",
+  "src/cr8tor_metamodel/datamodel/cr8tor_metamodel.py",
 ]

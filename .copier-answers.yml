@@ -10,6 +10,6 @@ gh_action_pypi: false
 github_org: karectl-crates
 license: MIT
 project_description: Cr8tor metamodel project
-project_name: cr8tor-metamodal
-project_slug: cr8tor_metamodal
+project_name: cr8tor-metamodel
+project_slug: cr8tor_metamodel
 

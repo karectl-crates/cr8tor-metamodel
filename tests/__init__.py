@@ -1,1 +1,1 @@
-"""Tests for cr8tor-metamodal."""
+"""Tests for cr8tor-metamodel."""

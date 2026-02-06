@@ -6,10 +6,10 @@
 
 # Note:
 # - just works fine with quoted variables of dot-env files like this one
-LINKML_SCHEMA_NAME="cr8tor_metamodal"
+LINKML_SCHEMA_NAME="cr8tor_metamodel"
 LINKML_SCHEMA_AUTHOR="Mike Harding <m.harding@lancaster.ac.uk>"
 LINKML_SCHEMA_DESCRIPTION="Cr8tor metamodel project"
-LINKML_SCHEMA_SOURCE_DIR="src/cr8tor_metamodal/schema"
+LINKML_SCHEMA_SOURCE_DIR="src/cr8tor_metamodel/schema"
 
 ###### linkml generator variables, used by justfile
 

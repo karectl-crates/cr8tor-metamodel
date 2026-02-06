@@ -1,0 +1,125 @@
+---
+id: https://w3id.org/karectl-crates/governance-model
+name: governance-model
+title: governance-model
+description: |-
+  Cr8tor metamodel project
+license: MIT
+see_also:
+  - https://karectl-crates.github.io/cr8tor-metamodel
+
+prefixes:
+  cr8tor: https://w3id.org/karectl-crates/cr8tor-metamodel/
+  schema-org: http://schema.org/
+  scim: urn:ietf:params:scim:schemas:core:2.0
+default_prefix: cr8tor_metamodel
+default_range: string
+
+imports:
+  - linkml:types
+
+classes:
+
+  Governance:
+    description:  A Cr8tor project's governance-specific information (e.g. user access and mandatory project details)
+    attributes:
+      users:
+        range: User
+        multivalued: true
+        inlined_as_list: true
+      project:
+        range: Project
+  
+  Project:
+    description: >-
+      Describes the core properties of a cr8tor project
+    attributes:
+      name:
+        description: Cr8tor project name
+      description:
+        description: A brief description of the cr8tor project
+      reference:
+        description: Cr8tor project name
+
+    narrow_mappings: 
+      - schema-org:Project
+
+  User:
+    description: >-
+      Represents a user entity associated with a cr8tor project.  
+    attributes:
+      id:
+        identifier: true
+        slot_uri: schema-org:identifier
+        range: uriorcurie
+        description: A unique identifier for a thing
+      username:
+        slot_uri: schema-org:identifier
+        range: uriorcurie
+        description: A unique identifier for a thing
+      given_name:
+        slot_uri: schema-org:name
+        description: A human-readable name for a things
+      family_name:
+        description: A human-readable name for a things
+      affiliation:
+        description: Name of affilitate organisation
+      email:
+        description: Email address of the user
+      groups:
+        range: Group
+        required: false
+        multivalued: true
+        inlined_as_list: true
+      start_date:
+        range: datetime
+        description: Date and time of when the user's access to the project is active.
+      expiry_date:
+        range: datetime
+        description: Date and time of when the user's access to the Cr8tor project expires
+
+    narrow_mappings: 
+    - schema-org:Person
+    - schema-org:Organization
+    - scim:User
+
+  Group:
+    description: Represents a KARE group associated with a project
+    attributes:
+      value:
+        description: The identifier of the User's group. Typically the group ID.
+        range: string
+        required: false
+        annotations:
+          mutability: readOnly
+      ref:
+        description: The URI of the corresponding Group resource
+        range: uri
+        required: false
+        annotations:
+          mutability: readOnly
+          reference_type: Group
+      display:
+        description: A human-readable display name for the group
+        range: string
+        required: false
+        annotations:
+          mutability: readOnly
+      type:
+        description: A label to convey the type of KARE group membership
+        range: GroupMembershipType
+        required: false
+        annotations:
+          mutability: readOnly
+    narrow_mappings: 
+      - scim:Group
+
+enums:
+  GroupMembershipType:
+    description: Type of TRE group membership
+    permissible_values:
+      Manual:
+        description: Manually assigned group membership
+      Automatic:
+        description: Automatically assigned group membership
+  

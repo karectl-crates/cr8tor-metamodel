@@ -1,12 +1,12 @@
 <a href="https://github.com/dalito/linkml-project-copier"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-teal.json" alt="Copier Badge" style="max-width:100%;"/></a>
 
-# cr8tor-metamodal
+# cr8tor-metamodel
 
 Cr8tor metamodel project
 
 ## Documentation Website
 
-[https://karectl-crates.github.io/cr8tor-metamodal](https://karectl-crates.github.io/cr8tor-metamodal)
+[https://karectl-crates.github.io/cr8tor-metamodel](https://karectl-crates.github.io/cr8tor-metamodel)
 
 ## Repository Structure
 
@@ -15,10 +15,10 @@ Cr8tor metamodel project
 * [examples/](examples/) - Examples of using the schema
 * [project/](project/) - project files (these files are auto-generated, do not edit)
 * [src/](src/) - source files (edit these)
-  * [cr8tor_metamodal](src/cr8tor_metamodal)
-    * [schema/](src/cr8tor_metamodal/schema) -- LinkML schema
+  * [cr8tor_metamodel](src/cr8tor_metamodel)
+    * [schema/](src/cr8tor_metamodel/schema) -- LinkML schema
       (edit this)
-    * [datamodel/](src/cr8tor_metamodal/datamodel) -- generated
+    * [datamodel/](src/cr8tor_metamodel/datamodel) -- generated
       Python datamodel
 * [tests/](tests/) - Python tests
   * [data/](tests/data) - Example data

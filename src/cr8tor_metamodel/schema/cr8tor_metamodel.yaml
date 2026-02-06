@@ -1,0 +1,39 @@
+---
+id: https://w3id.org/karectl-crates/cr8tor-metamodel
+name: cr8tor-metamodel
+title: cr8tor-metamodel
+description: |-
+  Cr8tor metamodel project
+license: MIT
+see_also:
+  - https://karectl-crates.github.io/cr8tor-metamodel
+
+prefixes:
+  cr8tor_metamodel: https://w3id.org/karectl-crates/cr8tor-metamodel/
+  linkml: https://w3id.org/linkml/
+  biolink: https://w3id.org/biolink/
+  schema: http://schema.org/
+  PATO: http://purl.obolibrary.org/obo/PATO_
+  example: https://example.org/
+default_prefix: cr8tor_metamodel
+default_range: string
+
+imports:
+  - governance_model
+  - data_model
+  - deployment_model
+
+classes:
+  cr8tor:
+    tree_root: true
+    description: Container for all cr8tor data
+    attributes:
+      governance:
+        range: Governance
+        required: true
+      ingress:
+        range: Ingress
+        required: true
+      deployment:
+        range: Deployment
+        required: true

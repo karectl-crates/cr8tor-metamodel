@@ -1,4 +1,4 @@
-# Examples of using cr8tor-metamodal
+# Examples of using cr8tor-metamodel
 
 This folder contains examples using the datamodel.
 
