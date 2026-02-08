@@ -1,5 +1,5 @@
 # Auto generated from cr8tor_metamodel.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-02-06T18:40:01
+# Generation date: 2026-02-08T14:53:21
 # Schema: cr8tor-metamodel
 #
 # id: https://w3id.org/karectl-crates/cr8tor-metamodel
@@ -84,7 +84,8 @@ class UserId(URIorCURIE):
 @dataclass(repr=False)
 class Cr8tor(YAMLRoot):
     """
-    Container for all cr8tor data
+    The root container class for the Cr8tor metamodel, aggregating all project data including governance, data
+    ingress, and deployment configuration. This class represents the complete state of a Cr8tor project instance.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -119,7 +120,9 @@ class Cr8tor(YAMLRoot):
 @dataclass(repr=False)
 class Governance(YAMLRoot):
     """
-    A Cr8tor project's governance-specific information (e.g. user access and mandatory project details)
+    Represents the governance structure of a Cr8tor project, encapsulating user access control, project membership,
+    and mandatory project metadata. This class manages the relationships between users and the project, ensuring
+    proper access and compliance with governance requirements.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -143,7 +146,9 @@ class Governance(YAMLRoot):
 @dataclass(repr=False)
 class Project(YAMLRoot):
     """
-    Describes the core properties of a cr8tor project
+    Defines the core state and identifying properties of a Cr8tor project, including its name, description, and
+    reference information. This class models the essential metadata required to uniquely identify and describe a
+    project within the Cr8tor ecosystem.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -172,7 +177,9 @@ class Project(YAMLRoot):
 @dataclass(repr=False)
 class User(YAMLRoot):
     """
-    Represents a user entity associated with a cr8tor project.
+    Models an individual user associated with a Cr8tor project, capturing their identity, contact information,
+    organizational affiliation, group memberships, and access lifecycle. This class represents the state of a user's
+    relationship to the project and their access rights.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -228,7 +235,8 @@ class User(YAMLRoot):
 @dataclass(repr=False)
 class Group(YAMLRoot):
     """
-    Represents a KARE group associated with a project
+    Represents a group or organizational unit within a Cr8tor project, used to organize users, assign roles, and
+    manage permissions. This class models the state of group membership and its associated metadata.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -261,7 +269,9 @@ class Group(YAMLRoot):
 @dataclass(repr=False)
 class Ingress(YAMLRoot):
     """
-    Ingress
+    Represents the data ingress process for a Cr8tor project, modeling the flow of data from sources to destinations,
+    and the datasets involved. This class captures the state of data movement and configuration for project data
+    pipelines.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -293,7 +303,8 @@ class Ingress(YAMLRoot):
 @dataclass(repr=False)
 class Source(YAMLRoot):
     """
-    A source of data in a cr8tor project
+    Models a data source within a Cr8tor project, representing the origin of data to be ingested. This class defines
+    the state and configuration of external or internal data sources.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -314,7 +325,8 @@ class Source(YAMLRoot):
 @dataclass(repr=False)
 class Destination(YAMLRoot):
     """
-    A destination of data in a cr8tor project
+    Models a data destination within a Cr8tor project, representing the endpoint where data is delivered or stored
+    after ingress. This class defines the state and configuration of data targets.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -341,7 +353,8 @@ class Destination(YAMLRoot):
 @dataclass(repr=False)
 class Dataset(YAMLRoot):
     """
-    Metadata of source dataset to be extracted that can comprise tables and columns
+    Represents a dataset to be ingested or managed within a Cr8tor project, including its metadata, schema, tables,
+    and data locations. This class models the state and structure of data collections handled by the project.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -380,7 +393,8 @@ class Dataset(YAMLRoot):
 @dataclass(repr=False)
 class Table(YAMLRoot):
     """
-    A table within a dataset
+    Models a table within a dataset, representing a structured collection of data organized into columns. This class
+    defines the state and schema of tabular data in the project.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -410,7 +424,8 @@ class Table(YAMLRoot):
 @dataclass(repr=False)
 class Column(YAMLRoot):
     """
-    A column within a table
+    Models a column within a table, representing a single field of data with a specific datatype. This class defines
+    the state and schema of individual data fields in tabular structures.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -439,7 +454,9 @@ class Column(YAMLRoot):
 @dataclass(repr=False)
 class Deployment(YAMLRoot):
     """
-    Specifies K8TRE resources including applications requested through a cr8tor project
+    Models the deployment configuration for a Cr8tor project, specifying the K8TRE resources and applications to be
+    provisioned, as well as the target environment. This class represents the state and desired configuration for
+    project deployments.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -465,7 +482,8 @@ class Deployment(YAMLRoot):
 @dataclass(repr=False)
 class Resource(YAMLRoot):
     """
-    Abstract class representing a K8TRE resource (e.g. K8TRE application) that can be deployed through a cr8tor project
+    Abstract base class for K8TRE resources (such as applications or services) that can be deployed through a Cr8tor
+    project. This class defines the state and configuration of deployable resources.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -506,7 +524,8 @@ class Resource(YAMLRoot):
 @dataclass(repr=False)
 class Jupyter(Resource):
     """
-    Configuration for deploying Jupyter workspaces accessible to a cr8tor project
+    Specialized resource configuration for deploying Jupyter workspaces within a Cr8tor project. This class extends
+    Resource to include Jupyter-specific settings and state.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -531,7 +550,8 @@ class Jupyter(Resource):
 @dataclass(repr=False)
 class Keycloak(Resource):
     """
-    Configuration for deploying Keycloak resources available to a cr8tor project
+    Specialized resource configuration for deploying Keycloak identity and access management services within a Cr8tor
+    project. This class extends Resource to include Keycloak-specific settings and state.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -556,7 +576,8 @@ class Keycloak(Resource):
 @dataclass(repr=False)
 class Environment(YAMLRoot):
     """
-    Definition of additional cr8tor project configuration for the target trusted research environment (TRE)
+    Models the configuration of the target trusted research environment (TRE) for a Cr8tor project deployment,
+    including environment-specific settings and metadata.
     """
     _inherited_slots: ClassVar[list[str]] = []
 

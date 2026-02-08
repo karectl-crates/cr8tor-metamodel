@@ -21,62 +21,65 @@ imports:
 classes:
 
   Governance:
-    description:  A Cr8tor project's governance-specific information (e.g. user access and mandatory project details)
+    description:  Represents the governance structure of a Cr8tor project, encapsulating user access control, project membership, and mandatory project metadata. This class manages the relationships between users and the project, ensuring proper access and compliance with governance requirements.
     attributes:
       users:
+        description: List of users who have access to the project, each with their own roles, permissions, and membership details. Represents the state of project membership and access control.
         range: User
         multivalued: true
         inlined_as_list: true
       project:
+        description: The project entity governed by this governance model, containing core project metadata and state.
         range: Project
   
   Project:
     description: >-
-      Describes the core properties of a cr8tor project
+      Defines the core state and identifying properties of a Cr8tor project, including its name, description, and reference information. This class models the essential metadata required to uniquely identify and describe a project within the Cr8tor ecosystem.
     attributes:
       name:
-        description: Cr8tor project name
+        description: The unique name of the Cr8tor project, used for identification and reference within the system.
       description:
-        description: A brief description of the cr8tor project
+        description: A brief summary describing the purpose, scope, or objectives of the Cr8tor project.
       reference:
-        description: Cr8tor project name
+        description: An external or internal reference identifier for the Cr8tor project, used for cross-referencing or linking to related resources.
 
     narrow_mappings: 
       - schema-org:Project
 
   User:
     description: >-
-      Represents a user entity associated with a cr8tor project.  
+      Models an individual user associated with a Cr8tor project, capturing their identity, contact information, organizational affiliation, group memberships, and access lifecycle. This class represents the state of a user's relationship to the project and their access rights.
     attributes:
       id:
         identifier: true
         slot_uri: schema-org:identifier
         range: uriorcurie
-        description: A unique identifier for a thing
+        description: A globally unique identifier for the user, ensuring unambiguous reference within and across systems.
       username:
         slot_uri: schema-org:identifier
         range: uriorcurie
-        description: A unique identifier for a thing
+        description: The user's unique login or account name, used for authentication and identification within the project.
       given_name:
         slot_uri: schema-org:name
-        description: A human-readable name for a things
+        description: The user's first or given name, representing their personal identity.
       family_name:
-        description: A human-readable name for a things
+        description: The user's last or family name, used for identification and display purposes.
       affiliation:
-        description: Name of affilitate organisation
+        description: The name of the organization or institution with which the user is affiliated, representing their organizational context.
       email:
-        description: Email address of the user
+        description: The user's email address, used for communication and notifications related to the project.
       groups:
+        description: List of groups to which the user belongs within the project, representing roles, permissions, or organizational units.
         range: Group
         required: false
         multivalued: true
         inlined_as_list: true
       start_date:
         range: datetime
-        description: Date and time of when the user's access to the project is active.
+        description: The date and time when the user's access to the project becomes active, representing the start of their membership or role.
       expiry_date:
         range: datetime
-        description: Date and time of when the user's access to the Cr8tor project expires
+        description: The date and time when the user's access to the project expires, representing the end of their membership or role.
 
     narrow_mappings: 
     - schema-org:Person
@@ -84,29 +87,29 @@ classes:
     - scim:User
 
   Group:
-    description: Represents a KARE group associated with a project
+    description: Represents a group or organizational unit within a Cr8tor project, used to organize users, assign roles, and manage permissions. This class models the state of group membership and its associated metadata.
     attributes:
       value:
-        description: The identifier of the User's group. Typically the group ID.
+        description: The unique identifier of the group, typically used as the group ID for referencing and access control. Read-only.
         range: string
         required: false
         annotations:
           mutability: readOnly
       ref:
-        description: The URI of the corresponding Group resource
+        description: The URI reference to the corresponding Group resource, enabling linkage to external or internal group definitions. Read-only.
         range: uri
         required: false
         annotations:
           mutability: readOnly
           reference_type: Group
       display:
-        description: A human-readable display name for the group
+        description: A human-readable display name for the group, used for UI and reporting. Read-only.
         range: string
         required: false
         annotations:
           mutability: readOnly
       type:
-        description: A label to convey the type of KARE group membership
+        description: The type of group membership, indicating how the user was assigned to the group (e.g., manual or automatic). Read-only.
         range: GroupMembershipType
         required: false
         annotations:

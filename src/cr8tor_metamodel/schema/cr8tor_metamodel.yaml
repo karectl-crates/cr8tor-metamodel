@@ -26,14 +26,17 @@ imports:
 classes:
   cr8tor:
     tree_root: true
-    description: Container for all cr8tor data
+    description: The root container class for the Cr8tor metamodel, aggregating all project data including governance, data ingress, and deployment configuration. This class represents the complete state of a Cr8tor project instance.
     attributes:
       governance:
+        description: The governance configuration for the project, managing user access, membership, and project metadata. Required.
         range: Governance
         required: true
       ingress:
+        description: The data ingress configuration for the project, specifying data sources, destinations, and datasets involved in data movement. Required.
         range: Ingress
         required: true
       deployment:
+        description: The deployment configuration for the project, detailing the resources and environment to be provisioned. Required.
         range: Deployment
         required: true

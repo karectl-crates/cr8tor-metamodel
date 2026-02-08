@@ -20,55 +20,57 @@ imports:
 
 classes:
   Deployment:
-    description:  Specifies K8TRE resources including applications requested through a cr8tor project
+    description:  Models the deployment configuration for a Cr8tor project, specifying the K8TRE resources and applications to be provisioned, as well as the target environment. This class represents the state and desired configuration for project deployments.
     attributes:
       resources:
+        description: List of resource names or identifiers representing the K8TRE applications or services to be deployed as part of the project. Can include multiple resources.
         range: string
         multivalued: true
         inlined_as_list: true
       environment:
+        description: The environment configuration for the deployment, specifying the target trusted research environment (TRE) and its properties.
         range: Environment
   
   Resource:
     description: >-
-      Abstract class representing a K8TRE resource (e.g. K8TRE application) that can be deployed through a cr8tor project
+      Abstract base class for K8TRE resources (such as applications or services) that can be deployed through a Cr8tor project. This class defines the state and configuration of deployable resources.
     attributes:
       name:
-        description: Requested resource name
+        description: The requested name of the resource, used for identification and management within the deployment.
         range: string
         required: true  
       type:
-        description: Application type (e.g., jupyterhub, vdi)
+        description: The type of application or resource (e.g., jupyterhub, vdi), specifying its function or category.
         range: string
         required: true
       url:
-        description: URL endpoint for the application
+        description: The URL endpoint for accessing the application or resource after deployment.
         range: uri
         required: true
       enabled:
-        description: Indicates if the application is enabled
+        description: Boolean flag indicating whether the application or resource is enabled and available for use.
         range: boolean
         required: true
 
   Jupyter:
     is_a: Resource
     description: >-
-      Configuration for deploying Jupyter workspaces accessible to a cr8tor project
+      Specialized resource configuration for deploying Jupyter workspaces within a Cr8tor project. This class extends Resource to include Jupyter-specific settings and state.
     attributes:
       auth:
-        description: Indicates the type of authentication to use for jupyter
+        description: The type or method of authentication required to access the Jupyter workspace (e.g., OAuth, SSO).
 
   Keycloak:
     is_a: Resource 
     description: >-
-      Configuration for deploying Keycloak resources available to a cr8tor project
+      Specialized resource configuration for deploying Keycloak identity and access management services within a Cr8tor project. This class extends Resource to include Keycloak-specific settings and state.
     attributes:
       somethingspecific:
-        description: a keycloak specific attribute
+        description: A Keycloak-specific attribute for custom configuration or integration.
 
   Environment:
     description: >-
-      Definition of additional cr8tor project configuration for the target trusted research environment (TRE)
+      Models the configuration of the target trusted research environment (TRE) for a Cr8tor project deployment, including environment-specific settings and metadata.
     attributes:
       name:
-        description: Cr8tor project name
+        description: The name of the environment or TRE where the project will be deployed, used for identification and management.

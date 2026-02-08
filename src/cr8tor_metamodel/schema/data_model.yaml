@@ -21,58 +21,61 @@ classes:
 
   Ingress:
     description:  >-
-      Ingress
+      Represents the data ingress process for a Cr8tor project, modeling the flow of data from sources to destinations, and the datasets involved. This class captures the state of data movement and configuration for project data pipelines.
     attributes:
       source:
+        description: The origin or source of data for the ingress process, representing where data is extracted from. Optional.
         range: Source
         required: false
       destination:
+        description: The target or endpoint where data is delivered during the ingress process, representing the state of data delivery. Required.
         range: Destination
         required: true
       datasets:
+        description: List of datasets involved in the ingress process, each representing a collection of data to be transferred. Optional, can include multiple datasets.
         range: Dataset
         required: false
         multivalued: true
         inlined_as_list: true
   Source:
     description: >-
-      A source of data in a cr8tor project 
+      Models a data source within a Cr8tor project, representing the origin of data to be ingested. This class defines the state and configuration of external or internal data sources.
     attributes:
       url:
         range: string
-        description: url
+        description: The URL or location of the data source, specifying where data can be accessed or retrieved from.
   Destination:
     description: >-
-      A destination of data in a cr8tor project 
+      Models a data destination within a Cr8tor project, representing the endpoint where data is delivered or stored after ingress. This class defines the state and configuration of data targets.
     attributes:
       type:
         range: DestinationType
-        description: url
+        description: The type of destination (e.g., filestore, postgresql), specifying the nature of the data endpoint. Required.
         required: true
       url:
         range: string
-        description: url
+        description: The URL or location of the data destination, specifying where data should be delivered. Optional.
         required: false
   Dataset:
     description: >-
-      Metadata of source dataset to be extracted that can comprise tables and columns
+      Represents a dataset to be ingested or managed within a Cr8tor project, including its metadata, schema, tables, and data locations. This class models the state and structure of data collections handled by the project.
     attributes:
       name:
         range: string
-        description: name of the dataset metadata description
+        description: The name of the dataset, used for identification and reference within the project. Required.
         required: true
       schema_name:
         range: string
-        description: name of the dataset schema in the target database
+        description: The name of the schema in the target database where the dataset will reside. Required.
         required: true
       tables:
         range: Table
-        description: Target tabular data source
+        description: List of tables that make up the dataset, each representing a structured collection of columns and data. Optional, can include multiple tables.
         required: false
         multivalued: true
         inlined_as_list: true
       locations:
-        description: List of data locations/URIs of the dataset during TRE ingestion workflow 
+        description: List of data locations or URIs where the dataset is stored or accessed during the TRE ingestion workflow. Can include strings, integers, or booleans to represent various location types. Optional, can include multiple locations.
         required: false
         multivalued: true
         inlined_as_list: true
@@ -84,29 +87,29 @@ classes:
 
   Table:
     description: >-
-      A table within a dataset
+      Models a table within a dataset, representing a structured collection of data organized into columns. This class defines the state and schema of tabular data in the project.
     attributes:
       name:
         range: string
-        description: Name of the table
+        description: The name of the table, used for identification within the dataset. Required.
         required: true
       columns:
         range: Column
-        description: Columns that make up the table
+        description: List of columns that define the schema of the table, each representing a data field. Required, can include multiple columns.
         required: true
         multivalued: true
         inlined_as_list: true
   Column:
     description: >-
-      A column within a table
+      Models a column within a table, representing a single field of data with a specific datatype. This class defines the state and schema of individual data fields in tabular structures.
     attributes:
       name:
         range: string
-        description: Name of the column
+        description: The name of the column, used for identification within the table. Required.
         required: true
       datatype:
         range: string
-        description: Datatype of the column
+        description: The datatype of the column, specifying the kind of data stored (e.g., string, integer). Required.
         required: true
 
 enums:
