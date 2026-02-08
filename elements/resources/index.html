@@ -417,6 +417,7 @@
 
 
 <h1 id="slot-resources">Slot: resources</h1>
+<p><em>List of resource names or identifiers representing the K8TRE applications or services to be deployed as part of the project. Can include multiple resources.</em></p>
 <p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/resources">cr8tor_metamodel:resources</a>
 Alias: resources</p>
 <!-- no inheritance hierarchy -->
@@ -433,7 +434,7 @@ Alias: resources</p>
 <tbody>
 <tr>
 <td><a href="../Deployment/">Deployment</a></td>
-<td>Specifies K8TRE resources including applications requested through a cr8tor p...</td>
+<td>Models the deployment configuration for a Cr8tor project, specifying the K8TR...</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -475,6 +476,8 @@ Alias: resources</p>
 <details>
 
 <pre><code class="language-yaml">name: resources
+description: List of resource names or identifiers representing the K8TRE applications
+  or services to be deployed as part of the project. Can include multiple resources.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 rank: 1000
 alias: resources

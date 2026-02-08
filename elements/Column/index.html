@@ -258,7 +258,7 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="class-column">Class: Column</h1>
-<p><em>A column within a table</em></p>
+<p><em>Models a column within a table, representing a single field of data with a specific datatype. This class defines the state and schema of individual data fields in tabular structures.</em></p>
 <p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/Column">cr8tor_metamodel:Column</a></p>
 <div class="mermaid"> classDiagram
     class Column
@@ -284,13 +284,13 @@
 <tr>
 <td><a href="../name/">name</a></td>
 <td>1 <br/> <a href="../String/">String</a></td>
-<td>Name of the column</td>
+<td>The name of the column, used for identification within the table</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../datatype/">datatype</a></td>
 <td>1 <br/> <a href="../String/">String</a></td>
-<td>Datatype of the column</td>
+<td>The datatype of the column, specifying the kind of data stored (e</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -343,12 +343,15 @@
 <h3 id="direct">Direct</h3>
 <details>
 <pre><code class="language-yaml">name: Column
-description: A column within a table
+description: Models a column within a table, representing a single field of data with
+  a specific datatype. This class defines the state and schema of individual data
+  fields in tabular structures.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 attributes:
   name:
     name: name
-    description: Name of the column
+    description: The name of the column, used for identification within the table.
+      Required.
     from_schema: https://w3id.org/karectl-crates/data-model
     domain_of:
     - Project
@@ -361,7 +364,8 @@ attributes:
     required: true
   datatype:
     name: datatype
-    description: Datatype of the column
+    description: The datatype of the column, specifying the kind of data stored (e.g.,
+      string, integer). Required.
     from_schema: https://w3id.org/karectl-crates/data-model
     rank: 1000
     domain_of:
@@ -374,12 +378,15 @@ attributes:
 <h3 id="induced">Induced</h3>
 <details>
 <pre><code class="language-yaml">name: Column
-description: A column within a table
+description: Models a column within a table, representing a single field of data with
+  a specific datatype. This class defines the state and schema of individual data
+  fields in tabular structures.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 attributes:
   name:
     name: name
-    description: Name of the column
+    description: The name of the column, used for identification within the table.
+      Required.
     from_schema: https://w3id.org/karectl-crates/data-model
     alias: name
     owner: Column
@@ -394,7 +401,8 @@ attributes:
     required: true
   datatype:
     name: datatype
-    description: Datatype of the column
+    description: The datatype of the column, specifying the kind of data stored (e.g.,
+      string, integer). Required.
     from_schema: https://w3id.org/karectl-crates/data-model
     rank: 1000
     alias: datatype

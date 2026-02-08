@@ -258,7 +258,7 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="class-table">Class: Table</h1>
-<p><em>A table within a dataset</em></p>
+<p><em>Models a table within a dataset, representing a structured collection of data organized into columns. This class defines the state and schema of tabular data in the project.</em></p>
 <p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/Table">cr8tor_metamodel:Table</a></p>
 <div class="mermaid"> classDiagram
     class Table
@@ -293,13 +293,13 @@
 <tr>
 <td><a href="../name/">name</a></td>
 <td>1 <br/> <a href="../String/">String</a></td>
-<td>Name of the table</td>
+<td>The name of the table, used for identification within the dataset</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../columns/">columns</a></td>
 <td>1..* <br/> <a href="../Column/">Column</a></td>
-<td>Columns that make up the table</td>
+<td>List of columns that define the schema of the table, each representing a data...</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -352,12 +352,15 @@
 <h3 id="direct">Direct</h3>
 <details>
 <pre><code class="language-yaml">name: Table
-description: A table within a dataset
+description: Models a table within a dataset, representing a structured collection
+  of data organized into columns. This class defines the state and schema of tabular
+  data in the project.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 attributes:
   name:
     name: name
-    description: Name of the table
+    description: The name of the table, used for identification within the dataset.
+      Required.
     from_schema: https://w3id.org/karectl-crates/data-model
     domain_of:
     - Project
@@ -370,7 +373,8 @@ attributes:
     required: true
   columns:
     name: columns
-    description: Columns that make up the table
+    description: List of columns that define the schema of the table, each representing
+      a data field. Required, can include multiple columns.
     from_schema: https://w3id.org/karectl-crates/data-model
     rank: 1000
     domain_of:
@@ -386,12 +390,15 @@ attributes:
 <h3 id="induced">Induced</h3>
 <details>
 <pre><code class="language-yaml">name: Table
-description: A table within a dataset
+description: Models a table within a dataset, representing a structured collection
+  of data organized into columns. This class defines the state and schema of tabular
+  data in the project.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 attributes:
   name:
     name: name
-    description: Name of the table
+    description: The name of the table, used for identification within the dataset.
+      Required.
     from_schema: https://w3id.org/karectl-crates/data-model
     alias: name
     owner: Table
@@ -406,7 +413,8 @@ attributes:
     required: true
   columns:
     name: columns
-    description: Columns that make up the table
+    description: List of columns that define the schema of the table, each representing
+      a data field. Required, can include multiple columns.
     from_schema: https://w3id.org/karectl-crates/data-model
     rank: 1000
     alias: columns

@@ -258,7 +258,7 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="class-user">Class: User</h1>
-<p>_Represents a user entity associated with a cr8tor project.  _</p>
+<p><em>Models an individual user associated with a Cr8tor project, capturing their identity, contact information, organizational affiliation, group memberships, and access lifecycle. This class represents the state of a user's relationship to the project and their access rights.</em></p>
 <p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/User">cr8tor_metamodel:User</a></p>
 <div class="mermaid"> classDiagram
     class User
@@ -307,55 +307,55 @@
 <tr>
 <td><a href="../id/">id</a></td>
 <td>1 <br/> <a href="../Uriorcurie/">Uriorcurie</a></td>
-<td>A unique identifier for a thing</td>
+<td>A globally unique identifier for the user, ensuring unambiguous reference wit...</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../username/">username</a></td>
 <td>0..1 <br/> <a href="../Uriorcurie/">Uriorcurie</a></td>
-<td>A unique identifier for a thing</td>
+<td>The user's unique login or account name, used for authentication and identifi...</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../given_name/">given_name</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
-<td>A human-readable name for a things</td>
+<td>The user's first or given name, representing their personal identity</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../family_name/">family_name</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
-<td>A human-readable name for a things</td>
+<td>The user's last or family name, used for identification and display purposes</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../affiliation/">affiliation</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Name of affilitate organisation</td>
+<td>The name of the organization or institution with which the user is affiliated...</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../email/">email</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Email address of the user</td>
+<td>The user's email address, used for communication and notifications related to...</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../groups/">groups</a></td>
 <td>* <br/> <a href="../Group/">Group</a></td>
-<td></td>
+<td>List of groups to which the user belongs within the project, representing rol...</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../start_date/">start_date</a></td>
 <td>0..1 <br/> <a href="../Datetime/">Datetime</a></td>
-<td>Date and time of when the user's access to the project is active</td>
+<td>The date and time when the user's access to the project becomes active, repre...</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../expiry_date/">expiry_date</a></td>
 <td>0..1 <br/> <a href="../Datetime/">Datetime</a></td>
-<td>Date and time of when the user's access to the Cr8tor project expires</td>
+<td>The date and time when the user's access to the project expires, representing...</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -412,7 +412,10 @@
 <h3 id="direct">Direct</h3>
 <details>
 <pre><code class="language-yaml">name: User
-description: 'Represents a user entity associated with a cr8tor project.  '
+description: Models an individual user associated with a Cr8tor project, capturing
+  their identity, contact information, organizational affiliation, group memberships,
+  and access lifecycle. This class represents the state of a user's relationship to
+  the project and their access rights.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 narrow_mappings:
 - schema-org:Person
@@ -421,7 +424,8 @@ narrow_mappings:
 attributes:
   id:
     name: id
-    description: A unique identifier for a thing
+    description: A globally unique identifier for the user, ensuring unambiguous reference
+      within and across systems.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     slot_uri: schema-org:identifier
@@ -432,7 +436,8 @@ attributes:
     required: true
   username:
     name: username
-    description: A unique identifier for a thing
+    description: The user's unique login or account name, used for authentication
+      and identification within the project.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     slot_uri: schema-org:identifier
@@ -441,7 +446,7 @@ attributes:
     range: uriorcurie
   given_name:
     name: given_name
-    description: A human-readable name for a things
+    description: The user's first or given name, representing their personal identity.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     slot_uri: schema-org:name
@@ -449,27 +454,32 @@ attributes:
     - User
   family_name:
     name: family_name
-    description: A human-readable name for a things
+    description: The user's last or family name, used for identification and display
+      purposes.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     domain_of:
     - User
   affiliation:
     name: affiliation
-    description: Name of affilitate organisation
+    description: The name of the organization or institution with which the user is
+      affiliated, representing their organizational context.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     domain_of:
     - User
   email:
     name: email
-    description: Email address of the user
+    description: The user's email address, used for communication and notifications
+      related to the project.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     domain_of:
     - User
   groups:
     name: groups
+    description: List of groups to which the user belongs within the project, representing
+      roles, permissions, or organizational units.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     domain_of:
@@ -481,7 +491,8 @@ attributes:
     inlined_as_list: true
   start_date:
     name: start_date
-    description: Date and time of when the user's access to the project is active.
+    description: The date and time when the user's access to the project becomes active,
+      representing the start of their membership or role.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     domain_of:
@@ -489,7 +500,8 @@ attributes:
     range: datetime
   expiry_date:
     name: expiry_date
-    description: Date and time of when the user's access to the Cr8tor project expires
+    description: The date and time when the user's access to the project expires,
+      representing the end of their membership or role.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     domain_of:
@@ -501,7 +513,10 @@ attributes:
 <h3 id="induced">Induced</h3>
 <details>
 <pre><code class="language-yaml">name: User
-description: 'Represents a user entity associated with a cr8tor project.  '
+description: Models an individual user associated with a Cr8tor project, capturing
+  their identity, contact information, organizational affiliation, group memberships,
+  and access lifecycle. This class represents the state of a user's relationship to
+  the project and their access rights.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 narrow_mappings:
 - schema-org:Person
@@ -510,7 +525,8 @@ narrow_mappings:
 attributes:
   id:
     name: id
-    description: A unique identifier for a thing
+    description: A globally unique identifier for the user, ensuring unambiguous reference
+      within and across systems.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     slot_uri: schema-org:identifier
@@ -523,7 +539,8 @@ attributes:
     required: true
   username:
     name: username
-    description: A unique identifier for a thing
+    description: The user's unique login or account name, used for authentication
+      and identification within the project.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     slot_uri: schema-org:identifier
@@ -534,7 +551,7 @@ attributes:
     range: uriorcurie
   given_name:
     name: given_name
-    description: A human-readable name for a things
+    description: The user's first or given name, representing their personal identity.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     slot_uri: schema-org:name
@@ -545,7 +562,8 @@ attributes:
     range: string
   family_name:
     name: family_name
-    description: A human-readable name for a things
+    description: The user's last or family name, used for identification and display
+      purposes.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     alias: family_name
@@ -555,7 +573,8 @@ attributes:
     range: string
   affiliation:
     name: affiliation
-    description: Name of affilitate organisation
+    description: The name of the organization or institution with which the user is
+      affiliated, representing their organizational context.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     alias: affiliation
@@ -565,7 +584,8 @@ attributes:
     range: string
   email:
     name: email
-    description: Email address of the user
+    description: The user's email address, used for communication and notifications
+      related to the project.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     alias: email
@@ -575,6 +595,8 @@ attributes:
     range: string
   groups:
     name: groups
+    description: List of groups to which the user belongs within the project, representing
+      roles, permissions, or organizational units.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     alias: groups
@@ -588,7 +610,8 @@ attributes:
     inlined_as_list: true
   start_date:
     name: start_date
-    description: Date and time of when the user's access to the project is active.
+    description: The date and time when the user's access to the project becomes active,
+      representing the start of their membership or role.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     alias: start_date
@@ -598,7 +621,8 @@ attributes:
     range: datetime
   expiry_date:
     name: expiry_date
-    description: Date and time of when the user's access to the Cr8tor project expires
+    description: The date and time when the user's access to the project expires,
+      representing the end of their membership or role.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     alias: expiry_date

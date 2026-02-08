@@ -417,7 +417,7 @@
 
 
 <h1 id="slot-locations">Slot: locations</h1>
-<p><em>List of data locations/URIs of the dataset during TRE ingestion workflow</em></p>
+<p><em>List of data locations or URIs where the dataset is stored or accessed during the TRE ingestion workflow. Can include strings, integers, or booleans to represent various location types. Optional, can include multiple locations.</em></p>
 <p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/locations">cr8tor_metamodel:locations</a>
 Alias: locations</p>
 <!-- no inheritance hierarchy -->
@@ -434,7 +434,7 @@ Alias: locations</p>
 <tbody>
 <tr>
 <td><a href="../Dataset/">Dataset</a></td>
-<td>Metadata of source dataset to be extracted that can comprise tables and colum...</td>
+<td>Represents a dataset to be ingested or managed within a Cr8tor project, inclu...</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -476,7 +476,9 @@ Alias: locations</p>
 <details>
 
 <pre><code class="language-yaml">name: locations
-description: List of data locations/URIs of the dataset during TRE ingestion workflow
+description: List of data locations or URIs where the dataset is stored or accessed
+  during the TRE ingestion workflow. Can include strings, integers, or booleans to
+  represent various location types. Optional, can include multiple locations.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 rank: 1000
 alias: locations

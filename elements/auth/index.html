@@ -417,7 +417,7 @@
 
 
 <h1 id="slot-auth">Slot: auth</h1>
-<p><em>Indicates the type of authentication to use for jupyter</em></p>
+<p><em>The type or method of authentication required to access the Jupyter workspace (e.g., OAuth, SSO).</em></p>
 <p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/auth">cr8tor_metamodel:auth</a>
 Alias: auth</p>
 <!-- no inheritance hierarchy -->
@@ -434,7 +434,7 @@ Alias: auth</p>
 <tbody>
 <tr>
 <td><a href="../Jupyter/">Jupyter</a></td>
-<td>Configuration for deploying Jupyter workspaces accessible to a cr8tor project</td>
+<td>Specialized resource configuration for deploying Jupyter workspaces within a ...</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -471,7 +471,8 @@ Alias: auth</p>
 <details>
 
 <pre><code class="language-yaml">name: auth
-description: Indicates the type of authentication to use for jupyter
+description: The type or method of authentication required to access the Jupyter workspace
+  (e.g., OAuth, SSO).
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 rank: 1000
 alias: auth

@@ -258,7 +258,7 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="class-environment">Class: Environment</h1>
-<p><em>Definition of additional cr8tor project configuration for the target trusted research environment (TRE)</em></p>
+<p><em>Models the configuration of the target trusted research environment (TRE) for a Cr8tor project deployment, including environment-specific settings and metadata.</em></p>
 <p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/Environment">cr8tor_metamodel:Environment</a></p>
 <div class="mermaid"> classDiagram
     class Environment
@@ -282,7 +282,7 @@
 <tr>
 <td><a href="../name/">name</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Cr8tor project name</td>
+<td>The name of the environment or TRE where the project will be deployed, used f...</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -335,13 +335,14 @@
 <h3 id="direct">Direct</h3>
 <details>
 <pre><code class="language-yaml">name: Environment
-description: Definition of additional cr8tor project configuration for the target
-  trusted research environment (TRE)
+description: Models the configuration of the target trusted research environment (TRE)
+  for a Cr8tor project deployment, including environment-specific settings and metadata.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 attributes:
   name:
     name: name
-    description: Cr8tor project name
+    description: The name of the environment or TRE where the project will be deployed,
+      used for identification and management.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     domain_of:
     - Project
@@ -356,13 +357,14 @@ attributes:
 <h3 id="induced">Induced</h3>
 <details>
 <pre><code class="language-yaml">name: Environment
-description: Definition of additional cr8tor project configuration for the target
-  trusted research environment (TRE)
+description: Models the configuration of the target trusted research environment (TRE)
+  for a Cr8tor project deployment, including environment-specific settings and metadata.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 attributes:
   name:
     name: name
-    description: Cr8tor project name
+    description: The name of the environment or TRE where the project will be deployed,
+      used for identification and management.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     alias: name
     owner: Environment

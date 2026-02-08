@@ -520,67 +520,67 @@
 <tbody>
 <tr>
 <td><a href="Column/">Column</a></td>
-<td>A column within a table</td>
+<td>Models a column within a table, representing a single field of data with a sp...</td>
 </tr>
 <tr>
 <td><a href="Cr8tor/">Cr8tor</a></td>
-<td>Container for all cr8tor data</td>
+<td>The root container class for the Cr8tor metamodel, aggregating all project da...</td>
 </tr>
 <tr>
 <td><a href="Dataset/">Dataset</a></td>
-<td>Metadata of source dataset to be extracted that can comprise tables and colum...</td>
+<td>Represents a dataset to be ingested or managed within a Cr8tor project, inclu...</td>
 </tr>
 <tr>
 <td><a href="Deployment/">Deployment</a></td>
-<td>Specifies K8TRE resources including applications requested through a cr8tor p...</td>
+<td>Models the deployment configuration for a Cr8tor project, specifying the K8TR...</td>
 </tr>
 <tr>
 <td><a href="Destination/">Destination</a></td>
-<td>A destination of data in a cr8tor project</td>
+<td>Models a data destination within a Cr8tor project, representing the endpoint ...</td>
 </tr>
 <tr>
 <td><a href="Environment/">Environment</a></td>
-<td>Definition of additional cr8tor project configuration for the target trusted ...</td>
+<td>Models the configuration of the target trusted research environment (TRE) for...</td>
 </tr>
 <tr>
 <td><a href="Governance/">Governance</a></td>
-<td>A Cr8tor project's governance-specific information (e</td>
+<td>Represents the governance structure of a Cr8tor project, encapsulating user a...</td>
 </tr>
 <tr>
 <td><a href="Group/">Group</a></td>
-<td>Represents a KARE group associated with a project</td>
+<td>Represents a group or organizational unit within a Cr8tor project, used to or...</td>
 </tr>
 <tr>
 <td><a href="Ingress/">Ingress</a></td>
-<td>Ingress</td>
+<td>Represents the data ingress process for a Cr8tor project, modeling the flow o...</td>
 </tr>
 <tr>
 <td><a href="Project/">Project</a></td>
-<td>Describes the core properties of a cr8tor project</td>
+<td>Defines the core state and identifying properties of a Cr8tor project, includ...</td>
 </tr>
 <tr>
 <td><a href="Resource/">Resource</a></td>
-<td>Abstract class representing a K8TRE resource (e</td>
+<td>Abstract base class for K8TRE resources (such as applications or services) th...</td>
 </tr>
 <tr>
 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="Jupyter/">Jupyter</a></td>
-<td>Configuration for deploying Jupyter workspaces accessible to a cr8tor project</td>
+<td>Specialized resource configuration for deploying Jupyter workspaces within a ...</td>
 </tr>
 <tr>
 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="Keycloak/">Keycloak</a></td>
-<td>Configuration for deploying Keycloak resources available to a cr8tor project</td>
+<td>Specialized resource configuration for deploying Keycloak identity and access...</td>
 </tr>
 <tr>
 <td><a href="Source/">Source</a></td>
-<td>A source of data in a cr8tor project</td>
+<td>Models a data source within a Cr8tor project, representing the origin of data...</td>
 </tr>
 <tr>
 <td><a href="Table/">Table</a></td>
-<td>A table within a dataset</td>
+<td>Models a table within a dataset, representing a structured collection of data...</td>
 </tr>
 <tr>
 <td><a href="User/">User</a></td>
-<td>Represents a user entity associated with a cr8tor project</td>
+<td>Models an individual user associated with a Cr8tor project, capturing their i...</td>
 </tr>
 </tbody>
 </table>
@@ -595,143 +595,143 @@
 <tbody>
 <tr>
 <td><a href="affiliation/">affiliation</a></td>
-<td>Name of affilitate organisation</td>
+<td>The name of the organization or institution with which the user is affiliated...</td>
 </tr>
 <tr>
 <td><a href="auth/">auth</a></td>
-<td>Indicates the type of authentication to use for jupyter</td>
+<td>The type or method of authentication required to access the Jupyter workspace...</td>
 </tr>
 <tr>
 <td><a href="columns/">columns</a></td>
-<td>Columns that make up the table</td>
+<td>List of columns that define the schema of the table, each representing a data...</td>
 </tr>
 <tr>
 <td><a href="datasets/">datasets</a></td>
-<td></td>
+<td>List of datasets involved in the ingress process, each representing a collect...</td>
 </tr>
 <tr>
 <td><a href="datatype/">datatype</a></td>
-<td>Datatype of the column</td>
+<td>The datatype of the column, specifying the kind of data stored (e</td>
 </tr>
 <tr>
 <td><a href="deployment/">deployment</a></td>
-<td></td>
+<td>The deployment configuration for the project, detailing the resources and env...</td>
 </tr>
 <tr>
 <td><a href="description/">description</a></td>
-<td>A brief description of the cr8tor project</td>
+<td>A brief summary describing the purpose, scope, or objectives of the Cr8tor pr...</td>
 </tr>
 <tr>
 <td><a href="destination/">destination</a></td>
-<td></td>
+<td>The target or endpoint where data is delivered during the ingress process, re...</td>
 </tr>
 <tr>
 <td><a href="display/">display</a></td>
-<td>A human-readable display name for the group</td>
+<td>A human-readable display name for the group, used for UI and reporting</td>
 </tr>
 <tr>
 <td><a href="email/">email</a></td>
-<td>Email address of the user</td>
+<td>The user's email address, used for communication and notifications related to...</td>
 </tr>
 <tr>
 <td><a href="enabled/">enabled</a></td>
-<td>Indicates if the application is enabled</td>
+<td>Boolean flag indicating whether the application or resource is enabled and av...</td>
 </tr>
 <tr>
 <td><a href="environment/">environment</a></td>
-<td></td>
+<td>The environment configuration for the deployment, specifying the target trust...</td>
 </tr>
 <tr>
 <td><a href="expiry_date/">expiry_date</a></td>
-<td>Date and time of when the user's access to the Cr8tor project expires</td>
+<td>The date and time when the user's access to the project expires, representing...</td>
 </tr>
 <tr>
 <td><a href="family_name/">family_name</a></td>
-<td>A human-readable name for a things</td>
+<td>The user's last or family name, used for identification and display purposes</td>
 </tr>
 <tr>
 <td><a href="given_name/">given_name</a></td>
-<td>A human-readable name for a things</td>
+<td>The user's first or given name, representing their personal identity</td>
 </tr>
 <tr>
 <td><a href="governance/">governance</a></td>
-<td></td>
+<td>The governance configuration for the project, managing user access, membershi...</td>
 </tr>
 <tr>
 <td><a href="groups/">groups</a></td>
-<td></td>
+<td>List of groups to which the user belongs within the project, representing rol...</td>
 </tr>
 <tr>
 <td><a href="id/">id</a></td>
-<td>A unique identifier for a thing</td>
+<td>A globally unique identifier for the user, ensuring unambiguous reference wit...</td>
 </tr>
 <tr>
 <td><a href="ingress/">ingress</a></td>
-<td></td>
+<td>The data ingress configuration for the project, specifying data sources, dest...</td>
 </tr>
 <tr>
 <td><a href="locations/">locations</a></td>
-<td>List of data locations/URIs of the dataset during TRE ingestion workflow</td>
+<td>List of data locations or URIs where the dataset is stored or accessed during...</td>
 </tr>
 <tr>
 <td><a href="name/">name</a></td>
-<td>Cr8tor project name</td>
+<td>The unique name of the Cr8tor project, used for identification and reference ...</td>
 </tr>
 <tr>
 <td><a href="project/">project</a></td>
-<td></td>
+<td>The project entity governed by this governance model, containing core project...</td>
 </tr>
 <tr>
 <td><a href="ref/">ref</a></td>
-<td>The URI of the corresponding Group resource</td>
+<td>The URI reference to the corresponding Group resource, enabling linkage to ex...</td>
 </tr>
 <tr>
 <td><a href="reference/">reference</a></td>
-<td>Cr8tor project name</td>
+<td>An external or internal reference identifier for the Cr8tor project, used for...</td>
 </tr>
 <tr>
 <td><a href="resources/">resources</a></td>
-<td></td>
+<td>List of resource names or identifiers representing the K8TRE applications or ...</td>
 </tr>
 <tr>
 <td><a href="schema_name/">schema_name</a></td>
-<td>name of the dataset schema in the target database</td>
+<td>The name of the schema in the target database where the dataset will reside</td>
 </tr>
 <tr>
 <td><a href="somethingspecific/">somethingspecific</a></td>
-<td>a keycloak specific attribute</td>
+<td>A Keycloak-specific attribute for custom configuration or integration</td>
 </tr>
 <tr>
 <td><a href="source/">source</a></td>
-<td></td>
+<td>The origin or source of data for the ingress process, representing where data...</td>
 </tr>
 <tr>
 <td><a href="start_date/">start_date</a></td>
-<td>Date and time of when the user's access to the project is active</td>
+<td>The date and time when the user's access to the project becomes active, repre...</td>
 </tr>
 <tr>
 <td><a href="tables/">tables</a></td>
-<td>Target tabular data source</td>
+<td>List of tables that make up the dataset, each representing a structured colle...</td>
 </tr>
 <tr>
 <td><a href="type/">type</a></td>
-<td>A label to convey the type of KARE group membership</td>
+<td>The type of group membership, indicating how the user was assigned to the gro...</td>
 </tr>
 <tr>
 <td><a href="url/">url</a></td>
-<td>url</td>
+<td>The URL or location of the data source, specifying where data can be accessed...</td>
 </tr>
 <tr>
 <td><a href="username/">username</a></td>
-<td>A unique identifier for a thing</td>
+<td>The user's unique login or account name, used for authentication and identifi...</td>
 </tr>
 <tr>
 <td><a href="users/">users</a></td>
-<td></td>
+<td>List of users who have access to the project, each with their own roles, perm...</td>
 </tr>
 <tr>
 <td><a href="value/">value</a></td>
-<td>The identifier of the User's group</td>
+<td>The unique identifier of the group, typically used as the group ID for refere...</td>
 </tr>
 </tbody>
 </table>

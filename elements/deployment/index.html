@@ -417,6 +417,7 @@
 
 
 <h1 id="slot-deployment">Slot: deployment</h1>
+<p><em>The deployment configuration for the project, detailing the resources and environment to be provisioned. Required.</em></p>
 <p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/deployment">cr8tor_metamodel:deployment</a>
 Alias: deployment</p>
 <!-- no inheritance hierarchy -->
@@ -433,7 +434,7 @@ Alias: deployment</p>
 <tbody>
 <tr>
 <td><a href="../Cr8tor/">Cr8tor</a></td>
-<td>Container for all cr8tor data</td>
+<td>The root container class for the Cr8tor metamodel, aggregating all project da...</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -475,6 +476,8 @@ Alias: deployment</p>
 <details>
 
 <pre><code class="language-yaml">name: deployment
+description: The deployment configuration for the project, detailing the resources
+  and environment to be provisioned. Required.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 rank: 1000
 alias: deployment

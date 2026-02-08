@@ -417,7 +417,7 @@
 
 
 <h1 id="slot-tables">Slot: tables</h1>
-<p><em>Target tabular data source</em></p>
+<p><em>List of tables that make up the dataset, each representing a structured collection of columns and data. Optional, can include multiple tables.</em></p>
 <p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/tables">cr8tor_metamodel:tables</a>
 Alias: tables</p>
 <!-- no inheritance hierarchy -->
@@ -434,7 +434,7 @@ Alias: tables</p>
 <tbody>
 <tr>
 <td><a href="../Dataset/">Dataset</a></td>
-<td>Metadata of source dataset to be extracted that can comprise tables and colum...</td>
+<td>Represents a dataset to be ingested or managed within a Cr8tor project, inclu...</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -476,7 +476,8 @@ Alias: tables</p>
 <details>
 
 <pre><code class="language-yaml">name: tables
-description: Target tabular data source
+description: List of tables that make up the dataset, each representing a structured
+  collection of columns and data. Optional, can include multiple tables.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 rank: 1000
 alias: tables

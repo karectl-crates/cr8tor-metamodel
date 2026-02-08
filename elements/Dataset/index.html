@@ -258,7 +258,7 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="class-dataset">Class: Dataset</h1>
-<p><em>Metadata of source dataset to be extracted that can comprise tables and columns</em></p>
+<p><em>Represents a dataset to be ingested or managed within a Cr8tor project, including its metadata, schema, tables, and data locations. This class models the state and structure of data collections handled by the project.</em></p>
 <p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/Dataset">cr8tor_metamodel:Dataset</a></p>
 <div class="mermaid"> classDiagram
     class Dataset
@@ -297,25 +297,25 @@
 <tr>
 <td><a href="../name/">name</a></td>
 <td>1 <br/> <a href="../String/">String</a></td>
-<td>name of the dataset metadata description</td>
+<td>The name of the dataset, used for identification and reference within the pro...</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../schema_name/">schema_name</a></td>
 <td>1 <br/> <a href="../String/">String</a></td>
-<td>name of the dataset schema in the target database</td>
+<td>The name of the schema in the target database where the dataset will reside</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../tables/">tables</a></td>
 <td>* <br/> <a href="../Table/">Table</a></td>
-<td>Target tabular data source</td>
+<td>List of tables that make up the dataset, each representing a structured colle...</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../locations/">locations</a></td>
 <td>* <br/> <a href="../String/">String</a> or <br/><a href="../String/">String</a> or <br/><a href="../Integer/">Integer</a> or <br/><a href="../Boolean/">Boolean</a></td>
-<td>List of data locations/URIs of the dataset during TRE ingestion workflow</td>
+<td>List of data locations or URIs where the dataset is stored or accessed during...</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -368,13 +368,15 @@
 <h3 id="direct">Direct</h3>
 <details>
 <pre><code class="language-yaml">name: Dataset
-description: Metadata of source dataset to be extracted that can comprise tables and
-  columns
+description: Represents a dataset to be ingested or managed within a Cr8tor project,
+  including its metadata, schema, tables, and data locations. This class models the
+  state and structure of data collections handled by the project.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 attributes:
   name:
     name: name
-    description: name of the dataset metadata description
+    description: The name of the dataset, used for identification and reference within
+      the project. Required.
     from_schema: https://w3id.org/karectl-crates/data-model
     domain_of:
     - Project
@@ -387,7 +389,8 @@ attributes:
     required: true
   schema_name:
     name: schema_name
-    description: name of the dataset schema in the target database
+    description: The name of the schema in the target database where the dataset will
+      reside. Required.
     from_schema: https://w3id.org/karectl-crates/data-model
     rank: 1000
     domain_of:
@@ -396,7 +399,8 @@ attributes:
     required: true
   tables:
     name: tables
-    description: Target tabular data source
+    description: List of tables that make up the dataset, each representing a structured
+      collection of columns and data. Optional, can include multiple tables.
     from_schema: https://w3id.org/karectl-crates/data-model
     rank: 1000
     domain_of:
@@ -408,7 +412,9 @@ attributes:
     inlined_as_list: true
   locations:
     name: locations
-    description: List of data locations/URIs of the dataset during TRE ingestion workflow
+    description: List of data locations or URIs where the dataset is stored or accessed
+      during the TRE ingestion workflow. Can include strings, integers, or booleans
+      to represent various location types. Optional, can include multiple locations.
     from_schema: https://w3id.org/karectl-crates/data-model
     rank: 1000
     domain_of:
@@ -427,13 +433,15 @@ attributes:
 <h3 id="induced">Induced</h3>
 <details>
 <pre><code class="language-yaml">name: Dataset
-description: Metadata of source dataset to be extracted that can comprise tables and
-  columns
+description: Represents a dataset to be ingested or managed within a Cr8tor project,
+  including its metadata, schema, tables, and data locations. This class models the
+  state and structure of data collections handled by the project.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 attributes:
   name:
     name: name
-    description: name of the dataset metadata description
+    description: The name of the dataset, used for identification and reference within
+      the project. Required.
     from_schema: https://w3id.org/karectl-crates/data-model
     alias: name
     owner: Dataset
@@ -448,7 +456,8 @@ attributes:
     required: true
   schema_name:
     name: schema_name
-    description: name of the dataset schema in the target database
+    description: The name of the schema in the target database where the dataset will
+      reside. Required.
     from_schema: https://w3id.org/karectl-crates/data-model
     rank: 1000
     alias: schema_name
@@ -459,7 +468,8 @@ attributes:
     required: true
   tables:
     name: tables
-    description: Target tabular data source
+    description: List of tables that make up the dataset, each representing a structured
+      collection of columns and data. Optional, can include multiple tables.
     from_schema: https://w3id.org/karectl-crates/data-model
     rank: 1000
     alias: tables
@@ -473,7 +483,9 @@ attributes:
     inlined_as_list: true
   locations:
     name: locations
-    description: List of data locations/URIs of the dataset during TRE ingestion workflow
+    description: List of data locations or URIs where the dataset is stored or accessed
+      during the TRE ingestion workflow. Can include strings, integers, or booleans
+      to represent various location types. Optional, can include multiple locations.
     from_schema: https://w3id.org/karectl-crates/data-model
     rank: 1000
     alias: locations

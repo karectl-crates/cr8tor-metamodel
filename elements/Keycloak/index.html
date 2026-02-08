@@ -258,7 +258,7 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="class-keycloak">Class: Keycloak</h1>
-<p><em>Configuration for deploying Keycloak resources available to a cr8tor project</em></p>
+<p><em>Specialized resource configuration for deploying Keycloak identity and access management services within a Cr8tor project. This class extends Resource to include Keycloak-specific settings and state.</em></p>
 <p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/Keycloak">cr8tor_metamodel:Keycloak</a></p>
 <div class="mermaid"> classDiagram
     class Keycloak
@@ -299,31 +299,31 @@
 <tr>
 <td><a href="../somethingspecific/">somethingspecific</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
-<td>a keycloak specific attribute</td>
+<td>A Keycloak-specific attribute for custom configuration or integration</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../name/">name</a></td>
 <td>1 <br/> <a href="../String/">String</a></td>
-<td>Requested resource name</td>
+<td>The requested name of the resource, used for identification and management wi...</td>
 <td><a href="../Resource/">Resource</a></td>
 </tr>
 <tr>
 <td><a href="../type/">type</a></td>
 <td>1 <br/> <a href="../String/">String</a></td>
-<td>Application type (e</td>
+<td>The type of application or resource (e</td>
 <td><a href="../Resource/">Resource</a></td>
 </tr>
 <tr>
 <td><a href="../url/">url</a></td>
 <td>1 <br/> <a href="../Uri/">Uri</a></td>
-<td>URL endpoint for the application</td>
+<td>The URL endpoint for accessing the application or resource after deployment</td>
 <td><a href="../Resource/">Resource</a></td>
 </tr>
 <tr>
 <td><a href="../enabled/">enabled</a></td>
 <td>1 <br/> <a href="../Boolean/">Boolean</a></td>
-<td>Indicates if the application is enabled</td>
+<td>Boolean flag indicating whether the application or resource is enabled and av...</td>
 <td><a href="../Resource/">Resource</a></td>
 </tr>
 </tbody>
@@ -357,14 +357,15 @@
 <h3 id="direct">Direct</h3>
 <details>
 <pre><code class="language-yaml">name: Keycloak
-description: Configuration for deploying Keycloak resources available to a cr8tor
-  project
+description: Specialized resource configuration for deploying Keycloak identity and
+  access management services within a Cr8tor project. This class extends Resource
+  to include Keycloak-specific settings and state.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 is_a: Resource
 attributes:
   somethingspecific:
     name: somethingspecific
-    description: a keycloak specific attribute
+    description: A Keycloak-specific attribute for custom configuration or integration.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     rank: 1000
     domain_of:
@@ -375,14 +376,15 @@ attributes:
 <h3 id="induced">Induced</h3>
 <details>
 <pre><code class="language-yaml">name: Keycloak
-description: Configuration for deploying Keycloak resources available to a cr8tor
-  project
+description: Specialized resource configuration for deploying Keycloak identity and
+  access management services within a Cr8tor project. This class extends Resource
+  to include Keycloak-specific settings and state.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 is_a: Resource
 attributes:
   somethingspecific:
     name: somethingspecific
-    description: a keycloak specific attribute
+    description: A Keycloak-specific attribute for custom configuration or integration.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     rank: 1000
     alias: somethingspecific
@@ -392,7 +394,8 @@ attributes:
     range: string
   name:
     name: name
-    description: Requested resource name
+    description: The requested name of the resource, used for identification and management
+      within the deployment.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     alias: name
     owner: Keycloak
@@ -407,7 +410,8 @@ attributes:
     required: true
   type:
     name: type
-    description: Application type (e.g., jupyterhub, vdi)
+    description: The type of application or resource (e.g., jupyterhub, vdi), specifying
+      its function or category.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     alias: type
     owner: Keycloak
@@ -419,7 +423,8 @@ attributes:
     required: true
   url:
     name: url
-    description: URL endpoint for the application
+    description: The URL endpoint for accessing the application or resource after
+      deployment.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     alias: url
     owner: Keycloak
@@ -431,7 +436,8 @@ attributes:
     required: true
   enabled:
     name: enabled
-    description: Indicates if the application is enabled
+    description: Boolean flag indicating whether the application or resource is enabled
+      and available for use.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     rank: 1000
     alias: enabled

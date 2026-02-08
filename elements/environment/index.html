@@ -417,6 +417,7 @@
 
 
 <h1 id="slot-environment">Slot: environment</h1>
+<p><em>The environment configuration for the deployment, specifying the target trusted research environment (TRE) and its properties.</em></p>
 <p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/environment">cr8tor_metamodel:environment</a>
 Alias: environment</p>
 <!-- no inheritance hierarchy -->
@@ -433,7 +434,7 @@ Alias: environment</p>
 <tbody>
 <tr>
 <td><a href="../Deployment/">Deployment</a></td>
-<td>Specifies K8TRE resources including applications requested through a cr8tor p...</td>
+<td>Models the deployment configuration for a Cr8tor project, specifying the K8TR...</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -470,6 +471,8 @@ Alias: environment</p>
 <details>
 
 <pre><code class="language-yaml">name: environment
+description: The environment configuration for the deployment, specifying the target
+  trusted research environment (TRE) and its properties.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 rank: 1000
 alias: environment

@@ -249,7 +249,7 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="class-cr8tor">Class: Cr8tor</h1>
-<p><em>Container for all cr8tor data</em></p>
+<p><em>The root container class for the Cr8tor metamodel, aggregating all project data including governance, data ingress, and deployment configuration. This class represents the complete state of a Cr8tor project instance.</em></p>
 <p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/Cr8tor">cr8tor_metamodel:Cr8tor</a></p>
 <div class="mermaid"> classDiagram
     class Cr8tor
@@ -304,19 +304,19 @@
 <tr>
 <td><a href="../governance/">governance</a></td>
 <td>1 <br/> <a href="../Governance/">Governance</a></td>
-<td></td>
+<td>The governance configuration for the project, managing user access, membershi...</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../ingress/">ingress</a></td>
 <td>1 <br/> <a href="../Ingress/">Ingress</a></td>
-<td></td>
+<td>The data ingress configuration for the project, specifying data sources, dest...</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../deployment/">deployment</a></td>
 <td>1 <br/> <a href="../Deployment/">Deployment</a></td>
-<td></td>
+<td>The deployment configuration for the project, detailing the resources and env...</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -350,11 +350,15 @@
 <h3 id="direct">Direct</h3>
 <details>
 <pre><code class="language-yaml">name: cr8tor
-description: Container for all cr8tor data
+description: The root container class for the Cr8tor metamodel, aggregating all project
+  data including governance, data ingress, and deployment configuration. This class
+  represents the complete state of a Cr8tor project instance.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 attributes:
   governance:
     name: governance
+    description: The governance configuration for the project, managing user access,
+      membership, and project metadata. Required.
     from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
     rank: 1000
     domain_of:
@@ -363,6 +367,8 @@ attributes:
     required: true
   ingress:
     name: ingress
+    description: The data ingress configuration for the project, specifying data sources,
+      destinations, and datasets involved in data movement. Required.
     from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
     rank: 1000
     domain_of:
@@ -371,6 +377,8 @@ attributes:
     required: true
   deployment:
     name: deployment
+    description: The deployment configuration for the project, detailing the resources
+      and environment to be provisioned. Required.
     from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
     rank: 1000
     domain_of:
@@ -384,11 +392,15 @@ tree_root: true
 <h3 id="induced">Induced</h3>
 <details>
 <pre><code class="language-yaml">name: cr8tor
-description: Container for all cr8tor data
+description: The root container class for the Cr8tor metamodel, aggregating all project
+  data including governance, data ingress, and deployment configuration. This class
+  represents the complete state of a Cr8tor project instance.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 attributes:
   governance:
     name: governance
+    description: The governance configuration for the project, managing user access,
+      membership, and project metadata. Required.
     from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
     rank: 1000
     alias: governance
@@ -399,6 +411,8 @@ attributes:
     required: true
   ingress:
     name: ingress
+    description: The data ingress configuration for the project, specifying data sources,
+      destinations, and datasets involved in data movement. Required.
     from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
     rank: 1000
     alias: ingress
@@ -409,6 +423,8 @@ attributes:
     required: true
   deployment:
     name: deployment
+    description: The deployment configuration for the project, detailing the resources
+      and environment to be provisioned. Required.
     from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
     rank: 1000
     alias: deployment

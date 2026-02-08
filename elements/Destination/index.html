@@ -258,7 +258,7 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="class-destination">Class: Destination</h1>
-<p>_A destination of data in a cr8tor project _</p>
+<p><em>Models a data destination within a Cr8tor project, representing the endpoint where data is delivered or stored after ingress. This class defines the state and configuration of data targets.</em></p>
 <p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/Destination">cr8tor_metamodel:Destination</a></p>
 <div class="mermaid"> classDiagram
     class Destination
@@ -293,13 +293,13 @@
 <tr>
 <td><a href="../type/">type</a></td>
 <td>1 <br/> <a href="../DestinationType/">DestinationType</a></td>
-<td>url</td>
+<td>The type of destination (e</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../url/">url</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
-<td>url</td>
+<td>The URL or location of the data destination, specifying where data should be ...</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -352,12 +352,15 @@
 <h3 id="direct">Direct</h3>
 <details>
 <pre><code class="language-yaml">name: Destination
-description: 'A destination of data in a cr8tor project '
+description: Models a data destination within a Cr8tor project, representing the endpoint
+  where data is delivered or stored after ingress. This class defines the state and
+  configuration of data targets.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 attributes:
   type:
     name: type
-    description: url
+    description: The type of destination (e.g., filestore, postgresql), specifying
+      the nature of the data endpoint. Required.
     from_schema: https://w3id.org/karectl-crates/data-model
     domain_of:
     - Group
@@ -367,7 +370,8 @@ attributes:
     required: true
   url:
     name: url
-    description: url
+    description: The URL or location of the data destination, specifying where data
+      should be delivered. Optional.
     from_schema: https://w3id.org/karectl-crates/data-model
     domain_of:
     - Source
@@ -381,12 +385,15 @@ attributes:
 <h3 id="induced">Induced</h3>
 <details>
 <pre><code class="language-yaml">name: Destination
-description: 'A destination of data in a cr8tor project '
+description: Models a data destination within a Cr8tor project, representing the endpoint
+  where data is delivered or stored after ingress. This class defines the state and
+  configuration of data targets.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 attributes:
   type:
     name: type
-    description: url
+    description: The type of destination (e.g., filestore, postgresql), specifying
+      the nature of the data endpoint. Required.
     from_schema: https://w3id.org/karectl-crates/data-model
     alias: type
     owner: Destination
@@ -398,7 +405,8 @@ attributes:
     required: true
   url:
     name: url
-    description: url
+    description: The URL or location of the data destination, specifying where data
+      should be delivered. Optional.
     from_schema: https://w3id.org/karectl-crates/data-model
     alias: url
     owner: Destination

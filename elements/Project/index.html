@@ -258,7 +258,7 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="class-project">Class: Project</h1>
-<p><em>Describes the core properties of a cr8tor project</em></p>
+<p><em>Defines the core state and identifying properties of a Cr8tor project, including its name, description, and reference information. This class models the essential metadata required to uniquely identify and describe a project within the Cr8tor ecosystem.</em></p>
 <p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/Project">cr8tor_metamodel:Project</a></p>
 <div class="mermaid"> classDiagram
     class Project
@@ -286,19 +286,19 @@
 <tr>
 <td><a href="../name/">name</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Cr8tor project name</td>
+<td>The unique name of the Cr8tor project, used for identification and reference ...</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../description/">description</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
-<td>A brief description of the cr8tor project</td>
+<td>A brief summary describing the purpose, scope, or objectives of the Cr8tor pr...</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../reference/">reference</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Cr8tor project name</td>
+<td>An external or internal reference identifier for the Cr8tor project, used for...</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -355,14 +355,18 @@
 <h3 id="direct">Direct</h3>
 <details>
 <pre><code class="language-yaml">name: Project
-description: Describes the core properties of a cr8tor project
+description: Defines the core state and identifying properties of a Cr8tor project,
+  including its name, description, and reference information. This class models the
+  essential metadata required to uniquely identify and describe a project within the
+  Cr8tor ecosystem.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 narrow_mappings:
 - schema-org:Project
 attributes:
   name:
     name: name
-    description: Cr8tor project name
+    description: The unique name of the Cr8tor project, used for identification and
+      reference within the system.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     domain_of:
@@ -374,14 +378,16 @@ attributes:
     - Environment
   description:
     name: description
-    description: A brief description of the cr8tor project
+    description: A brief summary describing the purpose, scope, or objectives of the
+      Cr8tor project.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     domain_of:
     - Project
   reference:
     name: reference
-    description: Cr8tor project name
+    description: An external or internal reference identifier for the Cr8tor project,
+      used for cross-referencing or linking to related resources.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     domain_of:
@@ -392,14 +398,18 @@ attributes:
 <h3 id="induced">Induced</h3>
 <details>
 <pre><code class="language-yaml">name: Project
-description: Describes the core properties of a cr8tor project
+description: Defines the core state and identifying properties of a Cr8tor project,
+  including its name, description, and reference information. This class models the
+  essential metadata required to uniquely identify and describe a project within the
+  Cr8tor ecosystem.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 narrow_mappings:
 - schema-org:Project
 attributes:
   name:
     name: name
-    description: Cr8tor project name
+    description: The unique name of the Cr8tor project, used for identification and
+      reference within the system.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     alias: name
@@ -414,7 +424,8 @@ attributes:
     range: string
   description:
     name: description
-    description: A brief description of the cr8tor project
+    description: A brief summary describing the purpose, scope, or objectives of the
+      Cr8tor project.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     alias: description
@@ -424,7 +435,8 @@ attributes:
     range: string
   reference:
     name: reference
-    description: Cr8tor project name
+    description: An external or internal reference identifier for the Cr8tor project,
+      used for cross-referencing or linking to related resources.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     alias: reference

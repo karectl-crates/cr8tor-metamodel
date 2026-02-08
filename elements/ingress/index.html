@@ -417,6 +417,7 @@
 
 
 <h1 id="slot-ingress">Slot: ingress</h1>
+<p><em>The data ingress configuration for the project, specifying data sources, destinations, and datasets involved in data movement. Required.</em></p>
 <p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/ingress">cr8tor_metamodel:ingress</a>
 Alias: ingress</p>
 <!-- no inheritance hierarchy -->
@@ -433,7 +434,7 @@ Alias: ingress</p>
 <tbody>
 <tr>
 <td><a href="../Cr8tor/">Cr8tor</a></td>
-<td>Container for all cr8tor data</td>
+<td>The root container class for the Cr8tor metamodel, aggregating all project da...</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -475,6 +476,8 @@ Alias: ingress</p>
 <details>
 
 <pre><code class="language-yaml">name: ingress
+description: The data ingress configuration for the project, specifying data sources,
+  destinations, and datasets involved in data movement. Required.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 rank: 1000
 alias: ingress

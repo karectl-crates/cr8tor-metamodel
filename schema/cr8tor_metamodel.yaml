@@ -327,6 +327,8 @@ enums:
 slots:
   cr8tor__governance:
     name: cr8tor__governance
+    description: The governance configuration for the project, managing user access,
+      membership, and project metadata. Required.
     from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
     slot_uri: cr8tor_metamodel:governance
     alias: governance
@@ -339,6 +341,8 @@ slots:
     inlined_as_list: true
   cr8tor__ingress:
     name: cr8tor__ingress
+    description: The data ingress configuration for the project, specifying data sources,
+      destinations, and datasets involved in data movement. Required.
     from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
     slot_uri: cr8tor_metamodel:ingress
     alias: ingress
@@ -351,6 +355,8 @@ slots:
     inlined_as_list: true
   cr8tor__deployment:
     name: cr8tor__deployment
+    description: The deployment configuration for the project, detailing the resources
+      and environment to be provisioned. Required.
     from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
     slot_uri: cr8tor_metamodel:deployment
     alias: deployment
@@ -363,6 +369,9 @@ slots:
     inlined_as_list: true
   governance__users:
     name: governance__users
+    description: List of users who have access to the project, each with their own
+      roles, permissions, and membership details. Represents the state of project
+      membership and access control.
     from_schema: https://w3id.org/karectl-crates/governance-model
     slot_uri: cr8tor_metamodel:users
     alias: users
@@ -375,6 +384,8 @@ slots:
     inlined_as_list: true
   governance__project:
     name: governance__project
+    description: The project entity governed by this governance model, containing
+      core project metadata and state.
     from_schema: https://w3id.org/karectl-crates/governance-model
     slot_uri: cr8tor_metamodel:project
     alias: project
@@ -386,7 +397,8 @@ slots:
     inlined_as_list: true
   project__name:
     name: project__name
-    description: Cr8tor project name
+    description: The unique name of the Cr8tor project, used for identification and
+      reference within the system.
     from_schema: https://w3id.org/karectl-crates/governance-model
     slot_uri: cr8tor_metamodel:name
     alias: name
@@ -396,7 +408,8 @@ slots:
     range: string
   project__description:
     name: project__description
-    description: A brief description of the cr8tor project
+    description: A brief summary describing the purpose, scope, or objectives of the
+      Cr8tor project.
     from_schema: https://w3id.org/karectl-crates/governance-model
     slot_uri: cr8tor_metamodel:description
     alias: description
@@ -406,7 +419,8 @@ slots:
     range: string
   project__reference:
     name: project__reference
-    description: Cr8tor project name
+    description: An external or internal reference identifier for the Cr8tor project,
+      used for cross-referencing or linking to related resources.
     from_schema: https://w3id.org/karectl-crates/governance-model
     slot_uri: cr8tor_metamodel:reference
     alias: reference
@@ -416,7 +430,8 @@ slots:
     range: string
   user__id:
     name: user__id
-    description: A unique identifier for a thing
+    description: A globally unique identifier for the user, ensuring unambiguous reference
+      within and across systems.
     from_schema: https://w3id.org/karectl-crates/governance-model
     mappings:
     - schema-org:identifier
@@ -430,7 +445,8 @@ slots:
     required: true
   user__username:
     name: user__username
-    description: A unique identifier for a thing
+    description: The user's unique login or account name, used for authentication
+      and identification within the project.
     from_schema: https://w3id.org/karectl-crates/governance-model
     mappings:
     - schema-org:identifier
@@ -442,7 +458,7 @@ slots:
     range: uriorcurie
   user__given_name:
     name: user__given_name
-    description: A human-readable name for a things
+    description: The user's first or given name, representing their personal identity.
     from_schema: https://w3id.org/karectl-crates/governance-model
     mappings:
     - schema-org:name
@@ -454,7 +470,8 @@ slots:
     range: string
   user__family_name:
     name: user__family_name
-    description: A human-readable name for a things
+    description: The user's last or family name, used for identification and display
+      purposes.
     from_schema: https://w3id.org/karectl-crates/governance-model
     slot_uri: cr8tor_metamodel:family_name
     alias: family_name
@@ -464,7 +481,8 @@ slots:
     range: string
   user__affiliation:
     name: user__affiliation
-    description: Name of affilitate organisation
+    description: The name of the organization or institution with which the user is
+      affiliated, representing their organizational context.
     from_schema: https://w3id.org/karectl-crates/governance-model
     slot_uri: cr8tor_metamodel:affiliation
     alias: affiliation
@@ -474,7 +492,8 @@ slots:
     range: string
   user__email:
     name: user__email
-    description: Email address of the user
+    description: The user's email address, used for communication and notifications
+      related to the project.
     from_schema: https://w3id.org/karectl-crates/governance-model
     slot_uri: cr8tor_metamodel:email
     alias: email
@@ -484,6 +503,8 @@ slots:
     range: string
   user__groups:
     name: user__groups
+    description: List of groups to which the user belongs within the project, representing
+      roles, permissions, or organizational units.
     from_schema: https://w3id.org/karectl-crates/governance-model
     slot_uri: cr8tor_metamodel:groups
     alias: groups
@@ -497,7 +518,8 @@ slots:
     inlined_as_list: true
   user__start_date:
     name: user__start_date
-    description: Date and time of when the user's access to the project is active.
+    description: The date and time when the user's access to the project becomes active,
+      representing the start of their membership or role.
     from_schema: https://w3id.org/karectl-crates/governance-model
     slot_uri: cr8tor_metamodel:start_date
     alias: start_date
@@ -507,7 +529,8 @@ slots:
     range: datetime
   user__expiry_date:
     name: user__expiry_date
-    description: Date and time of when the user's access to the Cr8tor project expires
+    description: The date and time when the user's access to the project expires,
+      representing the end of their membership or role.
     from_schema: https://w3id.org/karectl-crates/governance-model
     slot_uri: cr8tor_metamodel:expiry_date
     alias: expiry_date
@@ -521,7 +544,8 @@ slots:
       mutability:
         tag: mutability
         value: readOnly
-    description: The identifier of the User's group. Typically the group ID.
+    description: The unique identifier of the group, typically used as the group ID
+      for referencing and access control. Read-only.
     from_schema: https://w3id.org/karectl-crates/governance-model
     slot_uri: cr8tor_metamodel:value
     alias: value
@@ -539,7 +563,8 @@ slots:
       reference_type:
         tag: reference_type
         value: Group
-    description: The URI of the corresponding Group resource
+    description: The URI reference to the corresponding Group resource, enabling linkage
+      to external or internal group definitions. Read-only.
     from_schema: https://w3id.org/karectl-crates/governance-model
     slot_uri: cr8tor_metamodel:ref
     alias: ref
@@ -554,7 +579,8 @@ slots:
       mutability:
         tag: mutability
         value: readOnly
-    description: A human-readable display name for the group
+    description: A human-readable display name for the group, used for UI and reporting.
+      Read-only.
     from_schema: https://w3id.org/karectl-crates/governance-model
     slot_uri: cr8tor_metamodel:display
     alias: display
@@ -569,7 +595,8 @@ slots:
       mutability:
         tag: mutability
         value: readOnly
-    description: A label to convey the type of KARE group membership
+    description: The type of group membership, indicating how the user was assigned
+      to the group (e.g., manual or automatic). Read-only.
     from_schema: https://w3id.org/karectl-crates/governance-model
     slot_uri: cr8tor_metamodel:type
     alias: type
@@ -580,6 +607,8 @@ slots:
     required: false
   ingress__source:
     name: ingress__source
+    description: The origin or source of data for the ingress process, representing
+      where data is extracted from. Optional.
     from_schema: https://w3id.org/karectl-crates/data-model
     slot_uri: cr8tor_metamodel:source
     alias: source
@@ -592,6 +621,8 @@ slots:
     inlined_as_list: true
   ingress__destination:
     name: ingress__destination
+    description: The target or endpoint where data is delivered during the ingress
+      process, representing the state of data delivery. Required.
     from_schema: https://w3id.org/karectl-crates/data-model
     slot_uri: cr8tor_metamodel:destination
     alias: destination
@@ -604,6 +635,8 @@ slots:
     inlined_as_list: true
   ingress__datasets:
     name: ingress__datasets
+    description: List of datasets involved in the ingress process, each representing
+      a collection of data to be transferred. Optional, can include multiple datasets.
     from_schema: https://w3id.org/karectl-crates/data-model
     slot_uri: cr8tor_metamodel:datasets
     alias: datasets
@@ -617,7 +650,8 @@ slots:
     inlined_as_list: true
   source__url:
     name: source__url
-    description: url
+    description: The URL or location of the data source, specifying where data can
+      be accessed or retrieved from.
     from_schema: https://w3id.org/karectl-crates/data-model
     slot_uri: cr8tor_metamodel:url
     alias: url
@@ -627,7 +661,8 @@ slots:
     range: string
   destination__type:
     name: destination__type
-    description: url
+    description: The type of destination (e.g., filestore, postgresql), specifying
+      the nature of the data endpoint. Required.
     from_schema: https://w3id.org/karectl-crates/data-model
     slot_uri: cr8tor_metamodel:type
     alias: type
@@ -638,7 +673,8 @@ slots:
     required: true
   destination__url:
     name: destination__url
-    description: url
+    description: The URL or location of the data destination, specifying where data
+      should be delivered. Optional.
     from_schema: https://w3id.org/karectl-crates/data-model
     slot_uri: cr8tor_metamodel:url
     alias: url
@@ -649,7 +685,8 @@ slots:
     required: false
   dataset__name:
     name: dataset__name
-    description: name of the dataset metadata description
+    description: The name of the dataset, used for identification and reference within
+      the project. Required.
     from_schema: https://w3id.org/karectl-crates/data-model
     slot_uri: cr8tor_metamodel:name
     alias: name
@@ -660,7 +697,8 @@ slots:
     required: true
   dataset__schema_name:
     name: dataset__schema_name
-    description: name of the dataset schema in the target database
+    description: The name of the schema in the target database where the dataset will
+      reside. Required.
     from_schema: https://w3id.org/karectl-crates/data-model
     slot_uri: cr8tor_metamodel:schema_name
     alias: schema_name
@@ -671,7 +709,8 @@ slots:
     required: true
   dataset__tables:
     name: dataset__tables
-    description: Target tabular data source
+    description: List of tables that make up the dataset, each representing a structured
+      collection of columns and data. Optional, can include multiple tables.
     from_schema: https://w3id.org/karectl-crates/data-model
     slot_uri: cr8tor_metamodel:tables
     alias: tables
@@ -685,7 +724,9 @@ slots:
     inlined_as_list: true
   dataset__locations:
     name: dataset__locations
-    description: List of data locations/URIs of the dataset during TRE ingestion workflow
+    description: List of data locations or URIs where the dataset is stored or accessed
+      during the TRE ingestion workflow. Can include strings, integers, or booleans
+      to represent various location types. Optional, can include multiple locations.
     from_schema: https://w3id.org/karectl-crates/data-model
     slot_uri: cr8tor_metamodel:locations
     alias: locations
@@ -702,7 +743,8 @@ slots:
     - range: boolean
   table__name:
     name: table__name
-    description: Name of the table
+    description: The name of the table, used for identification within the dataset.
+      Required.
     from_schema: https://w3id.org/karectl-crates/data-model
     slot_uri: cr8tor_metamodel:name
     alias: name
@@ -713,7 +755,8 @@ slots:
     required: true
   table__columns:
     name: table__columns
-    description: Columns that make up the table
+    description: List of columns that define the schema of the table, each representing
+      a data field. Required, can include multiple columns.
     from_schema: https://w3id.org/karectl-crates/data-model
     slot_uri: cr8tor_metamodel:columns
     alias: columns
@@ -727,7 +770,8 @@ slots:
     inlined_as_list: true
   column__name:
     name: column__name
-    description: Name of the column
+    description: The name of the column, used for identification within the table.
+      Required.
     from_schema: https://w3id.org/karectl-crates/data-model
     slot_uri: cr8tor_metamodel:name
     alias: name
@@ -738,7 +782,8 @@ slots:
     required: true
   column__datatype:
     name: column__datatype
-    description: Datatype of the column
+    description: The datatype of the column, specifying the kind of data stored (e.g.,
+      string, integer). Required.
     from_schema: https://w3id.org/karectl-crates/data-model
     slot_uri: cr8tor_metamodel:datatype
     alias: datatype
@@ -749,6 +794,8 @@ slots:
     required: true
   deployment__resources:
     name: deployment__resources
+    description: List of resource names or identifiers representing the K8TRE applications
+      or services to be deployed as part of the project. Can include multiple resources.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     slot_uri: cr8tor_metamodel:resources
     alias: resources
@@ -760,6 +807,8 @@ slots:
     inlined_as_list: true
   deployment__environment:
     name: deployment__environment
+    description: The environment configuration for the deployment, specifying the
+      target trusted research environment (TRE) and its properties.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     slot_uri: cr8tor_metamodel:environment
     alias: environment
@@ -771,7 +820,8 @@ slots:
     inlined_as_list: true
   resource__name:
     name: resource__name
-    description: Requested resource name
+    description: The requested name of the resource, used for identification and management
+      within the deployment.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     slot_uri: cr8tor_metamodel:name
     alias: name
@@ -782,7 +832,8 @@ slots:
     required: true
   resource__type:
     name: resource__type
-    description: Application type (e.g., jupyterhub, vdi)
+    description: The type of application or resource (e.g., jupyterhub, vdi), specifying
+      its function or category.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     slot_uri: cr8tor_metamodel:type
     alias: type
@@ -793,7 +844,8 @@ slots:
     required: true
   resource__url:
     name: resource__url
-    description: URL endpoint for the application
+    description: The URL endpoint for accessing the application or resource after
+      deployment.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     slot_uri: cr8tor_metamodel:url
     alias: url
@@ -804,7 +856,8 @@ slots:
     required: true
   resource__enabled:
     name: resource__enabled
-    description: Indicates if the application is enabled
+    description: Boolean flag indicating whether the application or resource is enabled
+      and available for use.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     slot_uri: cr8tor_metamodel:enabled
     alias: enabled
@@ -815,7 +868,8 @@ slots:
     required: true
   jupyter__auth:
     name: jupyter__auth
-    description: Indicates the type of authentication to use for jupyter
+    description: The type or method of authentication required to access the Jupyter
+      workspace (e.g., OAuth, SSO).
     from_schema: https://w3id.org/karectl-crates/deployment-model
     slot_uri: cr8tor_metamodel:auth
     alias: auth
@@ -825,7 +879,7 @@ slots:
     range: string
   keycloak__somethingspecific:
     name: keycloak__somethingspecific
-    description: a keycloak specific attribute
+    description: A Keycloak-specific attribute for custom configuration or integration.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     slot_uri: cr8tor_metamodel:somethingspecific
     alias: somethingspecific
@@ -835,7 +889,8 @@ slots:
     range: string
   environment__name:
     name: environment__name
-    description: Cr8tor project name
+    description: The name of the environment or TRE where the project will be deployed,
+      used for identification and management.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     slot_uri: cr8tor_metamodel:name
     alias: name
@@ -847,7 +902,9 @@ classes:
   cr8tor:
     name: cr8tor
     definition_uri: https://w3id.org/karectl-crates/cr8tor-metamodel/Cr8tor
-    description: Container for all cr8tor data
+    description: The root container class for the Cr8tor metamodel, aggregating all
+      project data including governance, data ingress, and deployment configuration.
+      This class represents the complete state of a Cr8tor project instance.
     from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
     slots:
     - cr8tor__governance
@@ -856,14 +913,20 @@ classes:
     attributes:
       governance:
         name: governance
+        description: The governance configuration for the project, managing user access,
+          membership, and project metadata. Required.
         range: Governance
         required: true
       ingress:
         name: ingress
+        description: The data ingress configuration for the project, specifying data
+          sources, destinations, and datasets involved in data movement. Required.
         range: Ingress
         required: true
       deployment:
         name: deployment
+        description: The deployment configuration for the project, detailing the resources
+          and environment to be provisioned. Required.
         range: Deployment
         required: true
     class_uri: cr8tor_metamodel:Cr8tor
@@ -871,8 +934,10 @@ classes:
   Governance:
     name: Governance
     definition_uri: https://w3id.org/karectl-crates/governance-model/Governance
-    description: A Cr8tor project's governance-specific information (e.g. user access
-      and mandatory project details)
+    description: Represents the governance structure of a Cr8tor project, encapsulating
+      user access control, project membership, and mandatory project metadata. This
+      class manages the relationships between users and the project, ensuring proper
+      access and compliance with governance requirements.
     from_schema: https://w3id.org/karectl-crates/governance-model
     slots:
     - governance__users
@@ -880,17 +945,25 @@ classes:
     attributes:
       users:
         name: users
+        description: List of users who have access to the project, each with their
+          own roles, permissions, and membership details. Represents the state of
+          project membership and access control.
         range: User
         multivalued: true
         inlined_as_list: true
       project:
         name: project
+        description: The project entity governed by this governance model, containing
+          core project metadata and state.
         range: Project
     class_uri: cr8tor_metamodel:Governance
   Project:
     name: Project
     definition_uri: https://w3id.org/karectl-crates/governance-model/Project
-    description: Describes the core properties of a cr8tor project
+    description: Defines the core state and identifying properties of a Cr8tor project,
+      including its name, description, and reference information. This class models
+      the essential metadata required to uniquely identify and describe a project
+      within the Cr8tor ecosystem.
     from_schema: https://w3id.org/karectl-crates/governance-model
     narrow_mappings:
     - schema-org:Project
@@ -901,18 +974,24 @@ classes:
     attributes:
       name:
         name: name
-        description: Cr8tor project name
+        description: The unique name of the Cr8tor project, used for identification
+          and reference within the system.
       description:
         name: description
-        description: A brief description of the cr8tor project
+        description: A brief summary describing the purpose, scope, or objectives
+          of the Cr8tor project.
       reference:
         name: reference
-        description: Cr8tor project name
+        description: An external or internal reference identifier for the Cr8tor project,
+          used for cross-referencing or linking to related resources.
     class_uri: cr8tor_metamodel:Project
   User:
     name: User
     definition_uri: https://w3id.org/karectl-crates/governance-model/User
-    description: 'Represents a user entity associated with a cr8tor project.  '
+    description: Models an individual user associated with a Cr8tor project, capturing
+      their identity, contact information, organizational affiliation, group memberships,
+      and access lifecycle. This class represents the state of a user's relationship
+      to the project and their access rights.
     from_schema: https://w3id.org/karectl-crates/governance-model
     narrow_mappings:
     - schema-org:Person
@@ -931,48 +1010,58 @@ classes:
     attributes:
       id:
         name: id
-        description: A unique identifier for a thing
+        description: A globally unique identifier for the user, ensuring unambiguous
+          reference within and across systems.
         slot_uri: schema-org:identifier
         identifier: true
         range: uriorcurie
       username:
         name: username
-        description: A unique identifier for a thing
+        description: The user's unique login or account name, used for authentication
+          and identification within the project.
         slot_uri: schema-org:identifier
         range: uriorcurie
       given_name:
         name: given_name
-        description: A human-readable name for a things
+        description: The user's first or given name, representing their personal identity.
         slot_uri: schema-org:name
       family_name:
         name: family_name
-        description: A human-readable name for a things
+        description: The user's last or family name, used for identification and display
+          purposes.
       affiliation:
         name: affiliation
-        description: Name of affilitate organisation
+        description: The name of the organization or institution with which the user
+          is affiliated, representing their organizational context.
       email:
         name: email
-        description: Email address of the user
+        description: The user's email address, used for communication and notifications
+          related to the project.
       groups:
         name: groups
+        description: List of groups to which the user belongs within the project,
+          representing roles, permissions, or organizational units.
         range: Group
         required: false
         multivalued: true
         inlined_as_list: true
       start_date:
         name: start_date
-        description: Date and time of when the user's access to the project is active.
+        description: The date and time when the user's access to the project becomes
+          active, representing the start of their membership or role.
         range: datetime
       expiry_date:
         name: expiry_date
-        description: Date and time of when the user's access to the Cr8tor project
-          expires
+        description: The date and time when the user's access to the project expires,
+          representing the end of their membership or role.
         range: datetime
     class_uri: cr8tor_metamodel:User
   Group:
     name: Group
     definition_uri: https://w3id.org/karectl-crates/governance-model/Group
-    description: Represents a KARE group associated with a project
+    description: Represents a group or organizational unit within a Cr8tor project,
+      used to organize users, assign roles, and manage permissions. This class models
+      the state of group membership and its associated metadata.
     from_schema: https://w3id.org/karectl-crates/governance-model
     narrow_mappings:
     - scim:Group
@@ -988,7 +1077,8 @@ classes:
           mutability:
             tag: mutability
             value: readOnly
-        description: The identifier of the User's group. Typically the group ID.
+        description: The unique identifier of the group, typically used as the group
+          ID for referencing and access control. Read-only.
         range: string
         required: false
       ref:
@@ -1000,7 +1090,8 @@ classes:
           reference_type:
             tag: reference_type
             value: Group
-        description: The URI of the corresponding Group resource
+        description: The URI reference to the corresponding Group resource, enabling
+          linkage to external or internal group definitions. Read-only.
         range: uri
         required: false
       display:
@@ -1009,7 +1100,8 @@ classes:
           mutability:
             tag: mutability
             value: readOnly
-        description: A human-readable display name for the group
+        description: A human-readable display name for the group, used for UI and
+          reporting. Read-only.
         range: string
         required: false
       type:
@@ -1018,14 +1110,18 @@ classes:
           mutability:
             tag: mutability
             value: readOnly
-        description: A label to convey the type of KARE group membership
+        description: The type of group membership, indicating how the user was assigned
+          to the group (e.g., manual or automatic). Read-only.
         range: GroupMembershipType
         required: false
     class_uri: cr8tor_metamodel:Group
   Ingress:
     name: Ingress
     definition_uri: https://w3id.org/karectl-crates/data-model/Ingress
-    description: Ingress
+    description: Represents the data ingress process for a Cr8tor project, modeling
+      the flow of data from sources to destinations, and the datasets involved. This
+      class captures the state of data movement and configuration for project data
+      pipelines.
     from_schema: https://w3id.org/karectl-crates/data-model
     slots:
     - ingress__source
@@ -1034,14 +1130,20 @@ classes:
     attributes:
       source:
         name: source
+        description: The origin or source of data for the ingress process, representing
+          where data is extracted from. Optional.
         range: Source
         required: false
       destination:
         name: destination
+        description: The target or endpoint where data is delivered during the ingress
+          process, representing the state of data delivery. Required.
         range: Destination
         required: true
       datasets:
         name: datasets
+        description: List of datasets involved in the ingress process, each representing
+          a collection of data to be transferred. Optional, can include multiple datasets.
         range: Dataset
         required: false
         multivalued: true
@@ -1050,20 +1152,25 @@ classes:
   Source:
     name: Source
     definition_uri: https://w3id.org/karectl-crates/data-model/Source
-    description: 'A source of data in a cr8tor project '
+    description: Models a data source within a Cr8tor project, representing the origin
+      of data to be ingested. This class defines the state and configuration of external
+      or internal data sources.
     from_schema: https://w3id.org/karectl-crates/data-model
     slots:
     - source__url
     attributes:
       url:
         name: url
-        description: url
+        description: The URL or location of the data source, specifying where data
+          can be accessed or retrieved from.
         range: string
     class_uri: cr8tor_metamodel:Source
   Destination:
     name: Destination
     definition_uri: https://w3id.org/karectl-crates/data-model/Destination
-    description: 'A destination of data in a cr8tor project '
+    description: Models a data destination within a Cr8tor project, representing the
+      endpoint where data is delivered or stored after ingress. This class defines
+      the state and configuration of data targets.
     from_schema: https://w3id.org/karectl-crates/data-model
     slots:
     - destination__type
@@ -1071,20 +1178,23 @@ classes:
     attributes:
       type:
         name: type
-        description: url
+        description: The type of destination (e.g., filestore, postgresql), specifying
+          the nature of the data endpoint. Required.
         range: DestinationType
         required: true
       url:
         name: url
-        description: url
+        description: The URL or location of the data destination, specifying where
+          data should be delivered. Optional.
         range: string
         required: false
     class_uri: cr8tor_metamodel:Destination
   Dataset:
     name: Dataset
     definition_uri: https://w3id.org/karectl-crates/data-model/Dataset
-    description: Metadata of source dataset to be extracted that can comprise tables
-      and columns
+    description: Represents a dataset to be ingested or managed within a Cr8tor project,
+      including its metadata, schema, tables, and data locations. This class models
+      the state and structure of data collections handled by the project.
     from_schema: https://w3id.org/karectl-crates/data-model
     slots:
     - dataset__name
@@ -1094,25 +1204,31 @@ classes:
     attributes:
       name:
         name: name
-        description: name of the dataset metadata description
+        description: The name of the dataset, used for identification and reference
+          within the project. Required.
         range: string
         required: true
       schema_name:
         name: schema_name
-        description: name of the dataset schema in the target database
+        description: The name of the schema in the target database where the dataset
+          will reside. Required.
         range: string
         required: true
       tables:
         name: tables
-        description: Target tabular data source
+        description: List of tables that make up the dataset, each representing a
+          structured collection of columns and data. Optional, can include multiple
+          tables.
         range: Table
         required: false
         multivalued: true
         inlined_as_list: true
       locations:
         name: locations
-        description: List of data locations/URIs of the dataset during TRE ingestion
-          workflow
+        description: List of data locations or URIs where the dataset is stored or
+          accessed during the TRE ingestion workflow. Can include strings, integers,
+          or booleans to represent various location types. Optional, can include multiple
+          locations.
         required: false
         multivalued: true
         inlined_as_list: true
@@ -1124,7 +1240,9 @@ classes:
   Table:
     name: Table
     definition_uri: https://w3id.org/karectl-crates/data-model/Table
-    description: A table within a dataset
+    description: Models a table within a dataset, representing a structured collection
+      of data organized into columns. This class defines the state and schema of tabular
+      data in the project.
     from_schema: https://w3id.org/karectl-crates/data-model
     slots:
     - table__name
@@ -1132,12 +1250,14 @@ classes:
     attributes:
       name:
         name: name
-        description: Name of the table
+        description: The name of the table, used for identification within the dataset.
+          Required.
         range: string
         required: true
       columns:
         name: columns
-        description: Columns that make up the table
+        description: List of columns that define the schema of the table, each representing
+          a data field. Required, can include multiple columns.
         range: Column
         required: true
         multivalued: true
@@ -1146,7 +1266,9 @@ classes:
   Column:
     name: Column
     definition_uri: https://w3id.org/karectl-crates/data-model/Column
-    description: A column within a table
+    description: Models a column within a table, representing a single field of data
+      with a specific datatype. This class defines the state and schema of individual
+      data fields in tabular structures.
     from_schema: https://w3id.org/karectl-crates/data-model
     slots:
     - column__name
@@ -1154,20 +1276,24 @@ classes:
     attributes:
       name:
         name: name
-        description: Name of the column
+        description: The name of the column, used for identification within the table.
+          Required.
         range: string
         required: true
       datatype:
         name: datatype
-        description: Datatype of the column
+        description: The datatype of the column, specifying the kind of data stored
+          (e.g., string, integer). Required.
         range: string
         required: true
     class_uri: cr8tor_metamodel:Column
   Deployment:
     name: Deployment
     definition_uri: https://w3id.org/karectl-crates/deployment-model/Deployment
-    description: Specifies K8TRE resources including applications requested through
-      a cr8tor project
+    description: Models the deployment configuration for a Cr8tor project, specifying
+      the K8TRE resources and applications to be provisioned, as well as the target
+      environment. This class represents the state and desired configuration for project
+      deployments.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     slots:
     - deployment__resources
@@ -1175,18 +1301,24 @@ classes:
     attributes:
       resources:
         name: resources
+        description: List of resource names or identifiers representing the K8TRE
+          applications or services to be deployed as part of the project. Can include
+          multiple resources.
         range: string
         multivalued: true
         inlined_as_list: true
       environment:
         name: environment
+        description: The environment configuration for the deployment, specifying
+          the target trusted research environment (TRE) and its properties.
         range: Environment
     class_uri: cr8tor_metamodel:Deployment
   Resource:
     name: Resource
     definition_uri: https://w3id.org/karectl-crates/deployment-model/Resource
-    description: Abstract class representing a K8TRE resource (e.g. K8TRE application)
-      that can be deployed through a cr8tor project
+    description: Abstract base class for K8TRE resources (such as applications or
+      services) that can be deployed through a Cr8tor project. This class defines
+      the state and configuration of deployable resources.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     slots:
     - resource__name
@@ -1196,30 +1328,35 @@ classes:
     attributes:
       name:
         name: name
-        description: Requested resource name
+        description: The requested name of the resource, used for identification and
+          management within the deployment.
         range: string
         required: true
       type:
         name: type
-        description: Application type (e.g., jupyterhub, vdi)
+        description: The type of application or resource (e.g., jupyterhub, vdi),
+          specifying its function or category.
         range: string
         required: true
       url:
         name: url
-        description: URL endpoint for the application
+        description: The URL endpoint for accessing the application or resource after
+          deployment.
         range: uri
         required: true
       enabled:
         name: enabled
-        description: Indicates if the application is enabled
+        description: Boolean flag indicating whether the application or resource is
+          enabled and available for use.
         range: boolean
         required: true
     class_uri: cr8tor_metamodel:Resource
   Jupyter:
     name: Jupyter
     definition_uri: https://w3id.org/karectl-crates/deployment-model/Jupyter
-    description: Configuration for deploying Jupyter workspaces accessible to a cr8tor
-      project
+    description: Specialized resource configuration for deploying Jupyter workspaces
+      within a Cr8tor project. This class extends Resource to include Jupyter-specific
+      settings and state.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     is_a: Resource
     slots:
@@ -1231,13 +1368,15 @@ classes:
     attributes:
       auth:
         name: auth
-        description: Indicates the type of authentication to use for jupyter
+        description: The type or method of authentication required to access the Jupyter
+          workspace (e.g., OAuth, SSO).
     class_uri: cr8tor_metamodel:Jupyter
   Keycloak:
     name: Keycloak
     definition_uri: https://w3id.org/karectl-crates/deployment-model/Keycloak
-    description: Configuration for deploying Keycloak resources available to a cr8tor
-      project
+    description: Specialized resource configuration for deploying Keycloak identity
+      and access management services within a Cr8tor project. This class extends Resource
+      to include Keycloak-specific settings and state.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     is_a: Resource
     slots:
@@ -1249,24 +1388,26 @@ classes:
     attributes:
       somethingspecific:
         name: somethingspecific
-        description: a keycloak specific attribute
+        description: A Keycloak-specific attribute for custom configuration or integration.
     class_uri: cr8tor_metamodel:Keycloak
   Environment:
     name: Environment
     definition_uri: https://w3id.org/karectl-crates/deployment-model/Environment
-    description: Definition of additional cr8tor project configuration for the target
-      trusted research environment (TRE)
+    description: Models the configuration of the target trusted research environment
+      (TRE) for a Cr8tor project deployment, including environment-specific settings
+      and metadata.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     slots:
     - environment__name
     attributes:
       name:
         name: name
-        description: Cr8tor project name
+        description: The name of the environment or TRE where the project will be
+          deployed, used for identification and management.
     class_uri: cr8tor_metamodel:Environment
 metamodel_version: 1.7.0
 source_file: cr8tor_metamodel.yaml
-source_file_date: '2026-02-06T18:56:15'
-source_file_size: 902
-generation_date: '2026-02-06T18:56:29'
+source_file_date: '2026-02-08T15:09:53'
+source_file_size: 1516
+generation_date: '2026-02-08T15:10:07'
 

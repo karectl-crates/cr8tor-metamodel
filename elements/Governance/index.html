@@ -258,7 +258,7 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="class-governance">Class: Governance</h1>
-<p><em>A Cr8tor project's governance-specific information (e.g. user access and mandatory project details)</em></p>
+<p><em>Represents the governance structure of a Cr8tor project, encapsulating user access control, project membership, and mandatory project metadata. This class manages the relationships between users and the project, ensuring proper access and compliance with governance requirements.</em></p>
 <p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/Governance">cr8tor_metamodel:Governance</a></p>
 <div class="mermaid"> classDiagram
     class Governance
@@ -302,13 +302,13 @@
 <tr>
 <td><a href="../users/">users</a></td>
 <td>* <br/> <a href="../User/">User</a></td>
-<td></td>
+<td>List of users who have access to the project, each with their own roles, perm...</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../project/">project</a></td>
 <td>0..1 <br/> <a href="../Project/">Project</a></td>
-<td></td>
+<td>The project entity governed by this governance model, containing core project...</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -361,12 +361,17 @@
 <h3 id="direct">Direct</h3>
 <details>
 <pre><code class="language-yaml">name: Governance
-description: A Cr8tor project's governance-specific information (e.g. user access
-  and mandatory project details)
+description: Represents the governance structure of a Cr8tor project, encapsulating
+  user access control, project membership, and mandatory project metadata. This class
+  manages the relationships between users and the project, ensuring proper access
+  and compliance with governance requirements.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 attributes:
   users:
     name: users
+    description: List of users who have access to the project, each with their own
+      roles, permissions, and membership details. Represents the state of project
+      membership and access control.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     domain_of:
@@ -377,6 +382,8 @@ attributes:
     inlined_as_list: true
   project:
     name: project
+    description: The project entity governed by this governance model, containing
+      core project metadata and state.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     domain_of:
@@ -388,12 +395,17 @@ attributes:
 <h3 id="induced">Induced</h3>
 <details>
 <pre><code class="language-yaml">name: Governance
-description: A Cr8tor project's governance-specific information (e.g. user access
-  and mandatory project details)
+description: Represents the governance structure of a Cr8tor project, encapsulating
+  user access control, project membership, and mandatory project metadata. This class
+  manages the relationships between users and the project, ensuring proper access
+  and compliance with governance requirements.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 attributes:
   users:
     name: users
+    description: List of users who have access to the project, each with their own
+      roles, permissions, and membership details. Represents the state of project
+      membership and access control.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     alias: users
@@ -406,6 +418,8 @@ attributes:
     inlined_as_list: true
   project:
     name: project
+    description: The project entity governed by this governance model, containing
+      core project metadata and state.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     alias: project

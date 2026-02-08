@@ -417,7 +417,7 @@
 
 
 <h1 id="slot-columns">Slot: columns</h1>
-<p><em>Columns that make up the table</em></p>
+<p><em>List of columns that define the schema of the table, each representing a data field. Required, can include multiple columns.</em></p>
 <p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/columns">cr8tor_metamodel:columns</a>
 Alias: columns</p>
 <!-- no inheritance hierarchy -->
@@ -434,7 +434,7 @@ Alias: columns</p>
 <tbody>
 <tr>
 <td><a href="../Table/">Table</a></td>
-<td>A table within a dataset</td>
+<td>Models a table within a dataset, representing a structured collection of data...</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -479,7 +479,8 @@ Alias: columns</p>
 <details>
 
 <pre><code class="language-yaml">name: columns
-description: Columns that make up the table
+description: List of columns that define the schema of the table, each representing
+  a data field. Required, can include multiple columns.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 rank: 1000
 alias: columns

@@ -258,7 +258,7 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="class-group">Class: Group</h1>
-<p><em>Represents a KARE group associated with a project</em></p>
+<p><em>Represents a group or organizational unit within a Cr8tor project, used to organize users, assign roles, and manage permissions. This class models the state of group membership and its associated metadata.</em></p>
 <p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/Group">cr8tor_metamodel:Group</a></p>
 <div class="mermaid"> classDiagram
     class Group
@@ -297,25 +297,25 @@
 <tr>
 <td><a href="../value/">value</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
-<td>The identifier of the User's group</td>
+<td>The unique identifier of the group, typically used as the group ID for refere...</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../ref/">ref</a></td>
 <td>0..1 <br/> <a href="../Uri/">Uri</a></td>
-<td>The URI of the corresponding Group resource</td>
+<td>The URI reference to the corresponding Group resource, enabling linkage to ex...</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../display/">display</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
-<td>A human-readable display name for the group</td>
+<td>A human-readable display name for the group, used for UI and reporting</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../type/">type</a></td>
 <td>0..1 <br/> <a href="../GroupMembershipType/">GroupMembershipType</a></td>
-<td>A label to convey the type of KARE group membership</td>
+<td>The type of group membership, indicating how the user was assigned to the gro...</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -372,7 +372,9 @@
 <h3 id="direct">Direct</h3>
 <details>
 <pre><code class="language-yaml">name: Group
-description: Represents a KARE group associated with a project
+description: Represents a group or organizational unit within a Cr8tor project, used
+  to organize users, assign roles, and manage permissions. This class models the state
+  of group membership and its associated metadata.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 narrow_mappings:
 - scim:Group
@@ -383,7 +385,8 @@ attributes:
       mutability:
         tag: mutability
         value: readOnly
-    description: The identifier of the User's group. Typically the group ID.
+    description: The unique identifier of the group, typically used as the group ID
+      for referencing and access control. Read-only.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     domain_of:
@@ -399,7 +402,8 @@ attributes:
       reference_type:
         tag: reference_type
         value: Group
-    description: The URI of the corresponding Group resource
+    description: The URI reference to the corresponding Group resource, enabling linkage
+      to external or internal group definitions. Read-only.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     domain_of:
@@ -412,7 +416,8 @@ attributes:
       mutability:
         tag: mutability
         value: readOnly
-    description: A human-readable display name for the group
+    description: A human-readable display name for the group, used for UI and reporting.
+      Read-only.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     domain_of:
@@ -425,7 +430,8 @@ attributes:
       mutability:
         tag: mutability
         value: readOnly
-    description: A label to convey the type of KARE group membership
+    description: The type of group membership, indicating how the user was assigned
+      to the group (e.g., manual or automatic). Read-only.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     domain_of:
@@ -440,7 +446,9 @@ attributes:
 <h3 id="induced">Induced</h3>
 <details>
 <pre><code class="language-yaml">name: Group
-description: Represents a KARE group associated with a project
+description: Represents a group or organizational unit within a Cr8tor project, used
+  to organize users, assign roles, and manage permissions. This class models the state
+  of group membership and its associated metadata.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 narrow_mappings:
 - scim:Group
@@ -451,7 +459,8 @@ attributes:
       mutability:
         tag: mutability
         value: readOnly
-    description: The identifier of the User's group. Typically the group ID.
+    description: The unique identifier of the group, typically used as the group ID
+      for referencing and access control. Read-only.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     alias: value
@@ -469,7 +478,8 @@ attributes:
       reference_type:
         tag: reference_type
         value: Group
-    description: The URI of the corresponding Group resource
+    description: The URI reference to the corresponding Group resource, enabling linkage
+      to external or internal group definitions. Read-only.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     alias: ref
@@ -484,7 +494,8 @@ attributes:
       mutability:
         tag: mutability
         value: readOnly
-    description: A human-readable display name for the group
+    description: A human-readable display name for the group, used for UI and reporting.
+      Read-only.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     alias: display
@@ -499,7 +510,8 @@ attributes:
       mutability:
         tag: mutability
         value: readOnly
-    description: A label to convey the type of KARE group membership
+    description: The type of group membership, indicating how the user was assigned
+      to the group (e.g., manual or automatic). Read-only.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     alias: type
