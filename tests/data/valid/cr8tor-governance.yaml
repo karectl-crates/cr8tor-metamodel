@@ -1,0 +1,18 @@
+project:
+  name: example-project
+  description: Example cr8tor project for demonstration
+  reference: CR8TOR-001
+
+users:
+  - id: https://example.org/users/alice
+    username: alice
+    given_name: Alice
+    family_name: Smith
+    affiliation: Example University
+    email: alice@example.org
+    groups:
+      - value: researchers
+        display: Research Group
+        type: Manual
+    start_date: "2024-01-01T00:00:00Z"
+    expiry_date: "2026-01-01T00:00:00Z"
