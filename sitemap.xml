@@ -2,306 +2,306 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/about/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Boolean/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Column/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Cr8tor/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Curie/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Dataset/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Date/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/DateOrDatetime/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Datetime/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Decimal/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Deployment/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Destination/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/DestinationType/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Double/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Environment/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Float/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Governance/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Group/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/GroupMembershipType/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Ingress/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Integer/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Jsonpath/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Jsonpointer/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Jupyter/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Keycloak/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Ncname/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Nodeidentifier/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Objectidentifier/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Project/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Resource/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Source/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Sparqlpath/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/String/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Table/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Time/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Uri/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Uriorcurie/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/User/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/affiliation/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/auth/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/columns/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/cr8tor-metamodel/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/datasets/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/datatype/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/deployment/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/description/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/destination/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/display/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/email/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/enabled/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/environment/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/expiry_date/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/family_name/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/given_name/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/governance/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/groups/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/id/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/ingress/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/locations/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/name/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/project/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/ref/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/reference/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/resources/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/schema_name/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/somethingspecific/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/source/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/start_date/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/tables/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/type/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/url/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/username/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/users/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/value/</loc>
-         <lastmod>2026-02-08</lastmod>
+         <lastmod>2026-02-10</lastmod>
     </url>
 </urlset>
