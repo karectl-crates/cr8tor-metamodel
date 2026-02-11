@@ -10,7 +10,7 @@ see_also:
 
 prefixes:
   cr8tor: https://w3id.org/karectl-crates/cr8tor-metamodel/
-  schema-org: http://schema.org/
+  schemaorg: http://schema.org/
 default_prefix: cr8tor_metamodel
 default_range: string
 

@@ -95,8 +95,8 @@ linkml_meta = LinkMLMeta({'default_prefix': 'cr8tor_metamodel',
                               'prefix_reference': 'https://example.org/'},
                   'linkml': {'prefix_prefix': 'linkml',
                              'prefix_reference': 'https://w3id.org/linkml/'},
-                  'schema': {'prefix_prefix': 'schema',
-                             'prefix_reference': 'http://schema.org/'}},
+                  'schemaorg': {'prefix_prefix': 'schemaorg',
+                                'prefix_reference': 'http://schema.org/'}},
      'see_also': ['https://karectl-crates.github.io/cr8tor-metamodel'],
      'source_file': 'src/cr8tor_metamodel/schema/cr8tor_metamodel.yaml',
      'title': 'cr8tor-metamodel'} )
@@ -181,8 +181,8 @@ class Governance(ConfiguredBaseModel):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/governance-model'})
 
+    project: Project = Field(default=..., description="""The project entity governed by this governance model, containing core project metadata and state.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Governance']} })
     users: Optional[list[User]] = Field(default=[], description="""List of users who have access to the project, each with their own roles, permissions, and membership details. Represents the state of project membership and access control.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Governance']} })
-    project: Optional[Project] = Field(default=None, description="""The project entity governed by this governance model, containing core project metadata and state.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Governance']} })
 
 
 class Project(ConfiguredBaseModel):
@@ -190,7 +190,7 @@ class Project(ConfiguredBaseModel):
     Defines the core state and identifying properties of a Cr8tor project, including its name, description, and reference information. This class models the essential metadata required to uniquely identify and describe a project within the Cr8tor ecosystem.
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/governance-model',
-         'narrow_mappings': ['schema-org:Project']})
+         'narrow_mappings': ['schemaorg:Project']})
 
     id: Optional[str] = Field(default=None, description="""Unique identifier for the project""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'Action', 'User']} })
     name: Optional[str] = Field(default=None, description="""The unique name of the Cr8tor project, used for identification and reference within the system.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
@@ -203,7 +203,7 @@ class Project(ConfiguredBaseModel):
     description: Optional[str] = Field(default=None, description="""A brief summary describing the purpose, scope, or objectives of the Cr8tor project.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project']} })
     reference: Optional[str] = Field(default=None, description="""An external or internal reference identifier for the Cr8tor project, used for cross-referencing or linking to related resources.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project']} })
     start_time: Optional[str] = Field(default=None, description="""Timestamp when project was created""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'Action']} })
-    actions: Optional[list[Action]] = Field(default=[], description="""List of actions performed on the cr8tor project""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project']} })
+    actions: Optional[list[Union[Action,CreateAction,AssessAction]]] = Field(default=[], description="""List of actions performed on the cr8tor project""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project']} })
 
 
 class Action(ConfiguredBaseModel):
@@ -211,10 +211,11 @@ class Action(ConfiguredBaseModel):
     Represents an action or activity performed on a Cr8tor project, tracking the lifecycle  and state changes of the project. Based on schema.org Action and the Provenance Crate Profile  specification. Actions track operations like create, assess, validate, etc.
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/governance-model',
-         'narrow_mappings': ['schema-org:Action']})
+         'narrow_mappings': ['schemaorg:Action']})
 
     id: str = Field(default=..., description="""Unique identifier for the action, typically formatted as '{command_type}-{project_id}'.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'Action', 'User']} })
-    type: ActionType = Field(default=..., description="""The specific type of action being performed (e.g., CreateAction, AssessAction).""", json_schema_extra = { "linkml_meta": {'domain_of': ['Action', 'Group', 'Destination', 'Resource']} })
+    type: Literal["Action"] = Field(default="Action", description="""The specific type of action being performed (e.g., CreateAction, AssessAction).""", json_schema_extra = { "linkml_meta": {'designates_type': True,
+         'domain_of': ['Action', 'Group', 'Destination', 'Resource']} })
     name: str = Field(default=..., description="""Human-readable name describing the action (e.g., \"CREATE Data Project Action\").""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
                        'Action',
                        'Dataset',
@@ -229,7 +230,59 @@ class Action(ConfiguredBaseModel):
     instrument: Optional[str] = Field(default=None, description="""The tool or service that executed the action (e.g., 'cr8tor CLI', 'GitHub Action',  specific TRE service). Maps to schema.org Action.instrument.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Action']} })
     result: Optional[list[str]] = Field(default=[], description="""List of result items produced by the action, typically ID references to other  data or context entities created or modified by the action.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Action']} })
     error: Optional[str] = Field(default=None, description="""Error message or output if the action failed. Only present when action_status is FailedActionStatus.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Action']} })
-    additional_type: Optional[str] = Field(default=None, description="""Additional type classification for specialized actions, used to reference sub-actions  or specific assessment types (e.g., 'disclosure check' for AssessAction).""", json_schema_extra = { "linkml_meta": {'domain_of': ['Action']} })
+
+
+class CreateAction(Action):
+    """
+    Represents a create action performed on a Cr8tor project, typically used to track project initialization and creation events. Inherits all properties from Action.
+    """
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/governance-model',
+         'narrow_mappings': ['schemaorg:CreateAction']})
+
+    id: str = Field(default=..., description="""Unique identifier for the action, typically formatted as '{command_type}-{project_id}'.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'Action', 'User']} })
+    type: Literal["CreateAction"] = Field(default="CreateAction", description="""The specific type of action being performed (e.g., CreateAction, AssessAction).""", json_schema_extra = { "linkml_meta": {'designates_type': True,
+         'domain_of': ['Action', 'Group', 'Destination', 'Resource']} })
+    name: str = Field(default=..., description="""Human-readable name describing the action (e.g., \"CREATE Data Project Action\").""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
+                       'Action',
+                       'Dataset',
+                       'Table',
+                       'Column',
+                       'Resource',
+                       'Environment']} })
+    start_time: datetime  = Field(default=..., description="""The date and time when the action started execution.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'Action']} })
+    end_time: datetime  = Field(default=..., description="""The date and time when the action completed or failed.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Action']} })
+    action_status: ActionStatusType = Field(default=..., description="""The current status of the action, indicating whether it's active, completed, failed, or potential. Formatted based on schema.org ActionStatus and Provenance Crate Profile specification.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Action']} })
+    agent: str = Field(default=..., description="""The agent (person, organization, or software) that triggered or performed the action. Can reference a Person, Organization, or SoftwareApplication entity.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Action']} })
+    instrument: Optional[str] = Field(default=None, description="""The tool or service that executed the action (e.g., 'cr8tor CLI', 'GitHub Action',  specific TRE service). Maps to schema.org Action.instrument.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Action']} })
+    result: Optional[list[str]] = Field(default=[], description="""List of result items produced by the action, typically ID references to other  data or context entities created or modified by the action.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Action']} })
+    error: Optional[str] = Field(default=None, description="""Error message or output if the action failed. Only present when action_status is FailedActionStatus.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Action']} })
+
+
+class AssessAction(Action):
+    """
+    Represents an assessment action performed on a Cr8tor project, used to track validation, disclosure checks, and other evaluation activities. Inherits all properties from Action and adds an optional additional_type for sub-assessments.
+    """
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/governance-model',
+         'narrow_mappings': ['schemaorg:AssessAction']})
+
+    additional_type: Optional[str] = Field(default=None, description="""Additional type classification for specialized actions, used to reference sub-actions  or specific assessment types (e.g., 'disclosure check' for AssessAction).""", json_schema_extra = { "linkml_meta": {'domain_of': ['AssessAction']} })
+    id: str = Field(default=..., description="""Unique identifier for the action, typically formatted as '{command_type}-{project_id}'.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'Action', 'User']} })
+    type: Literal["AssessAction"] = Field(default="AssessAction", description="""The specific type of action being performed (e.g., CreateAction, AssessAction).""", json_schema_extra = { "linkml_meta": {'designates_type': True,
+         'domain_of': ['Action', 'Group', 'Destination', 'Resource']} })
+    name: str = Field(default=..., description="""Human-readable name describing the action (e.g., \"CREATE Data Project Action\").""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
+                       'Action',
+                       'Dataset',
+                       'Table',
+                       'Column',
+                       'Resource',
+                       'Environment']} })
+    start_time: datetime  = Field(default=..., description="""The date and time when the action started execution.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'Action']} })
+    end_time: datetime  = Field(default=..., description="""The date and time when the action completed or failed.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Action']} })
+    action_status: ActionStatusType = Field(default=..., description="""The current status of the action, indicating whether it's active, completed, failed, or potential. Formatted based on schema.org ActionStatus and Provenance Crate Profile specification.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Action']} })
+    agent: str = Field(default=..., description="""The agent (person, organization, or software) that triggered or performed the action. Can reference a Person, Organization, or SoftwareApplication entity.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Action']} })
+    instrument: Optional[str] = Field(default=None, description="""The tool or service that executed the action (e.g., 'cr8tor CLI', 'GitHub Action',  specific TRE service). Maps to schema.org Action.instrument.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Action']} })
+    result: Optional[list[str]] = Field(default=[], description="""List of result items produced by the action, typically ID references to other  data or context entities created or modified by the action.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Action']} })
+    error: Optional[str] = Field(default=None, description="""Error message or output if the action failed. Only present when action_status is FailedActionStatus.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Action']} })
 
 
 class User(ConfiguredBaseModel):
@@ -237,14 +290,11 @@ class User(ConfiguredBaseModel):
     Models an individual user associated with a Cr8tor project, capturing their identity, contact information, organizational affiliation, group memberships, and access lifecycle. This class represents the state of a user's relationship to the project and their access rights.
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/governance-model',
-         'narrow_mappings': ['schema-org:Person',
-                             'schema-org:Organization',
-                             'scim:User']})
+         'narrow_mappings': ['schemaorg:Person', 'schemaorg:Organization', 'scim:User']})
 
-    id: str = Field(default=..., description="""A globally unique identifier for the user, ensuring unambiguous reference within and across systems.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'Action', 'User'],
-         'slot_uri': 'schema-org:identifier'} })
-    username: Optional[str] = Field(default=None, description="""The user's unique login or account name, used for authentication and identification within the project.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User'], 'slot_uri': 'schema-org:identifier'} })
-    given_name: Optional[str] = Field(default=None, description="""The user's first or given name, representing their personal identity.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User'], 'slot_uri': 'schema-org:name'} })
+    id: str = Field(default=..., description="""A globally unique identifier for the user, ensuring unambiguous reference within and across systems.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'Action', 'User'], 'slot_uri': 'schemaorg:identifier'} })
+    username: Optional[str] = Field(default=None, description="""The user's unique login or account name, used for authentication and identification within the project.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User'], 'slot_uri': 'schemaorg:identifier'} })
+    given_name: Optional[str] = Field(default=None, description="""The user's first or given name, representing their personal identity.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User'], 'slot_uri': 'schemaorg:name'} })
     family_name: Optional[str] = Field(default=None, description="""The user's last or family name, used for identification and display purposes.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User']} })
     affiliation: Optional[str] = Field(default=None, description="""The name of the organization or institution with which the user is affiliated, representing their organizational context.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User']} })
     email: Optional[str] = Field(default=None, description="""The user's email address, used for communication and notifications related to the project.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User']} })
@@ -358,7 +408,7 @@ class Deployment(ConfiguredBaseModel):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/deployment-model'})
 
-    resources: Optional[list[str]] = Field(default=[], description="""List of resource names or identifiers representing the K8TRE applications or services to be deployed as part of the project. Can include multiple resources.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Deployment']} })
+    resources: Optional[list[Union[Resource,Jupyter,Keycloak]]] = Field(default=[], description="""List of resource names or identifiers representing the K8TRE applications or services to be deployed as part of the project. Can include multiple resources.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Deployment']} })
     environment: Optional[Environment] = Field(default=None, description="""The environment configuration for the deployment, specifying the target trusted research environment (TRE) and its properties.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Deployment']} })
 
 
@@ -375,7 +425,8 @@ class Resource(ConfiguredBaseModel):
                        'Column',
                        'Resource',
                        'Environment']} })
-    type: str = Field(default=..., description="""The type of application or resource (e.g., jupyterhub, vdi), specifying its function or category.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Action', 'Group', 'Destination', 'Resource']} })
+    type: Literal["Resource"] = Field(default="Resource", description="""The type of application or resource (e.g., jupyterhub, vdi), specifying its function or category.""", json_schema_extra = { "linkml_meta": {'designates_type': True,
+         'domain_of': ['Action', 'Group', 'Destination', 'Resource']} })
     url: str = Field(default=..., description="""The URL endpoint for accessing the application or resource after deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource']} })
     enabled: bool = Field(default=..., description="""Boolean flag indicating whether the application or resource is enabled and available for use.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Resource']} })
 
@@ -394,7 +445,8 @@ class Jupyter(Resource):
                        'Column',
                        'Resource',
                        'Environment']} })
-    type: str = Field(default=..., description="""The type of application or resource (e.g., jupyterhub, vdi), specifying its function or category.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Action', 'Group', 'Destination', 'Resource']} })
+    type: Literal["Jupyter"] = Field(default="Jupyter", description="""The type of application or resource (e.g., jupyterhub, vdi), specifying its function or category.""", json_schema_extra = { "linkml_meta": {'designates_type': True,
+         'domain_of': ['Action', 'Group', 'Destination', 'Resource']} })
     url: str = Field(default=..., description="""The URL endpoint for accessing the application or resource after deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource']} })
     enabled: bool = Field(default=..., description="""Boolean flag indicating whether the application or resource is enabled and available for use.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Resource']} })
 
@@ -413,7 +465,8 @@ class Keycloak(Resource):
                        'Column',
                        'Resource',
                        'Environment']} })
-    type: str = Field(default=..., description="""The type of application or resource (e.g., jupyterhub, vdi), specifying its function or category.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Action', 'Group', 'Destination', 'Resource']} })
+    type: Literal["Keycloak"] = Field(default="Keycloak", description="""The type of application or resource (e.g., jupyterhub, vdi), specifying its function or category.""", json_schema_extra = { "linkml_meta": {'designates_type': True,
+         'domain_of': ['Action', 'Group', 'Destination', 'Resource']} })
     url: str = Field(default=..., description="""The URL endpoint for accessing the application or resource after deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource']} })
     enabled: bool = Field(default=..., description="""Boolean flag indicating whether the application or resource is enabled and available for use.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Resource']} })
 
@@ -450,6 +503,8 @@ class Cr8tor(ConfiguredBaseModel):
 Governance.model_rebuild()
 Project.model_rebuild()
 Action.model_rebuild()
+CreateAction.model_rebuild()
+AssessAction.model_rebuild()
 User.model_rebuild()
 Group.model_rebuild()
 Ingress.model_rebuild()

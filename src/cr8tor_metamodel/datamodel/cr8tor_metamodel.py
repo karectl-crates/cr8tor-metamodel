@@ -1,5 +1,5 @@
 # Auto generated from cr8tor_metamodel.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-02-10T16:42:24
+# Generation date: 2026-02-11T12:15:08
 # Schema: cr8tor-metamodel
 #
 # id: https://w3id.org/karectl-crates/cr8tor-metamodel
@@ -68,8 +68,7 @@ BIOLINK = CurieNamespace('biolink', 'https://w3id.org/biolink/')
 CR8TOR_METAMODEL = CurieNamespace('cr8tor_metamodel', 'https://w3id.org/karectl-crates/cr8tor-metamodel/')
 EXAMPLE = CurieNamespace('example', 'https://example.org/')
 LINKML = CurieNamespace('linkml', 'https://w3id.org/linkml/')
-SCHEMA = CurieNamespace('schema', 'http://schema.org/')
-SCHEMA_ORG = CurieNamespace('schema-org', 'http://schema.org/')
+SCHEMAORG = CurieNamespace('schemaorg', 'http://schema.org/')
 SCIM = CurieNamespace('scim', 'urn:ietf:params:scim:schemas:core:2.0')
 DEFAULT_ = CR8TOR_METAMODEL
 
@@ -78,6 +77,14 @@ DEFAULT_ = CR8TOR_METAMODEL
 
 # Class references
 class ActionId(extended_str):
+    pass
+
+
+class CreateActionId(ActionId):
+    pass
+
+
+class AssessActionId(ActionId):
     pass
 
 
@@ -135,14 +142,16 @@ class Governance(YAMLRoot):
     class_name: ClassVar[str] = "Governance"
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.Governance
 
+    project: Union[dict, "Project"] = None
     users: Optional[Union[dict[Union[str, UserId], Union[dict, "User"]], list[Union[dict, "User"]]]] = empty_dict()
-    project: Optional[Union[dict, "Project"]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        self._normalize_inlined_as_list(slot_name="users", slot_type=User, key_name="id", keyed=True)
-
-        if self.project is not None and not isinstance(self.project, Project):
+        if self._is_empty(self.project):
+            self.MissingRequiredField("project")
+        if not isinstance(self.project, Project):
             self.project = Project(**as_dict(self.project))
+
+        self._normalize_inlined_as_list(slot_name="users", slot_type=User, key_name="id", keyed=True)
 
         super().__post_init__(**kwargs)
 
@@ -204,7 +213,7 @@ class Action(YAMLRoot):
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.Action
 
     id: Union[str, ActionId] = None
-    type: Union[str, "ActionType"] = None
+    type: str = None
     name: str = None
     start_time: Union[str, XSDDateTime] = None
     end_time: Union[str, XSDDateTime] = None
@@ -213,7 +222,6 @@ class Action(YAMLRoot):
     instrument: Optional[str] = None
     result: Optional[Union[str, list[str]]] = empty_list()
     error: Optional[str] = None
-    additional_type: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -223,8 +231,7 @@ class Action(YAMLRoot):
 
         if self._is_empty(self.type):
             self.MissingRequiredField("type")
-        if not isinstance(self.type, ActionType):
-            self.type = ActionType(self.type)
+        self.type = str(self.class_name)
 
         if self._is_empty(self.name):
             self.MissingRequiredField("name")
@@ -261,10 +268,98 @@ class Action(YAMLRoot):
         if self.error is not None and not isinstance(self.error, str):
             self.error = str(self.error)
 
+        super().__post_init__(**kwargs)
+        if self._is_empty(self.unknown_type):
+            self.MissingRequiredField("unknown_type")
+        self.unknown_type = str(self.class_name)
+
+
+    def __new__(cls, *args, **kwargs):
+
+        type_designator = "type"
+        if not type_designator in kwargs:
+            return super().__new__(cls,*args,**kwargs)
+        else:
+            type_designator_value = kwargs[type_designator]
+            target_cls = cls._class_for("class_name", type_designator_value)
+
+
+            if target_cls is None:
+                raise ValueError(f"Wrong type designator value: class {cls.__name__} "
+                                 f"has no subclass with ['class_name']='{kwargs[type_designator]}'")
+            return super().__new__(target_cls,*args,**kwargs)
+
+
+
+@dataclass(repr=False)
+class CreateAction(Action):
+    """
+    Represents a create action performed on a Cr8tor project, typically used to track project initialization and
+    creation events. Inherits all properties from Action.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CR8TOR_METAMODEL["CreateAction"]
+    class_class_curie: ClassVar[str] = "cr8tor_metamodel:CreateAction"
+    class_name: ClassVar[str] = "CreateAction"
+    class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.CreateAction
+
+    id: Union[str, CreateActionId] = None
+    type: str = None
+    name: str = None
+    start_time: Union[str, XSDDateTime] = None
+    end_time: Union[str, XSDDateTime] = None
+    action_status: Union[str, "ActionStatusType"] = None
+    agent: str = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, CreateActionId):
+            self.id = CreateActionId(self.id)
+
+        super().__post_init__(**kwargs)
+        if self._is_empty(self.unknown_type):
+            self.MissingRequiredField("unknown_type")
+        self.unknown_type = str(self.class_name)
+
+
+@dataclass(repr=False)
+class AssessAction(Action):
+    """
+    Represents an assessment action performed on a Cr8tor project, used to track validation, disclosure checks, and
+    other evaluation activities. Inherits all properties from Action and adds an optional additional_type for
+    sub-assessments.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CR8TOR_METAMODEL["AssessAction"]
+    class_class_curie: ClassVar[str] = "cr8tor_metamodel:AssessAction"
+    class_name: ClassVar[str] = "AssessAction"
+    class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.AssessAction
+
+    id: Union[str, AssessActionId] = None
+    type: str = None
+    name: str = None
+    start_time: Union[str, XSDDateTime] = None
+    end_time: Union[str, XSDDateTime] = None
+    action_status: Union[str, "ActionStatusType"] = None
+    agent: str = None
+    additional_type: Optional[str] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, AssessActionId):
+            self.id = AssessActionId(self.id)
+
         if self.additional_type is not None and not isinstance(self.additional_type, str):
             self.additional_type = str(self.additional_type)
 
         super().__post_init__(**kwargs)
+        if self._is_empty(self.unknown_type):
+            self.MissingRequiredField("unknown_type")
+        self.unknown_type = str(self.class_name)
 
 
 @dataclass(repr=False)
@@ -558,13 +653,13 @@ class Deployment(YAMLRoot):
     class_name: ClassVar[str] = "Deployment"
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.Deployment
 
-    resources: Optional[Union[str, list[str]]] = empty_list()
+    resources: Optional[Union[Union[dict, "Resource"], list[Union[dict, "Resource"]]]] = empty_list()
     environment: Optional[Union[dict, "Environment"]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if not isinstance(self.resources, list):
             self.resources = [self.resources] if self.resources is not None else []
-        self.resources = [v if isinstance(v, str) else str(v) for v in self.resources]
+        self.resources = [v if isinstance(v, Resource) else Resource(**as_dict(v)) for v in self.resources]
 
         if self.environment is not None and not isinstance(self.environment, Environment):
             self.environment = Environment(**as_dict(self.environment))
@@ -598,8 +693,7 @@ class Resource(YAMLRoot):
 
         if self._is_empty(self.type):
             self.MissingRequiredField("type")
-        if not isinstance(self.type, str):
-            self.type = str(self.type)
+        self.type = str(self.class_name)
 
         if self._is_empty(self.url):
             self.MissingRequiredField("url")
@@ -612,6 +706,26 @@ class Resource(YAMLRoot):
             self.enabled = Bool(self.enabled)
 
         super().__post_init__(**kwargs)
+        if self._is_empty(self.unknown_type):
+            self.MissingRequiredField("unknown_type")
+        self.unknown_type = str(self.class_name)
+
+
+    def __new__(cls, *args, **kwargs):
+
+        type_designator = "type"
+        if not type_designator in kwargs:
+            return super().__new__(cls,*args,**kwargs)
+        else:
+            type_designator_value = kwargs[type_designator]
+            target_cls = cls._class_for("class_name", type_designator_value)
+
+
+            if target_cls is None:
+                raise ValueError(f"Wrong type designator value: class {cls.__name__} "
+                                 f"has no subclass with ['class_name']='{kwargs[type_designator]}'")
+            return super().__new__(target_cls,*args,**kwargs)
+
 
 
 @dataclass(repr=False)
@@ -638,6 +752,9 @@ class Jupyter(Resource):
             self.auth = str(self.auth)
 
         super().__post_init__(**kwargs)
+        if self._is_empty(self.unknown_type):
+            self.MissingRequiredField("unknown_type")
+        self.unknown_type = str(self.class_name)
 
 
 @dataclass(repr=False)
@@ -664,6 +781,9 @@ class Keycloak(Resource):
             self.somethingspecific = str(self.somethingspecific)
 
         super().__post_init__(**kwargs)
+        if self._is_empty(self.unknown_type):
+            self.MissingRequiredField("unknown_type")
+        self.unknown_type = str(self.class_name)
 
 
 @dataclass(repr=False)
@@ -778,11 +898,11 @@ slots.cr8tor__ingress = Slot(uri=CR8TOR_METAMODEL.ingress, name="cr8tor__ingress
 slots.cr8tor__deployment = Slot(uri=CR8TOR_METAMODEL.deployment, name="cr8tor__deployment", curie=CR8TOR_METAMODEL.curie('deployment'),
                    model_uri=CR8TOR_METAMODEL.cr8tor__deployment, domain=None, range=Union[dict, Deployment])
 
+slots.governance__project = Slot(uri=CR8TOR_METAMODEL.project, name="governance__project", curie=CR8TOR_METAMODEL.curie('project'),
+                   model_uri=CR8TOR_METAMODEL.governance__project, domain=None, range=Union[dict, Project])
+
 slots.governance__users = Slot(uri=CR8TOR_METAMODEL.users, name="governance__users", curie=CR8TOR_METAMODEL.curie('users'),
                    model_uri=CR8TOR_METAMODEL.governance__users, domain=None, range=Optional[Union[dict[Union[str, UserId], Union[dict, User]], list[Union[dict, User]]]])
-
-slots.governance__project = Slot(uri=CR8TOR_METAMODEL.project, name="governance__project", curie=CR8TOR_METAMODEL.curie('project'),
-                   model_uri=CR8TOR_METAMODEL.governance__project, domain=None, range=Optional[Union[dict, Project]])
 
 slots.project__id = Slot(uri=CR8TOR_METAMODEL.id, name="project__id", curie=CR8TOR_METAMODEL.curie('id'),
                    model_uri=CR8TOR_METAMODEL.project__id, domain=None, range=Optional[str])
@@ -806,7 +926,7 @@ slots.action__id = Slot(uri=CR8TOR_METAMODEL.id, name="action__id", curie=CR8TOR
                    model_uri=CR8TOR_METAMODEL.action__id, domain=None, range=URIRef)
 
 slots.action__type = Slot(uri=CR8TOR_METAMODEL.type, name="action__type", curie=CR8TOR_METAMODEL.curie('type'),
-                   model_uri=CR8TOR_METAMODEL.action__type, domain=None, range=Union[str, "ActionType"])
+                   model_uri=CR8TOR_METAMODEL.action__type, domain=None, range=str)
 
 slots.action__name = Slot(uri=CR8TOR_METAMODEL.name, name="action__name", curie=CR8TOR_METAMODEL.curie('name'),
                    model_uri=CR8TOR_METAMODEL.action__name, domain=None, range=str)
@@ -832,16 +952,16 @@ slots.action__result = Slot(uri=CR8TOR_METAMODEL.result, name="action__result", 
 slots.action__error = Slot(uri=CR8TOR_METAMODEL.error, name="action__error", curie=CR8TOR_METAMODEL.curie('error'),
                    model_uri=CR8TOR_METAMODEL.action__error, domain=None, range=Optional[str])
 
-slots.action__additional_type = Slot(uri=CR8TOR_METAMODEL.additional_type, name="action__additional_type", curie=CR8TOR_METAMODEL.curie('additional_type'),
-                   model_uri=CR8TOR_METAMODEL.action__additional_type, domain=None, range=Optional[str])
+slots.assessAction__additional_type = Slot(uri=CR8TOR_METAMODEL.additional_type, name="assessAction__additional_type", curie=CR8TOR_METAMODEL.curie('additional_type'),
+                   model_uri=CR8TOR_METAMODEL.assessAction__additional_type, domain=None, range=Optional[str])
 
-slots.user__id = Slot(uri=SCHEMA-ORG.identifier, name="user__id", curie=SCHEMA-ORG.curie('identifier'),
+slots.user__id = Slot(uri=SCHEMAORG.identifier, name="user__id", curie=SCHEMAORG.curie('identifier'),
                    model_uri=CR8TOR_METAMODEL.user__id, domain=None, range=URIRef)
 
-slots.user__username = Slot(uri=SCHEMA-ORG.identifier, name="user__username", curie=SCHEMA-ORG.curie('identifier'),
+slots.user__username = Slot(uri=SCHEMAORG.identifier, name="user__username", curie=SCHEMAORG.curie('identifier'),
                    model_uri=CR8TOR_METAMODEL.user__username, domain=None, range=Optional[Union[str, URIorCURIE]])
 
-slots.user__given_name = Slot(uri=SCHEMA-ORG.name, name="user__given_name", curie=SCHEMA-ORG.curie('name'),
+slots.user__given_name = Slot(uri=SCHEMAORG.name, name="user__given_name", curie=SCHEMAORG.curie('name'),
                    model_uri=CR8TOR_METAMODEL.user__given_name, domain=None, range=Optional[str])
 
 slots.user__family_name = Slot(uri=CR8TOR_METAMODEL.family_name, name="user__family_name", curie=CR8TOR_METAMODEL.curie('family_name'),
@@ -917,7 +1037,7 @@ slots.column__datatype = Slot(uri=CR8TOR_METAMODEL.datatype, name="column__datat
                    model_uri=CR8TOR_METAMODEL.column__datatype, domain=None, range=str)
 
 slots.deployment__resources = Slot(uri=CR8TOR_METAMODEL.resources, name="deployment__resources", curie=CR8TOR_METAMODEL.curie('resources'),
-                   model_uri=CR8TOR_METAMODEL.deployment__resources, domain=None, range=Optional[Union[str, list[str]]])
+                   model_uri=CR8TOR_METAMODEL.deployment__resources, domain=None, range=Optional[Union[Union[dict, Resource], list[Union[dict, Resource]]]])
 
 slots.deployment__environment = Slot(uri=CR8TOR_METAMODEL.environment, name="deployment__environment", curie=CR8TOR_METAMODEL.curie('environment'),
                    model_uri=CR8TOR_METAMODEL.deployment__environment, domain=None, range=Optional[Union[dict, Environment]])

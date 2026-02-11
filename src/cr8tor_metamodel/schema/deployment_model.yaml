@@ -10,7 +10,7 @@ see_also:
 
 prefixes:
   cr8tor: https://w3id.org/karectl-crates/cr8tor-metamodel/
-  schema-org: http://schema.org/
+  schemaorg: http://schema.org/
   scim: "urn:ietf:params:scim:schemas:core:2.0"
 default_prefix: cr8tor_metamodel
 default_range: string
@@ -24,7 +24,7 @@ classes:
     attributes:
       resources:
         description: List of resource names or identifiers representing the K8TRE applications or services to be deployed as part of the project. Can include multiple resources.
-        range: string
+        range: Resource
         multivalued: true
         inlined_as_list: true
       environment:
@@ -43,6 +43,7 @@ classes:
         description: The type of application or resource (e.g., jupyterhub, vdi), specifying its function or category.
         range: string
         required: true
+        designates_type: true
       url:
         description: The URL endpoint for accessing the application or resource after deployment.
         range: uri
@@ -61,7 +62,7 @@ classes:
         description: The type or method of authentication required to access the Jupyter workspace (e.g., OAuth, SSO).
 
   Keycloak:
-    is_a: Resource 
+    is_a: Resource
     description: >-
       Specialized resource configuration for deploying Keycloak identity and access management services within a Cr8tor project. This class extends Resource to include Keycloak-specific settings and state.
     attributes:

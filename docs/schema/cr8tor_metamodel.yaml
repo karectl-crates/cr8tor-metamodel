@@ -20,8 +20,8 @@ prefixes:
   biolink:
     prefix_prefix: biolink
     prefix_reference: https://w3id.org/biolink/
-  schema:
-    prefix_prefix: schema
+  schemaorg:
+    prefix_prefix: schemaorg
     prefix_reference: http://schema.org/
   PATO:
     prefix_prefix: PATO
@@ -313,6 +313,46 @@ enums:
       Automatic:
         text: Automatic
         description: Automatically assigned group membership
+  ActionType:
+    name: ActionType
+    definition_uri: https://w3id.org/karectl-crates/governance-model/ActionType
+    description: Types of actions that can be performed on a Cr8tor project
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    permissible_values:
+      Action:
+        text: Action
+        description: Generic action type
+      CreateAction:
+        text: CreateAction
+        description: Action to create or initialize a project
+      AssessAction:
+        text: AssessAction
+        description: Action to assess or evaluate a project (e.g., validation, disclosure
+          check)
+      UpdateAction:
+        text: UpdateAction
+        description: Action to update project metadata or resources
+      OrchestrationAction:
+        text: OrchestrationAction
+        description: Action to orchestrate deployment or provisioning
+  ActionStatusType:
+    name: ActionStatusType
+    definition_uri: https://w3id.org/karectl-crates/governance-model/ActionStatusType
+    description: Status states for actions, based on schema.org ActionStatusType
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    permissible_values:
+      ActiveActionStatus:
+        text: ActiveActionStatus
+        description: Action is currently in progress
+      CompletedActionStatus:
+        text: CompletedActionStatus
+        description: Action completed successfully
+      FailedActionStatus:
+        text: FailedActionStatus
+        description: Action failed with errors
+      PotentialActionStatus:
+        text: PotentialActionStatus
+        description: Action is potential but not yet started
   DestinationType:
     name: DestinationType
     definition_uri: https://w3id.org/karectl-crates/data-model/DestinationType
@@ -393,8 +433,18 @@ slots:
     domain_of:
     - Governance
     range: Project
-    inlined: true
-    inlined_as_list: true
+  project__id:
+    name: project__id
+    description: Unique identifier for the project
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:id
+    identifier: true
+    alias: id
+    owner: Project
+    domain_of:
+    - Project
+    range: string
+    required: true
   project__name:
     name: project__name
     description: The unique name of the Cr8tor project, used for identification and
@@ -428,14 +478,170 @@ slots:
     domain_of:
     - Project
     range: string
+  project__start_time:
+    name: project__start_time
+    description: Timestamp when project was created
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:start_time
+    alias: start_time
+    owner: Project
+    domain_of:
+    - Project
+    range: string
+  project__actions:
+    name: project__actions
+    description: List of actions performed on the cr8tor project
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:actions
+    alias: actions
+    owner: Project
+    domain_of:
+    - Project
+    range: Action
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  action__id:
+    name: action__id
+    description: Unique identifier for the action, typically formatted as '{command_type}-{project_id}'.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:id
+    identifier: true
+    alias: id
+    owner: Action
+    domain_of:
+    - Action
+    range: string
+    required: true
+  action__type:
+    name: action__type
+    description: The specific type of action being performed (e.g., CreateAction,
+      AssessAction).
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:type
+    alias: type
+    owner: Action
+    domain_of:
+    - Action
+    range: ActionType
+    required: true
+  action__name:
+    name: action__name
+    description: Human-readable name describing the action (e.g., "CREATE Data Project
+      Action").
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:name
+    alias: name
+    owner: Action
+    domain_of:
+    - Action
+    range: string
+    required: true
+  action__start_time:
+    name: action__start_time
+    description: The date and time when the action started execution.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:start_time
+    alias: start_time
+    owner: Action
+    domain_of:
+    - Action
+    range: datetime
+    required: true
+  action__end_time:
+    name: action__end_time
+    description: The date and time when the action completed or failed.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:end_time
+    alias: end_time
+    owner: Action
+    domain_of:
+    - Action
+    range: datetime
+    required: true
+  action__action_status:
+    name: action__action_status
+    description: The current status of the action, indicating whether it's active,
+      completed, failed, or potential. Formatted based on schema.org ActionStatus
+      and Provenance Crate Profile specification.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:action_status
+    alias: action_status
+    owner: Action
+    domain_of:
+    - Action
+    range: ActionStatusType
+    required: true
+  action__agent:
+    name: action__agent
+    description: The agent (person, organization, or software) that triggered or performed
+      the action. Can reference a Person, Organization, or SoftwareApplication entity.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:agent
+    alias: agent
+    owner: Action
+    domain_of:
+    - Action
+    range: string
+    required: true
+  action__instrument:
+    name: action__instrument
+    description: The tool or service that executed the action (e.g., 'cr8tor CLI',
+      'GitHub Action',  specific TRE service). Maps to schema.org Action.instrument.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:instrument
+    alias: instrument
+    owner: Action
+    domain_of:
+    - Action
+    range: string
+    required: false
+  action__result:
+    name: action__result
+    description: List of result items produced by the action, typically ID references
+      to other  data or context entities created or modified by the action.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:result
+    alias: result
+    owner: Action
+    domain_of:
+    - Action
+    range: string
+    required: false
+    multivalued: true
+    inlined_as_list: true
+  action__error:
+    name: action__error
+    description: Error message or output if the action failed. Only present when action_status
+      is FailedActionStatus.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:error
+    alias: error
+    owner: Action
+    domain_of:
+    - Action
+    range: string
+    required: false
+  action__additional_type:
+    name: action__additional_type
+    description: Additional type classification for specialized actions, used to reference
+      sub-actions  or specific assessment types (e.g., 'disclosure check' for AssessAction).
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:additional_type
+    alias: additional_type
+    owner: Action
+    domain_of:
+    - Action
+    range: string
+    required: false
   user__id:
     name: user__id
     description: A globally unique identifier for the user, ensuring unambiguous reference
       within and across systems.
     from_schema: https://w3id.org/karectl-crates/governance-model
     mappings:
-    - schema-org:identifier
-    slot_uri: schema-org:identifier
+    - schemaorg:identifier
+    slot_uri: schemaorg:identifier
     identifier: true
     alias: id
     owner: User
@@ -449,8 +655,8 @@ slots:
       and identification within the project.
     from_schema: https://w3id.org/karectl-crates/governance-model
     mappings:
-    - schema-org:identifier
-    slot_uri: schema-org:identifier
+    - schemaorg:identifier
+    slot_uri: schemaorg:identifier
     alias: username
     owner: User
     domain_of:
@@ -461,8 +667,8 @@ slots:
     description: The user's first or given name, representing their personal identity.
     from_schema: https://w3id.org/karectl-crates/governance-model
     mappings:
-    - schema-org:name
-    slot_uri: schema-org:name
+    - schemaorg:name
+    slot_uri: schemaorg:name
     alias: given_name
     owner: User
     domain_of:
@@ -966,25 +1172,139 @@ classes:
       within the Cr8tor ecosystem.
     from_schema: https://w3id.org/karectl-crates/governance-model
     narrow_mappings:
-    - schema-org:Project
+    - schemaorg:Project
     slots:
+    - project__id
     - project__name
     - project__description
     - project__reference
+    - project__start_time
+    - project__actions
     attributes:
+      id:
+        name: id
+        description: Unique identifier for the project
+        identifier: true
+        range: string
       name:
         name: name
         description: The unique name of the Cr8tor project, used for identification
           and reference within the system.
+        range: string
       description:
         name: description
         description: A brief summary describing the purpose, scope, or objectives
           of the Cr8tor project.
+        range: string
       reference:
         name: reference
         description: An external or internal reference identifier for the Cr8tor project,
           used for cross-referencing or linking to related resources.
+        range: string
+      start_time:
+        name: start_time
+        description: Timestamp when project was created
+        range: string
+      actions:
+        name: actions
+        description: List of actions performed on the cr8tor project
+        range: Action
+        multivalued: true
+        inlined_as_list: true
     class_uri: cr8tor_metamodel:Project
+  Action:
+    name: Action
+    definition_uri: https://w3id.org/karectl-crates/governance-model/Action
+    description: Represents an action or activity performed on a Cr8tor project, tracking
+      the lifecycle  and state changes of the project. Based on schema.org Action
+      and the Provenance Crate Profile  specification. Actions track operations like
+      create, assess, validate, etc.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    narrow_mappings:
+    - schemaorg:Action
+    slots:
+    - action__id
+    - action__type
+    - action__name
+    - action__start_time
+    - action__end_time
+    - action__action_status
+    - action__agent
+    - action__instrument
+    - action__result
+    - action__error
+    - action__additional_type
+    attributes:
+      id:
+        name: id
+        description: Unique identifier for the action, typically formatted as '{command_type}-{project_id}'.
+        identifier: true
+        range: string
+        required: true
+      type:
+        name: type
+        description: The specific type of action being performed (e.g., CreateAction,
+          AssessAction).
+        range: ActionType
+        required: true
+      name:
+        name: name
+        description: Human-readable name describing the action (e.g., "CREATE Data
+          Project Action").
+        range: string
+        required: true
+      start_time:
+        name: start_time
+        description: The date and time when the action started execution.
+        range: datetime
+        required: true
+      end_time:
+        name: end_time
+        description: The date and time when the action completed or failed.
+        range: datetime
+        required: true
+      action_status:
+        name: action_status
+        description: The current status of the action, indicating whether it's active,
+          completed, failed, or potential. Formatted based on schema.org ActionStatus
+          and Provenance Crate Profile specification.
+        range: ActionStatusType
+        required: true
+      agent:
+        name: agent
+        description: The agent (person, organization, or software) that triggered
+          or performed the action. Can reference a Person, Organization, or SoftwareApplication
+          entity.
+        range: string
+        required: true
+      instrument:
+        name: instrument
+        description: The tool or service that executed the action (e.g., 'cr8tor CLI',
+          'GitHub Action',  specific TRE service). Maps to schema.org Action.instrument.
+        range: string
+        required: false
+      result:
+        name: result
+        description: List of result items produced by the action, typically ID references
+          to other  data or context entities created or modified by the action.
+        range: string
+        required: false
+        multivalued: true
+        inlined_as_list: true
+      error:
+        name: error
+        description: Error message or output if the action failed. Only present when
+          action_status is FailedActionStatus.
+        range: string
+        required: false
+      additional_type:
+        name: additional_type
+        description: Additional type classification for specialized actions, used
+          to reference sub-actions  or specific assessment types (e.g., 'disclosure
+          check' for AssessAction).
+        range: string
+        required: false
+    class_uri: cr8tor_metamodel:Action
   User:
     name: User
     definition_uri: https://w3id.org/karectl-crates/governance-model/User
@@ -994,8 +1314,8 @@ classes:
       to the project and their access rights.
     from_schema: https://w3id.org/karectl-crates/governance-model
     narrow_mappings:
-    - schema-org:Person
-    - schema-org:Organization
+    - schemaorg:Person
+    - schemaorg:Organization
     - scim:User
     slots:
     - user__id
@@ -1012,19 +1332,19 @@ classes:
         name: id
         description: A globally unique identifier for the user, ensuring unambiguous
           reference within and across systems.
-        slot_uri: schema-org:identifier
+        slot_uri: schemaorg:identifier
         identifier: true
         range: uriorcurie
       username:
         name: username
         description: The user's unique login or account name, used for authentication
           and identification within the project.
-        slot_uri: schema-org:identifier
+        slot_uri: schemaorg:identifier
         range: uriorcurie
       given_name:
         name: given_name
         description: The user's first or given name, representing their personal identity.
-        slot_uri: schema-org:name
+        slot_uri: schemaorg:name
       family_name:
         name: family_name
         description: The user's last or family name, used for identification and display
@@ -1407,7 +1727,7 @@ classes:
     class_uri: cr8tor_metamodel:Environment
 metamodel_version: 1.7.0
 source_file: cr8tor_metamodel.yaml
-source_file_date: '2026-02-08T14:53:15'
-source_file_size: 1516
-generation_date: '2026-02-08T15:08:21'
+source_file_date: '2026-02-11T10:59:51'
+source_file_size: 1519
+generation_date: '2026-02-11T11:21:42'
 
