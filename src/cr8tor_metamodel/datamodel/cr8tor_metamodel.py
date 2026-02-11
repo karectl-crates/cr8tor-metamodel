@@ -1,5 +1,5 @@
 # Auto generated from cr8tor_metamodel.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-02-08T14:53:21
+# Generation date: 2026-02-10T16:42:24
 # Schema: cr8tor-metamodel
 #
 # id: https://w3id.org/karectl-crates/cr8tor-metamodel
@@ -77,6 +77,10 @@ DEFAULT_ = CR8TOR_METAMODEL
 # Types
 
 # Class references
+class ActionId(extended_str):
+    pass
+
+
 class UserId(URIorCURIE):
     pass
 
@@ -157,11 +161,17 @@ class Project(YAMLRoot):
     class_name: ClassVar[str] = "Project"
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.Project
 
+    id: Optional[str] = None
     name: Optional[str] = None
     description: Optional[str] = None
     reference: Optional[str] = None
+    start_time: Optional[str] = None
+    actions: Optional[Union[dict[Union[str, ActionId], Union[dict, "Action"]], list[Union[dict, "Action"]]]] = empty_dict()
 
     def __post_init__(self, *_: str, **kwargs: Any):
+        if self.id is not None and not isinstance(self.id, str):
+            self.id = str(self.id)
+
         if self.name is not None and not isinstance(self.name, str):
             self.name = str(self.name)
 
@@ -170,6 +180,89 @@ class Project(YAMLRoot):
 
         if self.reference is not None and not isinstance(self.reference, str):
             self.reference = str(self.reference)
+
+        if self.start_time is not None and not isinstance(self.start_time, str):
+            self.start_time = str(self.start_time)
+
+        self._normalize_inlined_as_list(slot_name="actions", slot_type=Action, key_name="id", keyed=True)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class Action(YAMLRoot):
+    """
+    Represents an action or activity performed on a Cr8tor project, tracking the lifecycle and state changes of the
+    project. Based on schema.org Action and the Provenance Crate Profile specification. Actions track operations like
+    create, assess, validate, etc.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CR8TOR_METAMODEL["Action"]
+    class_class_curie: ClassVar[str] = "cr8tor_metamodel:Action"
+    class_name: ClassVar[str] = "Action"
+    class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.Action
+
+    id: Union[str, ActionId] = None
+    type: Union[str, "ActionType"] = None
+    name: str = None
+    start_time: Union[str, XSDDateTime] = None
+    end_time: Union[str, XSDDateTime] = None
+    action_status: Union[str, "ActionStatusType"] = None
+    agent: str = None
+    instrument: Optional[str] = None
+    result: Optional[Union[str, list[str]]] = empty_list()
+    error: Optional[str] = None
+    additional_type: Optional[str] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, ActionId):
+            self.id = ActionId(self.id)
+
+        if self._is_empty(self.type):
+            self.MissingRequiredField("type")
+        if not isinstance(self.type, ActionType):
+            self.type = ActionType(self.type)
+
+        if self._is_empty(self.name):
+            self.MissingRequiredField("name")
+        if not isinstance(self.name, str):
+            self.name = str(self.name)
+
+        if self._is_empty(self.start_time):
+            self.MissingRequiredField("start_time")
+        if not isinstance(self.start_time, XSDDateTime):
+            self.start_time = XSDDateTime(self.start_time)
+
+        if self._is_empty(self.end_time):
+            self.MissingRequiredField("end_time")
+        if not isinstance(self.end_time, XSDDateTime):
+            self.end_time = XSDDateTime(self.end_time)
+
+        if self._is_empty(self.action_status):
+            self.MissingRequiredField("action_status")
+        if not isinstance(self.action_status, ActionStatusType):
+            self.action_status = ActionStatusType(self.action_status)
+
+        if self._is_empty(self.agent):
+            self.MissingRequiredField("agent")
+        if not isinstance(self.agent, str):
+            self.agent = str(self.agent)
+
+        if self.instrument is not None and not isinstance(self.instrument, str):
+            self.instrument = str(self.instrument)
+
+        if not isinstance(self.result, list):
+            self.result = [self.result] if self.result is not None else []
+        self.result = [v if isinstance(v, str) else str(v) for v in self.result]
+
+        if self.error is not None and not isinstance(self.error, str):
+            self.error = str(self.error)
+
+        if self.additional_type is not None and not isinstance(self.additional_type, str):
+            self.additional_type = str(self.additional_type)
 
         super().__post_init__(**kwargs)
 
@@ -612,6 +705,53 @@ class GroupMembershipType(EnumDefinitionImpl):
         description="Type of TRE group membership",
     )
 
+class ActionType(EnumDefinitionImpl):
+    """
+    Types of actions that can be performed on a Cr8tor project
+    """
+    Action = PermissibleValue(
+        text="Action",
+        description="Generic action type")
+    CreateAction = PermissibleValue(
+        text="CreateAction",
+        description="Action to create or initialize a project")
+    AssessAction = PermissibleValue(
+        text="AssessAction",
+        description="Action to assess or evaluate a project (e.g., validation, disclosure check)")
+    UpdateAction = PermissibleValue(
+        text="UpdateAction",
+        description="Action to update project metadata or resources")
+    OrchestrationAction = PermissibleValue(
+        text="OrchestrationAction",
+        description="Action to orchestrate deployment or provisioning")
+
+    _defn = EnumDefinition(
+        name="ActionType",
+        description="Types of actions that can be performed on a Cr8tor project",
+    )
+
+class ActionStatusType(EnumDefinitionImpl):
+    """
+    Status states for actions, based on schema.org ActionStatusType
+    """
+    ActiveActionStatus = PermissibleValue(
+        text="ActiveActionStatus",
+        description="Action is currently in progress")
+    CompletedActionStatus = PermissibleValue(
+        text="CompletedActionStatus",
+        description="Action completed successfully")
+    FailedActionStatus = PermissibleValue(
+        text="FailedActionStatus",
+        description="Action failed with errors")
+    PotentialActionStatus = PermissibleValue(
+        text="PotentialActionStatus",
+        description="Action is potential but not yet started")
+
+    _defn = EnumDefinition(
+        name="ActionStatusType",
+        description="Status states for actions, based on schema.org ActionStatusType",
+    )
+
 class DestinationType(EnumDefinitionImpl):
 
     filestore = PermissibleValue(
@@ -644,6 +784,9 @@ slots.governance__users = Slot(uri=CR8TOR_METAMODEL.users, name="governance__use
 slots.governance__project = Slot(uri=CR8TOR_METAMODEL.project, name="governance__project", curie=CR8TOR_METAMODEL.curie('project'),
                    model_uri=CR8TOR_METAMODEL.governance__project, domain=None, range=Optional[Union[dict, Project]])
 
+slots.project__id = Slot(uri=CR8TOR_METAMODEL.id, name="project__id", curie=CR8TOR_METAMODEL.curie('id'),
+                   model_uri=CR8TOR_METAMODEL.project__id, domain=None, range=Optional[str])
+
 slots.project__name = Slot(uri=CR8TOR_METAMODEL.name, name="project__name", curie=CR8TOR_METAMODEL.curie('name'),
                    model_uri=CR8TOR_METAMODEL.project__name, domain=None, range=Optional[str])
 
@@ -652,6 +795,45 @@ slots.project__description = Slot(uri=CR8TOR_METAMODEL.description, name="projec
 
 slots.project__reference = Slot(uri=CR8TOR_METAMODEL.reference, name="project__reference", curie=CR8TOR_METAMODEL.curie('reference'),
                    model_uri=CR8TOR_METAMODEL.project__reference, domain=None, range=Optional[str])
+
+slots.project__start_time = Slot(uri=CR8TOR_METAMODEL.start_time, name="project__start_time", curie=CR8TOR_METAMODEL.curie('start_time'),
+                   model_uri=CR8TOR_METAMODEL.project__start_time, domain=None, range=Optional[str])
+
+slots.project__actions = Slot(uri=CR8TOR_METAMODEL.actions, name="project__actions", curie=CR8TOR_METAMODEL.curie('actions'),
+                   model_uri=CR8TOR_METAMODEL.project__actions, domain=None, range=Optional[Union[dict[Union[str, ActionId], Union[dict, Action]], list[Union[dict, Action]]]])
+
+slots.action__id = Slot(uri=CR8TOR_METAMODEL.id, name="action__id", curie=CR8TOR_METAMODEL.curie('id'),
+                   model_uri=CR8TOR_METAMODEL.action__id, domain=None, range=URIRef)
+
+slots.action__type = Slot(uri=CR8TOR_METAMODEL.type, name="action__type", curie=CR8TOR_METAMODEL.curie('type'),
+                   model_uri=CR8TOR_METAMODEL.action__type, domain=None, range=Union[str, "ActionType"])
+
+slots.action__name = Slot(uri=CR8TOR_METAMODEL.name, name="action__name", curie=CR8TOR_METAMODEL.curie('name'),
+                   model_uri=CR8TOR_METAMODEL.action__name, domain=None, range=str)
+
+slots.action__start_time = Slot(uri=CR8TOR_METAMODEL.start_time, name="action__start_time", curie=CR8TOR_METAMODEL.curie('start_time'),
+                   model_uri=CR8TOR_METAMODEL.action__start_time, domain=None, range=Union[str, XSDDateTime])
+
+slots.action__end_time = Slot(uri=CR8TOR_METAMODEL.end_time, name="action__end_time", curie=CR8TOR_METAMODEL.curie('end_time'),
+                   model_uri=CR8TOR_METAMODEL.action__end_time, domain=None, range=Union[str, XSDDateTime])
+
+slots.action__action_status = Slot(uri=CR8TOR_METAMODEL.action_status, name="action__action_status", curie=CR8TOR_METAMODEL.curie('action_status'),
+                   model_uri=CR8TOR_METAMODEL.action__action_status, domain=None, range=Union[str, "ActionStatusType"])
+
+slots.action__agent = Slot(uri=CR8TOR_METAMODEL.agent, name="action__agent", curie=CR8TOR_METAMODEL.curie('agent'),
+                   model_uri=CR8TOR_METAMODEL.action__agent, domain=None, range=str)
+
+slots.action__instrument = Slot(uri=CR8TOR_METAMODEL.instrument, name="action__instrument", curie=CR8TOR_METAMODEL.curie('instrument'),
+                   model_uri=CR8TOR_METAMODEL.action__instrument, domain=None, range=Optional[str])
+
+slots.action__result = Slot(uri=CR8TOR_METAMODEL.result, name="action__result", curie=CR8TOR_METAMODEL.curie('result'),
+                   model_uri=CR8TOR_METAMODEL.action__result, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.action__error = Slot(uri=CR8TOR_METAMODEL.error, name="action__error", curie=CR8TOR_METAMODEL.curie('error'),
+                   model_uri=CR8TOR_METAMODEL.action__error, domain=None, range=Optional[str])
+
+slots.action__additional_type = Slot(uri=CR8TOR_METAMODEL.additional_type, name="action__additional_type", curie=CR8TOR_METAMODEL.curie('additional_type'),
+                   model_uri=CR8TOR_METAMODEL.action__additional_type, domain=None, range=Optional[str])
 
 slots.user__id = Slot(uri=SCHEMA-ORG.identifier, name="user__id", curie=SCHEMA-ORG.curie('identifier'),
                    model_uri=CR8TOR_METAMODEL.user__id, domain=None, range=URIRef)

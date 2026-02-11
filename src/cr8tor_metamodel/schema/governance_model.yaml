@@ -36,15 +36,92 @@ classes:
     description: >-
       Defines the core state and identifying properties of a Cr8tor project, including its name, description, and reference information. This class models the essential metadata required to uniquely identify and describe a project within the Cr8tor ecosystem.
     attributes:
+      id:
+        range: string
+        description: Unique identifier for the project
       name:
         description: The unique name of the Cr8tor project, used for identification and reference within the system.
       description:
         description: A brief summary describing the purpose, scope, or objectives of the Cr8tor project.
       reference:
         description: An external or internal reference identifier for the Cr8tor project, used for cross-referencing or linking to related resources.
-
+      start_time:
+        range: string
+        description: Timestamp when project was created
+      actions:
+        range: Action
+        multivalued: true
+        inlined_as_list: true
+        description: List of actions performed on the cr8tor project
     narrow_mappings: 
       - schema-org:Project
+
+  Action:
+    description: >-
+      Represents an action or activity performed on a Cr8tor project, tracking the lifecycle 
+      and state changes of the project. Based on schema.org Action and the Provenance Crate Profile 
+      specification. Actions track operations like create, assess, validate, etc.
+    attributes:
+      id:
+        identifier: true
+        range: string
+        description: Unique identifier for the action, typically formatted as '{command_type}-{project_id}'.
+        required: true
+      type:
+        range: ActionType
+        description: The specific type of action being performed (e.g., CreateAction, AssessAction).
+        required: true
+      name:
+        range: string
+        description: Human-readable name describing the action (e.g., "CREATE Data Project Action").
+        required: true
+      start_time:
+        range: datetime
+        description: The date and time when the action started execution.
+        required: true
+      end_time:
+        range: datetime
+        description: The date and time when the action completed or failed.
+        required: true
+      action_status:
+        range: ActionStatusType
+        description: >-
+          The current status of the action, indicating whether it's active, completed, failed, or potential.
+          Formatted based on schema.org ActionStatus and Provenance Crate Profile specification.
+        required: true
+      agent:
+        range: string
+        description: >-
+          The agent (person, organization, or software) that triggered or performed the action.
+          Can reference a Person, Organization, or SoftwareApplication entity.
+        required: true
+      instrument:
+        range: string
+        description: >-
+          The tool or service that executed the action (e.g., 'cr8tor CLI', 'GitHub Action', 
+          specific TRE service). Maps to schema.org Action.instrument.
+        required: false
+      result:
+        range: string
+        multivalued: true
+        inlined_as_list: true
+        description: >-
+          List of result items produced by the action, typically ID references to other 
+          data or context entities created or modified by the action.
+        required: false
+      error:
+        range: string
+        description: >-
+          Error message or output if the action failed. Only present when action_status is FailedActionStatus.
+        required: false
+      additional_type:
+        range: string
+        description: >-
+          Additional type classification for specialized actions, used to reference sub-actions 
+          or specific assessment types (e.g., 'disclosure check' for AssessAction).
+        required: false
+    narrow_mappings:
+      - schema-org:Action
 
   User:
     description: >-
@@ -125,4 +202,30 @@ enums:
         description: Manually assigned group membership
       Automatic:
         description: Automatically assigned group membership
+
+  ActionType:
+    description: Types of actions that can be performed on a Cr8tor project
+    permissible_values:
+      Action:
+        description: Generic action type
+      CreateAction:
+        description: Action to create or initialize a project
+      AssessAction:
+        description: Action to assess or evaluate a project (e.g., validation, disclosure check)
+      UpdateAction:
+        description: Action to update project metadata or resources
+      OrchestrationAction:
+        description: Action to orchestrate deployment or provisioning
+  
+  ActionStatusType:
+    description: Status states for actions, based on schema.org ActionStatusType
+    permissible_values:
+      ActiveActionStatus:
+        description: Action is currently in progress
+      CompletedActionStatus:
+        description: Action completed successfully
+      FailedActionStatus:
+        description: Action failed with errors
+      PotentialActionStatus:
+        description: Action is potential but not yet started
   
