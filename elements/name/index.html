@@ -415,8 +415,8 @@ Alias: name</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="../Dataset/">Dataset</a></td>
-<td>Represents a dataset to be ingested or managed within a Cr8tor project, inclu...</td>
+<td><a href="../Jupyter/">Jupyter</a></td>
+<td>Specialized resource configuration for deploying Jupyter workspaces within a ...</td>
 <td>no</td>
 </tr>
 <tr>
@@ -425,13 +425,13 @@ Alias: name</p>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../Jupyter/">Jupyter</a></td>
-<td>Specialized resource configuration for deploying Jupyter workspaces within a ...</td>
+<td><a href="../Keycloak/">Keycloak</a></td>
+<td>Specialized resource configuration for deploying Keycloak identity and access...</td>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../Keycloak/">Keycloak</a></td>
-<td>Specialized resource configuration for deploying Keycloak identity and access...</td>
+<td><a href="../Dataset/">Dataset</a></td>
+<td>Represents a dataset to be ingested or managed within a Cr8tor project, inclu...</td>
 <td>no</td>
 </tr>
 <tr>
@@ -452,6 +452,11 @@ Alias: name</p>
 <tr>
 <td><a href="../Table/">Table</a></td>
 <td>Models a table within a dataset, representing a structured collection of data...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Action/">Action</a></td>
+<td>Represents an action or activity performed on a Cr8tor project, tracking the ...</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -487,6 +492,7 @@ Alias: name</p>
 alias: name
 domain_of:
 - Project
+- Action
 - Dataset
 - Table
 - Column

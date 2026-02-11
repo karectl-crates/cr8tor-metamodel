@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://karectl-crates.github.io/cr8tor-metamodel/elements/id/">
+        <link rel="canonical" href="https://karectl-crates.github.io/cr8tor-metamodel/elements/actions/">
       
       
       
@@ -21,7 +21,7 @@
     
     
       
-        <title>Slot: id - cr8tor-metamodel</title>
+        <title>Slot: actions - cr8tor-metamodel</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-id" class="md-skip">
+        <a href="#slot-actions" class="md-skip">
           Skip to content
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: id
+              Slot: actions
             
           </span>
         </div>
@@ -355,6 +355,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Identifier and Mapping Information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schema Source
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -399,9 +416,10 @@
   
 
 
-<h1 id="slot-id">Slot: id</h1>
-<p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/id">cr8tor_metamodel:id</a>
-Alias: id</p>
+<h1 id="slot-actions">Slot: actions</h1>
+<p><em>List of actions performed on the cr8tor project</em></p>
+<p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/actions">cr8tor_metamodel:actions</a>
+Alias: actions</p>
 <!-- no inheritance hierarchy -->
 
 <h2 id="applicable-classes">Applicable Classes</h2>
@@ -415,16 +433,6 @@ Alias: id</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="../User/">User</a></td>
-<td>Models an individual user associated with a Cr8tor project, capturing their i...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Action/">Action</a></td>
-<td>Represents an action or activity performed on a Cr8tor project, tracking the ...</td>
-<td>no</td>
-</tr>
-<tr>
 <td><a href="../Project/">Project</a></td>
 <td>Defines the core state and identifying properties of a Cr8tor project, includ...</td>
 <td>no</td>
@@ -433,9 +441,18 @@ Alias: id</p>
 </table>
 <h2 id="properties">Properties</h2>
 <ul>
-<li>Range: <a href="../String/">String</a></li>
+<li>
+<p>Range: <a href="../Action/">Action</a></p>
+</li>
+<li>
+<p>Multivalued: True</p>
+</li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
+<h3 id="schema-source">Schema Source</h3>
+<ul>
+<li>from schema: https://w3id.org/karectl-crates/cr8tor-metamodel</li>
+</ul>
 <h2 id="mappings">Mappings</h2>
 <table>
 <thead>
@@ -447,24 +464,29 @@ Alias: id</p>
 <tbody>
 <tr>
 <td>self</td>
-<td>cr8tor_metamodel:id</td>
+<td>cr8tor_metamodel:actions</td>
 </tr>
 <tr>
 <td>native</td>
-<td>cr8tor_metamodel:id</td>
+<td>cr8tor_metamodel:actions</td>
 </tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 
-<pre><code class="language-yaml">name: id
-alias: id
+<pre><code class="language-yaml">name: actions
+description: List of actions performed on the cr8tor project
+from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
+rank: 1000
+alias: actions
+owner: Project
 domain_of:
 - Project
-- Action
-- User
-range: string
+range: Action
+multivalued: true
+inlined: true
+inlined_as_list: true
 
 </code></pre>
 

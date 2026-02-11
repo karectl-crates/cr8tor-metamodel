@@ -519,6 +519,10 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="Action/">Action</a></td>
+<td>Represents an action or activity performed on a Cr8tor project, tracking the ...</td>
+</tr>
+<tr>
 <td><a href="Column/">Column</a></td>
 <td>Models a column within a table, representing a single field of data with a sp...</td>
 </tr>
@@ -594,8 +598,24 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="action_status/">action_status</a></td>
+<td>The current status of the action, indicating whether it's active, completed, ...</td>
+</tr>
+<tr>
+<td><a href="actions/">actions</a></td>
+<td>List of actions performed on the cr8tor project</td>
+</tr>
+<tr>
+<td><a href="additional_type/">additional_type</a></td>
+<td>Additional type classification for specialized actions, used to reference sub...</td>
+</tr>
+<tr>
 <td><a href="affiliation/">affiliation</a></td>
 <td>The name of the organization or institution with which the user is affiliated...</td>
+</tr>
+<tr>
+<td><a href="agent/">agent</a></td>
+<td>The agent (person, organization, or software) that triggered or performed the...</td>
 </tr>
 <tr>
 <td><a href="auth/">auth</a></td>
@@ -638,8 +658,16 @@
 <td>Boolean flag indicating whether the application or resource is enabled and av...</td>
 </tr>
 <tr>
+<td><a href="end_time/">end_time</a></td>
+<td>The date and time when the action completed or failed</td>
+</tr>
+<tr>
 <td><a href="environment/">environment</a></td>
 <td>The environment configuration for the deployment, specifying the target trust...</td>
+</tr>
+<tr>
+<td><a href="error/">error</a></td>
+<td>Error message or output if the action failed</td>
 </tr>
 <tr>
 <td><a href="expiry_date/">expiry_date</a></td>
@@ -663,11 +691,15 @@
 </tr>
 <tr>
 <td><a href="id/">id</a></td>
-<td>A globally unique identifier for the user, ensuring unambiguous reference wit...</td>
+<td>Unique identifier for the project</td>
 </tr>
 <tr>
 <td><a href="ingress/">ingress</a></td>
 <td>The data ingress configuration for the project, specifying data sources, dest...</td>
+</tr>
+<tr>
+<td><a href="instrument/">instrument</a></td>
+<td>The tool or service that executed the action (e</td>
 </tr>
 <tr>
 <td><a href="locations/">locations</a></td>
@@ -694,6 +726,10 @@
 <td>List of resource names or identifiers representing the K8TRE applications or ...</td>
 </tr>
 <tr>
+<td><a href="result/">result</a></td>
+<td>List of result items produced by the action, typically ID references to other...</td>
+</tr>
+<tr>
 <td><a href="schema_name/">schema_name</a></td>
 <td>The name of the schema in the target database where the dataset will reside</td>
 </tr>
@@ -710,12 +746,16 @@
 <td>The date and time when the user's access to the project becomes active, repre...</td>
 </tr>
 <tr>
+<td><a href="start_time/">start_time</a></td>
+<td>Timestamp when project was created</td>
+</tr>
+<tr>
 <td><a href="tables/">tables</a></td>
 <td>List of tables that make up the dataset, each representing a structured colle...</td>
 </tr>
 <tr>
 <td><a href="type/">type</a></td>
-<td>The type of group membership, indicating how the user was assigned to the gro...</td>
+<td>The specific type of action being performed (e</td>
 </tr>
 <tr>
 <td><a href="url/">url</a></td>
@@ -744,6 +784,14 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><a href="ActionStatusType/">ActionStatusType</a></td>
+<td>Status states for actions, based on schema</td>
+</tr>
+<tr>
+<td><a href="ActionType/">ActionType</a></td>
+<td>Types of actions that can be performed on a Cr8tor project</td>
+</tr>
 <tr>
 <td><a href="DestinationType/">DestinationType</a></td>
 <td></td>

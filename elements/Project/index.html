@@ -263,11 +263,26 @@
 <div class="mermaid"> classDiagram
     class Project
     click Project href "../Project/"
+      Project : actions
+
+
+
+
+
+        Project --&gt; "*" Action : actions
+        click Action href "../Action/"
+
+
+
       Project : description
+
+      Project : id
 
       Project : name
 
       Project : reference
+
+      Project : start_time
 
 
 </div>
@@ -284,6 +299,12 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="../id/">id</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Unique identifier for the project</td>
+<td>direct</td>
+</tr>
+<tr>
 <td><a href="../name/">name</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
 <td>The unique name of the Cr8tor project, used for identification and reference ...</td>
@@ -299,6 +320,18 @@
 <td><a href="../reference/">reference</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
 <td>An external or internal reference identifier for the Cr8tor project, used for...</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../start_time/">start_time</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Timestamp when project was created</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../actions/">actions</a></td>
+<td>* <br/> <a href="../Action/">Action</a></td>
+<td>List of actions performed on the cr8tor project</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -363,6 +396,16 @@ from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 narrow_mappings:
 - schema-org:Project
 attributes:
+  id:
+    name: id
+    description: Unique identifier for the project
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    rank: 1000
+    domain_of:
+    - Project
+    - Action
+    - User
+    range: string
   name:
     name: name
     description: The unique name of the Cr8tor project, used for identification and
@@ -371,6 +414,7 @@ attributes:
     rank: 1000
     domain_of:
     - Project
+    - Action
     - Dataset
     - Table
     - Column
@@ -392,6 +436,26 @@ attributes:
     rank: 1000
     domain_of:
     - Project
+  start_time:
+    name: start_time
+    description: Timestamp when project was created
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    rank: 1000
+    domain_of:
+    - Project
+    - Action
+    range: string
+  actions:
+    name: actions
+    description: List of actions performed on the cr8tor project
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    rank: 1000
+    domain_of:
+    - Project
+    range: Action
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
 
 </code></pre>
 </details>
@@ -406,6 +470,18 @@ from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 narrow_mappings:
 - schema-org:Project
 attributes:
+  id:
+    name: id
+    description: Unique identifier for the project
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    rank: 1000
+    alias: id
+    owner: Project
+    domain_of:
+    - Project
+    - Action
+    - User
+    range: string
   name:
     name: name
     description: The unique name of the Cr8tor project, used for identification and
@@ -416,6 +492,7 @@ attributes:
     owner: Project
     domain_of:
     - Project
+    - Action
     - Dataset
     - Table
     - Column
@@ -444,6 +521,30 @@ attributes:
     domain_of:
     - Project
     range: string
+  start_time:
+    name: start_time
+    description: Timestamp when project was created
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    rank: 1000
+    alias: start_time
+    owner: Project
+    domain_of:
+    - Project
+    - Action
+    range: string
+  actions:
+    name: actions
+    description: List of actions performed on the cr8tor project
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    rank: 1000
+    alias: actions
+    owner: Project
+    domain_of:
+    - Project
+    range: Action
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
 
 </code></pre>
 </details>

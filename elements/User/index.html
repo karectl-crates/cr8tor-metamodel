@@ -427,10 +427,11 @@ attributes:
     description: A globally unique identifier for the user, ensuring unambiguous reference
       within and across systems.
     from_schema: https://w3id.org/karectl-crates/governance-model
-    rank: 1000
     slot_uri: schema-org:identifier
     identifier: true
     domain_of:
+    - Project
+    - Action
     - User
     range: uriorcurie
     required: true
@@ -528,12 +529,13 @@ attributes:
     description: A globally unique identifier for the user, ensuring unambiguous reference
       within and across systems.
     from_schema: https://w3id.org/karectl-crates/governance-model
-    rank: 1000
     slot_uri: schema-org:identifier
     identifier: true
     alias: id
     owner: User
     domain_of:
+    - Project
+    - Action
     - User
     range: uriorcurie
     required: true

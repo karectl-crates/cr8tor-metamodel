@@ -420,8 +420,8 @@ Alias: type</p>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../Group/">Group</a></td>
-<td>Represents a group or organizational unit within a Cr8tor project, used to or...</td>
+<td><a href="../Keycloak/">Keycloak</a></td>
+<td>Specialized resource configuration for deploying Keycloak identity and access...</td>
 <td>no</td>
 </tr>
 <tr>
@@ -430,13 +430,18 @@ Alias: type</p>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../Keycloak/">Keycloak</a></td>
-<td>Specialized resource configuration for deploying Keycloak identity and access...</td>
+<td><a href="../Resource/">Resource</a></td>
+<td>Abstract base class for K8TRE resources (such as applications or services) th...</td>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../Resource/">Resource</a></td>
-<td>Abstract base class for K8TRE resources (such as applications or services) th...</td>
+<td><a href="../Action/">Action</a></td>
+<td>Represents an action or activity performed on a Cr8tor project, tracking the ...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Group/">Group</a></td>
+<td>Represents a group or organizational unit within a Cr8tor project, used to or...</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -471,6 +476,7 @@ Alias: type</p>
 <pre><code class="language-yaml">name: type
 alias: type
 domain_of:
+- Action
 - Group
 - Destination
 - Resource
