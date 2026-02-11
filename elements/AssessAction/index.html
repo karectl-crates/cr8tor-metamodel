@@ -5,10 +5,10 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<link href="https://karectl-crates.github.io/cr8tor-metamodel/elements/Deployment/" rel="canonical"/>
+<link href="https://karectl-crates.github.io/cr8tor-metamodel/elements/AssessAction/" rel="canonical"/>
 <link href="../../assets/images/favicon.png" rel="icon"/>
 <meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator"/>
-<title>Class: Deployment - cr8tor-metamodel</title>
+<title>Class: AssessAction - cr8tor-metamodel</title>
 <link href="../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
@@ -23,7 +23,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#class-deployment">
+<a class="md-skip" href="#class-assessaction">
           Skip to content
         </a>
 </div>
@@ -47,7 +47,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Class: Deployment
+              Class: AssessAction
             
           </span>
 </div>
@@ -171,19 +171,19 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#slots">
+<a class="md-nav__link" href="#inheritance">
 <span class="md-ellipsis">
       
-        Slots
+        Inheritance
       
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#usages">
+<a class="md-nav__link" href="#slots">
 <span class="md-ellipsis">
       
-        Usages
+        Slots
       
     </span>
 </a>
@@ -257,37 +257,55 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1 id="class-deployment">Class: Deployment</h1>
-<p><em>Models the deployment configuration for a Cr8tor project, specifying the K8TRE resources and applications to be provisioned, as well as the target environment. This class represents the state and desired configuration for project deployments.</em></p>
-<p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/Deployment">cr8tor_metamodel:Deployment</a></p>
+<h1 id="class-assessaction">Class: AssessAction</h1>
+<p><em>Represents an assessment action performed on a Cr8tor project, used to track validation, disclosure checks, and other evaluation activities. Inherits all properties from Action and adds an optional additional_type for sub-assessments.</em></p>
+<p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/AssessAction">cr8tor_metamodel:AssessAction</a></p>
 <div class="mermaid"> classDiagram
-    class Deployment
-    click Deployment href "../Deployment/"
-      Deployment : environment
+    class AssessAction
+    click AssessAction href "../AssessAction/"
+      Action &lt;|-- AssessAction
+        click Action href "../Action/"
+
+      AssessAction : action_status
 
 
 
 
 
-        Deployment --&gt; "0..1" Environment : environment
-        click Environment href "../Environment/"
+        AssessAction --&gt; "1" ActionStatusType : action_status
+        click ActionStatusType href "../ActionStatusType/"
 
 
 
-      Deployment : resources
+      AssessAction : additional_type
 
+      AssessAction : agent
 
+      AssessAction : end_time
 
+      AssessAction : error
 
+      AssessAction : id
 
-        Deployment --&gt; "*" Resource : resources
-        click Resource href "../Resource/"
+      AssessAction : instrument
 
+      AssessAction : name
 
+      AssessAction : result
+
+      AssessAction : start_time
+
+      AssessAction : type
 
 
 </div>
-<!-- no inheritance hierarchy -->
+<h2 id="inheritance">Inheritance</h2>
+<ul>
+<li><a href="../Action/">Action</a><ul>
+<li><strong>AssessAction</strong></li>
+</ul>
+</li>
+</ul>
 <h2 id="slots">Slots</h2>
 <table>
 <thead>
@@ -300,35 +318,70 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../resources/">resources</a></td>
-<td>* <br/> <a href="../Resource/">Resource</a></td>
-<td>List of resource names or identifiers representing the K8TRE applications or ...</td>
+<td><a href="../additional_type/">additional_type</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Additional type classification for specialized actions, used to reference sub...</td>
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../environment/">environment</a></td>
-<td>0..1 <br/> <a href="../Environment/">Environment</a></td>
-<td>The environment configuration for the deployment, specifying the target trust...</td>
-<td>direct</td>
+<td><a href="../id/">id</a></td>
+<td>1 <br/> <a href="../String/">String</a></td>
+<td>Unique identifier for the action, typically formatted as '{command_type}-{pro...</td>
+<td><a href="../Action/">Action</a></td>
 </tr>
-</tbody>
-</table>
-<h2 id="usages">Usages</h2>
-<table>
-<thead>
 <tr>
-<th>used by</th>
-<th>used in</th>
-<th>type</th>
-<th>used</th>
+<td><a href="../type/">type</a></td>
+<td>1 <br/> <a href="../String/">String</a></td>
+<td>The specific type of action being performed (e</td>
+<td><a href="../Action/">Action</a></td>
 </tr>
-</thead>
-<tbody>
 <tr>
-<td><a href="../Cr8tor/">Cr8tor</a></td>
-<td><a href="../deployment/">deployment</a></td>
-<td>range</td>
-<td><a href="./">Deployment</a></td>
+<td><a href="../name/">name</a></td>
+<td>1 <br/> <a href="../String/">String</a></td>
+<td>Human-readable name describing the action (e</td>
+<td><a href="../Action/">Action</a></td>
+</tr>
+<tr>
+<td><a href="../start_time/">start_time</a></td>
+<td>1 <br/> <a href="../Datetime/">Datetime</a></td>
+<td>The date and time when the action started execution</td>
+<td><a href="../Action/">Action</a></td>
+</tr>
+<tr>
+<td><a href="../end_time/">end_time</a></td>
+<td>1 <br/> <a href="../Datetime/">Datetime</a></td>
+<td>The date and time when the action completed or failed</td>
+<td><a href="../Action/">Action</a></td>
+</tr>
+<tr>
+<td><a href="../action_status/">action_status</a></td>
+<td>1 <br/> <a href="../ActionStatusType/">ActionStatusType</a></td>
+<td>The current status of the action, indicating whether it's active, completed, ...</td>
+<td><a href="../Action/">Action</a></td>
+</tr>
+<tr>
+<td><a href="../agent/">agent</a></td>
+<td>1 <br/> <a href="../String/">String</a></td>
+<td>The agent (person, organization, or software) that triggered or performed the...</td>
+<td><a href="../Action/">Action</a></td>
+</tr>
+<tr>
+<td><a href="../instrument/">instrument</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>The tool or service that executed the action (e</td>
+<td><a href="../Action/">Action</a></td>
+</tr>
+<tr>
+<td><a href="../result/">result</a></td>
+<td>* <br/> <a href="../String/">String</a></td>
+<td>List of result items produced by the action, typically ID references to other...</td>
+<td><a href="../Action/">Action</a></td>
+</tr>
+<tr>
+<td><a href="../error/">error</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Error message or output if the action failed</td>
+<td><a href="../Action/">Action</a></td>
 </tr>
 </tbody>
 </table>
@@ -348,11 +401,15 @@
 <tbody>
 <tr>
 <td>self</td>
-<td>cr8tor_metamodel:Deployment</td>
+<td>cr8tor_metamodel:AssessAction</td>
 </tr>
 <tr>
 <td>native</td>
-<td>cr8tor_metamodel:Deployment</td>
+<td>cr8tor_metamodel:AssessAction</td>
+</tr>
+<tr>
+<td>narrow</td>
+<td>schemaorg:AssessAction</td>
 </tr>
 </tbody>
 </table>
@@ -360,69 +417,183 @@
 <!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
 <h3 id="direct">Direct</h3>
 <details>
-<pre><code class="language-yaml">name: Deployment
-description: Models the deployment configuration for a Cr8tor project, specifying
-  the K8TRE resources and applications to be provisioned, as well as the target environment.
-  This class represents the state and desired configuration for project deployments.
+<pre><code class="language-yaml">name: AssessAction
+description: Represents an assessment action performed on a Cr8tor project, used to
+  track validation, disclosure checks, and other evaluation activities. Inherits all
+  properties from Action and adds an optional additional_type for sub-assessments.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
+narrow_mappings:
+- schemaorg:AssessAction
+is_a: Action
 attributes:
-  resources:
-    name: resources
-    description: List of resource names or identifiers representing the K8TRE applications
-      or services to be deployed as part of the project. Can include multiple resources.
-    from_schema: https://w3id.org/karectl-crates/deployment-model
+  additional_type:
+    name: additional_type
+    description: Additional type classification for specialized actions, used to reference
+      sub-actions  or specific assessment types (e.g., 'disclosure check' for AssessAction).
+    from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     domain_of:
-    - Deployment
-    range: Resource
-    multivalued: true
-    inlined: true
-    inlined_as_list: true
-  environment:
-    name: environment
-    description: The environment configuration for the deployment, specifying the
-      target trusted research environment (TRE) and its properties.
-    from_schema: https://w3id.org/karectl-crates/deployment-model
-    rank: 1000
-    domain_of:
-    - Deployment
-    range: Environment
+    - AssessAction
+    range: string
+    required: false
 
 </code></pre>
 </details>
 <h3 id="induced">Induced</h3>
 <details>
-<pre><code class="language-yaml">name: Deployment
-description: Models the deployment configuration for a Cr8tor project, specifying
-  the K8TRE resources and applications to be provisioned, as well as the target environment.
-  This class represents the state and desired configuration for project deployments.
+<pre><code class="language-yaml">name: AssessAction
+description: Represents an assessment action performed on a Cr8tor project, used to
+  track validation, disclosure checks, and other evaluation activities. Inherits all
+  properties from Action and adds an optional additional_type for sub-assessments.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
+narrow_mappings:
+- schemaorg:AssessAction
+is_a: Action
 attributes:
-  resources:
-    name: resources
-    description: List of resource names or identifiers representing the K8TRE applications
-      or services to be deployed as part of the project. Can include multiple resources.
-    from_schema: https://w3id.org/karectl-crates/deployment-model
+  additional_type:
+    name: additional_type
+    description: Additional type classification for specialized actions, used to reference
+      sub-actions  or specific assessment types (e.g., 'disclosure check' for AssessAction).
+    from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
-    alias: resources
-    owner: Deployment
+    alias: additional_type
+    owner: AssessAction
     domain_of:
-    - Deployment
-    range: Resource
+    - AssessAction
+    range: string
+    required: false
+  id:
+    name: id
+    description: Unique identifier for the action, typically formatted as '{command_type}-{project_id}'.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    identifier: true
+    alias: id
+    owner: AssessAction
+    domain_of:
+    - Project
+    - Action
+    - User
+    range: string
+    required: true
+  type:
+    name: type
+    description: The specific type of action being performed (e.g., CreateAction,
+      AssessAction).
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    rank: 1000
+    designates_type: true
+    alias: type
+    owner: AssessAction
+    domain_of:
+    - Action
+    - Group
+    - Destination
+    - Resource
+    range: string
+    required: true
+  name:
+    name: name
+    description: Human-readable name describing the action (e.g., "CREATE Data Project
+      Action").
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    alias: name
+    owner: AssessAction
+    domain_of:
+    - Project
+    - Action
+    - Dataset
+    - Table
+    - Column
+    - Resource
+    - Environment
+    range: string
+    required: true
+  start_time:
+    name: start_time
+    description: The date and time when the action started execution.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    alias: start_time
+    owner: AssessAction
+    domain_of:
+    - Project
+    - Action
+    range: datetime
+    required: true
+  end_time:
+    name: end_time
+    description: The date and time when the action completed or failed.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    rank: 1000
+    alias: end_time
+    owner: AssessAction
+    domain_of:
+    - Action
+    range: datetime
+    required: true
+  action_status:
+    name: action_status
+    description: The current status of the action, indicating whether it's active,
+      completed, failed, or potential. Formatted based on schema.org ActionStatus
+      and Provenance Crate Profile specification.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    rank: 1000
+    alias: action_status
+    owner: AssessAction
+    domain_of:
+    - Action
+    range: ActionStatusType
+    required: true
+  agent:
+    name: agent
+    description: The agent (person, organization, or software) that triggered or performed
+      the action. Can reference a Person, Organization, or SoftwareApplication entity.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    rank: 1000
+    alias: agent
+    owner: AssessAction
+    domain_of:
+    - Action
+    range: string
+    required: true
+  instrument:
+    name: instrument
+    description: The tool or service that executed the action (e.g., 'cr8tor CLI',
+      'GitHub Action',  specific TRE service). Maps to schema.org Action.instrument.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    rank: 1000
+    alias: instrument
+    owner: AssessAction
+    domain_of:
+    - Action
+    range: string
+    required: false
+  result:
+    name: result
+    description: List of result items produced by the action, typically ID references
+      to other  data or context entities created or modified by the action.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    rank: 1000
+    alias: result
+    owner: AssessAction
+    domain_of:
+    - Action
+    range: string
+    required: false
     multivalued: true
     inlined: true
     inlined_as_list: true
-  environment:
-    name: environment
-    description: The environment configuration for the deployment, specifying the
-      target trusted research environment (TRE) and its properties.
-    from_schema: https://w3id.org/karectl-crates/deployment-model
+  error:
+    name: error
+    description: Error message or output if the action failed. Only present when action_status
+      is FailedActionStatus.
+    from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
-    alias: environment
-    owner: Deployment
+    alias: error
+    owner: AssessAction
     domain_of:
-    - Deployment
-    range: Environment
+    - Action
+    range: string
+    required: false
 
 </code></pre>
 </details>

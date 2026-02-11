@@ -269,7 +269,7 @@
 
 
 
-        Governance --&gt; "0..1" Project : project
+        Governance --&gt; "1" Project : project
         click Project href "../Project/"
 
 
@@ -300,15 +300,15 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../users/">users</a></td>
-<td>* <br/> <a href="../User/">User</a></td>
-<td>List of users who have access to the project, each with their own roles, perm...</td>
+<td><a href="../project/">project</a></td>
+<td>1 <br/> <a href="../Project/">Project</a></td>
+<td>The project entity governed by this governance model, containing core project...</td>
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../project/">project</a></td>
-<td>0..1 <br/> <a href="../Project/">Project</a></td>
-<td>The project entity governed by this governance model, containing core project...</td>
+<td><a href="../users/">users</a></td>
+<td>* <br/> <a href="../User/">User</a></td>
+<td>List of users who have access to the project, each with their own roles, perm...</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -367,6 +367,19 @@ description: Represents the governance structure of a Cr8tor project, encapsulat
   and compliance with governance requirements.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 attributes:
+  project:
+    name: project
+    description: The project entity governed by this governance model, containing
+      core project metadata and state.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    rank: 1000
+    domain_of:
+    - Governance
+    range: Project
+    required: true
+    multivalued: false
+    inlined: true
+    inlined_as_list: true
   users:
     name: users
     description: List of users who have access to the project, each with their own
@@ -380,15 +393,6 @@ attributes:
     multivalued: true
     inlined: true
     inlined_as_list: true
-  project:
-    name: project
-    description: The project entity governed by this governance model, containing
-      core project metadata and state.
-    from_schema: https://w3id.org/karectl-crates/governance-model
-    rank: 1000
-    domain_of:
-    - Governance
-    range: Project
 
 </code></pre>
 </details>
@@ -401,6 +405,21 @@ description: Represents the governance structure of a Cr8tor project, encapsulat
   and compliance with governance requirements.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 attributes:
+  project:
+    name: project
+    description: The project entity governed by this governance model, containing
+      core project metadata and state.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    rank: 1000
+    alias: project
+    owner: Governance
+    domain_of:
+    - Governance
+    range: Project
+    required: true
+    multivalued: false
+    inlined: true
+    inlined_as_list: true
   users:
     name: users
     description: List of users who have access to the project, each with their own
@@ -416,17 +435,6 @@ attributes:
     multivalued: true
     inlined: true
     inlined_as_list: true
-  project:
-    name: project
-    description: The project entity governed by this governance model, containing
-      core project metadata and state.
-    from_schema: https://w3id.org/karectl-crates/governance-model
-    rank: 1000
-    alias: project
-    owner: Governance
-    domain_of:
-    - Governance
-    range: Project
 
 </code></pre>
 </details>

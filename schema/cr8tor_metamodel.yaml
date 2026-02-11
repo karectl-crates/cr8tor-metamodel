@@ -20,8 +20,8 @@ prefixes:
   biolink:
     prefix_prefix: biolink
     prefix_reference: https://w3id.org/biolink/
-  schema:
-    prefix_prefix: schema
+  schemaorg:
+    prefix_prefix: schemaorg
     prefix_reference: http://schema.org/
   PATO:
     prefix_prefix: PATO
@@ -407,6 +407,21 @@ slots:
     required: true
     inlined: true
     inlined_as_list: true
+  governance__project:
+    name: governance__project
+    description: The project entity governed by this governance model, containing
+      core project metadata and state.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:project
+    alias: project
+    owner: Governance
+    domain_of:
+    - Governance
+    range: Project
+    required: true
+    multivalued: false
+    inlined: true
+    inlined_as_list: true
   governance__users:
     name: governance__users
     description: List of users who have access to the project, each with their own
@@ -422,19 +437,6 @@ slots:
     multivalued: true
     inlined: true
     inlined_as_list: true
-  governance__project:
-    name: governance__project
-    description: The project entity governed by this governance model, containing
-      core project metadata and state.
-    from_schema: https://w3id.org/karectl-crates/governance-model
-    slot_uri: cr8tor_metamodel:project
-    alias: project
-    owner: Governance
-    domain_of:
-    - Governance
-    range: Project
-    inlined: true
-    inlined_as_list: true
   project__id:
     name: project__id
     description: Unique identifier for the project
@@ -445,6 +447,7 @@ slots:
     domain_of:
     - Project
     range: string
+    required: false
   project__name:
     name: project__name
     description: The unique name of the Cr8tor project, used for identification and
@@ -488,6 +491,7 @@ slots:
     domain_of:
     - Project
     range: string
+    required: false
   project__actions:
     name: project__actions
     description: List of actions performed on the cr8tor project
@@ -519,11 +523,12 @@ slots:
       AssessAction).
     from_schema: https://w3id.org/karectl-crates/governance-model
     slot_uri: cr8tor_metamodel:type
+    designates_type: true
     alias: type
     owner: Action
     domain_of:
     - Action
-    range: ActionType
+    range: string
     required: true
   action__name:
     name: action__name
@@ -622,16 +627,16 @@ slots:
     - Action
     range: string
     required: false
-  action__additional_type:
-    name: action__additional_type
+  assessAction__additional_type:
+    name: assessAction__additional_type
     description: Additional type classification for specialized actions, used to reference
       sub-actions  or specific assessment types (e.g., 'disclosure check' for AssessAction).
     from_schema: https://w3id.org/karectl-crates/governance-model
     slot_uri: cr8tor_metamodel:additional_type
     alias: additional_type
-    owner: Action
+    owner: AssessAction
     domain_of:
-    - Action
+    - AssessAction
     range: string
     required: false
   user__id:
@@ -640,8 +645,8 @@ slots:
       within and across systems.
     from_schema: https://w3id.org/karectl-crates/governance-model
     mappings:
-    - schema-org:identifier
-    slot_uri: schema-org:identifier
+    - schemaorg:identifier
+    slot_uri: schemaorg:identifier
     identifier: true
     alias: id
     owner: User
@@ -655,8 +660,8 @@ slots:
       and identification within the project.
     from_schema: https://w3id.org/karectl-crates/governance-model
     mappings:
-    - schema-org:identifier
-    slot_uri: schema-org:identifier
+    - schemaorg:identifier
+    slot_uri: schemaorg:identifier
     alias: username
     owner: User
     domain_of:
@@ -667,8 +672,8 @@ slots:
     description: The user's first or given name, representing their personal identity.
     from_schema: https://w3id.org/karectl-crates/governance-model
     mappings:
-    - schema-org:name
-    slot_uri: schema-org:name
+    - schemaorg:name
+    slot_uri: schemaorg:name
     alias: given_name
     owner: User
     domain_of:
@@ -1008,8 +1013,9 @@ slots:
     owner: Deployment
     domain_of:
     - Deployment
-    range: string
+    range: Resource
     multivalued: true
+    inlined: true
     inlined_as_list: true
   deployment__environment:
     name: deployment__environment
@@ -1042,6 +1048,7 @@ slots:
       its function or category.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     slot_uri: cr8tor_metamodel:type
+    designates_type: true
     alias: type
     owner: Resource
     domain_of:
@@ -1146,9 +1153,17 @@ classes:
       access and compliance with governance requirements.
     from_schema: https://w3id.org/karectl-crates/governance-model
     slots:
-    - governance__users
     - governance__project
+    - governance__users
     attributes:
+      project:
+        name: project
+        description: The project entity governed by this governance model, containing
+          core project metadata and state.
+        range: Project
+        required: true
+        multivalued: false
+        inlined_as_list: true
       users:
         name: users
         description: List of users who have access to the project, each with their
@@ -1157,11 +1172,6 @@ classes:
         range: User
         multivalued: true
         inlined_as_list: true
-      project:
-        name: project
-        description: The project entity governed by this governance model, containing
-          core project metadata and state.
-        range: Project
     class_uri: cr8tor_metamodel:Governance
   Project:
     name: Project
@@ -1172,7 +1182,7 @@ classes:
       within the Cr8tor ecosystem.
     from_schema: https://w3id.org/karectl-crates/governance-model
     narrow_mappings:
-    - schema-org:Project
+    - schemaorg:Project
     slots:
     - project__id
     - project__name
@@ -1185,22 +1195,27 @@ classes:
         name: id
         description: Unique identifier for the project
         range: string
+        required: false
       name:
         name: name
         description: The unique name of the Cr8tor project, used for identification
           and reference within the system.
+        range: string
       description:
         name: description
         description: A brief summary describing the purpose, scope, or objectives
           of the Cr8tor project.
+        range: string
       reference:
         name: reference
         description: An external or internal reference identifier for the Cr8tor project,
           used for cross-referencing or linking to related resources.
+        range: string
       start_time:
         name: start_time
         description: Timestamp when project was created
         range: string
+        required: false
       actions:
         name: actions
         description: List of actions performed on the cr8tor project
@@ -1217,7 +1232,7 @@ classes:
       create, assess, validate, etc.
     from_schema: https://w3id.org/karectl-crates/governance-model
     narrow_mappings:
-    - schema-org:Action
+    - schemaorg:Action
     slots:
     - action__id
     - action__type
@@ -1229,7 +1244,6 @@ classes:
     - action__instrument
     - action__result
     - action__error
-    - action__additional_type
     attributes:
       id:
         name: id
@@ -1241,7 +1255,8 @@ classes:
         name: type
         description: The specific type of action being performed (e.g., CreateAction,
           AssessAction).
-        range: ActionType
+        designates_type: true
+        range: string
         required: true
       name:
         name: name
@@ -1293,6 +1308,52 @@ classes:
           action_status is FailedActionStatus.
         range: string
         required: false
+    class_uri: cr8tor_metamodel:Action
+  CreateAction:
+    name: CreateAction
+    definition_uri: https://w3id.org/karectl-crates/governance-model/CreateAction
+    description: Represents a create action performed on a Cr8tor project, typically
+      used to track project initialization and creation events. Inherits all properties
+      from Action.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    narrow_mappings:
+    - schemaorg:CreateAction
+    is_a: Action
+    slots:
+    - action__id
+    - action__type
+    - action__name
+    - action__start_time
+    - action__end_time
+    - action__action_status
+    - action__agent
+    - action__instrument
+    - action__result
+    - action__error
+    class_uri: cr8tor_metamodel:CreateAction
+  AssessAction:
+    name: AssessAction
+    definition_uri: https://w3id.org/karectl-crates/governance-model/AssessAction
+    description: Represents an assessment action performed on a Cr8tor project, used
+      to track validation, disclosure checks, and other evaluation activities. Inherits
+      all properties from Action and adds an optional additional_type for sub-assessments.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    narrow_mappings:
+    - schemaorg:AssessAction
+    is_a: Action
+    slots:
+    - action__id
+    - action__type
+    - action__name
+    - action__start_time
+    - action__end_time
+    - action__action_status
+    - action__agent
+    - action__instrument
+    - action__result
+    - action__error
+    - assessAction__additional_type
+    attributes:
       additional_type:
         name: additional_type
         description: Additional type classification for specialized actions, used
@@ -1300,7 +1361,7 @@ classes:
           check' for AssessAction).
         range: string
         required: false
-    class_uri: cr8tor_metamodel:Action
+    class_uri: cr8tor_metamodel:AssessAction
   User:
     name: User
     definition_uri: https://w3id.org/karectl-crates/governance-model/User
@@ -1310,8 +1371,8 @@ classes:
       to the project and their access rights.
     from_schema: https://w3id.org/karectl-crates/governance-model
     narrow_mappings:
-    - schema-org:Person
-    - schema-org:Organization
+    - schemaorg:Person
+    - schemaorg:Organization
     - scim:User
     slots:
     - user__id
@@ -1328,19 +1389,19 @@ classes:
         name: id
         description: A globally unique identifier for the user, ensuring unambiguous
           reference within and across systems.
-        slot_uri: schema-org:identifier
+        slot_uri: schemaorg:identifier
         identifier: true
         range: uriorcurie
       username:
         name: username
         description: The user's unique login or account name, used for authentication
           and identification within the project.
-        slot_uri: schema-org:identifier
+        slot_uri: schemaorg:identifier
         range: uriorcurie
       given_name:
         name: given_name
         description: The user's first or given name, representing their personal identity.
-        slot_uri: schema-org:name
+        slot_uri: schemaorg:name
       family_name:
         name: family_name
         description: The user's last or family name, used for identification and display
@@ -1620,7 +1681,7 @@ classes:
         description: List of resource names or identifiers representing the K8TRE
           applications or services to be deployed as part of the project. Can include
           multiple resources.
-        range: string
+        range: Resource
         multivalued: true
         inlined_as_list: true
       environment:
@@ -1652,6 +1713,7 @@ classes:
         name: type
         description: The type of application or resource (e.g., jupyterhub, vdi),
           specifying its function or category.
+        designates_type: true
         range: string
         required: true
       url:
@@ -1723,7 +1785,7 @@ classes:
     class_uri: cr8tor_metamodel:Environment
 metamodel_version: 1.7.0
 source_file: cr8tor_metamodel.yaml
-source_file_date: '2026-02-11T09:54:54'
-source_file_size: 1516
-generation_date: '2026-02-11T09:55:08'
+source_file_date: '2026-02-11T15:16:05'
+source_file_size: 1519
+generation_date: '2026-02-11T15:16:18'
 

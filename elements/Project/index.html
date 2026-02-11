@@ -379,7 +379,7 @@
 </tr>
 <tr>
 <td>narrow</td>
-<td>schema-org:Project</td>
+<td>schemaorg:Project</td>
 </tr>
 </tbody>
 </table>
@@ -394,7 +394,7 @@ description: Defines the core state and identifying properties of a Cr8tor proje
   Cr8tor ecosystem.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 narrow_mappings:
-- schema-org:Project
+- schemaorg:Project
 attributes:
   id:
     name: id
@@ -406,6 +406,7 @@ attributes:
     - Action
     - User
     range: string
+    required: false
   name:
     name: name
     description: The unique name of the Cr8tor project, used for identification and
@@ -420,6 +421,7 @@ attributes:
     - Column
     - Resource
     - Environment
+    range: string
   description:
     name: description
     description: A brief summary describing the purpose, scope, or objectives of the
@@ -428,6 +430,7 @@ attributes:
     rank: 1000
     domain_of:
     - Project
+    range: string
   reference:
     name: reference
     description: An external or internal reference identifier for the Cr8tor project,
@@ -436,6 +439,7 @@ attributes:
     rank: 1000
     domain_of:
     - Project
+    range: string
   start_time:
     name: start_time
     description: Timestamp when project was created
@@ -445,6 +449,7 @@ attributes:
     - Project
     - Action
     range: string
+    required: false
   actions:
     name: actions
     description: List of actions performed on the cr8tor project
@@ -468,7 +473,7 @@ description: Defines the core state and identifying properties of a Cr8tor proje
   Cr8tor ecosystem.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 narrow_mappings:
-- schema-org:Project
+- schemaorg:Project
 attributes:
   id:
     name: id
@@ -482,6 +487,7 @@ attributes:
     - Action
     - User
     range: string
+    required: false
   name:
     name: name
     description: The unique name of the Cr8tor project, used for identification and
@@ -532,6 +538,7 @@ attributes:
     - Project
     - Action
     range: string
+    required: false
   actions:
     name: actions
     description: List of actions performed on the cr8tor project

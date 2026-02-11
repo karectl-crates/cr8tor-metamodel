@@ -25,6 +25,10 @@
          <lastmod>2026-02-11</lastmod>
     </url>
     <url>
+         <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/AssessAction/</loc>
+         <lastmod>2026-02-11</lastmod>
+    </url>
+    <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Boolean/</loc>
          <lastmod>2026-02-11</lastmod>
     </url>
@@ -34,6 +38,10 @@
     </url>
     <url>
          <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/Cr8tor/</loc>
+         <lastmod>2026-02-11</lastmod>
+    </url>
+    <url>
+         <loc>https://karectl-crates.github.io/cr8tor-metamodel/elements/CreateAction/</loc>
          <lastmod>2026-02-11</lastmod>
     </url>
     <url>

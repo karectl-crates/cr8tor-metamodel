@@ -403,7 +403,7 @@
 </tr>
 <tr>
 <td>narrow</td>
-<td>schema-org:Person, schema-org:Organization, scim:User</td>
+<td>schemaorg:Person, schemaorg:Organization, scim:User</td>
 </tr>
 </tbody>
 </table>
@@ -418,8 +418,8 @@ description: Models an individual user associated with a Cr8tor project, capturi
   the project and their access rights.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 narrow_mappings:
-- schema-org:Person
-- schema-org:Organization
+- schemaorg:Person
+- schemaorg:Organization
 - scim:User
 attributes:
   id:
@@ -427,7 +427,7 @@ attributes:
     description: A globally unique identifier for the user, ensuring unambiguous reference
       within and across systems.
     from_schema: https://w3id.org/karectl-crates/governance-model
-    slot_uri: schema-org:identifier
+    slot_uri: schemaorg:identifier
     identifier: true
     domain_of:
     - Project
@@ -441,7 +441,7 @@ attributes:
       and identification within the project.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
-    slot_uri: schema-org:identifier
+    slot_uri: schemaorg:identifier
     domain_of:
     - User
     range: uriorcurie
@@ -450,7 +450,7 @@ attributes:
     description: The user's first or given name, representing their personal identity.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
-    slot_uri: schema-org:name
+    slot_uri: schemaorg:name
     domain_of:
     - User
   family_name:
@@ -520,8 +520,8 @@ description: Models an individual user associated with a Cr8tor project, capturi
   the project and their access rights.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 narrow_mappings:
-- schema-org:Person
-- schema-org:Organization
+- schemaorg:Person
+- schemaorg:Organization
 - scim:User
 attributes:
   id:
@@ -529,7 +529,7 @@ attributes:
     description: A globally unique identifier for the user, ensuring unambiguous reference
       within and across systems.
     from_schema: https://w3id.org/karectl-crates/governance-model
-    slot_uri: schema-org:identifier
+    slot_uri: schemaorg:identifier
     identifier: true
     alias: id
     owner: User
@@ -545,7 +545,7 @@ attributes:
       and identification within the project.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
-    slot_uri: schema-org:identifier
+    slot_uri: schemaorg:identifier
     alias: username
     owner: User
     domain_of:
@@ -556,7 +556,7 @@ attributes:
     description: The user's first or given name, representing their personal identity.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
-    slot_uri: schema-org:name
+    slot_uri: schemaorg:name
     alias: given_name
     owner: User
     domain_of:
