@@ -263,6 +263,21 @@
 <div class="mermaid"> classDiagram
     class Source
     click Source href "../Source/"
+      Source : credentials
+
+
+
+
+
+        Source --&gt; "0..1" Credential : credentials
+        click Credential href "../Credential/"
+
+
+
+      Source : name
+
+      Source : type
+
       Source : url
 
 
@@ -280,9 +295,27 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="../name/">name</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>The name of the data source, used for identification and reference</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../type/">type</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>The type of data source (e</td>
+<td>direct</td>
+</tr>
+<tr>
 <td><a href="../url/">url</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
 <td>The URL or location of the data source, specifying where data can be accessed...</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../credentials/">credentials</a></td>
+<td>0..1 <br/> <a href="../Credential/">Credential</a></td>
+<td>The credentials required to access the data source, including authentication ...</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -340,6 +373,33 @@ description: Models a data source within a Cr8tor project, representing the orig
   or internal data sources.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 attributes:
+  name:
+    name: name
+    description: The name of the data source, used for identification and reference.
+    from_schema: https://w3id.org/karectl-crates/data-model
+    domain_of:
+    - Project
+    - Action
+    - Source
+    - Dataset
+    - Table
+    - Column
+    - Resource
+    - Environment
+    range: string
+    required: false
+  type:
+    name: type
+    description: The type of data source (e.g., databricks, postgresql, mssql, filestore).
+    from_schema: https://w3id.org/karectl-crates/data-model
+    domain_of:
+    - Action
+    - Group
+    - Source
+    - Destination
+    - Resource
+    range: string
+    required: false
   url:
     name: url
     description: The URL or location of the data source, specifying where data can
@@ -351,6 +411,16 @@ attributes:
     - Destination
     - Resource
     range: string
+  credentials:
+    name: credentials
+    description: The credentials required to access the data source, including authentication
+      provider and key references.
+    from_schema: https://w3id.org/karectl-crates/data-model
+    rank: 1000
+    domain_of:
+    - Source
+    range: Credential
+    required: false
 
 </code></pre>
 </details>
@@ -362,6 +432,37 @@ description: Models a data source within a Cr8tor project, representing the orig
   or internal data sources.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 attributes:
+  name:
+    name: name
+    description: The name of the data source, used for identification and reference.
+    from_schema: https://w3id.org/karectl-crates/data-model
+    alias: name
+    owner: Source
+    domain_of:
+    - Project
+    - Action
+    - Source
+    - Dataset
+    - Table
+    - Column
+    - Resource
+    - Environment
+    range: string
+    required: false
+  type:
+    name: type
+    description: The type of data source (e.g., databricks, postgresql, mssql, filestore).
+    from_schema: https://w3id.org/karectl-crates/data-model
+    alias: type
+    owner: Source
+    domain_of:
+    - Action
+    - Group
+    - Source
+    - Destination
+    - Resource
+    range: string
+    required: false
   url:
     name: url
     description: The URL or location of the data source, specifying where data can
@@ -375,6 +476,18 @@ attributes:
     - Destination
     - Resource
     range: string
+  credentials:
+    name: credentials
+    description: The credentials required to access the data source, including authentication
+      provider and key references.
+    from_schema: https://w3id.org/karectl-crates/data-model
+    rank: 1000
+    alias: credentials
+    owner: Source
+    domain_of:
+    - Source
+    range: Credential
+    required: false
 
 </code></pre>
 </details>

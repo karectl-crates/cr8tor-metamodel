@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://karectl-crates.github.io/cr8tor-metamodel/elements/enabled/">
+        <link rel="canonical" href="https://karectl-crates.github.io/cr8tor-metamodel/elements/username_key/">
       
       
       
@@ -21,7 +21,7 @@
     
     
       
-        <title>Slot: enabled - cr8tor-metamodel</title>
+        <title>Slot: username_key - cr8tor-metamodel</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-enabled" class="md-skip">
+        <a href="#slot-username_key" class="md-skip">
           Skip to content
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: enabled
+              Slot: username_key
             
           </span>
         </div>
@@ -416,10 +416,10 @@
   
 
 
-<h1 id="slot-enabled">Slot: enabled</h1>
-<p><em>Boolean flag indicating whether the application or resource is enabled and available for use.</em></p>
-<p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/enabled">cr8tor_metamodel:enabled</a>
-Alias: enabled</p>
+<h1 id="slot-username_key">Slot: username_key</h1>
+<p><em>The key or identifier used to retrieve the username from the credential provider.</em></p>
+<p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/username_key">cr8tor_metamodel:username_key</a>
+Alias: username_key</p>
 <!-- no inheritance hierarchy -->
 
 <h2 id="applicable-classes">Applicable Classes</h2>
@@ -433,18 +433,8 @@ Alias: enabled</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="../Keycloak/">Keycloak</a></td>
-<td>Specialized resource configuration for deploying Keycloak identity and access...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Jupyter/">Jupyter</a></td>
-<td>Specialized resource configuration for deploying Jupyter workspaces within a ...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Resource/">Resource</a></td>
-<td>Abstract base class for K8TRE resources (such as applications or services) th...</td>
+<td><a href="../Credential/">Credential</a></td>
+<td>Models authentication credentials for accessing a data source, including the ...</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -452,7 +442,7 @@ Alias: enabled</p>
 <h2 id="properties">Properties</h2>
 <ul>
 <li>
-<p>Range: <a href="../Boolean/">Boolean</a></p>
+<p>Range: <a href="../String/">String</a></p>
 </li>
 <li>
 <p>Required: True</p>
@@ -474,27 +464,27 @@ Alias: enabled</p>
 <tbody>
 <tr>
 <td>self</td>
-<td>cr8tor_metamodel:enabled</td>
+<td>cr8tor_metamodel:username_key</td>
 </tr>
 <tr>
 <td>native</td>
-<td>cr8tor_metamodel:enabled</td>
+<td>cr8tor_metamodel:username_key</td>
 </tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 
-<pre><code class="language-yaml">name: enabled
-description: Boolean flag indicating whether the application or resource is enabled
-  and available for use.
+<pre><code class="language-yaml">name: username_key
+description: The key or identifier used to retrieve the username from the credential
+  provider.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 rank: 1000
-alias: enabled
-owner: Resource
+alias: username_key
+owner: Credential
 domain_of:
-- Resource
-range: boolean
+- Credential
+range: string
 required: true
 
 </code></pre>

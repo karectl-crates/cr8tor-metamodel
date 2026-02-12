@@ -859,6 +859,28 @@ slots:
     multivalued: true
     inlined: true
     inlined_as_list: true
+  source__name:
+    name: source__name
+    description: The name of the data source, used for identification and reference.
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slot_uri: cr8tor_metamodel:name
+    alias: name
+    owner: Source
+    domain_of:
+    - Source
+    range: string
+    required: false
+  source__type:
+    name: source__type
+    description: The type of data source (e.g., databricks, postgresql, mssql, filestore).
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slot_uri: cr8tor_metamodel:type
+    alias: type
+    owner: Source
+    domain_of:
+    - Source
+    range: string
+    required: false
   source__url:
     name: source__url
     description: The URL or location of the data source, specifying where data can
@@ -870,6 +892,56 @@ slots:
     domain_of:
     - Source
     range: string
+  source__credentials:
+    name: source__credentials
+    description: The credentials required to access the data source, including authentication
+      provider and key references.
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slot_uri: cr8tor_metamodel:credentials
+    alias: credentials
+    owner: Source
+    domain_of:
+    - Source
+    range: Credential
+    required: false
+    inlined: true
+    inlined_as_list: true
+  credential__provider:
+    name: credential__provider
+    description: The credential provider or authentication service (e.g., Azure Key
+      Vault, AWS Secrets Manager, HashiCorp Vault).
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slot_uri: cr8tor_metamodel:provider
+    alias: provider
+    owner: Credential
+    domain_of:
+    - Credential
+    range: string
+    required: true
+  credential__password_key:
+    name: credential__password_key
+    description: The key or identifier used to retrieve the password from the credential
+      provider.
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slot_uri: cr8tor_metamodel:password_key
+    alias: password_key
+    owner: Credential
+    domain_of:
+    - Credential
+    range: string
+    required: true
+  credential__username_key:
+    name: credential__username_key
+    description: The key or identifier used to retrieve the username from the credential
+      provider.
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slot_uri: cr8tor_metamodel:username_key
+    alias: username_key
+    owner: Credential
+    domain_of:
+    - Credential
+    range: string
+    required: true
   destination__type:
     name: destination__type
     description: The type of destination (e.g., filestore, postgresql), specifying
@@ -1534,14 +1606,65 @@ classes:
       or internal data sources.
     from_schema: https://w3id.org/karectl-crates/data-model
     slots:
+    - source__name
+    - source__type
     - source__url
+    - source__credentials
     attributes:
+      name:
+        name: name
+        description: The name of the data source, used for identification and reference.
+        range: string
+        required: false
+      type:
+        name: type
+        description: The type of data source (e.g., databricks, postgresql, mssql,
+          filestore).
+        range: string
+        required: false
       url:
         name: url
         description: The URL or location of the data source, specifying where data
           can be accessed or retrieved from.
         range: string
+      credentials:
+        name: credentials
+        description: The credentials required to access the data source, including
+          authentication provider and key references.
+        range: Credential
+        required: false
     class_uri: cr8tor_metamodel:Source
+  Credential:
+    name: Credential
+    definition_uri: https://w3id.org/karectl-crates/data-model/Credential
+    description: Models authentication credentials for accessing a data source, including
+      the provider and references to password and username keys stored in a secure
+      credential store.
+    from_schema: https://w3id.org/karectl-crates/data-model
+    slots:
+    - credential__provider
+    - credential__password_key
+    - credential__username_key
+    attributes:
+      provider:
+        name: provider
+        description: The credential provider or authentication service (e.g., Azure
+          Key Vault, AWS Secrets Manager, HashiCorp Vault).
+        range: string
+        required: true
+      password_key:
+        name: password_key
+        description: The key or identifier used to retrieve the password from the
+          credential provider.
+        range: string
+        required: true
+      username_key:
+        name: username_key
+        description: The key or identifier used to retrieve the username from the
+          credential provider.
+        range: string
+        required: true
+    class_uri: cr8tor_metamodel:Credential
   Destination:
     name: Destination
     definition_uri: https://w3id.org/karectl-crates/data-model/Destination
@@ -1785,7 +1908,7 @@ classes:
     class_uri: cr8tor_metamodel:Environment
 metamodel_version: 1.7.0
 source_file: cr8tor_metamodel.yaml
-source_file_date: '2026-02-11T15:16:05'
+source_file_date: '2026-02-12T14:55:14'
 source_file_size: 1519
-generation_date: '2026-02-11T15:16:18'
+generation_date: '2026-02-12T14:55:28'
 
