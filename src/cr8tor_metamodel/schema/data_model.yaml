@@ -41,9 +41,39 @@ classes:
     description: >-
       Models a data source within a Cr8tor project, representing the origin of data to be ingested. This class defines the state and configuration of external or internal data sources.
     attributes:
+      name:
+        range: string
+        description: The name of the data source, used for identification and reference.
+        required: false
+      type:
+        range: string
+        description: The type of data source (e.g., databricks, postgresql, mssql, filestore).
+        required: false
       url:
         range: string
         description: The URL or location of the data source, specifying where data can be accessed or retrieved from.
+      credentials:
+        range: Credential
+        description: The credentials required to access the data source, including authentication provider and key references.
+        required: false
+
+  Credential:
+    description: >-
+      Models authentication credentials for accessing a data source, including the provider and references to password and username keys stored in a secure credential store.
+    attributes:
+      provider:
+        range: string
+        description: The credential provider or authentication service (e.g., Azure Key Vault, AWS Secrets Manager, HashiCorp Vault).
+        required: true
+      password_key:
+        range: string
+        description: The key or identifier used to retrieve the password from the credential provider.
+        required: true
+      username_key:
+        range: string
+        description: The key or identifier used to retrieve the username from the credential provider.
+        required: true
+
   Destination:
     description: >-
       Models a data destination within a Cr8tor project, representing the endpoint where data is delivered or stored after ingress. This class defines the state and configuration of data targets.

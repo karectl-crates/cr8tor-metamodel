@@ -1,5 +1,5 @@
 # Auto generated from cr8tor_metamodel.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-02-11T12:15:08
+# Generation date: 2026-02-11T18:34:41
 # Schema: cr8tor-metamodel
 #
 # id: https://w3id.org/karectl-crates/cr8tor-metamodel
@@ -501,11 +501,59 @@ class Source(YAMLRoot):
     class_name: ClassVar[str] = "Source"
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.Source
 
+    name: Optional[str] = None
+    type: Optional[str] = None
     url: Optional[str] = None
+    credentials: Optional[Union[dict, "Credential"]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
+        if self.name is not None and not isinstance(self.name, str):
+            self.name = str(self.name)
+
+        if self.type is not None and not isinstance(self.type, str):
+            self.type = str(self.type)
+
         if self.url is not None and not isinstance(self.url, str):
             self.url = str(self.url)
+
+        if self.credentials is not None and not isinstance(self.credentials, Credential):
+            self.credentials = Credential(**as_dict(self.credentials))
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class Credential(YAMLRoot):
+    """
+    Models authentication credentials for accessing a data source, including the provider and references to password
+    and username keys stored in a secure credential store.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CR8TOR_METAMODEL["Credential"]
+    class_class_curie: ClassVar[str] = "cr8tor_metamodel:Credential"
+    class_name: ClassVar[str] = "Credential"
+    class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.Credential
+
+    provider: str = None
+    password_key: str = None
+    username_key: str = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.provider):
+            self.MissingRequiredField("provider")
+        if not isinstance(self.provider, str):
+            self.provider = str(self.provider)
+
+        if self._is_empty(self.password_key):
+            self.MissingRequiredField("password_key")
+        if not isinstance(self.password_key, str):
+            self.password_key = str(self.password_key)
+
+        if self._is_empty(self.username_key):
+            self.MissingRequiredField("username_key")
+        if not isinstance(self.username_key, str):
+            self.username_key = str(self.username_key)
 
         super().__post_init__(**kwargs)
 
@@ -1003,8 +1051,26 @@ slots.ingress__destination = Slot(uri=CR8TOR_METAMODEL.destination, name="ingres
 slots.ingress__datasets = Slot(uri=CR8TOR_METAMODEL.datasets, name="ingress__datasets", curie=CR8TOR_METAMODEL.curie('datasets'),
                    model_uri=CR8TOR_METAMODEL.ingress__datasets, domain=None, range=Optional[Union[Union[dict, Dataset], list[Union[dict, Dataset]]]])
 
+slots.source__name = Slot(uri=CR8TOR_METAMODEL.name, name="source__name", curie=CR8TOR_METAMODEL.curie('name'),
+                   model_uri=CR8TOR_METAMODEL.source__name, domain=None, range=Optional[str])
+
+slots.source__type = Slot(uri=CR8TOR_METAMODEL.type, name="source__type", curie=CR8TOR_METAMODEL.curie('type'),
+                   model_uri=CR8TOR_METAMODEL.source__type, domain=None, range=Optional[str])
+
 slots.source__url = Slot(uri=CR8TOR_METAMODEL.url, name="source__url", curie=CR8TOR_METAMODEL.curie('url'),
                    model_uri=CR8TOR_METAMODEL.source__url, domain=None, range=Optional[str])
+
+slots.source__credentials = Slot(uri=CR8TOR_METAMODEL.credentials, name="source__credentials", curie=CR8TOR_METAMODEL.curie('credentials'),
+                   model_uri=CR8TOR_METAMODEL.source__credentials, domain=None, range=Optional[Union[dict, Credential]])
+
+slots.credential__provider = Slot(uri=CR8TOR_METAMODEL.provider, name="credential__provider", curie=CR8TOR_METAMODEL.curie('provider'),
+                   model_uri=CR8TOR_METAMODEL.credential__provider, domain=None, range=str)
+
+slots.credential__password_key = Slot(uri=CR8TOR_METAMODEL.password_key, name="credential__password_key", curie=CR8TOR_METAMODEL.curie('password_key'),
+                   model_uri=CR8TOR_METAMODEL.credential__password_key, domain=None, range=str)
+
+slots.credential__username_key = Slot(uri=CR8TOR_METAMODEL.username_key, name="credential__username_key", curie=CR8TOR_METAMODEL.curie('username_key'),
+                   model_uri=CR8TOR_METAMODEL.credential__username_key, domain=None, range=str)
 
 slots.destination__type = Slot(uri=CR8TOR_METAMODEL.type, name="destination__type", curie=CR8TOR_METAMODEL.curie('type'),
                    model_uri=CR8TOR_METAMODEL.destination__type, domain=None, range=Union[str, "DestinationType"])

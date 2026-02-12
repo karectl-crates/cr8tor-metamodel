@@ -195,6 +195,7 @@ class Project(ConfiguredBaseModel):
     id: Optional[str] = Field(default=None, description="""Unique identifier for the project""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'Action', 'User']} })
     name: Optional[str] = Field(default=None, description="""The unique name of the Cr8tor project, used for identification and reference within the system.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
                        'Action',
+                       'Source',
                        'Dataset',
                        'Table',
                        'Column',
@@ -215,9 +216,10 @@ class Action(ConfiguredBaseModel):
 
     id: str = Field(default=..., description="""Unique identifier for the action, typically formatted as '{command_type}-{project_id}'.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'Action', 'User']} })
     type: Literal["Action"] = Field(default="Action", description="""The specific type of action being performed (e.g., CreateAction, AssessAction).""", json_schema_extra = { "linkml_meta": {'designates_type': True,
-         'domain_of': ['Action', 'Group', 'Destination', 'Resource']} })
+         'domain_of': ['Action', 'Group', 'Source', 'Destination', 'Resource']} })
     name: str = Field(default=..., description="""Human-readable name describing the action (e.g., \"CREATE Data Project Action\").""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
                        'Action',
+                       'Source',
                        'Dataset',
                        'Table',
                        'Column',
@@ -241,9 +243,10 @@ class CreateAction(Action):
 
     id: str = Field(default=..., description="""Unique identifier for the action, typically formatted as '{command_type}-{project_id}'.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'Action', 'User']} })
     type: Literal["CreateAction"] = Field(default="CreateAction", description="""The specific type of action being performed (e.g., CreateAction, AssessAction).""", json_schema_extra = { "linkml_meta": {'designates_type': True,
-         'domain_of': ['Action', 'Group', 'Destination', 'Resource']} })
+         'domain_of': ['Action', 'Group', 'Source', 'Destination', 'Resource']} })
     name: str = Field(default=..., description="""Human-readable name describing the action (e.g., \"CREATE Data Project Action\").""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
                        'Action',
+                       'Source',
                        'Dataset',
                        'Table',
                        'Column',
@@ -268,9 +271,10 @@ class AssessAction(Action):
     additional_type: Optional[str] = Field(default=None, description="""Additional type classification for specialized actions, used to reference sub-actions  or specific assessment types (e.g., 'disclosure check' for AssessAction).""", json_schema_extra = { "linkml_meta": {'domain_of': ['AssessAction']} })
     id: str = Field(default=..., description="""Unique identifier for the action, typically formatted as '{command_type}-{project_id}'.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'Action', 'User']} })
     type: Literal["AssessAction"] = Field(default="AssessAction", description="""The specific type of action being performed (e.g., CreateAction, AssessAction).""", json_schema_extra = { "linkml_meta": {'designates_type': True,
-         'domain_of': ['Action', 'Group', 'Destination', 'Resource']} })
+         'domain_of': ['Action', 'Group', 'Source', 'Destination', 'Resource']} })
     name: str = Field(default=..., description="""Human-readable name describing the action (e.g., \"CREATE Data Project Action\").""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
                        'Action',
+                       'Source',
                        'Dataset',
                        'Table',
                        'Column',
@@ -318,7 +322,7 @@ class Group(ConfiguredBaseModel):
     display: Optional[str] = Field(default=None, description="""A human-readable display name for the group, used for UI and reporting. Read-only.""", json_schema_extra = { "linkml_meta": {'annotations': {'mutability': {'tag': 'mutability', 'value': 'readOnly'}},
          'domain_of': ['Group']} })
     type: Optional[GroupMembershipType] = Field(default=None, description="""The type of group membership, indicating how the user was assigned to the group (e.g., manual or automatic). Read-only.""", json_schema_extra = { "linkml_meta": {'annotations': {'mutability': {'tag': 'mutability', 'value': 'readOnly'}},
-         'domain_of': ['Action', 'Group', 'Destination', 'Resource']} })
+         'domain_of': ['Action', 'Group', 'Source', 'Destination', 'Resource']} })
 
 
 class Ingress(ConfiguredBaseModel):
@@ -338,7 +342,28 @@ class Source(ConfiguredBaseModel):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/data-model'})
 
+    name: Optional[str] = Field(default=None, description="""The name of the data source, used for identification and reference.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
+                       'Action',
+                       'Source',
+                       'Dataset',
+                       'Table',
+                       'Column',
+                       'Resource',
+                       'Environment']} })
+    type: Optional[str] = Field(default=None, description="""The type of data source (e.g., databricks, postgresql, mssql, filestore).""", json_schema_extra = { "linkml_meta": {'domain_of': ['Action', 'Group', 'Source', 'Destination', 'Resource']} })
     url: Optional[str] = Field(default=None, description="""The URL or location of the data source, specifying where data can be accessed or retrieved from.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource']} })
+    credentials: Optional[Credential] = Field(default=None, description="""The credentials required to access the data source, including authentication provider and key references.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source']} })
+
+
+class Credential(ConfiguredBaseModel):
+    """
+    Models authentication credentials for accessing a data source, including the provider and references to password and username keys stored in a secure credential store.
+    """
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/data-model'})
+
+    provider: str = Field(default=..., description="""The credential provider or authentication service (e.g., Azure Key Vault, AWS Secrets Manager, HashiCorp Vault).""", json_schema_extra = { "linkml_meta": {'domain_of': ['Credential']} })
+    password_key: str = Field(default=..., description="""The key or identifier used to retrieve the password from the credential provider.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Credential']} })
+    username_key: str = Field(default=..., description="""The key or identifier used to retrieve the username from the credential provider.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Credential']} })
 
 
 class Destination(ConfiguredBaseModel):
@@ -347,7 +372,7 @@ class Destination(ConfiguredBaseModel):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/data-model'})
 
-    type: DestinationType = Field(default=..., description="""The type of destination (e.g., filestore, postgresql), specifying the nature of the data endpoint. Required.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Action', 'Group', 'Destination', 'Resource']} })
+    type: DestinationType = Field(default=..., description="""The type of destination (e.g., filestore, postgresql), specifying the nature of the data endpoint. Required.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Action', 'Group', 'Source', 'Destination', 'Resource']} })
     url: Optional[str] = Field(default=None, description="""The URL or location of the data destination, specifying where data should be delivered. Optional.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource']} })
 
 
@@ -359,6 +384,7 @@ class Dataset(ConfiguredBaseModel):
 
     name: str = Field(default=..., description="""The name of the dataset, used for identification and reference within the project. Required.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
                        'Action',
+                       'Source',
                        'Dataset',
                        'Table',
                        'Column',
@@ -378,6 +404,7 @@ class Table(ConfiguredBaseModel):
 
     name: str = Field(default=..., description="""The name of the table, used for identification within the dataset. Required.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
                        'Action',
+                       'Source',
                        'Dataset',
                        'Table',
                        'Column',
@@ -394,6 +421,7 @@ class Column(ConfiguredBaseModel):
 
     name: str = Field(default=..., description="""The name of the column, used for identification within the table. Required.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
                        'Action',
+                       'Source',
                        'Dataset',
                        'Table',
                        'Column',
@@ -420,13 +448,14 @@ class Resource(ConfiguredBaseModel):
 
     name: str = Field(default=..., description="""The requested name of the resource, used for identification and management within the deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
                        'Action',
+                       'Source',
                        'Dataset',
                        'Table',
                        'Column',
                        'Resource',
                        'Environment']} })
     type: Literal["Resource"] = Field(default="Resource", description="""The type of application or resource (e.g., jupyterhub, vdi), specifying its function or category.""", json_schema_extra = { "linkml_meta": {'designates_type': True,
-         'domain_of': ['Action', 'Group', 'Destination', 'Resource']} })
+         'domain_of': ['Action', 'Group', 'Source', 'Destination', 'Resource']} })
     url: str = Field(default=..., description="""The URL endpoint for accessing the application or resource after deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource']} })
     enabled: bool = Field(default=..., description="""Boolean flag indicating whether the application or resource is enabled and available for use.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Resource']} })
 
@@ -440,13 +469,14 @@ class Jupyter(Resource):
     auth: Optional[str] = Field(default=None, description="""The type or method of authentication required to access the Jupyter workspace (e.g., OAuth, SSO).""", json_schema_extra = { "linkml_meta": {'domain_of': ['Jupyter']} })
     name: str = Field(default=..., description="""The requested name of the resource, used for identification and management within the deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
                        'Action',
+                       'Source',
                        'Dataset',
                        'Table',
                        'Column',
                        'Resource',
                        'Environment']} })
     type: Literal["Jupyter"] = Field(default="Jupyter", description="""The type of application or resource (e.g., jupyterhub, vdi), specifying its function or category.""", json_schema_extra = { "linkml_meta": {'designates_type': True,
-         'domain_of': ['Action', 'Group', 'Destination', 'Resource']} })
+         'domain_of': ['Action', 'Group', 'Source', 'Destination', 'Resource']} })
     url: str = Field(default=..., description="""The URL endpoint for accessing the application or resource after deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource']} })
     enabled: bool = Field(default=..., description="""Boolean flag indicating whether the application or resource is enabled and available for use.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Resource']} })
 
@@ -460,13 +490,14 @@ class Keycloak(Resource):
     somethingspecific: Optional[str] = Field(default=None, description="""A Keycloak-specific attribute for custom configuration or integration.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Keycloak']} })
     name: str = Field(default=..., description="""The requested name of the resource, used for identification and management within the deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
                        'Action',
+                       'Source',
                        'Dataset',
                        'Table',
                        'Column',
                        'Resource',
                        'Environment']} })
     type: Literal["Keycloak"] = Field(default="Keycloak", description="""The type of application or resource (e.g., jupyterhub, vdi), specifying its function or category.""", json_schema_extra = { "linkml_meta": {'designates_type': True,
-         'domain_of': ['Action', 'Group', 'Destination', 'Resource']} })
+         'domain_of': ['Action', 'Group', 'Source', 'Destination', 'Resource']} })
     url: str = Field(default=..., description="""The URL endpoint for accessing the application or resource after deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource']} })
     enabled: bool = Field(default=..., description="""Boolean flag indicating whether the application or resource is enabled and available for use.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Resource']} })
 
@@ -479,6 +510,7 @@ class Environment(ConfiguredBaseModel):
 
     name: Optional[str] = Field(default=None, description="""The name of the environment or TRE where the project will be deployed, used for identification and management.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
                        'Action',
+                       'Source',
                        'Dataset',
                        'Table',
                        'Column',
@@ -509,6 +541,7 @@ User.model_rebuild()
 Group.model_rebuild()
 Ingress.model_rebuild()
 Source.model_rebuild()
+Credential.model_rebuild()
 Destination.model_rebuild()
 Dataset.model_rebuild()
 Table.model_rebuild()
