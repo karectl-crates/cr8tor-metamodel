@@ -1,5 +1,5 @@
 from pathlib import Path
-from .cr8tor_metamodel import *
+# from .cr8tor_metamodel import *
 
 THIS_PATH = Path(__file__).parent
 
