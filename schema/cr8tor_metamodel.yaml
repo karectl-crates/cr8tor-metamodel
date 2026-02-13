@@ -1008,22 +1008,19 @@ slots:
   dataset__locations:
     name: dataset__locations
     description: List of data locations or URIs where the dataset is stored or accessed
-      during the TRE ingestion workflow. Can include strings, integers, or booleans
-      to represent various location types. Optional, can include multiple locations.
+      during the TRE ingestion workflow. Accepts arbitrary data structures including
+      dictionaries. Optional, can include multiple locations.
     from_schema: https://w3id.org/karectl-crates/data-model
     slot_uri: cr8tor_metamodel:locations
     alias: locations
     owner: Dataset
     domain_of:
     - Dataset
-    range: string
+    range: Location
     required: false
     multivalued: true
+    inlined: true
     inlined_as_list: true
-    any_of:
-    - range: string
-    - range: integer
-    - range: boolean
   table__name:
     name: table__name
     description: The name of the table, used for identification within the dataset.
@@ -1726,17 +1723,24 @@ classes:
       locations:
         name: locations
         description: List of data locations or URIs where the dataset is stored or
-          accessed during the TRE ingestion workflow. Can include strings, integers,
-          or booleans to represent various location types. Optional, can include multiple
-          locations.
+          accessed during the TRE ingestion workflow. Accepts arbitrary data structures
+          including dictionaries. Optional, can include multiple locations.
+        range: Location
         required: false
         multivalued: true
+        inlined: true
         inlined_as_list: true
-        any_of:
-        - range: string
-        - range: integer
-        - range: boolean
     class_uri: cr8tor_metamodel:Dataset
+  Location:
+    name: Location
+    definition_uri: https://w3id.org/karectl-crates/data-model/Location
+    description: Represents a data location with flexible attributes to accommodate
+      various storage types and metadata.
+    from_schema: https://w3id.org/karectl-crates/data-model
+    mappings:
+    - linkml:Any
+    class_uri: linkml:Any
+    tree_root: true
   Table:
     name: Table
     definition_uri: https://w3id.org/karectl-crates/data-model/Table
@@ -1908,7 +1912,7 @@ classes:
     class_uri: cr8tor_metamodel:Environment
 metamodel_version: 1.7.0
 source_file: cr8tor_metamodel.yaml
-source_file_date: '2026-02-13T11:31:38'
+source_file_date: '2026-02-13T12:41:01'
 source_file_size: 1519
-generation_date: '2026-02-13T11:31:50'
+generation_date: '2026-02-13T12:41:12'
 

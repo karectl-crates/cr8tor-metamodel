@@ -5,10 +5,10 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<link href="https://karectl-crates.github.io/cr8tor-metamodel/elements/Dataset/" rel="canonical"/>
+<link href="https://karectl-crates.github.io/cr8tor-metamodel/elements/Location/" rel="canonical"/>
 <link href="../../assets/images/favicon.png" rel="icon"/>
 <meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator"/>
-<title>Class: Dataset - cr8tor-metamodel</title>
+<title>Class: Location - cr8tor-metamodel</title>
 <link href="../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
@@ -23,7 +23,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#class-dataset">
+<a class="md-skip" href="#class-location">
           Skip to content
         </a>
 </div>
@@ -47,7 +47,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Class: Dataset
+              Class: Location
             
           </span>
 </div>
@@ -257,38 +257,12 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1 id="class-dataset">Class: Dataset</h1>
-<p><em>Represents a dataset to be ingested or managed within a Cr8tor project, including its metadata, schema, tables, and data locations. This class models the state and structure of data collections handled by the project.</em></p>
-<p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/Dataset">cr8tor_metamodel:Dataset</a></p>
+<h1 id="class-location">Class: Location</h1>
+<p><em>Represents a data location with flexible attributes to accommodate various storage types and metadata.</em></p>
+<p>URI: <a href="https://w3id.org/linkml/Any">linkml:Any</a></p>
 <div class="mermaid"> classDiagram
-    class Dataset
-    click Dataset href "../Dataset/"
-      Dataset : locations
-
-
-
-
-
-        Dataset --&gt; "*" Location : locations
-        click Location href "../Location/"
-
-
-
-      Dataset : name
-
-      Dataset : schema_name
-
-      Dataset : tables
-
-
-
-
-
-        Dataset --&gt; "*" Table : tables
-        click Table href "../Table/"
-
-
-
+    class Location
+    click Location href "../Location/"
 
 </div>
 <!-- no inheritance hierarchy -->
@@ -304,28 +278,10 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../name/">name</a></td>
-<td>1 <br/> <a href="../String/">String</a></td>
-<td>The name of the dataset, used for identification and reference within the pro...</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../schema_name/">schema_name</a></td>
-<td>1 <br/> <a href="../String/">String</a></td>
-<td>The name of the schema in the target database where the dataset will reside</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../tables/">tables</a></td>
-<td>* <br/> <a href="../Table/">Table</a></td>
-<td>List of tables that make up the dataset, each representing a structured colle...</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../locations/">locations</a></td>
-<td>* <br/> <a href="../Location/">Location</a></td>
-<td>List of data locations or URIs where the dataset is stored or accessed during...</td>
-<td>direct</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -341,10 +297,10 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../Ingress/">Ingress</a></td>
-<td><a href="../datasets/">datasets</a></td>
+<td><a href="../Dataset/">Dataset</a></td>
+<td><a href="../locations/">locations</a></td>
 <td>range</td>
-<td><a href="./">Dataset</a></td>
+<td><a href="./">Location</a></td>
 </tr>
 </tbody>
 </table>
@@ -364,11 +320,11 @@
 <tbody>
 <tr>
 <td>self</td>
-<td>cr8tor_metamodel:Dataset</td>
+<td>linkml:Any</td>
 </tr>
 <tr>
 <td>native</td>
-<td>cr8tor_metamodel:Dataset</td>
+<td>cr8tor_metamodel:Location</td>
 </tr>
 </tbody>
 </table>
@@ -376,137 +332,23 @@
 <!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
 <h3 id="direct">Direct</h3>
 <details>
-<pre><code class="language-yaml">name: Dataset
-description: Represents a dataset to be ingested or managed within a Cr8tor project,
-  including its metadata, schema, tables, and data locations. This class models the
-  state and structure of data collections handled by the project.
+<pre><code class="language-yaml">name: Location
+description: Represents a data location with flexible attributes to accommodate various
+  storage types and metadata.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
-attributes:
-  name:
-    name: name
-    description: The name of the dataset, used for identification and reference within
-      the project. Required.
-    from_schema: https://w3id.org/karectl-crates/data-model
-    domain_of:
-    - Project
-    - Action
-    - Source
-    - Dataset
-    - Table
-    - Column
-    - Resource
-    - Environment
-    range: string
-    required: true
-  schema_name:
-    name: schema_name
-    description: The name of the schema in the target database where the dataset will
-      reside. Required.
-    from_schema: https://w3id.org/karectl-crates/data-model
-    rank: 1000
-    domain_of:
-    - Dataset
-    range: string
-    required: true
-  tables:
-    name: tables
-    description: List of tables that make up the dataset, each representing a structured
-      collection of columns and data. Optional, can include multiple tables.
-    from_schema: https://w3id.org/karectl-crates/data-model
-    rank: 1000
-    domain_of:
-    - Dataset
-    range: Table
-    required: false
-    multivalued: true
-    inlined: true
-    inlined_as_list: true
-  locations:
-    name: locations
-    description: List of data locations or URIs where the dataset is stored or accessed
-      during the TRE ingestion workflow. Accepts arbitrary data structures including
-      dictionaries. Optional, can include multiple locations.
-    from_schema: https://w3id.org/karectl-crates/data-model
-    rank: 1000
-    domain_of:
-    - Dataset
-    range: Location
-    required: false
-    multivalued: true
-    inlined: true
-    inlined_as_list: true
+class_uri: linkml:Any
+tree_root: true
 
 </code></pre>
 </details>
 <h3 id="induced">Induced</h3>
 <details>
-<pre><code class="language-yaml">name: Dataset
-description: Represents a dataset to be ingested or managed within a Cr8tor project,
-  including its metadata, schema, tables, and data locations. This class models the
-  state and structure of data collections handled by the project.
+<pre><code class="language-yaml">name: Location
+description: Represents a data location with flexible attributes to accommodate various
+  storage types and metadata.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
-attributes:
-  name:
-    name: name
-    description: The name of the dataset, used for identification and reference within
-      the project. Required.
-    from_schema: https://w3id.org/karectl-crates/data-model
-    alias: name
-    owner: Dataset
-    domain_of:
-    - Project
-    - Action
-    - Source
-    - Dataset
-    - Table
-    - Column
-    - Resource
-    - Environment
-    range: string
-    required: true
-  schema_name:
-    name: schema_name
-    description: The name of the schema in the target database where the dataset will
-      reside. Required.
-    from_schema: https://w3id.org/karectl-crates/data-model
-    rank: 1000
-    alias: schema_name
-    owner: Dataset
-    domain_of:
-    - Dataset
-    range: string
-    required: true
-  tables:
-    name: tables
-    description: List of tables that make up the dataset, each representing a structured
-      collection of columns and data. Optional, can include multiple tables.
-    from_schema: https://w3id.org/karectl-crates/data-model
-    rank: 1000
-    alias: tables
-    owner: Dataset
-    domain_of:
-    - Dataset
-    range: Table
-    required: false
-    multivalued: true
-    inlined: true
-    inlined_as_list: true
-  locations:
-    name: locations
-    description: List of data locations or URIs where the dataset is stored or accessed
-      during the TRE ingestion workflow. Accepts arbitrary data structures including
-      dictionaries. Optional, can include multiple locations.
-    from_schema: https://w3id.org/karectl-crates/data-model
-    rank: 1000
-    alias: locations
-    owner: Dataset
-    domain_of:
-    - Dataset
-    range: Location
-    required: false
-    multivalued: true
-    inlined: true
-    inlined_as_list: true
+class_uri: linkml:Any
+tree_root: true
 
 </code></pre>
 </details>
