@@ -1,5 +1,5 @@
 # Auto generated from cr8tor_metamodel.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-02-11T18:34:41
+# Generation date: 2026-02-13T12:36:39
 # Schema: cr8tor-metamodel
 #
 # id: https://w3id.org/karectl-crates/cr8tor-metamodel
@@ -602,7 +602,7 @@ class Dataset(YAMLRoot):
     name: str = None
     schema_name: str = None
     tables: Optional[Union[Union[dict, "Table"], list[Union[dict, "Table"]]]] = empty_list()
-    locations: Optional[Union[str, list[str]]] = empty_list()
+    locations: Optional[Union[Union[dict, "Location"], list[Union[dict, "Location"]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.name):
@@ -619,12 +619,10 @@ class Dataset(YAMLRoot):
             self.tables = [self.tables] if self.tables is not None else []
         self.tables = [v if isinstance(v, Table) else Table(**as_dict(v)) for v in self.tables]
 
-        if not isinstance(self.locations, list):
-            self.locations = [self.locations] if self.locations is not None else []
-        self.locations = [v if isinstance(v, str) else str(v) for v in self.locations]
-
         super().__post_init__(**kwargs)
 
+
+Location = Any
 
 @dataclass(repr=False)
 class Table(YAMLRoot):
@@ -1088,7 +1086,7 @@ slots.dataset__tables = Slot(uri=CR8TOR_METAMODEL.tables, name="dataset__tables"
                    model_uri=CR8TOR_METAMODEL.dataset__tables, domain=None, range=Optional[Union[Union[dict, Table], list[Union[dict, Table]]]])
 
 slots.dataset__locations = Slot(uri=CR8TOR_METAMODEL.locations, name="dataset__locations", curie=CR8TOR_METAMODEL.curie('locations'),
-                   model_uri=CR8TOR_METAMODEL.dataset__locations, domain=None, range=Optional[Union[str, list[str]]])
+                   model_uri=CR8TOR_METAMODEL.dataset__locations, domain=None, range=Optional[Union[Union[dict, Location], list[Union[dict, Location]]]])
 
 slots.table__name = Slot(uri=CR8TOR_METAMODEL.name, name="table__name", curie=CR8TOR_METAMODEL.curie('name'),
                    model_uri=CR8TOR_METAMODEL.table__name, domain=None, range=str)

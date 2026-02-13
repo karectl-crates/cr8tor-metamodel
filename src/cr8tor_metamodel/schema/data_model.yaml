@@ -105,14 +105,18 @@ classes:
         multivalued: true
         inlined_as_list: true
       locations:
-        description: List of data locations or URIs where the dataset is stored or accessed during the TRE ingestion workflow. Can include strings, integers, or booleans to represent various location types. Optional, can include multiple locations.
+        range: Location
+        description: List of data locations or URIs where the dataset is stored or accessed during the TRE ingestion workflow. Accepts arbitrary data structures including dictionaries. Optional, can include multiple locations.
         required: false
         multivalued: true
+        inlined: true
         inlined_as_list: true
-        any_of:
-          - range: string
-          - range: integer
-          - range: boolean
+
+  Location:
+    description: >-
+      Represents a data location with flexible attributes to accommodate various storage types and metadata.
+    class_uri: linkml:Any
+    tree_root: true
 
 
   Table:

@@ -392,8 +392,7 @@ class Dataset(ConfiguredBaseModel):
                        'Environment']} })
     schema_name: str = Field(default=..., description="""The name of the schema in the target database where the dataset will reside. Required.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Dataset']} })
     tables: Optional[list[Table]] = Field(default=[], description="""List of tables that make up the dataset, each representing a structured collection of columns and data. Optional, can include multiple tables.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Dataset']} })
-    locations: Optional[list[Union[bool, int, str]]] = Field(default=[], description="""List of data locations or URIs where the dataset is stored or accessed during the TRE ingestion workflow. Can include strings, integers, or booleans to represent various location types. Optional, can include multiple locations.""", json_schema_extra = { "linkml_meta": {'any_of': [{'range': 'string'}, {'range': 'integer'}, {'range': 'boolean'}],
-         'domain_of': ['Dataset']} })
+    locations: Optional[list[Any]] = Field(default=[], description="""List of data locations or URIs where the dataset is stored or accessed during the TRE ingestion workflow. Accepts arbitrary data structures including dictionaries. Optional, can include multiple locations.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Dataset']} })
 
 
 class Table(ConfiguredBaseModel):
