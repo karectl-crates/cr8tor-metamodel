@@ -1908,7 +1908,7 @@ classes:
     class_uri: cr8tor_metamodel:Environment
 metamodel_version: 1.7.0
 source_file: cr8tor_metamodel.yaml
-source_file_date: '2026-02-12T14:55:14'
+source_file_date: '2026-02-13T11:31:38'
 source_file_size: 1519
-generation_date: '2026-02-12T14:55:28'
+generation_date: '2026-02-13T11:31:50'
 
