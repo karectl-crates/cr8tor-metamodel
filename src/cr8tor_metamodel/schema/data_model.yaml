@@ -116,7 +116,6 @@ classes:
     description: >-
       Represents a data location with flexible attributes to accommodate various storage types and metadata.
     class_uri: linkml:Any
-    tree_root: true
 
 
   Table:

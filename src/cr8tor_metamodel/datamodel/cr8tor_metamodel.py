@@ -1,5 +1,5 @@
 # Auto generated from cr8tor_metamodel.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-02-13T12:36:39
+# Generation date: 2026-02-13T12:47:08
 # Schema: cr8tor-metamodel
 #
 # id: https://w3id.org/karectl-crates/cr8tor-metamodel
