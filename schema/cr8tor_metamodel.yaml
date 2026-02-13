@@ -1740,7 +1740,6 @@ classes:
     mappings:
     - linkml:Any
     class_uri: linkml:Any
-    tree_root: true
   Table:
     name: Table
     definition_uri: https://w3id.org/karectl-crates/data-model/Table
@@ -1912,7 +1911,7 @@ classes:
     class_uri: cr8tor_metamodel:Environment
 metamodel_version: 1.7.0
 source_file: cr8tor_metamodel.yaml
-source_file_date: '2026-02-13T12:41:01'
+source_file_date: '2026-02-13T12:50:51'
 source_file_size: 1519
-generation_date: '2026-02-13T12:41:12'
+generation_date: '2026-02-13T12:51:04'
 
