@@ -265,6 +265,15 @@
     click KubespawnerOverride href "../KubespawnerOverride/"
       KubespawnerOverride : env
 
+
+
+
+
+        KubespawnerOverride --&gt; "*" EnvironmentVariable : env
+        click EnvironmentVariable href "../EnvironmentVariable/"
+
+
+
       KubespawnerOverride : image
 
 
@@ -289,8 +298,8 @@
 </tr>
 <tr>
 <td><a href="../env/">env</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>Environment variables as JSON string</td>
+<td>* <br/> <a href="../EnvironmentVariable/">EnvironmentVariable</a></td>
+<td>Environment variables for the workspace</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -357,13 +366,16 @@ attributes:
     required: false
   env:
     name: env
-    description: Environment variables as JSON string.
+    description: Environment variables for the workspace.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     domain_of:
     - VDI
     - KubespawnerOverride
-    range: string
+    range: EnvironmentVariable
     required: false
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
 
 </code></pre>
 </details>
@@ -386,15 +398,18 @@ attributes:
     required: false
   env:
     name: env
-    description: Environment variables as JSON string.
+    description: Environment variables for the workspace.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     alias: env
     owner: KubespawnerOverride
     domain_of:
     - VDI
     - KubespawnerOverride
-    range: string
+    range: EnvironmentVariable
     required: false
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
 
 </code></pre>
 </details>

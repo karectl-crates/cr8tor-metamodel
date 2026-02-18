@@ -1640,15 +1640,18 @@ slots:
     required: false
   kubespawnerOverride__env:
     name: kubespawnerOverride__env
-    description: Environment variables as JSON string.
+    description: Environment variables for the workspace.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     slot_uri: cr8tor_metamodel:env
     alias: env
     owner: KubespawnerOverride
     domain_of:
     - KubespawnerOverride
-    range: string
+    range: EnvironmentVariable
     required: false
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
   environmentVariable__name:
     name: environmentVariable__name
     description: Variable name.
@@ -2736,9 +2739,11 @@ classes:
         required: false
       env:
         name: env
-        description: Environment variables as JSON string.
-        range: string
+        description: Environment variables for the workspace.
+        range: EnvironmentVariable
         required: false
+        multivalued: true
+        inlined_as_list: true
     class_uri: cr8tor_metamodel:KubespawnerOverride
   EnvironmentVariable:
     name: EnvironmentVariable
@@ -2762,7 +2767,7 @@ classes:
     class_uri: cr8tor_metamodel:EnvironmentVariable
 metamodel_version: 1.7.0
 source_file: cr8tor_metamodel.yaml
-source_file_date: '2026-02-18T19:22:17'
+source_file_date: '2026-02-18T21:36:46'
 source_file_size: 1519
-generation_date: '2026-02-18T19:22:28'
+generation_date: '2026-02-18T21:36:54'
 
