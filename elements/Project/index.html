@@ -422,6 +422,10 @@ attributes:
     - Column
     - Resource
     - Environment
+    - KeycloakClientConfig
+    - SecretRef
+    - ProtocolMapper
+    - EnvironmentVariable
     range: string
   description:
     name: description
@@ -431,6 +435,9 @@ attributes:
     rank: 1000
     domain_of:
     - Project
+    - ProjectSpec
+    - GroupSpec
+    - ProfileConfig
     range: string
   reference:
     name: reference
@@ -506,6 +513,10 @@ attributes:
     - Column
     - Resource
     - Environment
+    - KeycloakClientConfig
+    - SecretRef
+    - ProtocolMapper
+    - EnvironmentVariable
     range: string
   description:
     name: description
@@ -517,6 +528,9 @@ attributes:
     owner: Project
     domain_of:
     - Project
+    - ProjectSpec
+    - GroupSpec
+    - ProfileConfig
     range: string
   reference:
     name: reference

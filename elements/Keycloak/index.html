@@ -266,13 +266,24 @@
       Resource &lt;|-- Keycloak
         click Resource href "../Resource/"
 
+      Keycloak : clients
+
+
+
+
+
+        Keycloak --&gt; "*" KeycloakClientConfig : clients
+        click KeycloakClientConfig href "../KeycloakClientConfig/"
+
+
+
       Keycloak : enabled
 
       Keycloak : name
 
-      Keycloak : somethingspecific
+      Keycloak : realm
 
-      Keycloak : type
+      Keycloak : resource_type
 
       Keycloak : url
 
@@ -297,21 +308,27 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../somethingspecific/">somethingspecific</a></td>
+<td><a href="../realm/">realm</a></td>
 <td>0..1 <br/> <a href="../String/">String</a></td>
-<td>A Keycloak-specific attribute for custom configuration or integration</td>
+<td>The Keycloak realm name for this project deployment</td>
 <td>direct</td>
+</tr>
+<tr>
+<td><a href="../clients/">clients</a></td>
+<td>* <br/> <a href="../KeycloakClientConfig/">KeycloakClientConfig</a></td>
+<td>OIDC clients to be managed in this Keycloak deployment</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../resource_type/">resource_type</a></td>
+<td>1 <br/> <a href="../String/">String</a></td>
+<td>The type of resource (e</td>
+<td><a href="../Resource/">Resource</a></td>
 </tr>
 <tr>
 <td><a href="../name/">name</a></td>
 <td>1 <br/> <a href="../String/">String</a></td>
 <td>The requested name of the resource, used for identification and management wi...</td>
-<td><a href="../Resource/">Resource</a></td>
-</tr>
-<tr>
-<td><a href="../type/">type</a></td>
-<td>1 <br/> <a href="../String/">String</a></td>
-<td>The type of application or resource (e</td>
 <td><a href="../Resource/">Resource</a></td>
 </tr>
 <tr>
@@ -363,13 +380,24 @@ description: Specialized resource configuration for deploying Keycloak identity 
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 is_a: Resource
 attributes:
-  somethingspecific:
-    name: somethingspecific
-    description: A Keycloak-specific attribute for custom configuration or integration.
+  realm:
+    name: realm
+    description: The Keycloak realm name for this project deployment.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     rank: 1000
     domain_of:
     - Keycloak
+  clients:
+    name: clients
+    description: OIDC clients to be managed in this Keycloak deployment.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    rank: 1000
+    domain_of:
+    - Keycloak
+    range: KeycloakClientConfig
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
 
 </code></pre>
 </details>
@@ -382,16 +410,41 @@ description: Specialized resource configuration for deploying Keycloak identity 
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 is_a: Resource
 attributes:
-  somethingspecific:
-    name: somethingspecific
-    description: A Keycloak-specific attribute for custom configuration or integration.
+  realm:
+    name: realm
+    description: The Keycloak realm name for this project deployment.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     rank: 1000
-    alias: somethingspecific
+    alias: realm
     owner: Keycloak
     domain_of:
     - Keycloak
     range: string
+  clients:
+    name: clients
+    description: OIDC clients to be managed in this Keycloak deployment.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    rank: 1000
+    alias: clients
+    owner: Keycloak
+    domain_of:
+    - Keycloak
+    range: KeycloakClientConfig
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  resource_type:
+    name: resource_type
+    description: The type of resource (e.g., Jupyter, Keycloak, VDI).
+    from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
+    rank: 1000
+    designates_type: true
+    alias: resource_type
+    owner: Keycloak
+    domain_of:
+    - Resource
+    range: string
+    required: true
   name:
     name: name
     description: The requested name of the resource, used for identification and management
@@ -408,22 +461,10 @@ attributes:
     - Column
     - Resource
     - Environment
-    range: string
-    required: true
-  type:
-    name: type
-    description: The type of application or resource (e.g., jupyterhub, vdi), specifying
-      its function or category.
-    from_schema: https://w3id.org/karectl-crates/deployment-model
-    designates_type: true
-    alias: type
-    owner: Keycloak
-    domain_of:
-    - Action
-    - Group
-    - Source
-    - Destination
-    - Resource
+    - KeycloakClientConfig
+    - SecretRef
+    - ProtocolMapper
+    - EnvironmentVariable
     range: string
     required: true
   url:
@@ -444,11 +485,12 @@ attributes:
     description: Boolean flag indicating whether the application or resource is enabled
       and available for use.
     from_schema: https://w3id.org/karectl-crates/deployment-model
-    rank: 1000
     alias: enabled
     owner: Keycloak
     domain_of:
+    - User
     - Resource
+    - KeycloakClientConfig
     range: boolean
     required: true
 

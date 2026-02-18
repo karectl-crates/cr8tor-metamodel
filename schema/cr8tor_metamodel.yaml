@@ -364,7 +364,44 @@ enums:
       postgresql:
         text: postgresql
         description: PostgreSQL database endpoint
+  ConnectionType:
+    name: ConnectionType
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/ConnectionType
+    description: VDI connection protocols.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    permissible_values:
+      rdp:
+        text: rdp
+        description: Remote Desktop Protocol.
+      vnc:
+        text: vnc
+        description: Virtual Network Computing.
 slots:
+  action_type:
+    name: action_type
+    definition_uri: https://w3id.org/karectl-crates/governance-model/action_type
+    description: The specific type of action being performed (e.g., CreateAction,
+      AssessAction).
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:action_type
+    designates_type: true
+    owner: Action
+    domain_of:
+    - Action
+    range: string
+    required: true
+  resource_type:
+    name: resource_type
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/resource_type
+    description: The type of resource (e.g., Jupyter, Keycloak, VDI).
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:resource_type
+    designates_type: true
+    owner: Resource
+    domain_of:
+    - Resource
+    range: string
+    required: true
   cr8tor__governance:
     name: cr8tor__governance
     description: The governance configuration for the project, managing user access,
@@ -512,19 +549,6 @@ slots:
     slot_uri: cr8tor_metamodel:id
     identifier: true
     alias: id
-    owner: Action
-    domain_of:
-    - Action
-    range: string
-    required: true
-  action__type:
-    name: action__type
-    description: The specific type of action being performed (e.g., CreateAction,
-      AssessAction).
-    from_schema: https://w3id.org/karectl-crates/governance-model
-    slot_uri: cr8tor_metamodel:type
-    designates_type: true
-    alias: type
     owner: Action
     domain_of:
     - Action
@@ -749,6 +773,30 @@ slots:
     domain_of:
     - User
     range: datetime
+  user__enabled:
+    name: user__enabled
+    description: Whether the user account is enabled.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:enabled
+    ifabsent: 'true'
+    alias: enabled
+    owner: User
+    domain_of:
+    - User
+    range: boolean
+    required: false
+  user__password:
+    name: user__password
+    description: Optional initial password. If not set, the operator generates a temporary
+      password.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    slot_uri: cr8tor_metamodel:password
+    alias: password
+    owner: User
+    domain_of:
+    - User
+    range: string
+    required: false
   group__value:
     name: group__value
     annotations:
@@ -1111,19 +1159,6 @@ slots:
     - Resource
     range: string
     required: true
-  resource__type:
-    name: resource__type
-    description: The type of application or resource (e.g., jupyterhub, vdi), specifying
-      its function or category.
-    from_schema: https://w3id.org/karectl-crates/deployment-model
-    slot_uri: cr8tor_metamodel:type
-    designates_type: true
-    alias: type
-    owner: Resource
-    domain_of:
-    - Resource
-    range: string
-    required: true
   resource__url:
     name: resource__url
     description: The URL endpoint for accessing the application or resource after
@@ -1159,16 +1194,101 @@ slots:
     domain_of:
     - Jupyter
     range: string
-  keycloak__somethingspecific:
-    name: keycloak__somethingspecific
-    description: A Keycloak-specific attribute for custom configuration or integration.
+  jupyter__profiles:
+    name: jupyter__profiles
+    description: JupyterHub workspace profiles for this deployment.
     from_schema: https://w3id.org/karectl-crates/deployment-model
-    slot_uri: cr8tor_metamodel:somethingspecific
-    alias: somethingspecific
+    slot_uri: cr8tor_metamodel:profiles
+    alias: profiles
+    owner: Jupyter
+    domain_of:
+    - Jupyter
+    range: ProfileConfig
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  keycloak__realm:
+    name: keycloak__realm
+    description: The Keycloak realm name for this project deployment.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:realm
+    alias: realm
     owner: Keycloak
     domain_of:
     - Keycloak
     range: string
+  keycloak__clients:
+    name: keycloak__clients
+    description: OIDC clients to be managed in this Keycloak deployment.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:clients
+    alias: clients
+    owner: Keycloak
+    domain_of:
+    - Keycloak
+    range: KeycloakClientConfig
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  vDI__image:
+    name: vDI__image
+    description: Container image for the VDI.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:image
+    ifabsent: string(ghcr.io/karectl/vdi-mate:v1.0.0-light)
+    alias: image
+    owner: VDI
+    domain_of:
+    - VDI
+    range: string
+    required: false
+  vDI__user:
+    name: vDI__user
+    description: Username for the VDI session.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:user
+    alias: user
+    owner: VDI
+    domain_of:
+    - VDI
+    range: string
+    required: true
+  vDI__project:
+    name: vDI__project
+    description: Project this VDI belongs to.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:project
+    alias: project
+    owner: VDI
+    domain_of:
+    - VDI
+    range: string
+    required: true
+  vDI__connection:
+    name: vDI__connection
+    description: Connection protocol
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:connection
+    ifabsent: string(rdp)
+    alias: connection
+    owner: VDI
+    domain_of:
+    - VDI
+    range: ConnectionType
+    required: false
+  vDI__env:
+    name: vDI__env
+    description: Environment variables for the VDI container.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:env
+    alias: env
+    owner: VDI
+    domain_of:
+    - VDI
+    range: EnvironmentVariable
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
   environment__name:
     name: environment__name
     description: The name of the environment or TRE where the project will be deployed,
@@ -1180,6 +1300,377 @@ slots:
     domain_of:
     - Environment
     range: string
+  projectSpec__description:
+    name: projectSpec__description
+    description: Project description.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:description
+    alias: description
+    owner: ProjectSpec
+    domain_of:
+    - ProjectSpec
+    range: string
+    required: true
+  projectSpec__resources:
+    name: projectSpec__resources
+    description: Resources (applications/services) available in this project.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:resources
+    alias: resources
+    owner: ProjectSpec
+    domain_of:
+    - ProjectSpec
+    range: Resource
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  groupSpec__description:
+    name: groupSpec__description
+    description: Descrption of the group and its purpose.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:description
+    alias: description
+    owner: GroupSpec
+    domain_of:
+    - GroupSpec
+    range: string
+    required: false
+  groupSpec__members:
+    name: groupSpec__members
+    description: Usernames of group members.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:members
+    alias: members
+    owner: GroupSpec
+    domain_of:
+    - GroupSpec
+    range: string
+    multivalued: true
+    inlined_as_list: true
+  groupSpec__projects:
+    name: groupSpec__projects
+    description: Project names this group grants access to.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:projects
+    alias: projects
+    owner: GroupSpec
+    domain_of:
+    - GroupSpec
+    range: string
+    multivalued: true
+    inlined_as_list: true
+  groupSpec__subgroups:
+    name: groupSpec__subgroups
+    description: Child group names.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:subgroups
+    alias: subgroups
+    owner: GroupSpec
+    domain_of:
+    - GroupSpec
+    range: string
+    multivalued: true
+    inlined_as_list: true
+  keycloakClientConfig__client_id:
+    name: keycloakClientConfig__client_id
+    description: Unique Keycloak client identifier.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:client_id
+    alias: client_id
+    owner: KeycloakClientConfig
+    domain_of:
+    - KeycloakClientConfig
+    range: string
+    required: true
+  keycloakClientConfig__name:
+    name: keycloakClientConfig__name
+    description: client name shown in Keycloak admin console.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:name
+    alias: name
+    owner: KeycloakClientConfig
+    domain_of:
+    - KeycloakClientConfig
+    range: string
+    required: false
+  keycloakClientConfig__secret:
+    name: keycloakClientConfig__secret
+    description: Client secret.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:secret
+    alias: secret
+    owner: KeycloakClientConfig
+    domain_of:
+    - KeycloakClientConfig
+    range: string
+    required: false
+  keycloakClientConfig__secret_ref:
+    name: keycloakClientConfig__secret_ref
+    description: Reference to a k8s Secret containing the client secret.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:secret_ref
+    alias: secret_ref
+    owner: KeycloakClientConfig
+    domain_of:
+    - KeycloakClientConfig
+    range: SecretRef
+    required: false
+    inlined: true
+    inlined_as_list: true
+  keycloakClientConfig__enabled:
+    name: keycloakClientConfig__enabled
+    description: Whether the client is enabled.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:enabled
+    ifabsent: 'true'
+    alias: enabled
+    owner: KeycloakClientConfig
+    domain_of:
+    - KeycloakClientConfig
+    range: boolean
+    required: false
+  keycloakClientConfig__public_client:
+    name: keycloakClientConfig__public_client
+    description: Whether this is a public client.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:public_client
+    ifabsent: 'false'
+    alias: public_client
+    owner: KeycloakClientConfig
+    domain_of:
+    - KeycloakClientConfig
+    range: boolean
+    required: false
+  keycloakClientConfig__redirect_uris:
+    name: keycloakClientConfig__redirect_uris
+    description: Valid redirect URIs after authentication.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:redirect_uris
+    alias: redirect_uris
+    owner: KeycloakClientConfig
+    domain_of:
+    - KeycloakClientConfig
+    range: uri
+    multivalued: true
+    inlined_as_list: true
+  keycloakClientConfig__web_origins:
+    name: keycloakClientConfig__web_origins
+    description: Allowed web origins for CORS.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:web_origins
+    alias: web_origins
+    owner: KeycloakClientConfig
+    domain_of:
+    - KeycloakClientConfig
+    range: string
+    multivalued: true
+    inlined_as_list: true
+  keycloakClientConfig__protocol:
+    name: keycloakClientConfig__protocol
+    description: Authentication protocol.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:protocol
+    ifabsent: string(openid-connect)
+    alias: protocol
+    owner: KeycloakClientConfig
+    domain_of:
+    - KeycloakClientConfig
+    range: string
+    required: false
+  keycloakClientConfig__default_client_scopes:
+    name: keycloakClientConfig__default_client_scopes
+    description: Default client scopes.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:default_client_scopes
+    alias: default_client_scopes
+    owner: KeycloakClientConfig
+    domain_of:
+    - KeycloakClientConfig
+    range: string
+    multivalued: true
+    inlined_as_list: true
+  keycloakClientConfig__optional_client_scopes:
+    name: keycloakClientConfig__optional_client_scopes
+    description: Optional client scopes.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:optional_client_scopes
+    alias: optional_client_scopes
+    owner: KeycloakClientConfig
+    domain_of:
+    - KeycloakClientConfig
+    range: string
+    multivalued: true
+    inlined_as_list: true
+  keycloakClientConfig__protocol_mappers:
+    name: keycloakClientConfig__protocol_mappers
+    description: OIDC protocol mappers.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:protocol_mappers
+    alias: protocol_mappers
+    owner: KeycloakClientConfig
+    domain_of:
+    - KeycloakClientConfig
+    range: ProtocolMapper
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  secretRef__name:
+    name: secretRef__name
+    description: Secret name in the same namespace.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:name
+    alias: name
+    owner: SecretRef
+    domain_of:
+    - SecretRef
+    range: string
+    required: true
+  secretRef__key:
+    name: secretRef__key
+    description: Key within the Secret.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:key
+    ifabsent: string(client-secret)
+    alias: key
+    owner: SecretRef
+    domain_of:
+    - SecretRef
+    range: string
+    required: false
+  protocolMapper__name:
+    name: protocolMapper__name
+    description: Mapper name.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:name
+    alias: name
+    owner: ProtocolMapper
+    domain_of:
+    - ProtocolMapper
+    range: string
+    required: true
+  protocolMapper__protocol_mapper:
+    name: protocolMapper__protocol_mapper
+    description: Mapper type or class.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:protocol_mapper
+    alias: protocol_mapper
+    owner: ProtocolMapper
+    domain_of:
+    - ProtocolMapper
+    range: string
+    required: true
+  protocolMapper__consent_required:
+    name: protocolMapper__consent_required
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:consent_required
+    ifabsent: 'false'
+    alias: consent_required
+    owner: ProtocolMapper
+    domain_of:
+    - ProtocolMapper
+    range: boolean
+    required: false
+  protocolMapper__config:
+    name: protocolMapper__config
+    description: Mapper configuration as JSON string.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:config
+    alias: config
+    owner: ProtocolMapper
+    domain_of:
+    - ProtocolMapper
+    range: string
+    required: false
+  profileConfig__display_name:
+    name: profileConfig__display_name
+    description: Profile name shown in jupyterhub spawner.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:display_name
+    alias: display_name
+    owner: ProfileConfig
+    domain_of:
+    - ProfileConfig
+    range: string
+    required: true
+  profileConfig__description:
+    name: profileConfig__description
+    description: Profile description.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:description
+    alias: description
+    owner: ProfileConfig
+    domain_of:
+    - ProfileConfig
+    range: string
+    required: false
+  profileConfig__slug:
+    name: profileConfig__slug
+    description: URL-safe profile identifier.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:slug
+    alias: slug
+    owner: ProfileConfig
+    domain_of:
+    - ProfileConfig
+    range: string
+    required: true
+  profileConfig__kubespawner_override:
+    name: profileConfig__kubespawner_override
+    description: KubeSpawner overrides for this profile.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:kubespawner_override
+    alias: kubespawner_override
+    owner: ProfileConfig
+    domain_of:
+    - ProfileConfig
+    range: KubespawnerOverride
+    required: false
+    inlined: true
+    inlined_as_list: true
+  kubespawnerOverride__image:
+    name: kubespawnerOverride__image
+    description: Container image for the workspace.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:image
+    alias: image
+    owner: KubespawnerOverride
+    domain_of:
+    - KubespawnerOverride
+    range: string
+    required: false
+  kubespawnerOverride__env:
+    name: kubespawnerOverride__env
+    description: Environment variables as JSON string.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:env
+    alias: env
+    owner: KubespawnerOverride
+    domain_of:
+    - KubespawnerOverride
+    range: string
+    required: false
+  environmentVariable__name:
+    name: environmentVariable__name
+    description: Variable name.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:name
+    alias: name
+    owner: EnvironmentVariable
+    domain_of:
+    - EnvironmentVariable
+    range: string
+    required: true
+  environmentVariable__value:
+    name: environmentVariable__value
+    description: Variable value.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:value
+    alias: value
+    owner: EnvironmentVariable
+    domain_of:
+    - EnvironmentVariable
+    range: string
+    required: true
 classes:
   cr8tor:
     name: cr8tor
@@ -1303,8 +1794,8 @@ classes:
     narrow_mappings:
     - schemaorg:Action
     slots:
+    - action_type
     - action__id
-    - action__type
     - action__name
     - action__start_time
     - action__end_time
@@ -1318,13 +1809,6 @@ classes:
         name: id
         description: Unique identifier for the action, typically formatted as '{command_type}-{project_id}'.
         identifier: true
-        range: string
-        required: true
-      type:
-        name: type
-        description: The specific type of action being performed (e.g., CreateAction,
-          AssessAction).
-        designates_type: true
         range: string
         required: true
       name:
@@ -1389,8 +1873,8 @@ classes:
     - schemaorg:CreateAction
     is_a: Action
     slots:
+    - action_type
     - action__id
-    - action__type
     - action__name
     - action__start_time
     - action__end_time
@@ -1411,8 +1895,8 @@ classes:
     - schemaorg:AssessAction
     is_a: Action
     slots:
+    - action_type
     - action__id
-    - action__type
     - action__name
     - action__start_time
     - action__end_time
@@ -1453,6 +1937,8 @@ classes:
     - user__groups
     - user__start_date
     - user__expiry_date
+    - user__enabled
+    - user__password
     attributes:
       id:
         name: id
@@ -1501,6 +1987,18 @@ classes:
         description: The date and time when the user's access to the project expires,
           representing the end of their membership or role.
         range: datetime
+      enabled:
+        name: enabled
+        description: Whether the user account is enabled.
+        ifabsent: 'true'
+        range: boolean
+        required: false
+      password:
+        name: password
+        description: Optional initial password. If not set, the operator generates
+          a temporary password.
+        range: string
+        required: false
     class_uri: cr8tor_metamodel:User
   Group:
     name: Group
@@ -1824,8 +2322,8 @@ classes:
       the state and configuration of deployable resources.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     slots:
+    - resource_type
     - resource__name
-    - resource__type
     - resource__url
     - resource__enabled
     attributes:
@@ -1833,13 +2331,6 @@ classes:
         name: name
         description: The requested name of the resource, used for identification and
           management within the deployment.
-        range: string
-        required: true
-      type:
-        name: type
-        description: The type of application or resource (e.g., jupyterhub, vdi),
-          specifying its function or category.
-        designates_type: true
         range: string
         required: true
       url:
@@ -1864,16 +2355,23 @@ classes:
     from_schema: https://w3id.org/karectl-crates/deployment-model
     is_a: Resource
     slots:
+    - resource_type
     - resource__name
-    - resource__type
     - resource__url
     - resource__enabled
     - jupyter__auth
+    - jupyter__profiles
     attributes:
       auth:
         name: auth
         description: The type or method of authentication required to access the Jupyter
           workspace (e.g., OAuth, SSO).
+      profiles:
+        name: profiles
+        description: JupyterHub workspace profiles for this deployment.
+        range: ProfileConfig
+        multivalued: true
+        inlined_as_list: true
     class_uri: cr8tor_metamodel:Jupyter
   Keycloak:
     name: Keycloak
@@ -1884,16 +2382,95 @@ classes:
     from_schema: https://w3id.org/karectl-crates/deployment-model
     is_a: Resource
     slots:
+    - resource_type
     - resource__name
-    - resource__type
     - resource__url
     - resource__enabled
-    - keycloak__somethingspecific
+    - keycloak__realm
+    - keycloak__clients
     attributes:
-      somethingspecific:
-        name: somethingspecific
-        description: A Keycloak-specific attribute for custom configuration or integration.
+      realm:
+        name: realm
+        description: The Keycloak realm name for this project deployment.
+      clients:
+        name: clients
+        description: OIDC clients to be managed in this Keycloak deployment.
+        range: KeycloakClientConfig
+        multivalued: true
+        inlined_as_list: true
     class_uri: cr8tor_metamodel:Keycloak
+  VDI:
+    name: VDI
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/VDI
+    description: Virtual Desktop Infrastructure resource for cr8tor project. The operator
+      creates a pod and Service for each VDI instance, and manages user access and
+      lifecycle. This class extends Resource to include VDI-specific configuration.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    is_a: Resource
+    slots:
+    - resource_type
+    - resource__name
+    - resource__url
+    - resource__enabled
+    - vDI__image
+    - vDI__user
+    - vDI__project
+    - vDI__connection
+    - vDI__env
+    attributes:
+      image:
+        name: image
+        description: Container image for the VDI.
+        ifabsent: string(ghcr.io/karectl/vdi-mate:v1.0.0-light)
+        range: string
+        required: false
+      user:
+        name: user
+        description: Username for the VDI session.
+        range: string
+        required: true
+      project:
+        name: project
+        description: Project this VDI belongs to.
+        range: string
+        required: true
+      connection:
+        name: connection
+        description: Connection protocol
+        ifabsent: string(rdp)
+        range: ConnectionType
+        required: false
+      env:
+        name: env
+        description: Environment variables for the VDI container.
+        range: EnvironmentVariable
+        multivalued: true
+        inlined_as_list: true
+    class_uri: cr8tor_metamodel:VDI
+  RStudio:
+    name: RStudio
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/RStudio
+    description: RStudio workspace resource for cr8tor project.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    is_a: Resource
+    slots:
+    - resource_type
+    - resource__name
+    - resource__url
+    - resource__enabled
+    class_uri: cr8tor_metamodel:RStudio
+  Gitea:
+    name: Gitea
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/Gitea
+    description: Gitea git repository resource for cr8tor project.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    is_a: Resource
+    slots:
+    - resource_type
+    - resource__name
+    - resource__url
+    - resource__enabled
+    class_uri: cr8tor_metamodel:Gitea
   Environment:
     name: Environment
     definition_uri: https://w3id.org/karectl-crates/deployment-model/Environment
@@ -1909,9 +2486,283 @@ classes:
         description: The name of the environment or TRE where the project will be
           deployed, used for identification and management.
     class_uri: cr8tor_metamodel:Environment
+  ProjectSpec:
+    name: ProjectSpec
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/ProjectSpec
+    description: Operator project specification to define the resources for a research
+      project namespace.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slots:
+    - projectSpec__description
+    - projectSpec__resources
+    attributes:
+      description:
+        name: description
+        description: Project description.
+        range: string
+        required: true
+      resources:
+        name: resources
+        description: Resources (applications/services) available in this project.
+        range: Resource
+        multivalued: true
+        inlined_as_list: true
+    class_uri: cr8tor_metamodel:ProjectSpec
+  GroupSpec:
+    name: GroupSpec
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/GroupSpec
+    description: Operator group specification for managing keycloak groups and setting
+      up workspace storage for group members.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slots:
+    - groupSpec__description
+    - groupSpec__members
+    - groupSpec__projects
+    - groupSpec__subgroups
+    attributes:
+      description:
+        name: description
+        description: Descrption of the group and its purpose.
+        range: string
+        required: false
+      members:
+        name: members
+        description: Usernames of group members.
+        range: string
+        multivalued: true
+        inlined_as_list: true
+      projects:
+        name: projects
+        description: Project names this group grants access to.
+        range: string
+        multivalued: true
+        inlined_as_list: true
+      subgroups:
+        name: subgroups
+        description: Child group names.
+        range: string
+        multivalued: true
+        inlined_as_list: true
+    class_uri: cr8tor_metamodel:GroupSpec
+  KeycloakClientConfig:
+    name: KeycloakClientConfig
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/KeycloakClientConfig
+    description: Configuration for a Keycloak OIDC client. The operator creates and
+      manages these in Keycloak for project services.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slots:
+    - keycloakClientConfig__client_id
+    - keycloakClientConfig__name
+    - keycloakClientConfig__secret
+    - keycloakClientConfig__secret_ref
+    - keycloakClientConfig__enabled
+    - keycloakClientConfig__public_client
+    - keycloakClientConfig__redirect_uris
+    - keycloakClientConfig__web_origins
+    - keycloakClientConfig__protocol
+    - keycloakClientConfig__default_client_scopes
+    - keycloakClientConfig__optional_client_scopes
+    - keycloakClientConfig__protocol_mappers
+    attributes:
+      client_id:
+        name: client_id
+        description: Unique Keycloak client identifier.
+        range: string
+        required: true
+      name:
+        name: name
+        description: client name shown in Keycloak admin console.
+        range: string
+        required: false
+      secret:
+        name: secret
+        description: Client secret.
+        range: string
+        required: false
+      secret_ref:
+        name: secret_ref
+        description: Reference to a k8s Secret containing the client secret.
+        range: SecretRef
+        required: false
+        inlined: true
+      enabled:
+        name: enabled
+        description: Whether the client is enabled.
+        ifabsent: 'true'
+        range: boolean
+        required: false
+      public_client:
+        name: public_client
+        description: Whether this is a public client.
+        ifabsent: 'false'
+        range: boolean
+        required: false
+      redirect_uris:
+        name: redirect_uris
+        description: Valid redirect URIs after authentication.
+        range: uri
+        multivalued: true
+        inlined_as_list: true
+      web_origins:
+        name: web_origins
+        description: Allowed web origins for CORS.
+        range: string
+        multivalued: true
+        inlined_as_list: true
+      protocol:
+        name: protocol
+        description: Authentication protocol.
+        ifabsent: string(openid-connect)
+        range: string
+        required: false
+      default_client_scopes:
+        name: default_client_scopes
+        description: Default client scopes.
+        range: string
+        multivalued: true
+        inlined_as_list: true
+      optional_client_scopes:
+        name: optional_client_scopes
+        description: Optional client scopes.
+        range: string
+        multivalued: true
+        inlined_as_list: true
+      protocol_mappers:
+        name: protocol_mappers
+        description: OIDC protocol mappers.
+        range: ProtocolMapper
+        multivalued: true
+        inlined_as_list: true
+    class_uri: cr8tor_metamodel:KeycloakClientConfig
+  SecretRef:
+    name: SecretRef
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/SecretRef
+    description: Reference to a k8s Secret.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slots:
+    - secretRef__name
+    - secretRef__key
+    attributes:
+      name:
+        name: name
+        description: Secret name in the same namespace.
+        range: string
+        required: true
+      key:
+        name: key
+        description: Key within the Secret.
+        ifabsent: string(client-secret)
+        range: string
+        required: false
+    class_uri: cr8tor_metamodel:SecretRef
+  ProtocolMapper:
+    name: ProtocolMapper
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/ProtocolMapper
+    description: Keycloak OIDC protocol mapper.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slots:
+    - protocolMapper__name
+    - protocolMapper__protocol_mapper
+    - protocolMapper__consent_required
+    - protocolMapper__config
+    attributes:
+      name:
+        name: name
+        description: Mapper name.
+        range: string
+        required: true
+      protocol_mapper:
+        name: protocol_mapper
+        description: Mapper type or class.
+        range: string
+        required: true
+      consent_required:
+        name: consent_required
+        ifabsent: 'false'
+        range: boolean
+        required: false
+      config:
+        name: config
+        description: Mapper configuration as JSON string.
+        range: string
+        required: false
+    class_uri: cr8tor_metamodel:ProtocolMapper
+  ProfileConfig:
+    name: ProfileConfig
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/ProfileConfig
+    description: JupyterHub workspace profile to select different workspace environments.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slots:
+    - profileConfig__display_name
+    - profileConfig__description
+    - profileConfig__slug
+    - profileConfig__kubespawner_override
+    attributes:
+      display_name:
+        name: display_name
+        description: Profile name shown in jupyterhub spawner.
+        range: string
+        required: true
+      description:
+        name: description
+        description: Profile description.
+        range: string
+        required: false
+      slug:
+        name: slug
+        description: URL-safe profile identifier.
+        range: string
+        required: true
+      kubespawner_override:
+        name: kubespawner_override
+        description: KubeSpawner overrides for this profile.
+        range: KubespawnerOverride
+        required: false
+        inlined: true
+    class_uri: cr8tor_metamodel:ProfileConfig
+  KubespawnerOverride:
+    name: KubespawnerOverride
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/KubespawnerOverride
+    description: KubeSpawner override settings for a jupyterhub profile.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slots:
+    - kubespawnerOverride__image
+    - kubespawnerOverride__env
+    attributes:
+      image:
+        name: image
+        description: Container image for the workspace.
+        range: string
+        required: false
+      env:
+        name: env
+        description: Environment variables as JSON string.
+        range: string
+        required: false
+    class_uri: cr8tor_metamodel:KubespawnerOverride
+  EnvironmentVariable:
+    name: EnvironmentVariable
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/EnvironmentVariable
+    description: A name-value environment variable pair.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slots:
+    - environmentVariable__name
+    - environmentVariable__value
+    attributes:
+      name:
+        name: name
+        description: Variable name.
+        range: string
+        required: true
+      value:
+        name: value
+        description: Variable value.
+        range: string
+        required: true
+    class_uri: cr8tor_metamodel:EnvironmentVariable
 metamodel_version: 1.7.0
 source_file: cr8tor_metamodel.yaml
-source_file_date: '2026-02-13T12:50:51'
+source_file_date: '2026-02-18T17:25:01'
 source_file_size: 1519
-generation_date: '2026-02-13T12:51:04'
+generation_date: '2026-02-18T17:25:10'
 

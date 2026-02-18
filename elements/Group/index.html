@@ -391,6 +391,7 @@ attributes:
     rank: 1000
     domain_of:
     - Group
+    - EnvironmentVariable
     range: string
     required: false
   ref:
@@ -433,12 +434,11 @@ attributes:
     description: The type of group membership, indicating how the user was assigned
       to the group (e.g., manual or automatic). Read-only.
     from_schema: https://w3id.org/karectl-crates/governance-model
+    rank: 1000
     domain_of:
-    - Action
     - Group
     - Source
     - Destination
-    - Resource
     range: GroupMembershipType
     required: false
 
@@ -468,6 +468,7 @@ attributes:
     owner: Group
     domain_of:
     - Group
+    - EnvironmentVariable
     range: string
     required: false
   ref:
@@ -514,14 +515,13 @@ attributes:
     description: The type of group membership, indicating how the user was assigned
       to the group (e.g., manual or automatic). Read-only.
     from_schema: https://w3id.org/karectl-crates/governance-model
+    rank: 1000
     alias: type
     owner: Group
     domain_of:
-    - Action
     - Group
     - Source
     - Destination
-    - Resource
     range: GroupMembershipType
     required: false
 

@@ -277,6 +277,8 @@
 
 
 
+      AssessAction : action_type
+
       AssessAction : additional_type
 
       AssessAction : agent
@@ -294,8 +296,6 @@
       AssessAction : result
 
       AssessAction : start_time
-
-      AssessAction : type
 
 
 </div>
@@ -324,15 +324,15 @@
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../id/">id</a></td>
+<td><a href="../action_type/">action_type</a></td>
 <td>1 <br/> <a href="../String/">String</a></td>
-<td>Unique identifier for the action, typically formatted as '{command_type}-{pro...</td>
+<td>The specific type of action being performed (e</td>
 <td><a href="../Action/">Action</a></td>
 </tr>
 <tr>
-<td><a href="../type/">type</a></td>
+<td><a href="../id/">id</a></td>
 <td>1 <br/> <a href="../String/">String</a></td>
-<td>The specific type of action being performed (e</td>
+<td>Unique identifier for the action, typically formatted as '{command_type}-{pro...</td>
 <td><a href="../Action/">Action</a></td>
 </tr>
 <tr>
@@ -462,6 +462,19 @@ attributes:
     - AssessAction
     range: string
     required: false
+  action_type:
+    name: action_type
+    description: The specific type of action being performed (e.g., CreateAction,
+      AssessAction).
+    from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
+    rank: 1000
+    designates_type: true
+    alias: action_type
+    owner: AssessAction
+    domain_of:
+    - Action
+    range: string
+    required: true
   id:
     name: id
     description: Unique identifier for the action, typically formatted as '{command_type}-{project_id}'.
@@ -473,23 +486,6 @@ attributes:
     - Project
     - Action
     - User
-    range: string
-    required: true
-  type:
-    name: type
-    description: The specific type of action being performed (e.g., CreateAction,
-      AssessAction).
-    from_schema: https://w3id.org/karectl-crates/governance-model
-    rank: 1000
-    designates_type: true
-    alias: type
-    owner: AssessAction
-    domain_of:
-    - Action
-    - Group
-    - Source
-    - Destination
-    - Resource
     range: string
     required: true
   name:
@@ -508,6 +504,10 @@ attributes:
     - Column
     - Resource
     - Environment
+    - KeycloakClientConfig
+    - SecretRef
+    - ProtocolMapper
+    - EnvironmentVariable
     range: string
     required: true
   start_time:

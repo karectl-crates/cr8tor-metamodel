@@ -355,23 +355,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Identifier and Mapping Information">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#schema-source" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Schema Source
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -417,7 +400,6 @@
 
 
 <h1 id="slot-project">Slot: project</h1>
-<p><em>The project entity governed by this governance model, containing core project metadata and state.</em></p>
 <p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/project">cr8tor_metamodel:project</a>
 Alias: project</p>
 <!-- no inheritance hierarchy -->
@@ -433,6 +415,11 @@ Alias: project</p>
 </thead>
 <tbody>
 <tr>
+<td><a href="../VDI/">VDI</a></td>
+<td>Virtual Desktop Infrastructure resource for cr8tor project</td>
+<td>no</td>
+</tr>
+<tr>
 <td><a href="../Governance/">Governance</a></td>
 <td>Represents the governance structure of a Cr8tor project, encapsulating user a...</td>
 <td>no</td>
@@ -441,18 +428,9 @@ Alias: project</p>
 </table>
 <h2 id="properties">Properties</h2>
 <ul>
-<li>
-<p>Range: <a href="../Project/">Project</a></p>
-</li>
-<li>
-<p>Required: True</p>
-</li>
+<li>Range: <a href="../String/">String</a></li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
-<h3 id="schema-source">Schema Source</h3>
-<ul>
-<li>from schema: https://w3id.org/karectl-crates/cr8tor-metamodel</li>
-</ul>
 <h2 id="mappings">Mappings</h2>
 <table>
 <thead>
@@ -476,19 +454,11 @@ Alias: project</p>
 <details>
 
 <pre><code class="language-yaml">name: project
-description: The project entity governed by this governance model, containing core
-  project metadata and state.
-from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
-rank: 1000
 alias: project
-owner: Governance
 domain_of:
 - Governance
-range: Project
-required: true
-multivalued: false
-inlined: true
-inlined_as_list: true
+- VDI
+range: string
 
 </code></pre>
 

@@ -267,6 +267,8 @@
 
       User : email
 
+      User : enabled
+
       User : expiry_date
 
       User : family_name
@@ -285,6 +287,8 @@
 
 
       User : id
+
+      User : password
 
       User : start_date
 
@@ -356,6 +360,18 @@
 <td><a href="../expiry_date/">expiry_date</a></td>
 <td>0..1 <br/> <a href="../Datetime/">Datetime</a></td>
 <td>The date and time when the user's access to the project expires, representing...</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../enabled/">enabled</a></td>
+<td>0..1 <br/> <a href="../Boolean/">Boolean</a></td>
+<td>Whether the user account is enabled</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../password/">password</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Optional initial password</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -508,6 +524,28 @@ attributes:
     domain_of:
     - User
     range: datetime
+  enabled:
+    name: enabled
+    description: Whether the user account is enabled.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    rank: 1000
+    ifabsent: 'true'
+    domain_of:
+    - User
+    - Resource
+    - KeycloakClientConfig
+    range: boolean
+    required: false
+  password:
+    name: password
+    description: Optional initial password. If not set, the operator generates a temporary
+      password.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    rank: 1000
+    domain_of:
+    - User
+    range: string
+    required: false
 
 </code></pre>
 </details>
@@ -632,6 +670,32 @@ attributes:
     domain_of:
     - User
     range: datetime
+  enabled:
+    name: enabled
+    description: Whether the user account is enabled.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    rank: 1000
+    ifabsent: 'true'
+    alias: enabled
+    owner: User
+    domain_of:
+    - User
+    - Resource
+    - KeycloakClientConfig
+    range: boolean
+    required: false
+  password:
+    name: password
+    description: Optional initial password. If not set, the operator generates a temporary
+      password.
+    from_schema: https://w3id.org/karectl-crates/governance-model
+    rank: 1000
+    alias: password
+    owner: User
+    domain_of:
+    - User
+    range: string
+    required: false
 
 </code></pre>
 </details>

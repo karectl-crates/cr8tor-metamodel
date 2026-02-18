@@ -288,6 +288,8 @@
 
 
 
+      Action : action_type
+
       Action : agent
 
       Action : end_time
@@ -303,8 +305,6 @@
       Action : result
 
       Action : start_time
-
-      Action : type
 
 
 </div>
@@ -328,15 +328,15 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../id/">id</a></td>
+<td><a href="../action_type/">action_type</a></td>
 <td>1 <br/> <a href="../String/">String</a></td>
-<td>Unique identifier for the action, typically formatted as '{command_type}-{pro...</td>
+<td>The specific type of action being performed (e</td>
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../type/">type</a></td>
+<td><a href="../id/">id</a></td>
 <td>1 <br/> <a href="../String/">String</a></td>
-<td>The specific type of action being performed (e</td>
+<td>Unique identifier for the action, typically formatted as '{command_type}-{pro...</td>
 <td>direct</td>
 </tr>
 <tr>
@@ -448,6 +448,8 @@ description: Represents an action or activity performed on a Cr8tor project, tra
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 narrow_mappings:
 - schemaorg:Action
+slots:
+- action_type
 attributes:
   id:
     name: id
@@ -458,21 +460,6 @@ attributes:
     - Project
     - Action
     - User
-    range: string
-    required: true
-  type:
-    name: type
-    description: The specific type of action being performed (e.g., CreateAction,
-      AssessAction).
-    from_schema: https://w3id.org/karectl-crates/governance-model
-    rank: 1000
-    designates_type: true
-    domain_of:
-    - Action
-    - Group
-    - Source
-    - Destination
-    - Resource
     range: string
     required: true
   name:
@@ -489,6 +476,10 @@ attributes:
     - Column
     - Resource
     - Environment
+    - KeycloakClientConfig
+    - SecretRef
+    - ProtocolMapper
+    - EnvironmentVariable
     range: string
     required: true
   start_time:
@@ -590,23 +581,6 @@ attributes:
     - User
     range: string
     required: true
-  type:
-    name: type
-    description: The specific type of action being performed (e.g., CreateAction,
-      AssessAction).
-    from_schema: https://w3id.org/karectl-crates/governance-model
-    rank: 1000
-    designates_type: true
-    alias: type
-    owner: Action
-    domain_of:
-    - Action
-    - Group
-    - Source
-    - Destination
-    - Resource
-    range: string
-    required: true
   name:
     name: name
     description: Human-readable name describing the action (e.g., "CREATE Data Project
@@ -623,6 +597,10 @@ attributes:
     - Column
     - Resource
     - Environment
+    - KeycloakClientConfig
+    - SecretRef
+    - ProtocolMapper
+    - EnvironmentVariable
     range: string
     required: true
   start_time:
@@ -711,6 +689,19 @@ attributes:
     - Action
     range: string
     required: false
+  action_type:
+    name: action_type
+    description: The specific type of action being performed (e.g., CreateAction,
+      AssessAction).
+    from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
+    rank: 1000
+    designates_type: true
+    alias: action_type
+    owner: Action
+    domain_of:
+    - Action
+    range: string
+    required: true
 
 </code></pre>
 </details>

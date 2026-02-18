@@ -559,6 +559,10 @@
 <td>Models the configuration of the target trusted research environment (TRE) for...</td>
 </tr>
 <tr>
+<td><a href="EnvironmentVariable/">EnvironmentVariable</a></td>
+<td>A name-value environment variable pair</td>
+</tr>
+<tr>
 <td><a href="Governance/">Governance</a></td>
 <td>Represents the governance structure of a Cr8tor project, encapsulating user a...</td>
 </tr>
@@ -567,20 +571,48 @@
 <td>Represents a group or organizational unit within a Cr8tor project, used to or...</td>
 </tr>
 <tr>
+<td><a href="GroupSpec/">GroupSpec</a></td>
+<td>Operator group specification for managing keycloak groups and setting up work...</td>
+</tr>
+<tr>
 <td><a href="Ingress/">Ingress</a></td>
 <td>Represents the data ingress process for a Cr8tor project, modeling the flow o...</td>
+</tr>
+<tr>
+<td><a href="KeycloakClientConfig/">KeycloakClientConfig</a></td>
+<td>Configuration for a Keycloak OIDC client</td>
+</tr>
+<tr>
+<td><a href="KubespawnerOverride/">KubespawnerOverride</a></td>
+<td>KubeSpawner override settings for a jupyterhub profile</td>
 </tr>
 <tr>
 <td><a href="Location/">Location</a></td>
 <td>Represents a data location with flexible attributes to accommodate various st...</td>
 </tr>
 <tr>
+<td><a href="ProfileConfig/">ProfileConfig</a></td>
+<td>JupyterHub workspace profile to select different workspace environments</td>
+</tr>
+<tr>
 <td><a href="Project/">Project</a></td>
 <td>Defines the core state and identifying properties of a Cr8tor project, includ...</td>
 </tr>
 <tr>
+<td><a href="ProjectSpec/">ProjectSpec</a></td>
+<td>Operator project specification to define the resources for a research project...</td>
+</tr>
+<tr>
+<td><a href="ProtocolMapper/">ProtocolMapper</a></td>
+<td>Keycloak OIDC protocol mapper</td>
+</tr>
+<tr>
 <td><a href="Resource/">Resource</a></td>
 <td>Abstract base class for K8TRE resources (such as applications or services) th...</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="Gitea/">Gitea</a></td>
+<td>Gitea git repository resource for cr8tor project</td>
 </tr>
 <tr>
 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="Jupyter/">Jupyter</a></td>
@@ -589,6 +621,18 @@
 <tr>
 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="Keycloak/">Keycloak</a></td>
 <td>Specialized resource configuration for deploying Keycloak identity and access...</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="RStudio/">RStudio</a></td>
+<td>RStudio workspace resource for cr8tor project</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="VDI/">VDI</a></td>
+<td>Virtual Desktop Infrastructure resource for cr8tor project</td>
+</tr>
+<tr>
+<td><a href="SecretRef/">SecretRef</a></td>
+<td>Reference to a k8s Secret</td>
 </tr>
 <tr>
 <td><a href="Source/">Source</a></td>
@@ -618,6 +662,10 @@
 <td>The current status of the action, indicating whether it's active, completed, ...</td>
 </tr>
 <tr>
+<td><a href="action_type/">action_type</a></td>
+<td>The specific type of action being performed (e</td>
+</tr>
+<tr>
 <td><a href="actions/">actions</a></td>
 <td>List of actions performed on the cr8tor project</td>
 </tr>
@@ -638,8 +686,28 @@
 <td>The type or method of authentication required to access the Jupyter workspace...</td>
 </tr>
 <tr>
+<td><a href="client_id/">client_id</a></td>
+<td>Unique Keycloak client identifier</td>
+</tr>
+<tr>
+<td><a href="clients/">clients</a></td>
+<td>OIDC clients to be managed in this Keycloak deployment</td>
+</tr>
+<tr>
 <td><a href="columns/">columns</a></td>
 <td>List of columns that define the schema of the table, each representing a data...</td>
+</tr>
+<tr>
+<td><a href="config/">config</a></td>
+<td>Mapper configuration as JSON string</td>
+</tr>
+<tr>
+<td><a href="connection/">connection</a></td>
+<td>Connection protocol</td>
+</tr>
+<tr>
+<td><a href="consent_required/">consent_required</a></td>
+<td></td>
 </tr>
 <tr>
 <td><a href="credentials/">credentials</a></td>
@@ -652,6 +720,10 @@
 <tr>
 <td><a href="datatype/">datatype</a></td>
 <td>The datatype of the column, specifying the kind of data stored (e</td>
+</tr>
+<tr>
+<td><a href="default_client_scopes/">default_client_scopes</a></td>
+<td>Default client scopes</td>
 </tr>
 <tr>
 <td><a href="deployment/">deployment</a></td>
@@ -670,16 +742,24 @@
 <td>A human-readable display name for the group, used for UI and reporting</td>
 </tr>
 <tr>
+<td><a href="display_name/">display_name</a></td>
+<td>Profile name shown in jupyterhub spawner</td>
+</tr>
+<tr>
 <td><a href="email/">email</a></td>
 <td>The user's email address, used for communication and notifications related to...</td>
 </tr>
 <tr>
 <td><a href="enabled/">enabled</a></td>
-<td>Boolean flag indicating whether the application or resource is enabled and av...</td>
+<td>Whether the user account is enabled</td>
 </tr>
 <tr>
 <td><a href="end_time/">end_time</a></td>
 <td>The date and time when the action completed or failed</td>
+</tr>
+<tr>
+<td><a href="env/">env</a></td>
+<td>Environment variables for the VDI container</td>
 </tr>
 <tr>
 <td><a href="environment/">environment</a></td>
@@ -714,6 +794,10 @@
 <td>Unique identifier for the project</td>
 </tr>
 <tr>
+<td><a href="image/">image</a></td>
+<td>Container image for the VDI</td>
+</tr>
+<tr>
 <td><a href="ingress/">ingress</a></td>
 <td>The data ingress configuration for the project, specifying data sources, dest...</td>
 </tr>
@@ -722,24 +806,76 @@
 <td>The tool or service that executed the action (e</td>
 </tr>
 <tr>
+<td><a href="key/">key</a></td>
+<td>Key within the Secret</td>
+</tr>
+<tr>
+<td><a href="kubespawner_override/">kubespawner_override</a></td>
+<td>KubeSpawner overrides for this profile</td>
+</tr>
+<tr>
 <td><a href="locations/">locations</a></td>
 <td>List of data locations or URIs where the dataset is stored or accessed during...</td>
+</tr>
+<tr>
+<td><a href="members/">members</a></td>
+<td>Usernames of group members</td>
 </tr>
 <tr>
 <td><a href="name/">name</a></td>
 <td>The unique name of the Cr8tor project, used for identification and reference ...</td>
 </tr>
 <tr>
+<td><a href="optional_client_scopes/">optional_client_scopes</a></td>
+<td>Optional client scopes</td>
+</tr>
+<tr>
+<td><a href="password/">password</a></td>
+<td>Optional initial password</td>
+</tr>
+<tr>
 <td><a href="password_key/">password_key</a></td>
 <td>The key or identifier used to retrieve the password from the credential provi...</td>
+</tr>
+<tr>
+<td><a href="profiles/">profiles</a></td>
+<td>JupyterHub workspace profiles for this deployment</td>
 </tr>
 <tr>
 <td><a href="project/">project</a></td>
 <td>The project entity governed by this governance model, containing core project...</td>
 </tr>
 <tr>
+<td><a href="projects/">projects</a></td>
+<td>Project names this group grants access to</td>
+</tr>
+<tr>
+<td><a href="protocol/">protocol</a></td>
+<td>Authentication protocol</td>
+</tr>
+<tr>
+<td><a href="protocol_mapper/">protocol_mapper</a></td>
+<td>Mapper type or class</td>
+</tr>
+<tr>
+<td><a href="protocol_mappers/">protocol_mappers</a></td>
+<td>OIDC protocol mappers</td>
+</tr>
+<tr>
 <td><a href="provider/">provider</a></td>
 <td>The credential provider or authentication service (e</td>
+</tr>
+<tr>
+<td><a href="public_client/">public_client</a></td>
+<td>Whether this is a public client</td>
+</tr>
+<tr>
+<td><a href="realm/">realm</a></td>
+<td>The Keycloak realm name for this project deployment</td>
+</tr>
+<tr>
+<td><a href="redirect_uris/">redirect_uris</a></td>
+<td>Valid redirect URIs after authentication</td>
 </tr>
 <tr>
 <td><a href="ref/">ref</a></td>
@@ -748,6 +884,10 @@
 <tr>
 <td><a href="reference/">reference</a></td>
 <td>An external or internal reference identifier for the Cr8tor project, used for...</td>
+</tr>
+<tr>
+<td><a href="resource_type/">resource_type</a></td>
+<td>The type of resource (e</td>
 </tr>
 <tr>
 <td><a href="resources/">resources</a></td>
@@ -762,8 +902,16 @@
 <td>The name of the schema in the target database where the dataset will reside</td>
 </tr>
 <tr>
-<td><a href="somethingspecific/">somethingspecific</a></td>
-<td>A Keycloak-specific attribute for custom configuration or integration</td>
+<td><a href="secret/">secret</a></td>
+<td>Client secret</td>
+</tr>
+<tr>
+<td><a href="secret_ref/">secret_ref</a></td>
+<td>Reference to a k8s Secret containing the client secret</td>
+</tr>
+<tr>
+<td><a href="slug/">slug</a></td>
+<td>URL-safe profile identifier</td>
 </tr>
 <tr>
 <td><a href="source/">source</a></td>
@@ -778,16 +926,24 @@
 <td>Timestamp when project was created</td>
 </tr>
 <tr>
+<td><a href="subgroups/">subgroups</a></td>
+<td>Child group names</td>
+</tr>
+<tr>
 <td><a href="tables/">tables</a></td>
 <td>List of tables that make up the dataset, each representing a structured colle...</td>
 </tr>
 <tr>
 <td><a href="type/">type</a></td>
-<td>The specific type of action being performed (e</td>
+<td>The type of group membership, indicating how the user was assigned to the gro...</td>
 </tr>
 <tr>
 <td><a href="url/">url</a></td>
 <td>The URL or location of the data source, specifying where data can be accessed...</td>
+</tr>
+<tr>
+<td><a href="user/">user</a></td>
+<td>Username for the VDI session</td>
 </tr>
 <tr>
 <td><a href="username/">username</a></td>
@@ -804,6 +960,10 @@
 <tr>
 <td><a href="value/">value</a></td>
 <td>The unique identifier of the group, typically used as the group ID for refere...</td>
+</tr>
+<tr>
+<td><a href="web_origins/">web_origins</a></td>
+<td>Allowed web origins for CORS</td>
 </tr>
 </tbody>
 </table>
@@ -823,6 +983,10 @@
 <tr>
 <td><a href="ActionType/">ActionType</a></td>
 <td>Types of actions that can be performed on a Cr8tor project</td>
+</tr>
+<tr>
+<td><a href="ConnectionType/">ConnectionType</a></td>
+<td>VDI connection protocols</td>
 </tr>
 <tr>
 <td><a href="DestinationType/">DestinationType</a></td>
