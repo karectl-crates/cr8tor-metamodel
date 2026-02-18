@@ -30,7 +30,7 @@ classes:
       environment:
         description: The environment configuration for the deployment, specifying the target trusted research environment (TRE) and its properties.
         range: Environment
-  
+
   Resource:
     description: >-
       Abstract base class for K8TRE resources (such as applications or services) that can be deployed through a Cr8tor project. This class defines the state and configuration of deployable resources.
@@ -38,7 +38,7 @@ classes:
       name:
         description: The requested name of the resource, used for identification and management within the deployment.
         range: string
-        required: true  
+        required: true
       type:
         description: The type of application or resource (e.g., jupyterhub, vdi), specifying its function or category.
         range: string
@@ -60,14 +60,63 @@ classes:
     attributes:
       auth:
         description: The type or method of authentication required to access the Jupyter workspace (e.g., OAuth, SSO).
+      profiles:
+        range: ProfileConfig
+        multivalued: true
+        inlined_as_list: true
+        description: JupyterHub workspace profiles for this deployment.
 
   Keycloak:
     is_a: Resource
     description: >-
       Specialized resource configuration for deploying Keycloak identity and access management services within a Cr8tor project. This class extends Resource to include Keycloak-specific settings and state.
     attributes:
-      somethingspecific:
-        description: A Keycloak-specific attribute for custom configuration or integration.
+      realm:
+        description: The Keycloak realm name for this project deployment.
+      clients:
+        range: KeycloakClientConfig
+        multivalued: true
+        inlined_as_list: true
+        description: OIDC clients to be managed in this Keycloak deployment.
+
+  VDI:
+    is_a: Resource
+    description: >-
+      Virtual Desktop Infrastructure resource for cr8tor project. The operator creates a pod and Service for each VDI instance, and manages user access and lifecycle. This class extends Resource to include VDI-specific configuration.
+    attributes:
+      image:
+        range: string
+        required: false
+        ifabsent: "string(ghcr.io/karectl/vdi-mate:v1.0.0-light)"
+        description: Container image for the VDI.
+      user:
+        range: string
+        required: true
+        description: Username for the VDI session.
+      project:
+        range: string
+        required: true
+        description: Project this VDI belongs to.
+      connection:
+        range: ConnectionType
+        required: false
+        ifabsent: "string(rdp)"
+        description: Connection protocol
+      env:
+        range: EnvironmentVariable
+        multivalued: true
+        inlined_as_list: true
+        description: Environment variables for the VDI container.
+
+  RStudio:
+    is_a: Resource
+    description: >-
+      RStudio workspace resource for cr8tor project.
+
+  Gitea:
+    is_a: Resource
+    description: >-
+      Gitea git repository resource for cr8tor project.
 
   Environment:
     description: >-
@@ -75,3 +124,200 @@ classes:
     attributes:
       name:
         description: The name of the environment or TRE where the project will be deployed, used for identification and management.
+
+  # -------------------------------------------------------------------------
+  # Operator CRD spec classes
+  # -------------------------------------------------------------------------
+
+  ProjectSpec:
+    description: >-
+      Operator project specification to define the resources for a research project namespace.
+    attributes:
+      description:
+        range: string
+        required: true
+        description: Project description.
+      resources:
+        range: Resource
+        multivalued: true
+        inlined_as_list: true
+        description: Resources (applications/services) available in this project.
+
+  GroupSpec:
+    description: >-
+      Operator group specification for managing keycloak groups and setting up workspace storage for group members.
+    attributes:
+      description:
+        range: string
+        required: false
+        description: Descrption of the group and its purpose.
+      members:
+        range: string
+        multivalued: true
+        inlined_as_list: true
+        description: Usernames of group members.
+      projects:
+        range: string
+        multivalued: true
+        inlined_as_list: true
+        description: Project names this group grants access to.
+      subgroups:
+        range: string
+        multivalued: true
+        inlined_as_list: true
+        description: Child group names.
+
+  # -------------------------------------------------------------------------
+  # Supporting classes referenced by Resource subclasses
+  # -------------------------------------------------------------------------
+
+  KeycloakClientConfig:
+    description: >-
+      Configuration for a Keycloak OIDC client. The operator creates and manages these in Keycloak for project services.
+    attributes:
+      client_id:
+        range: string
+        required: true
+        description: Unique Keycloak client identifier.
+      name:
+        range: string
+        required: false
+        description: client name shown in Keycloak admin console.
+      secret:
+        range: string
+        required: false
+        description: Client secret.
+      secret_ref:
+        range: SecretRef
+        required: false
+        inlined: true
+        description: Reference to a k8s Secret containing the client secret.
+      enabled:
+        range: boolean
+        required: false
+        ifabsent: "true"
+        description: Whether the client is enabled.
+      public_client:
+        range: boolean
+        required: false
+        ifabsent: "false"
+        description: Whether this is a public client.
+      redirect_uris:
+        range: uri
+        multivalued: true
+        inlined_as_list: true
+        description: Valid redirect URIs after authentication.
+      web_origins:
+        range: string
+        multivalued: true
+        inlined_as_list: true
+        description: Allowed web origins for CORS.
+      protocol:
+        range: string
+        required: false
+        ifabsent: "string(openid-connect)"
+        description: Authentication protocol.
+      default_client_scopes:
+        range: string
+        multivalued: true
+        inlined_as_list: true
+        description: Default client scopes.
+      optional_client_scopes:
+        range: string
+        multivalued: true
+        inlined_as_list: true
+        description: Optional client scopes.
+      protocol_mappers:
+        range: ProtocolMapper
+        multivalued: true
+        inlined_as_list: true
+        description: OIDC protocol mappers.
+
+  SecretRef:
+    description: Reference to a k8s Secret.
+    attributes:
+      name:
+        range: string
+        required: true
+        description: Secret name in the same namespace.
+      key:
+        range: string
+        required: false
+        ifabsent: "string(client-secret)"
+        description: Key within the Secret.
+
+  ProtocolMapper:
+    description: Keycloak OIDC protocol mapper.
+    attributes:
+      name:
+        range: string
+        required: true
+        description: Mapper name.
+      protocol_mapper:
+        range: string
+        required: true
+        description: Mapper type or class.
+      consent_required:
+        range: boolean
+        required: false
+        ifabsent: "false"
+      config:
+        range: string
+        required: false
+        description: Mapper configuration as JSON string.
+
+  ProfileConfig:
+    description: >-
+      JupyterHub workspace profile to select different workspace environments.
+    attributes:
+      display_name:
+        range: string
+        required: true
+        description: Profile name shown in jupyterhub spawner.
+      description:
+        range: string
+        required: false
+        description: Profile description.
+      slug:
+        range: string
+        required: true
+        description: URL-safe profile identifier.
+      kubespawner_override:
+        range: KubespawnerOverride
+        required: false
+        inlined: true
+        description: KubeSpawner overrides for this profile.
+
+  KubespawnerOverride:
+    description: KubeSpawner override settings for a jupyterhub profile.
+    attributes:
+      image:
+        range: string
+        required: false
+        description: Container image for the workspace.
+      env:
+        range: string
+        required: false
+        description: Environment variables as JSON string.
+
+  EnvironmentVariable:
+    description: A name-value environment variable pair.
+    attributes:
+      name:
+        range: string
+        required: true
+        description: Variable name.
+      value:
+        range: string
+        required: true
+        description: Variable value.
+
+enums:
+
+  ConnectionType:
+    description: VDI connection protocols.
+    permissible_values:
+      rdp:
+        description: Remote Desktop Protocol.
+      vnc:
+        description: Virtual Network Computing.

@@ -1,0 +1,83 @@
+---
+name: Auto-generate pydantic models
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/cr8tor_metamodel/schema/**'
+      - 'config.yaml'
+      - 'config.public.mk'
+
+permissions:
+  contents: write
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6.4.3
+        with:
+          python-version: '3.12'
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install just
+        run: uv tool install rust-just
+
+      - name: Install project
+        run: uv sync --dev
+
+      - name: Regenerate pydantic models
+        run: just gen-python
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git diff --name-only
+          if [[ -n $(git diff --name-only src/cr8tor_metamodel/datamodel/) ]]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Models have changed"
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "No changes to models"
+          fi
+
+      - name: Commit regenerated models
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/cr8tor_metamodel/datamodel/
+          git commit -m "chore: auto-regenerate pydantic models from schema changes"
+          git push
+
+      # Update cr8tor repo as the metamodel has changed
+      - name: Trigger cr8tor sync
+        if: steps.changes.outputs.changed == 'true'
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.CR8TOR_DISPATCH_TOKEN }}
+          repository: karectl-crates/cr8tor
+          event-type: metamodel-updated
+          client-payload: '{"sha": "${{ github.sha }}", "ref": "${{ github.ref }}"}'
+        continue-on-error: true
+
+      - name: Summary
+        run: |
+          echo "## Auto-Generate Summary" >> $GITHUB_STEP_SUMMARY
+          if [[ "${{ steps.changes.outputs.changed }}" == "true" ]]; then
+            echo "Pydantic models were regenerated and committed." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No changes to pydantic models." >> $GITHUB_STEP_SUMMARY
+          fi

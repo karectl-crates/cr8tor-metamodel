@@ -185,8 +185,17 @@ classes:
       expiry_date:
         range: datetime
         description: The date and time when the user's access to the project expires, representing the end of their membership or role.
+      enabled:
+        range: boolean
+        required: false
+        ifabsent: "true"
+        description: Whether the user account is enabled.
+      password:
+        range: string
+        required: false
+        description: Optional initial password. If not set, the operator generates a temporary password.
 
-    narrow_mappings: 
+    narrow_mappings:
     - schemaorg:Person
     - schemaorg:Organization
     - scim:User
