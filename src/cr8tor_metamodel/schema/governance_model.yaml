@@ -18,6 +18,13 @@ default_range: string
 imports:
   - linkml:types
 
+slots:
+  action_type:
+    range: string
+    description: The specific type of action being performed (e.g., CreateAction, AssessAction).
+    required: true
+    designates_type: true
+
 classes:
 
   Governance:
@@ -70,17 +77,14 @@ classes:
       Represents an action or activity performed on a Cr8tor project, tracking the lifecycle 
       and state changes of the project. Based on schema.org Action and the Provenance Crate Profile 
       specification. Actions track operations like create, assess, validate, etc.
+    slots:
+      - action_type
     attributes:
       id:
         identifier: true
         range: string
         description: Unique identifier for the action, typically formatted as '{command_type}-{project_id}'.
         required: true
-      type:
-        range: string
-        description: The specific type of action being performed (e.g., CreateAction, AssessAction).
-        required: true
-        designates_type: true
       name:
         range: string
         description: Human-readable name describing the action (e.g., "CREATE Data Project Action").

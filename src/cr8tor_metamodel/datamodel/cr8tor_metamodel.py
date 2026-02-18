@@ -1,5 +1,5 @@
 # Auto generated from cr8tor_metamodel.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-02-18T11:37:48
+# Generation date: 2026-02-18T17:10:59
 # Schema: cr8tor-metamodel
 #
 # id: https://w3id.org/karectl-crates/cr8tor-metamodel
@@ -213,7 +213,7 @@ class Action(YAMLRoot):
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.Action
 
     id: Union[str, ActionId] = None
-    type: str = None
+    action_type: str = None
     name: str = None
     start_time: Union[str, XSDDateTime] = None
     end_time: Union[str, XSDDateTime] = None
@@ -229,9 +229,9 @@ class Action(YAMLRoot):
         if not isinstance(self.id, ActionId):
             self.id = ActionId(self.id)
 
-        if self._is_empty(self.type):
-            self.MissingRequiredField("type")
-        self.type = str(self.class_name)
+        if self._is_empty(self.action_type):
+            self.MissingRequiredField("action_type")
+        self.action_type = str(self.class_name)
 
         if self._is_empty(self.name):
             self.MissingRequiredField("name")
@@ -269,14 +269,11 @@ class Action(YAMLRoot):
             self.error = str(self.error)
 
         super().__post_init__(**kwargs)
-        if self._is_empty(self.unknown_type):
-            self.MissingRequiredField("unknown_type")
-        self.unknown_type = str(self.class_name)
 
 
     def __new__(cls, *args, **kwargs):
 
-        type_designator = "type"
+        type_designator = "action_type"
         if not type_designator in kwargs:
             return super().__new__(cls,*args,**kwargs)
         else:
@@ -305,7 +302,7 @@ class CreateAction(Action):
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.CreateAction
 
     id: Union[str, CreateActionId] = None
-    type: str = None
+    action_type: str = None
     name: str = None
     start_time: Union[str, XSDDateTime] = None
     end_time: Union[str, XSDDateTime] = None
@@ -319,9 +316,9 @@ class CreateAction(Action):
             self.id = CreateActionId(self.id)
 
         super().__post_init__(**kwargs)
-        if self._is_empty(self.unknown_type):
-            self.MissingRequiredField("unknown_type")
-        self.unknown_type = str(self.class_name)
+        if self._is_empty(self.action_type):
+            self.MissingRequiredField("action_type")
+        self.action_type = str(self.class_name)
 
 
 @dataclass(repr=False)
@@ -339,7 +336,7 @@ class AssessAction(Action):
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.AssessAction
 
     id: Union[str, AssessActionId] = None
-    type: str = None
+    action_type: str = None
     name: str = None
     start_time: Union[str, XSDDateTime] = None
     end_time: Union[str, XSDDateTime] = None
@@ -357,9 +354,9 @@ class AssessAction(Action):
             self.additional_type = str(self.additional_type)
 
         super().__post_init__(**kwargs)
-        if self._is_empty(self.unknown_type):
-            self.MissingRequiredField("unknown_type")
-        self.unknown_type = str(self.class_name)
+        if self._is_empty(self.action_type):
+            self.MissingRequiredField("action_type")
+        self.action_type = str(self.class_name)
 
 
 @dataclass(repr=False)
@@ -734,20 +731,20 @@ class Resource(YAMLRoot):
     class_name: ClassVar[str] = "Resource"
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.Resource
 
+    resource_type: str = None
     name: str = None
-    type: str = None
     url: Union[str, URI] = None
     enabled: Union[bool, Bool] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.resource_type):
+            self.MissingRequiredField("resource_type")
+        self.resource_type = str(self.class_name)
+
         if self._is_empty(self.name):
             self.MissingRequiredField("name")
         if not isinstance(self.name, str):
             self.name = str(self.name)
-
-        if self._is_empty(self.type):
-            self.MissingRequiredField("type")
-        self.type = str(self.class_name)
 
         if self._is_empty(self.url):
             self.MissingRequiredField("url")
@@ -760,14 +757,11 @@ class Resource(YAMLRoot):
             self.enabled = Bool(self.enabled)
 
         super().__post_init__(**kwargs)
-        if self._is_empty(self.unknown_type):
-            self.MissingRequiredField("unknown_type")
-        self.unknown_type = str(self.class_name)
 
 
     def __new__(cls, *args, **kwargs):
 
-        type_designator = "type"
+        type_designator = "resource_type"
         if not type_designator in kwargs:
             return super().__new__(cls,*args,**kwargs)
         else:
@@ -795,8 +789,8 @@ class Jupyter(Resource):
     class_name: ClassVar[str] = "Jupyter"
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.Jupyter
 
+    resource_type: str = None
     name: str = None
-    type: str = None
     url: Union[str, URI] = None
     enabled: Union[bool, Bool] = None
     auth: Optional[str] = None
@@ -811,9 +805,9 @@ class Jupyter(Resource):
         self.profiles = [v if isinstance(v, ProfileConfig) else ProfileConfig(**as_dict(v)) for v in self.profiles]
 
         super().__post_init__(**kwargs)
-        if self._is_empty(self.unknown_type):
-            self.MissingRequiredField("unknown_type")
-        self.unknown_type = str(self.class_name)
+        if self._is_empty(self.resource_type):
+            self.MissingRequiredField("resource_type")
+        self.resource_type = str(self.class_name)
 
 
 @dataclass(repr=False)
@@ -829,8 +823,8 @@ class Keycloak(Resource):
     class_name: ClassVar[str] = "Keycloak"
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.Keycloak
 
+    resource_type: str = None
     name: str = None
-    type: str = None
     url: Union[str, URI] = None
     enabled: Union[bool, Bool] = None
     realm: Optional[str] = None
@@ -845,16 +839,17 @@ class Keycloak(Resource):
         self.clients = [v if isinstance(v, KeycloakClientConfig) else KeycloakClientConfig(**as_dict(v)) for v in self.clients]
 
         super().__post_init__(**kwargs)
-        if self._is_empty(self.unknown_type):
-            self.MissingRequiredField("unknown_type")
-        self.unknown_type = str(self.class_name)
+        if self._is_empty(self.resource_type):
+            self.MissingRequiredField("resource_type")
+        self.resource_type = str(self.class_name)
 
 
 @dataclass(repr=False)
 class VDI(Resource):
     """
-    VDI resource for a cr8tor project. It contains user session and connection details. 
-    The operator creates a pod and service for each instance.
+    Virtual Desktop Infrastructure resource for cr8tor project. The operator creates a pod and Service for each VDI
+    instance, and manages user access and lifecycle. This class extends Resource to include VDI-specific
+    configuration.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -863,8 +858,8 @@ class VDI(Resource):
     class_name: ClassVar[str] = "VDI"
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.VDI
 
+    resource_type: str = None
     name: str = None
-    type: str = None
     url: Union[str, URI] = None
     enabled: Union[bool, Bool] = None
     user: str = None
@@ -895,15 +890,15 @@ class VDI(Resource):
         self.env = [v if isinstance(v, EnvironmentVariable) else EnvironmentVariable(**as_dict(v)) for v in self.env]
 
         super().__post_init__(**kwargs)
-        if self._is_empty(self.unknown_type):
-            self.MissingRequiredField("unknown_type")
-        self.unknown_type = str(self.class_name)
+        if self._is_empty(self.resource_type):
+            self.MissingRequiredField("resource_type")
+        self.resource_type = str(self.class_name)
 
 
 @dataclass(repr=False)
 class RStudio(Resource):
     """
-    RStudio workspace a cr8tor project. Mainly as a extension point for RStudio-specific config.
+    RStudio workspace resource for cr8tor project.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -912,23 +907,23 @@ class RStudio(Resource):
     class_name: ClassVar[str] = "RStudio"
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.RStudio
 
+    resource_type: str = None
     name: str = None
-    type: str = None
     url: Union[str, URI] = None
     enabled: Union[bool, Bool] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
 
         super().__post_init__(**kwargs)
-        if self._is_empty(self.unknown_type):
-            self.MissingRequiredField("unknown_type")
-        self.unknown_type = str(self.class_name)
+        if self._is_empty(self.resource_type):
+            self.MissingRequiredField("resource_type")
+        self.resource_type = str(self.class_name)
 
 
 @dataclass(repr=False)
 class Gitea(Resource):
     """
-    Gitea resource for a cr8tor project. Mainly as a extension point for Gitea-specific config.
+    Gitea git repository resource for cr8tor project.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -937,17 +932,17 @@ class Gitea(Resource):
     class_name: ClassVar[str] = "Gitea"
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.Gitea
 
+    resource_type: str = None
     name: str = None
-    type: str = None
     url: Union[str, URI] = None
     enabled: Union[bool, Bool] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
 
         super().__post_init__(**kwargs)
-        if self._is_empty(self.unknown_type):
-            self.MissingRequiredField("unknown_type")
-        self.unknown_type = str(self.class_name)
+        if self._is_empty(self.resource_type):
+            self.MissingRequiredField("resource_type")
+        self.resource_type = str(self.class_name)
 
 
 @dataclass(repr=False)
@@ -975,7 +970,7 @@ class Environment(YAMLRoot):
 @dataclass(repr=False)
 class ProjectSpec(YAMLRoot):
     """
-    Operator project specification defining the resources for a research project namespace.
+    Operator project specification to define the resources for a research project namespace.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -1003,7 +998,7 @@ class ProjectSpec(YAMLRoot):
 @dataclass(repr=False)
 class GroupSpec(YAMLRoot):
     """
-    Operator group specification specific to keycloak and workspace groups.
+    Operator group specification for managing keycloak groups and setting up workspace storage for group members.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -1039,8 +1034,7 @@ class GroupSpec(YAMLRoot):
 @dataclass(repr=False)
 class KeycloakClientConfig(YAMLRoot):
     """
-    Configuration for a keycloak OIDC client. The operator creates and manages this for project services (JupyterHub, Gitea, etc.).
-    Its a standalone crd in the keycloak operator.
+    Configuration for a Keycloak OIDC client. The operator creates and manages these in Keycloak for project services.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -1112,7 +1106,7 @@ class KeycloakClientConfig(YAMLRoot):
 @dataclass(repr=False)
 class SecretRef(YAMLRoot):
     """
-    Reference to a Kubernetes Secret.
+    Reference to a k8s Secret.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -1176,7 +1170,7 @@ class ProtocolMapper(YAMLRoot):
 @dataclass(repr=False)
 class ProfileConfig(YAMLRoot):
     """
-    JupyterHub workspace profile. Internally eferenced by Jupyter.profiles.
+    JupyterHub workspace profile to select different workspace environments.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -1213,7 +1207,7 @@ class ProfileConfig(YAMLRoot):
 @dataclass(repr=False)
 class KubespawnerOverride(YAMLRoot):
     """
-    KubeSpawner override settings for a jupyterhub profile. Internally referenced by ProfileConfig.kubespawner_override.
+    KubeSpawner override settings for a jupyterhub profile.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -1361,6 +1355,12 @@ class ConnectionType(EnumDefinitionImpl):
 class slots:
     pass
 
+slots.action_type = Slot(uri=CR8TOR_METAMODEL.action_type, name="action_type", curie=CR8TOR_METAMODEL.curie('action_type'),
+                   model_uri=CR8TOR_METAMODEL.action_type, domain=None, range=str)
+
+slots.resource_type = Slot(uri=CR8TOR_METAMODEL.resource_type, name="resource_type", curie=CR8TOR_METAMODEL.curie('resource_type'),
+                   model_uri=CR8TOR_METAMODEL.resource_type, domain=None, range=str)
+
 slots.cr8tor__governance = Slot(uri=CR8TOR_METAMODEL.governance, name="cr8tor__governance", curie=CR8TOR_METAMODEL.curie('governance'),
                    model_uri=CR8TOR_METAMODEL.cr8tor__governance, domain=None, range=Union[dict, Governance])
 
@@ -1396,9 +1396,6 @@ slots.project__actions = Slot(uri=CR8TOR_METAMODEL.actions, name="project__actio
 
 slots.action__id = Slot(uri=CR8TOR_METAMODEL.id, name="action__id", curie=CR8TOR_METAMODEL.curie('id'),
                    model_uri=CR8TOR_METAMODEL.action__id, domain=None, range=URIRef)
-
-slots.action__type = Slot(uri=CR8TOR_METAMODEL.type, name="action__type", curie=CR8TOR_METAMODEL.curie('type'),
-                   model_uri=CR8TOR_METAMODEL.action__type, domain=None, range=str)
 
 slots.action__name = Slot(uri=CR8TOR_METAMODEL.name, name="action__name", curie=CR8TOR_METAMODEL.curie('name'),
                    model_uri=CR8TOR_METAMODEL.action__name, domain=None, range=str)
@@ -1540,9 +1537,6 @@ slots.deployment__environment = Slot(uri=CR8TOR_METAMODEL.environment, name="dep
 
 slots.resource__name = Slot(uri=CR8TOR_METAMODEL.name, name="resource__name", curie=CR8TOR_METAMODEL.curie('name'),
                    model_uri=CR8TOR_METAMODEL.resource__name, domain=None, range=str)
-
-slots.resource__type = Slot(uri=CR8TOR_METAMODEL.type, name="resource__type", curie=CR8TOR_METAMODEL.curie('type'),
-                   model_uri=CR8TOR_METAMODEL.resource__type, domain=None, range=str)
 
 slots.resource__url = Slot(uri=CR8TOR_METAMODEL.url, name="resource__url", curie=CR8TOR_METAMODEL.curie('url'),
                    model_uri=CR8TOR_METAMODEL.resource__url, domain=None, range=Union[str, URI])

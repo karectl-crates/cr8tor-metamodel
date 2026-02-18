@@ -18,6 +18,13 @@ default_range: string
 imports:
   - linkml:types
 
+slots:
+  resource_type:
+    description: The type of resource (e.g., Jupyter, Keycloak, VDI).
+    range: string
+    required: true
+    designates_type: true
+
 classes:
   Deployment:
     description:  Models the deployment configuration for a Cr8tor project, specifying the K8TRE resources and applications to be provisioned, as well as the target environment. This class represents the state and desired configuration for project deployments.
@@ -34,16 +41,13 @@ classes:
   Resource:
     description: >-
       Abstract base class for K8TRE resources (such as applications or services) that can be deployed through a Cr8tor project. This class defines the state and configuration of deployable resources.
+    slots:
+      - resource_type
     attributes:
       name:
         description: The requested name of the resource, used for identification and management within the deployment.
         range: string
         required: true
-      type:
-        description: The type of application or resource (e.g., jupyterhub, vdi), specifying its function or category.
-        range: string
-        required: true
-        designates_type: true
       url:
         description: The URL endpoint for accessing the application or resource after deployment.
         range: uri
