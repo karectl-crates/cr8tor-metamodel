@@ -1,5 +1,5 @@
 # Auto generated from cr8tor_metamodel.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-02-18T17:25:12
+# Generation date: 2026-02-18T21:36:51
 # Schema: cr8tor-metamodel
 #
 # id: https://w3id.org/karectl-crates/cr8tor-metamodel
@@ -1217,14 +1217,15 @@ class KubespawnerOverride(YAMLRoot):
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.KubespawnerOverride
 
     image: Optional[str] = None
-    env: Optional[str] = None
+    env: Optional[Union[Union[dict, "EnvironmentVariable"], list[Union[dict, "EnvironmentVariable"]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self.image is not None and not isinstance(self.image, str):
             self.image = str(self.image)
 
-        if self.env is not None and not isinstance(self.env, str):
-            self.env = str(self.env)
+        if not isinstance(self.env, list):
+            self.env = [self.env] if self.env is not None else []
+        self.env = [v if isinstance(v, EnvironmentVariable) else EnvironmentVariable(**as_dict(v)) for v in self.env]
 
         super().__post_init__(**kwargs)
 
@@ -1662,7 +1663,7 @@ slots.kubespawnerOverride__image = Slot(uri=CR8TOR_METAMODEL.image, name="kubesp
                    model_uri=CR8TOR_METAMODEL.kubespawnerOverride__image, domain=None, range=Optional[str])
 
 slots.kubespawnerOverride__env = Slot(uri=CR8TOR_METAMODEL.env, name="kubespawnerOverride__env", curie=CR8TOR_METAMODEL.curie('env'),
-                   model_uri=CR8TOR_METAMODEL.kubespawnerOverride__env, domain=None, range=Optional[str])
+                   model_uri=CR8TOR_METAMODEL.kubespawnerOverride__env, domain=None, range=Optional[Union[Union[dict, EnvironmentVariable], list[Union[dict, EnvironmentVariable]]]])
 
 slots.environmentVariable__name = Slot(uri=CR8TOR_METAMODEL.name, name="environmentVariable__name", curie=CR8TOR_METAMODEL.curie('name'),
                    model_uri=CR8TOR_METAMODEL.environmentVariable__name, domain=None, range=str)

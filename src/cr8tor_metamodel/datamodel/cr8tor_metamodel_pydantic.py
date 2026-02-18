@@ -768,7 +768,7 @@ class KubespawnerOverride(ConfiguredBaseModel):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/deployment-model'})
 
     image: Optional[str] = Field(default=None, description="""Container image for the workspace.""", json_schema_extra = { "linkml_meta": {'domain_of': ['VDI', 'KubespawnerOverride']} })
-    env: Optional[str] = Field(default=None, description="""Environment variables as JSON string.""", json_schema_extra = { "linkml_meta": {'domain_of': ['VDI', 'KubespawnerOverride']} })
+    env: Optional[list[EnvironmentVariable]] = Field(default=[], description="""Environment variables for the workspace.""", json_schema_extra = { "linkml_meta": {'domain_of': ['VDI', 'KubespawnerOverride']} })
 
 
 class EnvironmentVariable(ConfiguredBaseModel):
