@@ -45,7 +45,7 @@ jobs:
         id: changes
         run: |
           git diff --name-only
-          if [[ -n $(git diff --name-only src/cr8tor_metamodel/datamodel/) ]]; then
+          if [[ -n $(git diff -I '^# Generation date:' --name-only src/cr8tor_metamodel/datamodel/) ]]; then
             echo "changed=true" >> $GITHUB_OUTPUT
             echo "Models have changed"
           else
@@ -60,6 +60,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add src/cr8tor_metamodel/datamodel/
           git commit -m "chore: auto-regenerate pydantic models from schema changes"
+          git pull --rebase
           git push
 
       # Update cr8tor repo as the metamodel has changed
