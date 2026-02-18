@@ -11,6 +11,11 @@ on:
 
 permissions:
   contents: write
+
+concurrency:
+  group: auto-generate-models
+  cancel-in-progress: false
+
 jobs:
   regenerate:
     runs-on: ubuntu-latest
@@ -19,6 +24,7 @@ jobs:
         uses: actions/checkout@v4.2.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - name: Install uv
         uses: astral-sh/setup-uv@v6.4.3
@@ -45,7 +51,7 @@ jobs:
         id: changes
         run: |
           git diff --name-only
-          if [[ -n $(git diff --name-only src/cr8tor_metamodel/datamodel/) ]]; then
+          if ! git diff --quiet -I '^# Generation date:' -- src/cr8tor_metamodel/datamodel/; then
             echo "changed=true" >> $GITHUB_OUTPUT
             echo "Models have changed"
           else
@@ -53,13 +59,18 @@ jobs:
             echo "No changes to models"
           fi
 
-      - name: Commit regenerated models
+      - name: Commit and push regenerated models
         if: steps.changes.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add src/cr8tor_metamodel/datamodel/
           git commit -m "chore: auto-regenerate pydantic models from schema changes"
+          git pull --rebase || {
+            echo "::error::Rebase failed, aborting to avoid inconsistent state"
+            git rebase --abort
+            exit 1
+          }
           git push
 
       # Update cr8tor repo as the metamodel has changed
