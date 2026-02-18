@@ -2762,7 +2762,7 @@ classes:
     class_uri: cr8tor_metamodel:EnvironmentVariable
 metamodel_version: 1.7.0
 source_file: cr8tor_metamodel.yaml
-source_file_date: '2026-02-18T17:25:01'
+source_file_date: '2026-02-18T19:22:17'
 source_file_size: 1519
-generation_date: '2026-02-18T17:25:10'
+generation_date: '2026-02-18T19:22:28'
 
