@@ -300,9 +300,11 @@ classes:
         required: false
         description: Container image for the workspace.
       env:
-        range: string
+        range: EnvironmentVariable
+        multivalued: true
+        inlined_as_list: true
         required: false
-        description: Environment variables as JSON string.
+        description: Environment variables for the workspace.
 
   EnvironmentVariable:
     description: A name-value environment variable pair.
