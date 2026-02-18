@@ -4,22 +4,27 @@
 governance:
   users:
     - id: https://example.org/users/jsmith
-      name: John Smith
-      description: Lead developer on the data modeling team
-    
+      username: jsmith
+      given_name: John
+      family_name: Smith
+      email: jsmith@example.org
+
     - id: https://example.org/users/mjones
-      name: Mary Jones
-      description: Project manager and quality assurance specialist
-    
+      username: mjones
+      given_name: Mary
+      family_name: Jones
+      email: mjones@example.org
+
     - id: https://example.org/users/rchen
-      name: Robert Chen
-      description: Documentation specialist
+      username: rchen
+      given_name: Robert
+      family_name: Chen
+      email: rchen@example.org
 
   project:
-    primary_email: project-lead@example.org
-    birth_date: "2024-01-15"
-    age_in_years: 1
-    vital_status: ALIVE
+    name: example-project
+    description: Example project
+    reference: CR8TOR-002
 
 ingress:
   source:
@@ -45,3 +50,12 @@ ingress:
               datatype: varchar
             - name: total_amount
               datatype: varchar
+
+deployment:
+  environment:
+    name: test-env
+  resources:
+    - name: rstudio
+      resource_type: RStudio
+      url: https://rstudio.example.org
+      enabled: true

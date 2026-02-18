@@ -1,5 +1,5 @@
 # Auto generated from cr8tor_metamodel.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-02-13T12:47:08
+# Generation date: 2026-02-18T17:10:59
 # Schema: cr8tor-metamodel
 #
 # id: https://w3id.org/karectl-crates/cr8tor-metamodel
@@ -213,7 +213,7 @@ class Action(YAMLRoot):
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.Action
 
     id: Union[str, ActionId] = None
-    type: str = None
+    action_type: str = None
     name: str = None
     start_time: Union[str, XSDDateTime] = None
     end_time: Union[str, XSDDateTime] = None
@@ -229,9 +229,9 @@ class Action(YAMLRoot):
         if not isinstance(self.id, ActionId):
             self.id = ActionId(self.id)
 
-        if self._is_empty(self.type):
-            self.MissingRequiredField("type")
-        self.type = str(self.class_name)
+        if self._is_empty(self.action_type):
+            self.MissingRequiredField("action_type")
+        self.action_type = str(self.class_name)
 
         if self._is_empty(self.name):
             self.MissingRequiredField("name")
@@ -269,14 +269,11 @@ class Action(YAMLRoot):
             self.error = str(self.error)
 
         super().__post_init__(**kwargs)
-        if self._is_empty(self.unknown_type):
-            self.MissingRequiredField("unknown_type")
-        self.unknown_type = str(self.class_name)
 
 
     def __new__(cls, *args, **kwargs):
 
-        type_designator = "type"
+        type_designator = "action_type"
         if not type_designator in kwargs:
             return super().__new__(cls,*args,**kwargs)
         else:
@@ -305,7 +302,7 @@ class CreateAction(Action):
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.CreateAction
 
     id: Union[str, CreateActionId] = None
-    type: str = None
+    action_type: str = None
     name: str = None
     start_time: Union[str, XSDDateTime] = None
     end_time: Union[str, XSDDateTime] = None
@@ -319,9 +316,9 @@ class CreateAction(Action):
             self.id = CreateActionId(self.id)
 
         super().__post_init__(**kwargs)
-        if self._is_empty(self.unknown_type):
-            self.MissingRequiredField("unknown_type")
-        self.unknown_type = str(self.class_name)
+        if self._is_empty(self.action_type):
+            self.MissingRequiredField("action_type")
+        self.action_type = str(self.class_name)
 
 
 @dataclass(repr=False)
@@ -339,7 +336,7 @@ class AssessAction(Action):
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.AssessAction
 
     id: Union[str, AssessActionId] = None
-    type: str = None
+    action_type: str = None
     name: str = None
     start_time: Union[str, XSDDateTime] = None
     end_time: Union[str, XSDDateTime] = None
@@ -357,9 +354,9 @@ class AssessAction(Action):
             self.additional_type = str(self.additional_type)
 
         super().__post_init__(**kwargs)
-        if self._is_empty(self.unknown_type):
-            self.MissingRequiredField("unknown_type")
-        self.unknown_type = str(self.class_name)
+        if self._is_empty(self.action_type):
+            self.MissingRequiredField("action_type")
+        self.action_type = str(self.class_name)
 
 
 @dataclass(repr=False)
@@ -385,6 +382,8 @@ class User(YAMLRoot):
     groups: Optional[Union[Union[dict, "Group"], list[Union[dict, "Group"]]]] = empty_list()
     start_date: Optional[Union[str, XSDDateTime]] = None
     expiry_date: Optional[Union[str, XSDDateTime]] = None
+    enabled: Optional[Union[bool, Bool]] = True
+    password: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -416,6 +415,12 @@ class User(YAMLRoot):
 
         if self.expiry_date is not None and not isinstance(self.expiry_date, XSDDateTime):
             self.expiry_date = XSDDateTime(self.expiry_date)
+
+        if self.enabled is not None and not isinstance(self.enabled, Bool):
+            self.enabled = Bool(self.enabled)
+
+        if self.password is not None and not isinstance(self.password, str):
+            self.password = str(self.password)
 
         super().__post_init__(**kwargs)
 
@@ -726,20 +731,20 @@ class Resource(YAMLRoot):
     class_name: ClassVar[str] = "Resource"
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.Resource
 
+    resource_type: str = None
     name: str = None
-    type: str = None
     url: Union[str, URI] = None
     enabled: Union[bool, Bool] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.resource_type):
+            self.MissingRequiredField("resource_type")
+        self.resource_type = str(self.class_name)
+
         if self._is_empty(self.name):
             self.MissingRequiredField("name")
         if not isinstance(self.name, str):
             self.name = str(self.name)
-
-        if self._is_empty(self.type):
-            self.MissingRequiredField("type")
-        self.type = str(self.class_name)
 
         if self._is_empty(self.url):
             self.MissingRequiredField("url")
@@ -752,14 +757,11 @@ class Resource(YAMLRoot):
             self.enabled = Bool(self.enabled)
 
         super().__post_init__(**kwargs)
-        if self._is_empty(self.unknown_type):
-            self.MissingRequiredField("unknown_type")
-        self.unknown_type = str(self.class_name)
 
 
     def __new__(cls, *args, **kwargs):
 
-        type_designator = "type"
+        type_designator = "resource_type"
         if not type_designator in kwargs:
             return super().__new__(cls,*args,**kwargs)
         else:
@@ -787,20 +789,25 @@ class Jupyter(Resource):
     class_name: ClassVar[str] = "Jupyter"
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.Jupyter
 
+    resource_type: str = None
     name: str = None
-    type: str = None
     url: Union[str, URI] = None
     enabled: Union[bool, Bool] = None
     auth: Optional[str] = None
+    profiles: Optional[Union[Union[dict, "ProfileConfig"], list[Union[dict, "ProfileConfig"]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self.auth is not None and not isinstance(self.auth, str):
             self.auth = str(self.auth)
 
+        if not isinstance(self.profiles, list):
+            self.profiles = [self.profiles] if self.profiles is not None else []
+        self.profiles = [v if isinstance(v, ProfileConfig) else ProfileConfig(**as_dict(v)) for v in self.profiles]
+
         super().__post_init__(**kwargs)
-        if self._is_empty(self.unknown_type):
-            self.MissingRequiredField("unknown_type")
-        self.unknown_type = str(self.class_name)
+        if self._is_empty(self.resource_type):
+            self.MissingRequiredField("resource_type")
+        self.resource_type = str(self.class_name)
 
 
 @dataclass(repr=False)
@@ -816,20 +823,126 @@ class Keycloak(Resource):
     class_name: ClassVar[str] = "Keycloak"
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.Keycloak
 
+    resource_type: str = None
     name: str = None
-    type: str = None
     url: Union[str, URI] = None
     enabled: Union[bool, Bool] = None
-    somethingspecific: Optional[str] = None
+    realm: Optional[str] = None
+    clients: Optional[Union[Union[dict, "KeycloakClientConfig"], list[Union[dict, "KeycloakClientConfig"]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self.somethingspecific is not None and not isinstance(self.somethingspecific, str):
-            self.somethingspecific = str(self.somethingspecific)
+        if self.realm is not None and not isinstance(self.realm, str):
+            self.realm = str(self.realm)
+
+        if not isinstance(self.clients, list):
+            self.clients = [self.clients] if self.clients is not None else []
+        self.clients = [v if isinstance(v, KeycloakClientConfig) else KeycloakClientConfig(**as_dict(v)) for v in self.clients]
 
         super().__post_init__(**kwargs)
-        if self._is_empty(self.unknown_type):
-            self.MissingRequiredField("unknown_type")
-        self.unknown_type = str(self.class_name)
+        if self._is_empty(self.resource_type):
+            self.MissingRequiredField("resource_type")
+        self.resource_type = str(self.class_name)
+
+
+@dataclass(repr=False)
+class VDI(Resource):
+    """
+    Virtual Desktop Infrastructure resource for cr8tor project. The operator creates a pod and Service for each VDI
+    instance, and manages user access and lifecycle. This class extends Resource to include VDI-specific
+    configuration.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CR8TOR_METAMODEL["VDI"]
+    class_class_curie: ClassVar[str] = "cr8tor_metamodel:VDI"
+    class_name: ClassVar[str] = "VDI"
+    class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.VDI
+
+    resource_type: str = None
+    name: str = None
+    url: Union[str, URI] = None
+    enabled: Union[bool, Bool] = None
+    user: str = None
+    project: str = None
+    image: Optional[str] = "ghcr.io/karectl/vdi-mate:v1.0.0-light"
+    connection: Optional[Union[str, "ConnectionType"]] = 'rdp'
+    env: Optional[Union[Union[dict, "EnvironmentVariable"], list[Union[dict, "EnvironmentVariable"]]]] = empty_list()
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.user):
+            self.MissingRequiredField("user")
+        if not isinstance(self.user, str):
+            self.user = str(self.user)
+
+        if self._is_empty(self.project):
+            self.MissingRequiredField("project")
+        if not isinstance(self.project, str):
+            self.project = str(self.project)
+
+        if self.image is not None and not isinstance(self.image, str):
+            self.image = str(self.image)
+
+        if self.connection is not None and not isinstance(self.connection, ConnectionType):
+            self.connection = getattr(ConnectionType, self.connection)
+
+        if not isinstance(self.env, list):
+            self.env = [self.env] if self.env is not None else []
+        self.env = [v if isinstance(v, EnvironmentVariable) else EnvironmentVariable(**as_dict(v)) for v in self.env]
+
+        super().__post_init__(**kwargs)
+        if self._is_empty(self.resource_type):
+            self.MissingRequiredField("resource_type")
+        self.resource_type = str(self.class_name)
+
+
+@dataclass(repr=False)
+class RStudio(Resource):
+    """
+    RStudio workspace resource for cr8tor project.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CR8TOR_METAMODEL["RStudio"]
+    class_class_curie: ClassVar[str] = "cr8tor_metamodel:RStudio"
+    class_name: ClassVar[str] = "RStudio"
+    class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.RStudio
+
+    resource_type: str = None
+    name: str = None
+    url: Union[str, URI] = None
+    enabled: Union[bool, Bool] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+
+        super().__post_init__(**kwargs)
+        if self._is_empty(self.resource_type):
+            self.MissingRequiredField("resource_type")
+        self.resource_type = str(self.class_name)
+
+
+@dataclass(repr=False)
+class Gitea(Resource):
+    """
+    Gitea git repository resource for cr8tor project.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CR8TOR_METAMODEL["Gitea"]
+    class_class_curie: ClassVar[str] = "cr8tor_metamodel:Gitea"
+    class_name: ClassVar[str] = "Gitea"
+    class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.Gitea
+
+    resource_type: str = None
+    name: str = None
+    url: Union[str, URI] = None
+    enabled: Union[bool, Bool] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+
+        super().__post_init__(**kwargs)
+        if self._is_empty(self.resource_type):
+            self.MissingRequiredField("resource_type")
+        self.resource_type = str(self.class_name)
 
 
 @dataclass(repr=False)
@@ -850,6 +963,297 @@ class Environment(YAMLRoot):
     def __post_init__(self, *_: str, **kwargs: Any):
         if self.name is not None and not isinstance(self.name, str):
             self.name = str(self.name)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class ProjectSpec(YAMLRoot):
+    """
+    Operator project specification to define the resources for a research project namespace.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CR8TOR_METAMODEL["ProjectSpec"]
+    class_class_curie: ClassVar[str] = "cr8tor_metamodel:ProjectSpec"
+    class_name: ClassVar[str] = "ProjectSpec"
+    class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.ProjectSpec
+
+    description: str = None
+    resources: Optional[Union[Union[dict, Resource], list[Union[dict, Resource]]]] = empty_list()
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.description):
+            self.MissingRequiredField("description")
+        if not isinstance(self.description, str):
+            self.description = str(self.description)
+
+        if not isinstance(self.resources, list):
+            self.resources = [self.resources] if self.resources is not None else []
+        self.resources = [v if isinstance(v, Resource) else Resource(**as_dict(v)) for v in self.resources]
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class GroupSpec(YAMLRoot):
+    """
+    Operator group specification for managing keycloak groups and setting up workspace storage for group members.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CR8TOR_METAMODEL["GroupSpec"]
+    class_class_curie: ClassVar[str] = "cr8tor_metamodel:GroupSpec"
+    class_name: ClassVar[str] = "GroupSpec"
+    class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.GroupSpec
+
+    description: Optional[str] = None
+    members: Optional[Union[str, list[str]]] = empty_list()
+    projects: Optional[Union[str, list[str]]] = empty_list()
+    subgroups: Optional[Union[str, list[str]]] = empty_list()
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self.description is not None and not isinstance(self.description, str):
+            self.description = str(self.description)
+
+        if not isinstance(self.members, list):
+            self.members = [self.members] if self.members is not None else []
+        self.members = [v if isinstance(v, str) else str(v) for v in self.members]
+
+        if not isinstance(self.projects, list):
+            self.projects = [self.projects] if self.projects is not None else []
+        self.projects = [v if isinstance(v, str) else str(v) for v in self.projects]
+
+        if not isinstance(self.subgroups, list):
+            self.subgroups = [self.subgroups] if self.subgroups is not None else []
+        self.subgroups = [v if isinstance(v, str) else str(v) for v in self.subgroups]
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class KeycloakClientConfig(YAMLRoot):
+    """
+    Configuration for a Keycloak OIDC client. The operator creates and manages these in Keycloak for project services.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CR8TOR_METAMODEL["KeycloakClientConfig"]
+    class_class_curie: ClassVar[str] = "cr8tor_metamodel:KeycloakClientConfig"
+    class_name: ClassVar[str] = "KeycloakClientConfig"
+    class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.KeycloakClientConfig
+
+    client_id: str = None
+    name: Optional[str] = None
+    secret: Optional[str] = None
+    secret_ref: Optional[Union[dict, "SecretRef"]] = None
+    enabled: Optional[Union[bool, Bool]] = True
+    public_client: Optional[Union[bool, Bool]] = False
+    redirect_uris: Optional[Union[Union[str, URI], list[Union[str, URI]]]] = empty_list()
+    web_origins: Optional[Union[str, list[str]]] = empty_list()
+    protocol: Optional[str] = "openid-connect"
+    default_client_scopes: Optional[Union[str, list[str]]] = empty_list()
+    optional_client_scopes: Optional[Union[str, list[str]]] = empty_list()
+    protocol_mappers: Optional[Union[Union[dict, "ProtocolMapper"], list[Union[dict, "ProtocolMapper"]]]] = empty_list()
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.client_id):
+            self.MissingRequiredField("client_id")
+        if not isinstance(self.client_id, str):
+            self.client_id = str(self.client_id)
+
+        if self.name is not None and not isinstance(self.name, str):
+            self.name = str(self.name)
+
+        if self.secret is not None and not isinstance(self.secret, str):
+            self.secret = str(self.secret)
+
+        if self.secret_ref is not None and not isinstance(self.secret_ref, SecretRef):
+            self.secret_ref = SecretRef(**as_dict(self.secret_ref))
+
+        if self.enabled is not None and not isinstance(self.enabled, Bool):
+            self.enabled = Bool(self.enabled)
+
+        if self.public_client is not None and not isinstance(self.public_client, Bool):
+            self.public_client = Bool(self.public_client)
+
+        if not isinstance(self.redirect_uris, list):
+            self.redirect_uris = [self.redirect_uris] if self.redirect_uris is not None else []
+        self.redirect_uris = [v if isinstance(v, URI) else URI(v) for v in self.redirect_uris]
+
+        if not isinstance(self.web_origins, list):
+            self.web_origins = [self.web_origins] if self.web_origins is not None else []
+        self.web_origins = [v if isinstance(v, str) else str(v) for v in self.web_origins]
+
+        if self.protocol is not None and not isinstance(self.protocol, str):
+            self.protocol = str(self.protocol)
+
+        if not isinstance(self.default_client_scopes, list):
+            self.default_client_scopes = [self.default_client_scopes] if self.default_client_scopes is not None else []
+        self.default_client_scopes = [v if isinstance(v, str) else str(v) for v in self.default_client_scopes]
+
+        if not isinstance(self.optional_client_scopes, list):
+            self.optional_client_scopes = [self.optional_client_scopes] if self.optional_client_scopes is not None else []
+        self.optional_client_scopes = [v if isinstance(v, str) else str(v) for v in self.optional_client_scopes]
+
+        if not isinstance(self.protocol_mappers, list):
+            self.protocol_mappers = [self.protocol_mappers] if self.protocol_mappers is not None else []
+        self.protocol_mappers = [v if isinstance(v, ProtocolMapper) else ProtocolMapper(**as_dict(v)) for v in self.protocol_mappers]
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class SecretRef(YAMLRoot):
+    """
+    Reference to a k8s Secret.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CR8TOR_METAMODEL["SecretRef"]
+    class_class_curie: ClassVar[str] = "cr8tor_metamodel:SecretRef"
+    class_name: ClassVar[str] = "SecretRef"
+    class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.SecretRef
+
+    name: str = None
+    key: Optional[str] = "client-secret"
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.name):
+            self.MissingRequiredField("name")
+        if not isinstance(self.name, str):
+            self.name = str(self.name)
+
+        if self.key is not None and not isinstance(self.key, str):
+            self.key = str(self.key)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class ProtocolMapper(YAMLRoot):
+    """
+    Keycloak OIDC protocol mapper.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CR8TOR_METAMODEL["ProtocolMapper"]
+    class_class_curie: ClassVar[str] = "cr8tor_metamodel:ProtocolMapper"
+    class_name: ClassVar[str] = "ProtocolMapper"
+    class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.ProtocolMapper
+
+    name: str = None
+    protocol_mapper: str = None
+    consent_required: Optional[Union[bool, Bool]] = False
+    config: Optional[str] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.name):
+            self.MissingRequiredField("name")
+        if not isinstance(self.name, str):
+            self.name = str(self.name)
+
+        if self._is_empty(self.protocol_mapper):
+            self.MissingRequiredField("protocol_mapper")
+        if not isinstance(self.protocol_mapper, str):
+            self.protocol_mapper = str(self.protocol_mapper)
+
+        if self.consent_required is not None and not isinstance(self.consent_required, Bool):
+            self.consent_required = Bool(self.consent_required)
+
+        if self.config is not None and not isinstance(self.config, str):
+            self.config = str(self.config)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class ProfileConfig(YAMLRoot):
+    """
+    JupyterHub workspace profile to select different workspace environments.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CR8TOR_METAMODEL["ProfileConfig"]
+    class_class_curie: ClassVar[str] = "cr8tor_metamodel:ProfileConfig"
+    class_name: ClassVar[str] = "ProfileConfig"
+    class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.ProfileConfig
+
+    display_name: str = None
+    slug: str = None
+    description: Optional[str] = None
+    kubespawner_override: Optional[Union[dict, "KubespawnerOverride"]] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.display_name):
+            self.MissingRequiredField("display_name")
+        if not isinstance(self.display_name, str):
+            self.display_name = str(self.display_name)
+
+        if self._is_empty(self.slug):
+            self.MissingRequiredField("slug")
+        if not isinstance(self.slug, str):
+            self.slug = str(self.slug)
+
+        if self.description is not None and not isinstance(self.description, str):
+            self.description = str(self.description)
+
+        if self.kubespawner_override is not None and not isinstance(self.kubespawner_override, KubespawnerOverride):
+            self.kubespawner_override = KubespawnerOverride(**as_dict(self.kubespawner_override))
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class KubespawnerOverride(YAMLRoot):
+    """
+    KubeSpawner override settings for a jupyterhub profile.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CR8TOR_METAMODEL["KubespawnerOverride"]
+    class_class_curie: ClassVar[str] = "cr8tor_metamodel:KubespawnerOverride"
+    class_name: ClassVar[str] = "KubespawnerOverride"
+    class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.KubespawnerOverride
+
+    image: Optional[str] = None
+    env: Optional[str] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self.image is not None and not isinstance(self.image, str):
+            self.image = str(self.image)
+
+        if self.env is not None and not isinstance(self.env, str):
+            self.env = str(self.env)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class EnvironmentVariable(YAMLRoot):
+    """
+    A name-value environment variable pair.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CR8TOR_METAMODEL["EnvironmentVariable"]
+    class_class_curie: ClassVar[str] = "cr8tor_metamodel:EnvironmentVariable"
+    class_name: ClassVar[str] = "EnvironmentVariable"
+    class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.EnvironmentVariable
+
+    name: str = None
+    value: str = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.name):
+            self.MissingRequiredField("name")
+        if not isinstance(self.name, str):
+            self.name = str(self.name)
+
+        if self._is_empty(self.value):
+            self.MissingRequiredField("value")
+        if not isinstance(self.value, str):
+            self.value = str(self.value)
 
         super().__post_init__(**kwargs)
 
@@ -931,9 +1335,31 @@ class DestinationType(EnumDefinitionImpl):
         name="DestinationType",
     )
 
+class ConnectionType(EnumDefinitionImpl):
+    """
+    VDI connection protocols.
+    """
+    rdp = PermissibleValue(
+        text="rdp",
+        description="Remote Desktop Protocol.")
+    vnc = PermissibleValue(
+        text="vnc",
+        description="Virtual Network Computing.")
+
+    _defn = EnumDefinition(
+        name="ConnectionType",
+        description="VDI connection protocols.",
+    )
+
 # Slots
 class slots:
     pass
+
+slots.action_type = Slot(uri=CR8TOR_METAMODEL.action_type, name="action_type", curie=CR8TOR_METAMODEL.curie('action_type'),
+                   model_uri=CR8TOR_METAMODEL.action_type, domain=None, range=str)
+
+slots.resource_type = Slot(uri=CR8TOR_METAMODEL.resource_type, name="resource_type", curie=CR8TOR_METAMODEL.curie('resource_type'),
+                   model_uri=CR8TOR_METAMODEL.resource_type, domain=None, range=str)
 
 slots.cr8tor__governance = Slot(uri=CR8TOR_METAMODEL.governance, name="cr8tor__governance", curie=CR8TOR_METAMODEL.curie('governance'),
                    model_uri=CR8TOR_METAMODEL.cr8tor__governance, domain=None, range=Union[dict, Governance])
@@ -970,9 +1396,6 @@ slots.project__actions = Slot(uri=CR8TOR_METAMODEL.actions, name="project__actio
 
 slots.action__id = Slot(uri=CR8TOR_METAMODEL.id, name="action__id", curie=CR8TOR_METAMODEL.curie('id'),
                    model_uri=CR8TOR_METAMODEL.action__id, domain=None, range=URIRef)
-
-slots.action__type = Slot(uri=CR8TOR_METAMODEL.type, name="action__type", curie=CR8TOR_METAMODEL.curie('type'),
-                   model_uri=CR8TOR_METAMODEL.action__type, domain=None, range=str)
 
 slots.action__name = Slot(uri=CR8TOR_METAMODEL.name, name="action__name", curie=CR8TOR_METAMODEL.curie('name'),
                    model_uri=CR8TOR_METAMODEL.action__name, domain=None, range=str)
@@ -1027,6 +1450,12 @@ slots.user__start_date = Slot(uri=CR8TOR_METAMODEL.start_date, name="user__start
 
 slots.user__expiry_date = Slot(uri=CR8TOR_METAMODEL.expiry_date, name="user__expiry_date", curie=CR8TOR_METAMODEL.curie('expiry_date'),
                    model_uri=CR8TOR_METAMODEL.user__expiry_date, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.user__enabled = Slot(uri=CR8TOR_METAMODEL.enabled, name="user__enabled", curie=CR8TOR_METAMODEL.curie('enabled'),
+                   model_uri=CR8TOR_METAMODEL.user__enabled, domain=None, range=Optional[Union[bool, Bool]])
+
+slots.user__password = Slot(uri=CR8TOR_METAMODEL.password, name="user__password", curie=CR8TOR_METAMODEL.curie('password'),
+                   model_uri=CR8TOR_METAMODEL.user__password, domain=None, range=Optional[str])
 
 slots.group__value = Slot(uri=CR8TOR_METAMODEL.value, name="group__value", curie=CR8TOR_METAMODEL.curie('value'),
                    model_uri=CR8TOR_METAMODEL.group__value, domain=None, range=Optional[str])
@@ -1109,9 +1538,6 @@ slots.deployment__environment = Slot(uri=CR8TOR_METAMODEL.environment, name="dep
 slots.resource__name = Slot(uri=CR8TOR_METAMODEL.name, name="resource__name", curie=CR8TOR_METAMODEL.curie('name'),
                    model_uri=CR8TOR_METAMODEL.resource__name, domain=None, range=str)
 
-slots.resource__type = Slot(uri=CR8TOR_METAMODEL.type, name="resource__type", curie=CR8TOR_METAMODEL.curie('type'),
-                   model_uri=CR8TOR_METAMODEL.resource__type, domain=None, range=str)
-
 slots.resource__url = Slot(uri=CR8TOR_METAMODEL.url, name="resource__url", curie=CR8TOR_METAMODEL.curie('url'),
                    model_uri=CR8TOR_METAMODEL.resource__url, domain=None, range=Union[str, URI])
 
@@ -1121,8 +1547,125 @@ slots.resource__enabled = Slot(uri=CR8TOR_METAMODEL.enabled, name="resource__ena
 slots.jupyter__auth = Slot(uri=CR8TOR_METAMODEL.auth, name="jupyter__auth", curie=CR8TOR_METAMODEL.curie('auth'),
                    model_uri=CR8TOR_METAMODEL.jupyter__auth, domain=None, range=Optional[str])
 
-slots.keycloak__somethingspecific = Slot(uri=CR8TOR_METAMODEL.somethingspecific, name="keycloak__somethingspecific", curie=CR8TOR_METAMODEL.curie('somethingspecific'),
-                   model_uri=CR8TOR_METAMODEL.keycloak__somethingspecific, domain=None, range=Optional[str])
+slots.jupyter__profiles = Slot(uri=CR8TOR_METAMODEL.profiles, name="jupyter__profiles", curie=CR8TOR_METAMODEL.curie('profiles'),
+                   model_uri=CR8TOR_METAMODEL.jupyter__profiles, domain=None, range=Optional[Union[Union[dict, ProfileConfig], list[Union[dict, ProfileConfig]]]])
+
+slots.keycloak__realm = Slot(uri=CR8TOR_METAMODEL.realm, name="keycloak__realm", curie=CR8TOR_METAMODEL.curie('realm'),
+                   model_uri=CR8TOR_METAMODEL.keycloak__realm, domain=None, range=Optional[str])
+
+slots.keycloak__clients = Slot(uri=CR8TOR_METAMODEL.clients, name="keycloak__clients", curie=CR8TOR_METAMODEL.curie('clients'),
+                   model_uri=CR8TOR_METAMODEL.keycloak__clients, domain=None, range=Optional[Union[Union[dict, KeycloakClientConfig], list[Union[dict, KeycloakClientConfig]]]])
+
+slots.vDI__image = Slot(uri=CR8TOR_METAMODEL.image, name="vDI__image", curie=CR8TOR_METAMODEL.curie('image'),
+                   model_uri=CR8TOR_METAMODEL.vDI__image, domain=None, range=Optional[str])
+
+slots.vDI__user = Slot(uri=CR8TOR_METAMODEL.user, name="vDI__user", curie=CR8TOR_METAMODEL.curie('user'),
+                   model_uri=CR8TOR_METAMODEL.vDI__user, domain=None, range=str)
+
+slots.vDI__project = Slot(uri=CR8TOR_METAMODEL.project, name="vDI__project", curie=CR8TOR_METAMODEL.curie('project'),
+                   model_uri=CR8TOR_METAMODEL.vDI__project, domain=None, range=str)
+
+slots.vDI__connection = Slot(uri=CR8TOR_METAMODEL.connection, name="vDI__connection", curie=CR8TOR_METAMODEL.curie('connection'),
+                   model_uri=CR8TOR_METAMODEL.vDI__connection, domain=None, range=Optional[Union[str, "ConnectionType"]])
+
+slots.vDI__env = Slot(uri=CR8TOR_METAMODEL.env, name="vDI__env", curie=CR8TOR_METAMODEL.curie('env'),
+                   model_uri=CR8TOR_METAMODEL.vDI__env, domain=None, range=Optional[Union[Union[dict, EnvironmentVariable], list[Union[dict, EnvironmentVariable]]]])
 
 slots.environment__name = Slot(uri=CR8TOR_METAMODEL.name, name="environment__name", curie=CR8TOR_METAMODEL.curie('name'),
                    model_uri=CR8TOR_METAMODEL.environment__name, domain=None, range=Optional[str])
+
+slots.projectSpec__description = Slot(uri=CR8TOR_METAMODEL.description, name="projectSpec__description", curie=CR8TOR_METAMODEL.curie('description'),
+                   model_uri=CR8TOR_METAMODEL.projectSpec__description, domain=None, range=str)
+
+slots.projectSpec__resources = Slot(uri=CR8TOR_METAMODEL.resources, name="projectSpec__resources", curie=CR8TOR_METAMODEL.curie('resources'),
+                   model_uri=CR8TOR_METAMODEL.projectSpec__resources, domain=None, range=Optional[Union[Union[dict, Resource], list[Union[dict, Resource]]]])
+
+slots.groupSpec__description = Slot(uri=CR8TOR_METAMODEL.description, name="groupSpec__description", curie=CR8TOR_METAMODEL.curie('description'),
+                   model_uri=CR8TOR_METAMODEL.groupSpec__description, domain=None, range=Optional[str])
+
+slots.groupSpec__members = Slot(uri=CR8TOR_METAMODEL.members, name="groupSpec__members", curie=CR8TOR_METAMODEL.curie('members'),
+                   model_uri=CR8TOR_METAMODEL.groupSpec__members, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.groupSpec__projects = Slot(uri=CR8TOR_METAMODEL.projects, name="groupSpec__projects", curie=CR8TOR_METAMODEL.curie('projects'),
+                   model_uri=CR8TOR_METAMODEL.groupSpec__projects, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.groupSpec__subgroups = Slot(uri=CR8TOR_METAMODEL.subgroups, name="groupSpec__subgroups", curie=CR8TOR_METAMODEL.curie('subgroups'),
+                   model_uri=CR8TOR_METAMODEL.groupSpec__subgroups, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.keycloakClientConfig__client_id = Slot(uri=CR8TOR_METAMODEL.client_id, name="keycloakClientConfig__client_id", curie=CR8TOR_METAMODEL.curie('client_id'),
+                   model_uri=CR8TOR_METAMODEL.keycloakClientConfig__client_id, domain=None, range=str)
+
+slots.keycloakClientConfig__name = Slot(uri=CR8TOR_METAMODEL.name, name="keycloakClientConfig__name", curie=CR8TOR_METAMODEL.curie('name'),
+                   model_uri=CR8TOR_METAMODEL.keycloakClientConfig__name, domain=None, range=Optional[str])
+
+slots.keycloakClientConfig__secret = Slot(uri=CR8TOR_METAMODEL.secret, name="keycloakClientConfig__secret", curie=CR8TOR_METAMODEL.curie('secret'),
+                   model_uri=CR8TOR_METAMODEL.keycloakClientConfig__secret, domain=None, range=Optional[str])
+
+slots.keycloakClientConfig__secret_ref = Slot(uri=CR8TOR_METAMODEL.secret_ref, name="keycloakClientConfig__secret_ref", curie=CR8TOR_METAMODEL.curie('secret_ref'),
+                   model_uri=CR8TOR_METAMODEL.keycloakClientConfig__secret_ref, domain=None, range=Optional[Union[dict, SecretRef]])
+
+slots.keycloakClientConfig__enabled = Slot(uri=CR8TOR_METAMODEL.enabled, name="keycloakClientConfig__enabled", curie=CR8TOR_METAMODEL.curie('enabled'),
+                   model_uri=CR8TOR_METAMODEL.keycloakClientConfig__enabled, domain=None, range=Optional[Union[bool, Bool]])
+
+slots.keycloakClientConfig__public_client = Slot(uri=CR8TOR_METAMODEL.public_client, name="keycloakClientConfig__public_client", curie=CR8TOR_METAMODEL.curie('public_client'),
+                   model_uri=CR8TOR_METAMODEL.keycloakClientConfig__public_client, domain=None, range=Optional[Union[bool, Bool]])
+
+slots.keycloakClientConfig__redirect_uris = Slot(uri=CR8TOR_METAMODEL.redirect_uris, name="keycloakClientConfig__redirect_uris", curie=CR8TOR_METAMODEL.curie('redirect_uris'),
+                   model_uri=CR8TOR_METAMODEL.keycloakClientConfig__redirect_uris, domain=None, range=Optional[Union[Union[str, URI], list[Union[str, URI]]]])
+
+slots.keycloakClientConfig__web_origins = Slot(uri=CR8TOR_METAMODEL.web_origins, name="keycloakClientConfig__web_origins", curie=CR8TOR_METAMODEL.curie('web_origins'),
+                   model_uri=CR8TOR_METAMODEL.keycloakClientConfig__web_origins, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.keycloakClientConfig__protocol = Slot(uri=CR8TOR_METAMODEL.protocol, name="keycloakClientConfig__protocol", curie=CR8TOR_METAMODEL.curie('protocol'),
+                   model_uri=CR8TOR_METAMODEL.keycloakClientConfig__protocol, domain=None, range=Optional[str])
+
+slots.keycloakClientConfig__default_client_scopes = Slot(uri=CR8TOR_METAMODEL.default_client_scopes, name="keycloakClientConfig__default_client_scopes", curie=CR8TOR_METAMODEL.curie('default_client_scopes'),
+                   model_uri=CR8TOR_METAMODEL.keycloakClientConfig__default_client_scopes, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.keycloakClientConfig__optional_client_scopes = Slot(uri=CR8TOR_METAMODEL.optional_client_scopes, name="keycloakClientConfig__optional_client_scopes", curie=CR8TOR_METAMODEL.curie('optional_client_scopes'),
+                   model_uri=CR8TOR_METAMODEL.keycloakClientConfig__optional_client_scopes, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.keycloakClientConfig__protocol_mappers = Slot(uri=CR8TOR_METAMODEL.protocol_mappers, name="keycloakClientConfig__protocol_mappers", curie=CR8TOR_METAMODEL.curie('protocol_mappers'),
+                   model_uri=CR8TOR_METAMODEL.keycloakClientConfig__protocol_mappers, domain=None, range=Optional[Union[Union[dict, ProtocolMapper], list[Union[dict, ProtocolMapper]]]])
+
+slots.secretRef__name = Slot(uri=CR8TOR_METAMODEL.name, name="secretRef__name", curie=CR8TOR_METAMODEL.curie('name'),
+                   model_uri=CR8TOR_METAMODEL.secretRef__name, domain=None, range=str)
+
+slots.secretRef__key = Slot(uri=CR8TOR_METAMODEL.key, name="secretRef__key", curie=CR8TOR_METAMODEL.curie('key'),
+                   model_uri=CR8TOR_METAMODEL.secretRef__key, domain=None, range=Optional[str])
+
+slots.protocolMapper__name = Slot(uri=CR8TOR_METAMODEL.name, name="protocolMapper__name", curie=CR8TOR_METAMODEL.curie('name'),
+                   model_uri=CR8TOR_METAMODEL.protocolMapper__name, domain=None, range=str)
+
+slots.protocolMapper__protocol_mapper = Slot(uri=CR8TOR_METAMODEL.protocol_mapper, name="protocolMapper__protocol_mapper", curie=CR8TOR_METAMODEL.curie('protocol_mapper'),
+                   model_uri=CR8TOR_METAMODEL.protocolMapper__protocol_mapper, domain=None, range=str)
+
+slots.protocolMapper__consent_required = Slot(uri=CR8TOR_METAMODEL.consent_required, name="protocolMapper__consent_required", curie=CR8TOR_METAMODEL.curie('consent_required'),
+                   model_uri=CR8TOR_METAMODEL.protocolMapper__consent_required, domain=None, range=Optional[Union[bool, Bool]])
+
+slots.protocolMapper__config = Slot(uri=CR8TOR_METAMODEL.config, name="protocolMapper__config", curie=CR8TOR_METAMODEL.curie('config'),
+                   model_uri=CR8TOR_METAMODEL.protocolMapper__config, domain=None, range=Optional[str])
+
+slots.profileConfig__display_name = Slot(uri=CR8TOR_METAMODEL.display_name, name="profileConfig__display_name", curie=CR8TOR_METAMODEL.curie('display_name'),
+                   model_uri=CR8TOR_METAMODEL.profileConfig__display_name, domain=None, range=str)
+
+slots.profileConfig__description = Slot(uri=CR8TOR_METAMODEL.description, name="profileConfig__description", curie=CR8TOR_METAMODEL.curie('description'),
+                   model_uri=CR8TOR_METAMODEL.profileConfig__description, domain=None, range=Optional[str])
+
+slots.profileConfig__slug = Slot(uri=CR8TOR_METAMODEL.slug, name="profileConfig__slug", curie=CR8TOR_METAMODEL.curie('slug'),
+                   model_uri=CR8TOR_METAMODEL.profileConfig__slug, domain=None, range=str)
+
+slots.profileConfig__kubespawner_override = Slot(uri=CR8TOR_METAMODEL.kubespawner_override, name="profileConfig__kubespawner_override", curie=CR8TOR_METAMODEL.curie('kubespawner_override'),
+                   model_uri=CR8TOR_METAMODEL.profileConfig__kubespawner_override, domain=None, range=Optional[Union[dict, KubespawnerOverride]])
+
+slots.kubespawnerOverride__image = Slot(uri=CR8TOR_METAMODEL.image, name="kubespawnerOverride__image", curie=CR8TOR_METAMODEL.curie('image'),
+                   model_uri=CR8TOR_METAMODEL.kubespawnerOverride__image, domain=None, range=Optional[str])
+
+slots.kubespawnerOverride__env = Slot(uri=CR8TOR_METAMODEL.env, name="kubespawnerOverride__env", curie=CR8TOR_METAMODEL.curie('env'),
+                   model_uri=CR8TOR_METAMODEL.kubespawnerOverride__env, domain=None, range=Optional[str])
+
+slots.environmentVariable__name = Slot(uri=CR8TOR_METAMODEL.name, name="environmentVariable__name", curie=CR8TOR_METAMODEL.curie('name'),
+                   model_uri=CR8TOR_METAMODEL.environmentVariable__name, domain=None, range=str)
+
+slots.environmentVariable__value = Slot(uri=CR8TOR_METAMODEL.value, name="environmentVariable__value", curie=CR8TOR_METAMODEL.curie('value'),
+                   model_uri=CR8TOR_METAMODEL.environmentVariable__value, domain=None, range=str)

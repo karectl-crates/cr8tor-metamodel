@@ -43,13 +43,13 @@ deployment:
 
   resources:
     - name: jupyterhub-main
-      type: jupyterhub
+      resource_type: Jupyter
       url: https://jupyter.example.org
       enabled: true
       auth: oidc
 
     - name: keycloak-main
-      type: keycloak
+      resource_type: Keycloak
       url: https://auth.example.org
       enabled: true
-      somethingspecific: realm-config
+      realm: dev-tre
