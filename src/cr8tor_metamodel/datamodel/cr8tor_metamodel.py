@@ -1,5 +1,5 @@
 # Auto generated from cr8tor_metamodel.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-02-18T21:36:51
+# Generation date: 2026-02-19T20:03:55
 # Schema: cr8tor-metamodel
 #
 # id: https://w3id.org/karectl-crates/cr8tor-metamodel
@@ -795,6 +795,7 @@ class Jupyter(Resource):
     enabled: Union[bool, Bool] = None
     auth: Optional[str] = None
     profiles: Optional[Union[Union[dict, "ProfileConfig"], list[Union[dict, "ProfileConfig"]]]] = empty_list()
+    storage: Optional[Union[dict, "ResourceStorage"]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self.auth is not None and not isinstance(self.auth, str):
@@ -803,6 +804,9 @@ class Jupyter(Resource):
         if not isinstance(self.profiles, list):
             self.profiles = [self.profiles] if self.profiles is not None else []
         self.profiles = [v if isinstance(v, ProfileConfig) else ProfileConfig(**as_dict(v)) for v in self.profiles]
+
+        if self.storage is not None and not isinstance(self.storage, ResourceStorage):
+            self.storage = ResourceStorage(**as_dict(self.storage))
 
         super().__post_init__(**kwargs)
         if self._is_empty(self.resource_type):
@@ -860,27 +864,28 @@ class VDI(Resource):
 
     resource_type: str = None
     name: str = None
-    url: Union[str, URI] = None
     enabled: Union[bool, Bool] = None
-    user: str = None
-    project: str = None
     image: Optional[str] = "ghcr.io/karectl/vdi-mate:v1.0.0-light"
+    user: Optional[str] = None
+    project: Optional[str] = None
+    url: Optional[Union[str, URI]] = None
     connection: Optional[Union[str, "ConnectionType"]] = 'rdp'
     env: Optional[Union[Union[dict, "EnvironmentVariable"], list[Union[dict, "EnvironmentVariable"]]]] = empty_list()
+    scheduling: Optional[Union[dict, "VdiScheduling"]] = None
+    storage: Optional[Union[dict, "ResourceStorage"]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.user):
-            self.MissingRequiredField("user")
-        if not isinstance(self.user, str):
-            self.user = str(self.user)
-
-        if self._is_empty(self.project):
-            self.MissingRequiredField("project")
-        if not isinstance(self.project, str):
-            self.project = str(self.project)
-
         if self.image is not None and not isinstance(self.image, str):
             self.image = str(self.image)
+
+        if self.user is not None and not isinstance(self.user, str):
+            self.user = str(self.user)
+
+        if self.project is not None and not isinstance(self.project, str):
+            self.project = str(self.project)
+
+        if self.url is not None and not isinstance(self.url, URI):
+            self.url = URI(self.url)
 
         if self.connection is not None and not isinstance(self.connection, ConnectionType):
             self.connection = getattr(ConnectionType, self.connection)
@@ -888,6 +893,12 @@ class VDI(Resource):
         if not isinstance(self.env, list):
             self.env = [self.env] if self.env is not None else []
         self.env = [v if isinstance(v, EnvironmentVariable) else EnvironmentVariable(**as_dict(v)) for v in self.env]
+
+        if self.scheduling is not None and not isinstance(self.scheduling, VdiScheduling):
+            self.scheduling = VdiScheduling(**as_dict(self.scheduling))
+
+        if self.storage is not None and not isinstance(self.storage, ResourceStorage):
+            self.storage = ResourceStorage(**as_dict(self.storage))
 
         super().__post_init__(**kwargs)
         if self._is_empty(self.resource_type):
@@ -1259,6 +1270,89 @@ class EnvironmentVariable(YAMLRoot):
         super().__post_init__(**kwargs)
 
 
+@dataclass(repr=False)
+class VdiSchedulingResources(YAMLRoot):
+    """
+    CPU and memory resource requests/limits for a VDI pod.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CR8TOR_METAMODEL["VdiSchedulingResources"]
+    class_class_curie: ClassVar[str] = "cr8tor_metamodel:VdiSchedulingResources"
+    class_name: ClassVar[str] = "VdiSchedulingResources"
+    class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.VdiSchedulingResources
+
+    requests_cpu: Optional[str] = None
+    requests_memory: Optional[str] = None
+    limits_cpu: Optional[str] = None
+    limits_memory: Optional[str] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self.requests_cpu is not None and not isinstance(self.requests_cpu, str):
+            self.requests_cpu = str(self.requests_cpu)
+
+        if self.requests_memory is not None and not isinstance(self.requests_memory, str):
+            self.requests_memory = str(self.requests_memory)
+
+        if self.limits_cpu is not None and not isinstance(self.limits_cpu, str):
+            self.limits_cpu = str(self.limits_cpu)
+
+        if self.limits_memory is not None and not isinstance(self.limits_memory, str):
+            self.limits_memory = str(self.limits_memory)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class VdiScheduling(YAMLRoot):
+    """
+    Scheduling configuration for a VDI.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CR8TOR_METAMODEL["VdiScheduling"]
+    class_class_curie: ClassVar[str] = "cr8tor_metamodel:VdiScheduling"
+    class_name: ClassVar[str] = "VdiScheduling"
+    class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.VdiScheduling
+
+    resources: Optional[Union[dict, VdiSchedulingResources]] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self.resources is not None and not isinstance(self.resources, VdiSchedulingResources):
+            self.resources = VdiSchedulingResources(**as_dict(self.resources))
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class ResourceStorage(YAMLRoot):
+    """
+    Per-resource storage configuration for workspace persistent volumes.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CR8TOR_METAMODEL["ResourceStorage"]
+    class_class_curie: ClassVar[str] = "cr8tor_metamodel:ResourceStorage"
+    class_name: ClassVar[str] = "ResourceStorage"
+    class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.ResourceStorage
+
+    default_vdi_size: Optional[str] = None
+    default_notebook_size: Optional[str] = None
+    persist: Optional[Union[bool, Bool]] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self.default_vdi_size is not None and not isinstance(self.default_vdi_size, str):
+            self.default_vdi_size = str(self.default_vdi_size)
+
+        if self.default_notebook_size is not None and not isinstance(self.default_notebook_size, str):
+            self.default_notebook_size = str(self.default_notebook_size)
+
+        if self.persist is not None and not isinstance(self.persist, Bool):
+            self.persist = Bool(self.persist)
+
+        super().__post_init__(**kwargs)
+
+
 # Enumerations
 class GroupMembershipType(EnumDefinitionImpl):
     """
@@ -1551,6 +1645,9 @@ slots.jupyter__auth = Slot(uri=CR8TOR_METAMODEL.auth, name="jupyter__auth", curi
 slots.jupyter__profiles = Slot(uri=CR8TOR_METAMODEL.profiles, name="jupyter__profiles", curie=CR8TOR_METAMODEL.curie('profiles'),
                    model_uri=CR8TOR_METAMODEL.jupyter__profiles, domain=None, range=Optional[Union[Union[dict, ProfileConfig], list[Union[dict, ProfileConfig]]]])
 
+slots.jupyter__storage = Slot(uri=CR8TOR_METAMODEL.storage, name="jupyter__storage", curie=CR8TOR_METAMODEL.curie('storage'),
+                   model_uri=CR8TOR_METAMODEL.jupyter__storage, domain=None, range=Optional[Union[dict, ResourceStorage]])
+
 slots.keycloak__realm = Slot(uri=CR8TOR_METAMODEL.realm, name="keycloak__realm", curie=CR8TOR_METAMODEL.curie('realm'),
                    model_uri=CR8TOR_METAMODEL.keycloak__realm, domain=None, range=Optional[str])
 
@@ -1561,16 +1658,25 @@ slots.vDI__image = Slot(uri=CR8TOR_METAMODEL.image, name="vDI__image", curie=CR8
                    model_uri=CR8TOR_METAMODEL.vDI__image, domain=None, range=Optional[str])
 
 slots.vDI__user = Slot(uri=CR8TOR_METAMODEL.user, name="vDI__user", curie=CR8TOR_METAMODEL.curie('user'),
-                   model_uri=CR8TOR_METAMODEL.vDI__user, domain=None, range=str)
+                   model_uri=CR8TOR_METAMODEL.vDI__user, domain=None, range=Optional[str])
 
 slots.vDI__project = Slot(uri=CR8TOR_METAMODEL.project, name="vDI__project", curie=CR8TOR_METAMODEL.curie('project'),
-                   model_uri=CR8TOR_METAMODEL.vDI__project, domain=None, range=str)
+                   model_uri=CR8TOR_METAMODEL.vDI__project, domain=None, range=Optional[str])
+
+slots.vDI__url = Slot(uri=CR8TOR_METAMODEL.url, name="vDI__url", curie=CR8TOR_METAMODEL.curie('url'),
+                   model_uri=CR8TOR_METAMODEL.vDI__url, domain=None, range=Optional[Union[str, URI]])
 
 slots.vDI__connection = Slot(uri=CR8TOR_METAMODEL.connection, name="vDI__connection", curie=CR8TOR_METAMODEL.curie('connection'),
                    model_uri=CR8TOR_METAMODEL.vDI__connection, domain=None, range=Optional[Union[str, "ConnectionType"]])
 
 slots.vDI__env = Slot(uri=CR8TOR_METAMODEL.env, name="vDI__env", curie=CR8TOR_METAMODEL.curie('env'),
                    model_uri=CR8TOR_METAMODEL.vDI__env, domain=None, range=Optional[Union[Union[dict, EnvironmentVariable], list[Union[dict, EnvironmentVariable]]]])
+
+slots.vDI__scheduling = Slot(uri=CR8TOR_METAMODEL.scheduling, name="vDI__scheduling", curie=CR8TOR_METAMODEL.curie('scheduling'),
+                   model_uri=CR8TOR_METAMODEL.vDI__scheduling, domain=None, range=Optional[Union[dict, VdiScheduling]])
+
+slots.vDI__storage = Slot(uri=CR8TOR_METAMODEL.storage, name="vDI__storage", curie=CR8TOR_METAMODEL.curie('storage'),
+                   model_uri=CR8TOR_METAMODEL.vDI__storage, domain=None, range=Optional[Union[dict, ResourceStorage]])
 
 slots.environment__name = Slot(uri=CR8TOR_METAMODEL.name, name="environment__name", curie=CR8TOR_METAMODEL.curie('name'),
                    model_uri=CR8TOR_METAMODEL.environment__name, domain=None, range=Optional[str])
@@ -1670,3 +1776,27 @@ slots.environmentVariable__name = Slot(uri=CR8TOR_METAMODEL.name, name="environm
 
 slots.environmentVariable__value = Slot(uri=CR8TOR_METAMODEL.value, name="environmentVariable__value", curie=CR8TOR_METAMODEL.curie('value'),
                    model_uri=CR8TOR_METAMODEL.environmentVariable__value, domain=None, range=str)
+
+slots.vdiSchedulingResources__requests_cpu = Slot(uri=CR8TOR_METAMODEL.requests_cpu, name="vdiSchedulingResources__requests_cpu", curie=CR8TOR_METAMODEL.curie('requests_cpu'),
+                   model_uri=CR8TOR_METAMODEL.vdiSchedulingResources__requests_cpu, domain=None, range=Optional[str])
+
+slots.vdiSchedulingResources__requests_memory = Slot(uri=CR8TOR_METAMODEL.requests_memory, name="vdiSchedulingResources__requests_memory", curie=CR8TOR_METAMODEL.curie('requests_memory'),
+                   model_uri=CR8TOR_METAMODEL.vdiSchedulingResources__requests_memory, domain=None, range=Optional[str])
+
+slots.vdiSchedulingResources__limits_cpu = Slot(uri=CR8TOR_METAMODEL.limits_cpu, name="vdiSchedulingResources__limits_cpu", curie=CR8TOR_METAMODEL.curie('limits_cpu'),
+                   model_uri=CR8TOR_METAMODEL.vdiSchedulingResources__limits_cpu, domain=None, range=Optional[str])
+
+slots.vdiSchedulingResources__limits_memory = Slot(uri=CR8TOR_METAMODEL.limits_memory, name="vdiSchedulingResources__limits_memory", curie=CR8TOR_METAMODEL.curie('limits_memory'),
+                   model_uri=CR8TOR_METAMODEL.vdiSchedulingResources__limits_memory, domain=None, range=Optional[str])
+
+slots.vdiScheduling__resources = Slot(uri=CR8TOR_METAMODEL.resources, name="vdiScheduling__resources", curie=CR8TOR_METAMODEL.curie('resources'),
+                   model_uri=CR8TOR_METAMODEL.vdiScheduling__resources, domain=None, range=Optional[Union[dict, VdiSchedulingResources]])
+
+slots.resourceStorage__default_vdi_size = Slot(uri=CR8TOR_METAMODEL.default_vdi_size, name="resourceStorage__default_vdi_size", curie=CR8TOR_METAMODEL.curie('default_vdi_size'),
+                   model_uri=CR8TOR_METAMODEL.resourceStorage__default_vdi_size, domain=None, range=Optional[str])
+
+slots.resourceStorage__default_notebook_size = Slot(uri=CR8TOR_METAMODEL.default_notebook_size, name="resourceStorage__default_notebook_size", curie=CR8TOR_METAMODEL.curie('default_notebook_size'),
+                   model_uri=CR8TOR_METAMODEL.resourceStorage__default_notebook_size, domain=None, range=Optional[str])
+
+slots.resourceStorage__persist = Slot(uri=CR8TOR_METAMODEL.persist, name="resourceStorage__persist", curie=CR8TOR_METAMODEL.curie('persist'),
+                   model_uri=CR8TOR_METAMODEL.resourceStorage__persist, domain=None, range=Optional[Union[bool, Bool]])

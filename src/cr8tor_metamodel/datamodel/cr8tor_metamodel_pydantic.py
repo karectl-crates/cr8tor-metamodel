@@ -384,7 +384,7 @@ class Source(ConfiguredBaseModel):
                        'ProtocolMapper',
                        'EnvironmentVariable']} })
     type: Optional[str] = Field(default=None, description="""The type of data source (e.g., databricks, postgresql, mssql, filestore).""", json_schema_extra = { "linkml_meta": {'domain_of': ['Group', 'Source', 'Destination']} })
-    url: Optional[str] = Field(default=None, description="""The URL or location of the data source, specifying where data can be accessed or retrieved from.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource']} })
+    url: Optional[str] = Field(default=None, description="""The URL or location of the data source, specifying where data can be accessed or retrieved from.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource', 'VDI']} })
     credentials: Optional[Credential] = Field(default=None, description="""The credentials required to access the data source, including authentication provider and key references.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source']} })
 
 
@@ -406,7 +406,7 @@ class Destination(ConfiguredBaseModel):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/data-model'})
 
     type: DestinationType = Field(default=..., description="""The type of destination (e.g., filestore, postgresql), specifying the nature of the data endpoint. Required.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Group', 'Source', 'Destination']} })
-    url: Optional[str] = Field(default=None, description="""The URL or location of the data destination, specifying where data should be delivered. Optional.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource']} })
+    url: Optional[str] = Field(default=None, description="""The URL or location of the data destination, specifying where data should be delivered. Optional.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource', 'VDI']} })
 
 
 class Dataset(ConfiguredBaseModel):
@@ -480,7 +480,7 @@ class Deployment(ConfiguredBaseModel):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/deployment-model'})
 
-    resources: Optional[list[Union[Resource,Jupyter,Keycloak,VDI,RStudio,Gitea]]] = Field(default=[], description="""List of resource names or identifiers representing the K8TRE applications or services to be deployed as part of the project. Can include multiple resources.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Deployment', 'ProjectSpec']} })
+    resources: Optional[list[Union[Resource,Jupyter,Keycloak,VDI,RStudio,Gitea]]] = Field(default=[], description="""List of resource names or identifiers representing the K8TRE applications or services to be deployed as part of the project. Can include multiple resources.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Deployment', 'ProjectSpec', 'VdiScheduling']} })
     environment: Optional[Environment] = Field(default=None, description="""The environment configuration for the deployment, specifying the target trusted research environment (TRE) and its properties.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Deployment']} })
 
 
@@ -503,7 +503,7 @@ class Resource(ConfiguredBaseModel):
                        'SecretRef',
                        'ProtocolMapper',
                        'EnvironmentVariable']} })
-    url: str = Field(default=..., description="""The URL endpoint for accessing the application or resource after deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource']} })
+    url: str = Field(default=..., description="""The URL endpoint for accessing the application or resource after deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource', 'VDI']} })
     enabled: bool = Field(default=..., description="""Boolean flag indicating whether the application or resource is enabled and available for use.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User', 'Resource', 'KeycloakClientConfig']} })
 
 
@@ -515,6 +515,7 @@ class Jupyter(Resource):
 
     auth: Optional[str] = Field(default=None, description="""The type or method of authentication required to access the Jupyter workspace (e.g., OAuth, SSO).""", json_schema_extra = { "linkml_meta": {'domain_of': ['Jupyter']} })
     profiles: Optional[list[ProfileConfig]] = Field(default=[], description="""JupyterHub workspace profiles for this deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Jupyter']} })
+    storage: Optional[ResourceStorage] = Field(default=None, description="""Storage configuration for notebook workspaces.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Jupyter', 'VDI']} })
     resource_type: Literal["Jupyter"] = Field(default="Jupyter", description="""The type of resource (e.g., Jupyter, Keycloak, VDI).""", json_schema_extra = { "linkml_meta": {'designates_type': True, 'domain_of': ['Resource']} })
     name: str = Field(default=..., description="""The requested name of the resource, used for identification and management within the deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
                        'Action',
@@ -528,7 +529,7 @@ class Jupyter(Resource):
                        'SecretRef',
                        'ProtocolMapper',
                        'EnvironmentVariable']} })
-    url: str = Field(default=..., description="""The URL endpoint for accessing the application or resource after deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource']} })
+    url: str = Field(default=..., description="""The URL endpoint for accessing the application or resource after deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource', 'VDI']} })
     enabled: bool = Field(default=..., description="""Boolean flag indicating whether the application or resource is enabled and available for use.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User', 'Resource', 'KeycloakClientConfig']} })
 
 
@@ -553,7 +554,7 @@ class Keycloak(Resource):
                        'SecretRef',
                        'ProtocolMapper',
                        'EnvironmentVariable']} })
-    url: str = Field(default=..., description="""The URL endpoint for accessing the application or resource after deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource']} })
+    url: str = Field(default=..., description="""The URL endpoint for accessing the application or resource after deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource', 'VDI']} })
     enabled: bool = Field(default=..., description="""Boolean flag indicating whether the application or resource is enabled and available for use.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User', 'Resource', 'KeycloakClientConfig']} })
 
 
@@ -565,10 +566,13 @@ class VDI(Resource):
 
     image: Optional[str] = Field(default="ghcr.io/karectl/vdi-mate:v1.0.0-light", description="""Container image for the VDI.""", json_schema_extra = { "linkml_meta": {'domain_of': ['VDI', 'KubespawnerOverride'],
          'ifabsent': 'string(ghcr.io/karectl/vdi-mate:v1.0.0-light)'} })
-    user: str = Field(default=..., description="""Username for the VDI session.""", json_schema_extra = { "linkml_meta": {'domain_of': ['VDI']} })
-    project: str = Field(default=..., description="""Project this VDI belongs to.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Governance', 'VDI']} })
+    user: Optional[str] = Field(default=None, description="""Username for the VDI session.""", json_schema_extra = { "linkml_meta": {'domain_of': ['VDI']} })
+    project: Optional[str] = Field(default=None, description="""Project this VDI belongs to.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Governance', 'VDI']} })
+    url: Optional[str] = Field(default=None, description="""Not used for VDI; VDI access is managed via the operator.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource', 'VDI']} })
     connection: Optional[ConnectionType] = Field(default=ConnectionType.rdp, description="""Connection protocol""", json_schema_extra = { "linkml_meta": {'domain_of': ['VDI'], 'ifabsent': 'string(rdp)'} })
     env: Optional[list[EnvironmentVariable]] = Field(default=[], description="""Environment variables for the VDI container.""", json_schema_extra = { "linkml_meta": {'domain_of': ['VDI', 'KubespawnerOverride']} })
+    scheduling: Optional[VdiScheduling] = Field(default=None, description="""Resource scheduling configuration for VDI.""", json_schema_extra = { "linkml_meta": {'domain_of': ['VDI']} })
+    storage: Optional[ResourceStorage] = Field(default=None, description="""Storage configuration for VDI.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Jupyter', 'VDI']} })
     resource_type: Literal["VDI"] = Field(default="VDI", description="""The type of resource (e.g., Jupyter, Keycloak, VDI).""", json_schema_extra = { "linkml_meta": {'designates_type': True, 'domain_of': ['Resource']} })
     name: str = Field(default=..., description="""The requested name of the resource, used for identification and management within the deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
                        'Action',
@@ -582,7 +586,6 @@ class VDI(Resource):
                        'SecretRef',
                        'ProtocolMapper',
                        'EnvironmentVariable']} })
-    url: str = Field(default=..., description="""The URL endpoint for accessing the application or resource after deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource']} })
     enabled: bool = Field(default=..., description="""Boolean flag indicating whether the application or resource is enabled and available for use.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User', 'Resource', 'KeycloakClientConfig']} })
 
 
@@ -605,7 +608,7 @@ class RStudio(Resource):
                        'SecretRef',
                        'ProtocolMapper',
                        'EnvironmentVariable']} })
-    url: str = Field(default=..., description="""The URL endpoint for accessing the application or resource after deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource']} })
+    url: str = Field(default=..., description="""The URL endpoint for accessing the application or resource after deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource', 'VDI']} })
     enabled: bool = Field(default=..., description="""Boolean flag indicating whether the application or resource is enabled and available for use.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User', 'Resource', 'KeycloakClientConfig']} })
 
 
@@ -628,7 +631,7 @@ class Gitea(Resource):
                        'SecretRef',
                        'ProtocolMapper',
                        'EnvironmentVariable']} })
-    url: str = Field(default=..., description="""The URL endpoint for accessing the application or resource after deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource']} })
+    url: str = Field(default=..., description="""The URL endpoint for accessing the application or resource after deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource', 'VDI']} })
     enabled: bool = Field(default=..., description="""Boolean flag indicating whether the application or resource is enabled and available for use.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User', 'Resource', 'KeycloakClientConfig']} })
 
 
@@ -659,7 +662,7 @@ class ProjectSpec(ConfiguredBaseModel):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/deployment-model'})
 
     description: str = Field(default=..., description="""Project description.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'ProjectSpec', 'GroupSpec', 'ProfileConfig']} })
-    resources: Optional[list[Union[Resource,Jupyter,Keycloak,VDI,RStudio,Gitea]]] = Field(default=[], description="""Resources (applications/services) available in this project.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Deployment', 'ProjectSpec']} })
+    resources: Optional[list[Union[Resource,Jupyter,Keycloak,VDI,RStudio,Gitea]]] = Field(default=[], description="""Resources (applications/services) available in this project.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Deployment', 'ProjectSpec', 'VdiScheduling']} })
 
 
 class GroupSpec(ConfiguredBaseModel):
@@ -792,6 +795,38 @@ class EnvironmentVariable(ConfiguredBaseModel):
     value: str = Field(default=..., description="""Variable value.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Group', 'EnvironmentVariable']} })
 
 
+class VdiSchedulingResources(ConfiguredBaseModel):
+    """
+    CPU and memory resource requests/limits for a VDI pod.
+    """
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/deployment-model'})
+
+    requests_cpu: Optional[str] = Field(default=None, description="""CPU request""", json_schema_extra = { "linkml_meta": {'domain_of': ['VdiSchedulingResources']} })
+    requests_memory: Optional[str] = Field(default=None, description="""Memory requests""", json_schema_extra = { "linkml_meta": {'domain_of': ['VdiSchedulingResources']} })
+    limits_cpu: Optional[str] = Field(default=None, description="""CPU limit""", json_schema_extra = { "linkml_meta": {'domain_of': ['VdiSchedulingResources']} })
+    limits_memory: Optional[str] = Field(default=None, description="""Memory limit""", json_schema_extra = { "linkml_meta": {'domain_of': ['VdiSchedulingResources']} })
+
+
+class VdiScheduling(ConfiguredBaseModel):
+    """
+    Scheduling configuration for a VDI.
+    """
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/deployment-model'})
+
+    resources: Optional[VdiSchedulingResources] = Field(default=None, description="""CPU and memory resource requests/limits.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Deployment', 'ProjectSpec', 'VdiScheduling']} })
+
+
+class ResourceStorage(ConfiguredBaseModel):
+    """
+    Per-resource storage configuration for workspace persistent volumes.
+    """
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/deployment-model'})
+
+    default_vdi_size: Optional[str] = Field(default=None, description="""Default PVC size for VDI workspaces.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceStorage']} })
+    default_notebook_size: Optional[str] = Field(default=None, description="""Default PVC size for notebook workspaces.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceStorage']} })
+    persist: Optional[bool] = Field(default=None, description="""Whether workspace storage should persist across sessions.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceStorage']} })
+
+
 class Cr8tor(ConfiguredBaseModel):
     """
     The root container class for the Cr8tor metamodel, aggregating all project data including governance, data ingress, and deployment configuration. This class represents the complete state of a Cr8tor project instance.
@@ -836,4 +871,7 @@ ProtocolMapper.model_rebuild()
 ProfileConfig.model_rebuild()
 KubespawnerOverride.model_rebuild()
 EnvironmentVariable.model_rebuild()
+VdiSchedulingResources.model_rebuild()
+VdiScheduling.model_rebuild()
+ResourceStorage.model_rebuild()
 Cr8tor.model_rebuild()
