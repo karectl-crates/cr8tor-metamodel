@@ -1207,6 +1207,19 @@ slots:
     multivalued: true
     inlined: true
     inlined_as_list: true
+  jupyter__storage:
+    name: jupyter__storage
+    description: Storage configuration for notebook workspaces.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:storage
+    alias: storage
+    owner: Jupyter
+    domain_of:
+    - Jupyter
+    range: ResourceStorage
+    required: false
+    inlined: true
+    inlined_as_list: true
   keycloak__realm:
     name: keycloak__realm
     description: The Keycloak realm name for this project deployment.
@@ -1252,7 +1265,7 @@ slots:
     domain_of:
     - VDI
     range: string
-    required: true
+    required: false
   vDI__project:
     name: vDI__project
     description: Project this VDI belongs to.
@@ -1263,7 +1276,18 @@ slots:
     domain_of:
     - VDI
     range: string
-    required: true
+    required: false
+  vDI__url:
+    name: vDI__url
+    description: Not used for VDI; VDI access is managed via the operator.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:url
+    alias: url
+    owner: VDI
+    domain_of:
+    - VDI
+    range: uri
+    required: false
   vDI__connection:
     name: vDI__connection
     description: Connection protocol
@@ -1287,6 +1311,32 @@ slots:
     - VDI
     range: EnvironmentVariable
     multivalued: true
+    inlined: true
+    inlined_as_list: true
+  vDI__scheduling:
+    name: vDI__scheduling
+    description: Resource scheduling configuration for VDI.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:scheduling
+    alias: scheduling
+    owner: VDI
+    domain_of:
+    - VDI
+    range: VdiScheduling
+    required: false
+    inlined: true
+    inlined_as_list: true
+  vDI__storage:
+    name: vDI__storage
+    description: Storage configuration for VDI.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:storage
+    alias: storage
+    owner: VDI
+    domain_of:
+    - VDI
+    range: ResourceStorage
+    required: false
     inlined: true
     inlined_as_list: true
   environment__name:
@@ -1674,6 +1724,96 @@ slots:
     - EnvironmentVariable
     range: string
     required: true
+  vdiSchedulingResources__requests_cpu:
+    name: vdiSchedulingResources__requests_cpu
+    description: CPU request
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:requests_cpu
+    alias: requests_cpu
+    owner: VdiSchedulingResources
+    domain_of:
+    - VdiSchedulingResources
+    range: string
+    required: false
+  vdiSchedulingResources__requests_memory:
+    name: vdiSchedulingResources__requests_memory
+    description: Memory requests
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:requests_memory
+    alias: requests_memory
+    owner: VdiSchedulingResources
+    domain_of:
+    - VdiSchedulingResources
+    range: string
+    required: false
+  vdiSchedulingResources__limits_cpu:
+    name: vdiSchedulingResources__limits_cpu
+    description: CPU limit
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:limits_cpu
+    alias: limits_cpu
+    owner: VdiSchedulingResources
+    domain_of:
+    - VdiSchedulingResources
+    range: string
+    required: false
+  vdiSchedulingResources__limits_memory:
+    name: vdiSchedulingResources__limits_memory
+    description: Memory limit
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:limits_memory
+    alias: limits_memory
+    owner: VdiSchedulingResources
+    domain_of:
+    - VdiSchedulingResources
+    range: string
+    required: false
+  vdiScheduling__resources:
+    name: vdiScheduling__resources
+    description: CPU and memory resource requests/limits.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:resources
+    alias: resources
+    owner: VdiScheduling
+    domain_of:
+    - VdiScheduling
+    range: VdiSchedulingResources
+    required: false
+    inlined: true
+    inlined_as_list: true
+  resourceStorage__default_vdi_size:
+    name: resourceStorage__default_vdi_size
+    description: Default PVC size for VDI workspaces.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:default_vdi_size
+    alias: default_vdi_size
+    owner: ResourceStorage
+    domain_of:
+    - ResourceStorage
+    range: string
+    required: false
+  resourceStorage__default_notebook_size:
+    name: resourceStorage__default_notebook_size
+    description: Default PVC size for notebook workspaces.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:default_notebook_size
+    alias: default_notebook_size
+    owner: ResourceStorage
+    domain_of:
+    - ResourceStorage
+    range: string
+    required: false
+  resourceStorage__persist:
+    name: resourceStorage__persist
+    description: Whether workspace storage should persist across sessions.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:persist
+    alias: persist
+    owner: ResourceStorage
+    domain_of:
+    - ResourceStorage
+    range: boolean
+    required: false
 classes:
   cr8tor:
     name: cr8tor
@@ -2364,6 +2504,7 @@ classes:
     - resource__enabled
     - jupyter__auth
     - jupyter__profiles
+    - jupyter__storage
     attributes:
       auth:
         name: auth
@@ -2375,6 +2516,12 @@ classes:
         range: ProfileConfig
         multivalued: true
         inlined_as_list: true
+      storage:
+        name: storage
+        description: Storage configuration for notebook workspaces.
+        range: ResourceStorage
+        required: false
+        inlined: true
     class_uri: cr8tor_metamodel:Jupyter
   Keycloak:
     name: Keycloak
@@ -2413,13 +2560,15 @@ classes:
     slots:
     - resource_type
     - resource__name
-    - resource__url
     - resource__enabled
     - vDI__image
     - vDI__user
     - vDI__project
+    - vDI__url
     - vDI__connection
     - vDI__env
+    - vDI__scheduling
+    - vDI__storage
     attributes:
       image:
         name: image
@@ -2431,12 +2580,17 @@ classes:
         name: user
         description: Username for the VDI session.
         range: string
-        required: true
+        required: false
       project:
         name: project
         description: Project this VDI belongs to.
         range: string
-        required: true
+        required: false
+      url:
+        name: url
+        description: Not used for VDI; VDI access is managed via the operator.
+        range: uri
+        required: false
       connection:
         name: connection
         description: Connection protocol
@@ -2449,6 +2603,18 @@ classes:
         range: EnvironmentVariable
         multivalued: true
         inlined_as_list: true
+      scheduling:
+        name: scheduling
+        description: Resource scheduling configuration for VDI.
+        range: VdiScheduling
+        required: false
+        inlined: true
+      storage:
+        name: storage
+        description: Storage configuration for VDI.
+        range: ResourceStorage
+        required: false
+        inlined: true
     class_uri: cr8tor_metamodel:VDI
   RStudio:
     name: RStudio
@@ -2765,9 +2931,82 @@ classes:
         range: string
         required: true
     class_uri: cr8tor_metamodel:EnvironmentVariable
+  VdiSchedulingResources:
+    name: VdiSchedulingResources
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/VdiSchedulingResources
+    description: CPU and memory resource requests/limits for a VDI pod.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slots:
+    - vdiSchedulingResources__requests_cpu
+    - vdiSchedulingResources__requests_memory
+    - vdiSchedulingResources__limits_cpu
+    - vdiSchedulingResources__limits_memory
+    attributes:
+      requests_cpu:
+        name: requests_cpu
+        description: CPU request
+        range: string
+        required: false
+      requests_memory:
+        name: requests_memory
+        description: Memory requests
+        range: string
+        required: false
+      limits_cpu:
+        name: limits_cpu
+        description: CPU limit
+        range: string
+        required: false
+      limits_memory:
+        name: limits_memory
+        description: Memory limit
+        range: string
+        required: false
+    class_uri: cr8tor_metamodel:VdiSchedulingResources
+  VdiScheduling:
+    name: VdiScheduling
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/VdiScheduling
+    description: Scheduling configuration for a VDI.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slots:
+    - vdiScheduling__resources
+    attributes:
+      resources:
+        name: resources
+        description: CPU and memory resource requests/limits.
+        range: VdiSchedulingResources
+        required: false
+        inlined: true
+    class_uri: cr8tor_metamodel:VdiScheduling
+  ResourceStorage:
+    name: ResourceStorage
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/ResourceStorage
+    description: Per-resource storage configuration for workspace persistent volumes.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slots:
+    - resourceStorage__default_vdi_size
+    - resourceStorage__default_notebook_size
+    - resourceStorage__persist
+    attributes:
+      default_vdi_size:
+        name: default_vdi_size
+        description: Default PVC size for VDI workspaces.
+        range: string
+        required: false
+      default_notebook_size:
+        name: default_notebook_size
+        description: Default PVC size for notebook workspaces.
+        range: string
+        required: false
+      persist:
+        name: persist
+        description: Whether workspace storage should persist across sessions.
+        range: boolean
+        required: false
+    class_uri: cr8tor_metamodel:ResourceStorage
 metamodel_version: 1.7.0
 source_file: cr8tor_metamodel.yaml
-source_file_date: '2026-02-18T21:36:46'
+source_file_date: '2026-02-19T20:03:40'
 source_file_size: 1519
-generation_date: '2026-02-18T21:36:54'
+generation_date: '2026-02-19T20:03:54'
 

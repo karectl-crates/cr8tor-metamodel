@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://karectl-crates.github.io/cr8tor-metamodel/elements/resources/">
+        <link rel="canonical" href="https://karectl-crates.github.io/cr8tor-metamodel/elements/default_vdi_size/">
       
       
       
@@ -21,7 +21,7 @@
     
     
       
-        <title>Slot: resources - cr8tor-metamodel</title>
+        <title>Slot: default_vdi_size - cr8tor-metamodel</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-resources" class="md-skip">
+        <a href="#slot-default_vdi_size" class="md-skip">
           Skip to content
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: resources
+              Slot: default_vdi_size
             
           </span>
         </div>
@@ -355,6 +355,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Identifier and Mapping Information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schema Source
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -399,9 +416,10 @@
   
 
 
-<h1 id="slot-resources">Slot: resources</h1>
-<p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/resources">cr8tor_metamodel:resources</a>
-Alias: resources</p>
+<h1 id="slot-default_vdi_size">Slot: default_vdi_size</h1>
+<p><em>Default PVC size for VDI workspaces.</em></p>
+<p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/default_vdi_size">cr8tor_metamodel:default_vdi_size</a>
+Alias: default_vdi_size</p>
 <!-- no inheritance hierarchy -->
 
 <h2 id="applicable-classes">Applicable Classes</h2>
@@ -415,18 +433,8 @@ Alias: resources</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="../ProjectSpec/">ProjectSpec</a></td>
-<td>Operator project specification to define the resources for a research project...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Deployment/">Deployment</a></td>
-<td>Models the deployment configuration for a Cr8tor project, specifying the K8TR...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../VdiScheduling/">VdiScheduling</a></td>
-<td>Scheduling configuration for a VDI</td>
+<td><a href="../ResourceStorage/">ResourceStorage</a></td>
+<td>Per-resource storage configuration for workspace persistent volumes</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -436,6 +444,10 @@ Alias: resources</p>
 <li>Range: <a href="../String/">String</a></li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
+<h3 id="schema-source">Schema Source</h3>
+<ul>
+<li>from schema: https://w3id.org/karectl-crates/cr8tor-metamodel</li>
+</ul>
 <h2 id="mappings">Mappings</h2>
 <table>
 <thead>
@@ -447,24 +459,27 @@ Alias: resources</p>
 <tbody>
 <tr>
 <td>self</td>
-<td>cr8tor_metamodel:resources</td>
+<td>cr8tor_metamodel:default_vdi_size</td>
 </tr>
 <tr>
 <td>native</td>
-<td>cr8tor_metamodel:resources</td>
+<td>cr8tor_metamodel:default_vdi_size</td>
 </tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 
-<pre><code class="language-yaml">name: resources
-alias: resources
+<pre><code class="language-yaml">name: default_vdi_size
+description: Default PVC size for VDI workspaces.
+from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
+rank: 1000
+alias: default_vdi_size
+owner: ResourceStorage
 domain_of:
-- Deployment
-- ProjectSpec
-- VdiScheduling
+- ResourceStorage
 range: string
+required: false
 
 </code></pre>
 

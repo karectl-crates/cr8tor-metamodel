@@ -5,10 +5,10 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<link href="https://karectl-crates.github.io/cr8tor-metamodel/elements/Resource/" rel="canonical"/>
+<link href="https://karectl-crates.github.io/cr8tor-metamodel/elements/ResourceStorage/" rel="canonical"/>
 <link href="../../assets/images/favicon.png" rel="icon"/>
 <meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator"/>
-<title>Class: Resource - cr8tor-metamodel</title>
+<title>Class: ResourceStorage - cr8tor-metamodel</title>
 <link href="../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
@@ -23,7 +23,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#class-resource">
+<a class="md-skip" href="#class-resourcestorage">
           Skip to content
         </a>
 </div>
@@ -47,7 +47,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Class: Resource
+              Class: ResourceStorage
             
           </span>
 </div>
@@ -171,15 +171,6 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#inheritance">
-<span class="md-ellipsis">
-      
-        Inheritance
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#slots">
 <span class="md-ellipsis">
       
@@ -266,44 +257,21 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1 id="class-resource">Class: Resource</h1>
-<p><em>Abstract base class for K8TRE resources (such as applications or services) that can be deployed through a Cr8tor project. This class defines the state and configuration of deployable resources.</em></p>
-<p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/Resource">cr8tor_metamodel:Resource</a></p>
+<h1 id="class-resourcestorage">Class: ResourceStorage</h1>
+<p><em>Per-resource storage configuration for workspace persistent volumes.</em></p>
+<p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/ResourceStorage">cr8tor_metamodel:ResourceStorage</a></p>
 <div class="mermaid"> classDiagram
-    class Resource
-    click Resource href "../Resource/"
-      Resource &lt;|-- Jupyter
-        click Jupyter href "../Jupyter/"
-      Resource &lt;|-- Keycloak
-        click Keycloak href "../Keycloak/"
-      Resource &lt;|-- VDI
-        click VDI href "../VDI/"
-      Resource &lt;|-- RStudio
-        click RStudio href "../RStudio/"
-      Resource &lt;|-- Gitea
-        click Gitea href "../Gitea/"
+    class ResourceStorage
+    click ResourceStorage href "../ResourceStorage/"
+      ResourceStorage : default_notebook_size
 
-      Resource : enabled
+      ResourceStorage : default_vdi_size
 
-      Resource : name
-
-      Resource : resource_type
-
-      Resource : url
+      ResourceStorage : persist
 
 
 </div>
-<h2 id="inheritance">Inheritance</h2>
-<ul>
-<li><strong>Resource</strong><ul>
-<li><a href="../Jupyter/">Jupyter</a></li>
-<li><a href="../Keycloak/">Keycloak</a></li>
-<li><a href="../VDI/">VDI</a></li>
-<li><a href="../RStudio/">RStudio</a></li>
-<li><a href="../Gitea/">Gitea</a></li>
-</ul>
-</li>
-</ul>
+<!-- no inheritance hierarchy -->
 <h2 id="slots">Slots</h2>
 <table>
 <thead>
@@ -316,27 +284,21 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../resource_type/">resource_type</a></td>
-<td>1 <br/> <a href="../String/">String</a></td>
-<td>The type of resource (e</td>
+<td><a href="../default_vdi_size/">default_vdi_size</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Default PVC size for VDI workspaces</td>
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../name/">name</a></td>
-<td>1 <br/> <a href="../String/">String</a></td>
-<td>The requested name of the resource, used for identification and management wi...</td>
+<td><a href="../default_notebook_size/">default_notebook_size</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Default PVC size for notebook workspaces</td>
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../url/">url</a></td>
-<td>1 <br/> <a href="../Uri/">Uri</a></td>
-<td>The URL endpoint for accessing the application or resource after deployment</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../enabled/">enabled</a></td>
-<td>1 <br/> <a href="../Boolean/">Boolean</a></td>
-<td>Boolean flag indicating whether the application or resource is enabled and av...</td>
+<td><a href="../persist/">persist</a></td>
+<td>0..1 <br/> <a href="../Boolean/">Boolean</a></td>
+<td>Whether workspace storage should persist across sessions</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -353,16 +315,16 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../Deployment/">Deployment</a></td>
-<td><a href="../resources/">resources</a></td>
+<td><a href="../Jupyter/">Jupyter</a></td>
+<td><a href="../storage/">storage</a></td>
 <td>range</td>
-<td><a href="./">Resource</a></td>
+<td><a href="./">ResourceStorage</a></td>
 </tr>
 <tr>
-<td><a href="../ProjectSpec/">ProjectSpec</a></td>
-<td><a href="../resources/">resources</a></td>
+<td><a href="../VDI/">VDI</a></td>
+<td><a href="../storage/">storage</a></td>
 <td>range</td>
-<td><a href="./">Resource</a></td>
+<td><a href="./">ResourceStorage</a></td>
 </tr>
 </tbody>
 </table>
@@ -382,11 +344,11 @@
 <tbody>
 <tr>
 <td>self</td>
-<td>cr8tor_metamodel:Resource</td>
+<td>cr8tor_metamodel:ResourceStorage</td>
 </tr>
 <tr>
 <td>native</td>
-<td>cr8tor_metamodel:Resource</td>
+<td>cr8tor_metamodel:ResourceStorage</td>
 </tr>
 </tbody>
 </table>
@@ -394,129 +356,79 @@
 <!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
 <h3 id="direct">Direct</h3>
 <details>
-<pre><code class="language-yaml">name: Resource
-description: Abstract base class for K8TRE resources (such as applications or services)
-  that can be deployed through a Cr8tor project. This class defines the state and
-  configuration of deployable resources.
+<pre><code class="language-yaml">name: ResourceStorage
+description: Per-resource storage configuration for workspace persistent volumes.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
-slots:
-- resource_type
 attributes:
-  name:
-    name: name
-    description: The requested name of the resource, used for identification and management
-      within the deployment.
+  default_vdi_size:
+    name: default_vdi_size
+    description: Default PVC size for VDI workspaces.
     from_schema: https://w3id.org/karectl-crates/deployment-model
+    rank: 1000
     domain_of:
-    - Project
-    - Action
-    - Source
-    - Dataset
-    - Table
-    - Column
-    - Resource
-    - Environment
-    - KeycloakClientConfig
-    - SecretRef
-    - ProtocolMapper
-    - EnvironmentVariable
+    - ResourceStorage
     range: string
-    required: true
-  url:
-    name: url
-    description: The URL endpoint for accessing the application or resource after
-      deployment.
+    required: false
+  default_notebook_size:
+    name: default_notebook_size
+    description: Default PVC size for notebook workspaces.
     from_schema: https://w3id.org/karectl-crates/deployment-model
+    rank: 1000
     domain_of:
-    - Source
-    - Destination
-    - Resource
-    - VDI
-    range: uri
-    required: true
-  enabled:
-    name: enabled
-    description: Boolean flag indicating whether the application or resource is enabled
-      and available for use.
+    - ResourceStorage
+    range: string
+    required: false
+  persist:
+    name: persist
+    description: Whether workspace storage should persist across sessions.
     from_schema: https://w3id.org/karectl-crates/deployment-model
+    rank: 1000
     domain_of:
-    - User
-    - Resource
-    - KeycloakClientConfig
+    - ResourceStorage
     range: boolean
-    required: true
+    required: false
 
 </code></pre>
 </details>
 <h3 id="induced">Induced</h3>
 <details>
-<pre><code class="language-yaml">name: Resource
-description: Abstract base class for K8TRE resources (such as applications or services)
-  that can be deployed through a Cr8tor project. This class defines the state and
-  configuration of deployable resources.
+<pre><code class="language-yaml">name: ResourceStorage
+description: Per-resource storage configuration for workspace persistent volumes.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 attributes:
-  name:
-    name: name
-    description: The requested name of the resource, used for identification and management
-      within the deployment.
+  default_vdi_size:
+    name: default_vdi_size
+    description: Default PVC size for VDI workspaces.
     from_schema: https://w3id.org/karectl-crates/deployment-model
-    alias: name
-    owner: Resource
-    domain_of:
-    - Project
-    - Action
-    - Source
-    - Dataset
-    - Table
-    - Column
-    - Resource
-    - Environment
-    - KeycloakClientConfig
-    - SecretRef
-    - ProtocolMapper
-    - EnvironmentVariable
-    range: string
-    required: true
-  url:
-    name: url
-    description: The URL endpoint for accessing the application or resource after
-      deployment.
-    from_schema: https://w3id.org/karectl-crates/deployment-model
-    alias: url
-    owner: Resource
-    domain_of:
-    - Source
-    - Destination
-    - Resource
-    - VDI
-    range: uri
-    required: true
-  enabled:
-    name: enabled
-    description: Boolean flag indicating whether the application or resource is enabled
-      and available for use.
-    from_schema: https://w3id.org/karectl-crates/deployment-model
-    alias: enabled
-    owner: Resource
-    domain_of:
-    - User
-    - Resource
-    - KeycloakClientConfig
-    range: boolean
-    required: true
-  resource_type:
-    name: resource_type
-    description: The type of resource (e.g., Jupyter, Keycloak, VDI).
-    from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
     rank: 1000
-    designates_type: true
-    alias: resource_type
-    owner: Resource
+    alias: default_vdi_size
+    owner: ResourceStorage
     domain_of:
-    - Resource
+    - ResourceStorage
     range: string
-    required: true
+    required: false
+  default_notebook_size:
+    name: default_notebook_size
+    description: Default PVC size for notebook workspaces.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    rank: 1000
+    alias: default_notebook_size
+    owner: ResourceStorage
+    domain_of:
+    - ResourceStorage
+    range: string
+    required: false
+  persist:
+    name: persist
+    description: Whether workspace storage should persist across sessions.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    rank: 1000
+    alias: persist
+    owner: ResourceStorage
+    domain_of:
+    - ResourceStorage
+    range: boolean
+    required: false
 
 </code></pre>
 </details>

@@ -631,6 +631,10 @@
 <td>Virtual Desktop Infrastructure resource for cr8tor project</td>
 </tr>
 <tr>
+<td><a href="ResourceStorage/">ResourceStorage</a></td>
+<td>Per-resource storage configuration for workspace persistent volumes</td>
+</tr>
+<tr>
 <td><a href="SecretRef/">SecretRef</a></td>
 <td>Reference to a k8s Secret</td>
 </tr>
@@ -645,6 +649,14 @@
 <tr>
 <td><a href="User/">User</a></td>
 <td>Models an individual user associated with a Cr8tor project, capturing their i...</td>
+</tr>
+<tr>
+<td><a href="VdiScheduling/">VdiScheduling</a></td>
+<td>Scheduling configuration for a VDI</td>
+</tr>
+<tr>
+<td><a href="VdiSchedulingResources/">VdiSchedulingResources</a></td>
+<td>CPU and memory resource requests/limits for a VDI pod</td>
 </tr>
 </tbody>
 </table>
@@ -724,6 +736,14 @@
 <tr>
 <td><a href="default_client_scopes/">default_client_scopes</a></td>
 <td>Default client scopes</td>
+</tr>
+<tr>
+<td><a href="default_notebook_size/">default_notebook_size</a></td>
+<td>Default PVC size for notebook workspaces</td>
+</tr>
+<tr>
+<td><a href="default_vdi_size/">default_vdi_size</a></td>
+<td>Default PVC size for VDI workspaces</td>
 </tr>
 <tr>
 <td><a href="deployment/">deployment</a></td>
@@ -814,6 +834,14 @@
 <td>KubeSpawner overrides for this profile</td>
 </tr>
 <tr>
+<td><a href="limits_cpu/">limits_cpu</a></td>
+<td>CPU limit</td>
+</tr>
+<tr>
+<td><a href="limits_memory/">limits_memory</a></td>
+<td>Memory limit</td>
+</tr>
+<tr>
 <td><a href="locations/">locations</a></td>
 <td>List of data locations or URIs where the dataset is stored or accessed during...</td>
 </tr>
@@ -836,6 +864,10 @@
 <tr>
 <td><a href="password_key/">password_key</a></td>
 <td>The key or identifier used to retrieve the password from the credential provi...</td>
+</tr>
+<tr>
+<td><a href="persist/">persist</a></td>
+<td>Whether workspace storage should persist across sessions</td>
 </tr>
 <tr>
 <td><a href="profiles/">profiles</a></td>
@@ -886,6 +918,14 @@
 <td>An external or internal reference identifier for the Cr8tor project, used for...</td>
 </tr>
 <tr>
+<td><a href="requests_cpu/">requests_cpu</a></td>
+<td>CPU request</td>
+</tr>
+<tr>
+<td><a href="requests_memory/">requests_memory</a></td>
+<td>Memory requests</td>
+</tr>
+<tr>
 <td><a href="resource_type/">resource_type</a></td>
 <td>The type of resource (e</td>
 </tr>
@@ -896,6 +936,10 @@
 <tr>
 <td><a href="result/">result</a></td>
 <td>List of result items produced by the action, typically ID references to other...</td>
+</tr>
+<tr>
+<td><a href="scheduling/">scheduling</a></td>
+<td>Resource scheduling configuration for VDI</td>
 </tr>
 <tr>
 <td><a href="schema_name/">schema_name</a></td>
@@ -924,6 +968,10 @@
 <tr>
 <td><a href="start_time/">start_time</a></td>
 <td>Timestamp when project was created</td>
+</tr>
+<tr>
+<td><a href="storage/">storage</a></td>
+<td>Storage configuration for notebook workspaces</td>
 </tr>
 <tr>
 <td><a href="subgroups/">subgroups</a></td>

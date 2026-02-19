@@ -298,6 +298,28 @@
 
       VDI : resource_type
 
+      VDI : scheduling
+
+
+
+
+
+        VDI --&gt; "0..1" VdiScheduling : scheduling
+        click VdiScheduling href "../VdiScheduling/"
+
+
+
+      VDI : storage
+
+
+
+
+
+        VDI --&gt; "0..1" ResourceStorage : storage
+        click ResourceStorage href "../ResourceStorage/"
+
+
+
       VDI : url
 
       VDI : user
@@ -330,14 +352,20 @@
 </tr>
 <tr>
 <td><a href="../user/">user</a></td>
-<td>1 <br/> <a href="../String/">String</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
 <td>Username for the VDI session</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../project/">project</a></td>
-<td>1 <br/> <a href="../String/">String</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
 <td>Project this VDI belongs to</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../url/">url</a></td>
+<td>0..1 <br/> <a href="../Uri/">Uri</a></td>
+<td>Not used for VDI; VDI access is managed via the operator</td>
 <td>direct</td>
 </tr>
 <tr>
@@ -353,6 +381,18 @@
 <td>direct</td>
 </tr>
 <tr>
+<td><a href="../scheduling/">scheduling</a></td>
+<td>0..1 <br/> <a href="../VdiScheduling/">VdiScheduling</a></td>
+<td>Resource scheduling configuration for VDI</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../storage/">storage</a></td>
+<td>0..1 <br/> <a href="../ResourceStorage/">ResourceStorage</a></td>
+<td>Storage configuration for VDI</td>
+<td>direct</td>
+</tr>
+<tr>
 <td><a href="../resource_type/">resource_type</a></td>
 <td>1 <br/> <a href="../String/">String</a></td>
 <td>The type of resource (e</td>
@@ -362,12 +402,6 @@
 <td><a href="../name/">name</a></td>
 <td>1 <br/> <a href="../String/">String</a></td>
 <td>The requested name of the resource, used for identification and management wi...</td>
-<td><a href="../Resource/">Resource</a></td>
-</tr>
-<tr>
-<td><a href="../url/">url</a></td>
-<td>1 <br/> <a href="../Uri/">Uri</a></td>
-<td>The URL endpoint for accessing the application or resource after deployment</td>
 <td><a href="../Resource/">Resource</a></td>
 </tr>
 <tr>
@@ -432,7 +466,7 @@ attributes:
     domain_of:
     - VDI
     range: string
-    required: true
+    required: false
   project:
     name: project
     description: Project this VDI belongs to.
@@ -441,7 +475,18 @@ attributes:
     - Governance
     - VDI
     range: string
-    required: true
+    required: false
+  url:
+    name: url
+    description: Not used for VDI; VDI access is managed via the operator.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    domain_of:
+    - Source
+    - Destination
+    - Resource
+    - VDI
+    range: uri
+    required: false
   connection:
     name: connection
     description: Connection protocol
@@ -464,6 +509,26 @@ attributes:
     multivalued: true
     inlined: true
     inlined_as_list: true
+  scheduling:
+    name: scheduling
+    description: Resource scheduling configuration for VDI.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    rank: 1000
+    domain_of:
+    - VDI
+    range: VdiScheduling
+    required: false
+    inlined: true
+  storage:
+    name: storage
+    description: Storage configuration for VDI.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    domain_of:
+    - Jupyter
+    - VDI
+    range: ResourceStorage
+    required: false
+    inlined: true
 
 </code></pre>
 </details>
@@ -499,7 +564,7 @@ attributes:
     domain_of:
     - VDI
     range: string
-    required: true
+    required: false
   project:
     name: project
     description: Project this VDI belongs to.
@@ -510,7 +575,20 @@ attributes:
     - Governance
     - VDI
     range: string
-    required: true
+    required: false
+  url:
+    name: url
+    description: Not used for VDI; VDI access is managed via the operator.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    alias: url
+    owner: VDI
+    domain_of:
+    - Source
+    - Destination
+    - Resource
+    - VDI
+    range: uri
+    required: false
   connection:
     name: connection
     description: Connection protocol
@@ -537,6 +615,30 @@ attributes:
     multivalued: true
     inlined: true
     inlined_as_list: true
+  scheduling:
+    name: scheduling
+    description: Resource scheduling configuration for VDI.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    rank: 1000
+    alias: scheduling
+    owner: VDI
+    domain_of:
+    - VDI
+    range: VdiScheduling
+    required: false
+    inlined: true
+  storage:
+    name: storage
+    description: Storage configuration for VDI.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    alias: storage
+    owner: VDI
+    domain_of:
+    - Jupyter
+    - VDI
+    range: ResourceStorage
+    required: false
+    inlined: true
   resource_type:
     name: resource_type
     description: The type of resource (e.g., Jupyter, Keycloak, VDI).
@@ -570,19 +672,6 @@ attributes:
     - ProtocolMapper
     - EnvironmentVariable
     range: string
-    required: true
-  url:
-    name: url
-    description: The URL endpoint for accessing the application or resource after
-      deployment.
-    from_schema: https://w3id.org/karectl-crates/deployment-model
-    alias: url
-    owner: VDI
-    domain_of:
-    - Source
-    - Destination
-    - Resource
-    range: uri
     required: true
   enabled:
     name: enabled

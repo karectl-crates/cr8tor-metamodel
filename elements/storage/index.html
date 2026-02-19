@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://karectl-crates.github.io/cr8tor-metamodel/elements/resources/">
+        <link rel="canonical" href="https://karectl-crates.github.io/cr8tor-metamodel/elements/storage/">
       
       
       
@@ -21,7 +21,7 @@
     
     
       
-        <title>Slot: resources - cr8tor-metamodel</title>
+        <title>Slot: storage - cr8tor-metamodel</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-resources" class="md-skip">
+        <a href="#slot-storage" class="md-skip">
           Skip to content
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: resources
+              Slot: storage
             
           </span>
         </div>
@@ -399,9 +399,9 @@
   
 
 
-<h1 id="slot-resources">Slot: resources</h1>
-<p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/resources">cr8tor_metamodel:resources</a>
-Alias: resources</p>
+<h1 id="slot-storage">Slot: storage</h1>
+<p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/storage">cr8tor_metamodel:storage</a>
+Alias: storage</p>
 <!-- no inheritance hierarchy -->
 
 <h2 id="applicable-classes">Applicable Classes</h2>
@@ -415,18 +415,13 @@ Alias: resources</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="../ProjectSpec/">ProjectSpec</a></td>
-<td>Operator project specification to define the resources for a research project...</td>
+<td><a href="../Jupyter/">Jupyter</a></td>
+<td>Specialized resource configuration for deploying Jupyter workspaces within a ...</td>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../Deployment/">Deployment</a></td>
-<td>Models the deployment configuration for a Cr8tor project, specifying the K8TR...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../VdiScheduling/">VdiScheduling</a></td>
-<td>Scheduling configuration for a VDI</td>
+<td><a href="../VDI/">VDI</a></td>
+<td>Virtual Desktop Infrastructure resource for cr8tor project</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -447,23 +442,22 @@ Alias: resources</p>
 <tbody>
 <tr>
 <td>self</td>
-<td>cr8tor_metamodel:resources</td>
+<td>cr8tor_metamodel:storage</td>
 </tr>
 <tr>
 <td>native</td>
-<td>cr8tor_metamodel:resources</td>
+<td>cr8tor_metamodel:storage</td>
 </tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 
-<pre><code class="language-yaml">name: resources
-alias: resources
+<pre><code class="language-yaml">name: storage
+alias: storage
 domain_of:
-- Deployment
-- ProjectSpec
-- VdiScheduling
+- Jupyter
+- VDI
 range: string
 
 </code></pre>
