@@ -69,6 +69,11 @@ classes:
         multivalued: true
         inlined_as_list: true
         description: JupyterHub workspace profiles for this deployment.
+      storage:
+        range: ResourceStorage
+        required: false
+        inlined: true
+        description: Storage configuration for notebook workspaces.
 
   Keycloak:
     is_a: Resource
@@ -95,12 +100,16 @@ classes:
         description: Container image for the VDI.
       user:
         range: string
-        required: true
+        required: false
         description: Username for the VDI session.
       project:
         range: string
-        required: true
+        required: false
         description: Project this VDI belongs to.
+      url:
+        range: uri
+        required: false
+        description: Not used for VDI; VDI access is managed via the operator.
       connection:
         range: ConnectionType
         required: false
@@ -111,6 +120,16 @@ classes:
         multivalued: true
         inlined_as_list: true
         description: Environment variables for the VDI container.
+      scheduling:
+        range: VdiScheduling
+        required: false
+        inlined: true
+        description: Resource scheduling configuration for VDI.
+      storage:
+        range: ResourceStorage
+        required: false
+        inlined: true
+        description: Storage configuration for VDI.
 
   RStudio:
     is_a: Resource
@@ -317,6 +336,50 @@ classes:
         range: string
         required: true
         description: Variable value.
+
+  VdiSchedulingResources:
+    description: CPU and memory resource requests/limits for a VDI pod.
+    attributes:
+      requests_cpu:
+        range: string
+        required: false
+        description: CPU request
+      requests_memory:
+        range: string
+        required: false
+        description: Memory requests
+      limits_cpu:
+        range: string
+        required: false
+        description: CPU limit
+      limits_memory:
+        range: string
+        required: false
+        description: Memory limit
+  VdiScheduling:
+    description: Scheduling configuration for a VDI.
+    attributes:
+      resources:
+        range: VdiSchedulingResources
+        required: false
+        inlined: true
+        description: CPU and memory resource requests/limits.
+
+  ResourceStorage:
+    description: Per-resource storage configuration for workspace persistent volumes.
+    attributes:
+      default_vdi_size:
+        range: string
+        required: false
+        description: Default PVC size for VDI workspaces.
+      default_notebook_size:
+        range: string
+        required: false
+        description: Default PVC size for notebook workspaces.
+      persist:
+        range: boolean
+        required: false
+        description: Whether workspace storage should persist across sessions.
 
 enums:
 
