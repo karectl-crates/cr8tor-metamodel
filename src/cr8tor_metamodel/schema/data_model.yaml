@@ -49,9 +49,29 @@ classes:
         range: string
         description: The type of data source (e.g., databricks, postgresql, mssql, filestore).
         required: false
+      source_type:
+        range: SourceType
+        description: The specific type of the source, used as a discriminator for Databricks vs SQL sources.
+        required: false
       url:
         range: string
         description: The URL or location of the data source, specifying where data can be accessed or retrieved from.
+      port:
+        range: integer
+        description: Port number for the source database connection.
+        required: false
+      database:
+        range: string
+        description: Database name to connect to (for SQL sources).
+        required: false
+      http_path:
+        range: string
+        description: Databricks SQL warehouse HTTP path (for Databricks sources).
+        required: false
+      catalog:
+        range: string
+        description: Databricks catalog name (for Databricks sources).
+        required: false
       credentials:
         range: Credential
         description: The credentials required to access the data source, including authentication provider and key references.
@@ -73,6 +93,14 @@ classes:
         range: string
         description: The key or identifier used to retrieve the username from the credential provider.
         required: true
+      spn_clientid_key:
+        range: string
+        description: Key to retrieve the SPN client ID (Databricks SPN authentication).
+        required: false
+      spn_secret_key:
+        range: string
+        description: Key to retrieve the SPN client secret (Databricks SPN authentication).
+        required: false
 
   Destination:
     description: >-
@@ -85,6 +113,23 @@ classes:
       url:
         range: string
         description: The URL or location of the data destination, specifying where data should be delivered. Optional.
+        required: false
+      name:
+        range: string
+        description: Destination name (e.g. 'lsc' or 'nw'), matching the production PVC name prefix.
+        required: false
+      format:
+        range: string
+        description: Output format for the destination (e.g. csv, duckdb for filestore, or sql for postgresql).
+        required: false
+
+  ExtractConfig:
+    description: >-
+      DLT backend configuration for data extraction from databases.
+    attributes:
+      backend_engine:
+        range: string
+        description: DLT backend engine to use for data extraction (e.g. pyarrow,sqlalchemy,pandas).
         required: false
   Dataset:
     description: >-
@@ -152,3 +197,11 @@ enums:
         description: Filestore endpoint
       postgresql:
         description: PostgreSQL database endpoint
+
+  SourceType:
+    permissible_values:
+      postgresql: {}
+      mysql: {}
+      sqlserver: {}
+      mssql: {}
+      databrickssql: {}
