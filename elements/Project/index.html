@@ -306,13 +306,13 @@
 </tr>
 <tr>
 <td><a href="../name/">name</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>1 <br/> <a href="../String/">String</a></td>
 <td>The unique name of the Cr8tor project, used for identification and reference ...</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../description/">description</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>1 <br/> <a href="../String/">String</a></td>
 <td>A brief summary describing the purpose, scope, or objectives of the Cr8tor pr...</td>
 <td>direct</td>
 </tr>
@@ -427,6 +427,7 @@ attributes:
     - ProtocolMapper
     - EnvironmentVariable
     range: string
+    required: true
   description:
     name: description
     description: A brief summary describing the purpose, scope, or objectives of the
@@ -439,6 +440,7 @@ attributes:
     - GroupSpec
     - ProfileConfig
     range: string
+    required: true
   reference:
     name: reference
     description: An external or internal reference identifier for the Cr8tor project,
@@ -448,6 +450,7 @@ attributes:
     domain_of:
     - Project
     range: string
+    required: false
   start_time:
     name: start_time
     description: Timestamp when project was created
@@ -466,6 +469,7 @@ attributes:
     domain_of:
     - Project
     range: Action
+    required: false
     multivalued: true
     inlined: true
     inlined_as_list: true
@@ -518,6 +522,7 @@ attributes:
     - ProtocolMapper
     - EnvironmentVariable
     range: string
+    required: true
   description:
     name: description
     description: A brief summary describing the purpose, scope, or objectives of the
@@ -532,6 +537,7 @@ attributes:
     - GroupSpec
     - ProfileConfig
     range: string
+    required: true
   reference:
     name: reference
     description: An external or internal reference identifier for the Cr8tor project,
@@ -543,6 +549,7 @@ attributes:
     domain_of:
     - Project
     range: string
+    required: false
   start_time:
     name: start_time
     description: Timestamp when project was created
@@ -565,6 +572,7 @@ attributes:
     domain_of:
     - Project
     range: Action
+    required: false
     multivalued: true
     inlined: true
     inlined_as_list: true

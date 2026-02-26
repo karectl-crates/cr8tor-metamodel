@@ -496,6 +496,7 @@ slots:
     domain_of:
     - Project
     range: string
+    required: true
   project__description:
     name: project__description
     description: A brief summary describing the purpose, scope, or objectives of the
@@ -507,6 +508,7 @@ slots:
     domain_of:
     - Project
     range: string
+    required: true
   project__reference:
     name: project__reference
     description: An external or internal reference identifier for the Cr8tor project,
@@ -518,6 +520,7 @@ slots:
     domain_of:
     - Project
     range: string
+    required: false
   project__start_time:
     name: project__start_time
     description: Timestamp when project was created
@@ -539,6 +542,7 @@ slots:
     domain_of:
     - Project
     range: Action
+    required: false
     multivalued: true
     inlined: true
     inlined_as_list: true
@@ -1904,16 +1908,19 @@ classes:
         description: The unique name of the Cr8tor project, used for identification
           and reference within the system.
         range: string
+        required: true
       description:
         name: description
         description: A brief summary describing the purpose, scope, or objectives
           of the Cr8tor project.
         range: string
+        required: true
       reference:
         name: reference
         description: An external or internal reference identifier for the Cr8tor project,
           used for cross-referencing or linking to related resources.
         range: string
+        required: false
       start_time:
         name: start_time
         description: Timestamp when project was created
@@ -1923,6 +1930,7 @@ classes:
         name: actions
         description: List of actions performed on the cr8tor project
         range: Action
+        required: false
         multivalued: true
         inlined_as_list: true
     class_uri: cr8tor_metamodel:Project
@@ -3006,7 +3014,7 @@ classes:
     class_uri: cr8tor_metamodel:ResourceStorage
 metamodel_version: 1.7.0
 source_file: cr8tor_metamodel.yaml
-source_file_date: '2026-02-19T20:03:40'
+source_file_date: '2026-02-26T15:13:14'
 source_file_size: 1519
-generation_date: '2026-02-19T20:03:54'
+generation_date: '2026-02-26T15:13:23'
 
