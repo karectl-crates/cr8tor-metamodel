@@ -52,9 +52,10 @@ classes:
         description: Unique identifier for the project
         required: false
       name:
+        title: Name
         range: string
         description: The unique name of the Cr8tor project, used for identification and reference within the system.
-        required: true
+        required: false
       description:
         range: string
         description: A brief summary describing the purpose, scope, or objectives of the Cr8tor project.
