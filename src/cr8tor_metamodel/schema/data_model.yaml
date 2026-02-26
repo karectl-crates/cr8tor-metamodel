@@ -26,7 +26,7 @@ classes:
       source:
         description: The origin or source of data for the ingress process, representing where data is extracted from. Optional.
         range: Source
-        required: false
+        required: true
       destination:
         description: The target or endpoint where data is delivered during the ingress process, representing the state of data delivery. Required.
         range: Destination
@@ -44,18 +44,19 @@ classes:
       name:
         range: string
         description: The name of the data source, used for identification and reference.
-        required: false
+        required: true
       type:
-        range: string
-        description: The type of data source (e.g., databricks, postgresql, mssql, filestore).
-        required: false
+        range: SourceType
+        description: The type of data source (e.g., databricks, postgresql).
+        required: true
       url:
         range: string
         description: The URL or location of the data source, specifying where data can be accessed or retrieved from.
+        required: true
       credentials:
         range: Credential
         description: The credentials required to access the data source, including authentication provider and key references.
-        required: false
+        required: true
 
   Credential:
     description: >-
@@ -150,5 +151,11 @@ enums:
     permissible_values:
       filestore:
         description: Filestore endpoint
+      postgresql:
+        description: PostgreSQL database endpoint
+  SourceType:
+    permissible_values:
+      databricks:
+        description: Databricks endpoint
       postgresql:
         description: PostgreSQL database endpoint

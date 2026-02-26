@@ -37,6 +37,7 @@ classes:
       environment:
         description: The environment configuration for the deployment, specifying the target trusted research environment (TRE) and its properties.
         range: Environment
+        required: true
 
   Resource:
     description: >-
@@ -146,6 +147,7 @@ classes:
       Models the configuration of the target trusted research environment (TRE) for a Cr8tor project deployment, including environment-specific settings and metadata.
     attributes:
       name:
+        required: true
         description: The name of the environment or TRE where the project will be deployed, used for identification and management.
 
   # -------------------------------------------------------------------------
@@ -382,7 +384,6 @@ classes:
         description: Whether workspace storage should persist across sessions.
 
 enums:
-
   ConnectionType:
     description: VDI connection protocols.
     permissible_values:

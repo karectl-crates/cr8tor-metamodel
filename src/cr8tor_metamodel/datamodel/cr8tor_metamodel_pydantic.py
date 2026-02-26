@@ -174,6 +174,17 @@ class DestinationType(str, Enum):
     """
 
 
+class SourceType(str, Enum):
+    databricks = "databricks"
+    """
+    Databricks endpoint
+    """
+    postgresql = "postgresql"
+    """
+    PostgreSQL database endpoint
+    """
+
+
 class ConnectionType(str, Enum):
     """
     VDI connection protocols.
@@ -196,7 +207,7 @@ class Governance(ConfiguredBaseModel):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/governance-model'})
 
     project: Project = Field(default=..., description="""The project entity governed by this governance model, containing core project metadata and state.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Governance', 'VDI']} })
-    users: Optional[list[User]] = Field(default=[], description="""List of users who have access to the project, each with their own roles, permissions, and membership details. Represents the state of project membership and access control.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Governance']} })
+    users: list[User] = Field(default=..., description="""List of users who have access to the project, each with their own roles, permissions, and membership details. Represents the state of project membership and access control.""", min_length=1, json_schema_extra = { "linkml_meta": {'domain_of': ['Governance']} })
 
 
 class Project(ConfiguredBaseModel):
@@ -207,7 +218,7 @@ class Project(ConfiguredBaseModel):
          'narrow_mappings': ['schemaorg:Project']})
 
     id: Optional[str] = Field(default=None, description="""Unique identifier for the project""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'Action', 'User']} })
-    name: str = Field(default=..., description="""The unique name of the Cr8tor project, used for identification and reference within the system.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
+    name: str = Field(default=..., title="Name", description="""The unique name of the Cr8tor project, used for identification and reference within the system.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
                        'Action',
                        'Source',
                        'Dataset',
@@ -323,17 +334,30 @@ class User(ConfiguredBaseModel):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/governance-model',
          'narrow_mappings': ['schemaorg:Person', 'schemaorg:Organization', 'scim:User']})
 
-    id: str = Field(default=..., description="""A globally unique identifier for the user, ensuring unambiguous reference within and across systems.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'Action', 'User'], 'slot_uri': 'schemaorg:identifier'} })
-    username: Optional[str] = Field(default=None, description="""The user's unique login or account name, used for authentication and identification within the project.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User'], 'slot_uri': 'schemaorg:identifier'} })
-    given_name: Optional[str] = Field(default=None, description="""The user's first or given name, representing their personal identity.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User'], 'slot_uri': 'schemaorg:name'} })
-    family_name: Optional[str] = Field(default=None, description="""The user's last or family name, used for identification and display purposes.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User']} })
-    affiliation: Optional[str] = Field(default=None, description="""The name of the organization or institution with which the user is affiliated, representing their organizational context.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User']} })
-    email: Optional[str] = Field(default=None, description="""The user's email address, used for communication and notifications related to the project.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User']} })
+    id: Optional[str] = Field(default=None, description="""A globally unique identifier for the user, ensuring unambiguous reference within and across systems.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'Action', 'User'], 'slot_uri': 'schemaorg:identifier'} })
+    username: str = Field(default=..., description="""The user's unique login or account name, used for authentication and identification within the project.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User'], 'slot_uri': 'schemaorg:identifier'} })
+    given_name: str = Field(default=..., description="""The user's first or given name, representing their personal identity.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User'], 'slot_uri': 'schemaorg:name'} })
+    family_name: str = Field(default=..., description="""The user's last or family name, used for identification and display purposes.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User']} })
+    affiliation: str = Field(default=..., description="""The name of the organization or institution with which the user is affiliated, representing their organizational context.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User']} })
+    email: str = Field(default=..., description="""The user's email address, used for communication and notifications related to the project.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User']} })
     groups: Optional[list[Group]] = Field(default=[], description="""List of groups to which the user belongs within the project, representing roles, permissions, or organizational units.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User']} })
-    start_date: Optional[datetime ] = Field(default=None, description="""The date and time when the user's access to the project becomes active, representing the start of their membership or role.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User']} })
-    expiry_date: Optional[datetime ] = Field(default=None, description="""The date and time when the user's access to the project expires, representing the end of their membership or role.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User']} })
+    start_date: Optional[date] = Field(default=None, description="""The date when the user's access to the project becomes active, representing the start of their membership or role.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User']} })
+    expiry_date: Optional[date] = Field(default=None, description="""The date when the user's access to the project expires, representing the end of their membership or role.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User']} })
     enabled: Optional[bool] = Field(default=True, description="""Whether the user account is enabled.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User', 'Resource', 'KeycloakClientConfig'], 'ifabsent': 'true'} })
     password: Optional[str] = Field(default=None, description="""Optional initial password. If not set, the operator generates a temporary password.""", json_schema_extra = { "linkml_meta": {'domain_of': ['User']} })
+
+    @field_validator('email')
+    def pattern_email(cls, v):
+        pattern=re.compile(r"^\S+@\S+\.\S+$")
+        if isinstance(v, list):
+            for element in v:
+                if isinstance(element, str) and not pattern.match(element):
+                    err_msg = f"Invalid email format: {element}"
+                    raise ValueError(err_msg)
+        elif isinstance(v, str) and not pattern.match(v):
+            err_msg = f"Invalid email format: {v}"
+            raise ValueError(err_msg)
+        return v
 
 
 class Group(ConfiguredBaseModel):
@@ -360,7 +384,7 @@ class Ingress(ConfiguredBaseModel):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/data-model'})
 
-    source: Optional[Source] = Field(default=None, description="""The origin or source of data for the ingress process, representing where data is extracted from. Optional.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Ingress']} })
+    source: Source = Field(default=..., description="""The origin or source of data for the ingress process, representing where data is extracted from. Optional.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Ingress']} })
     destination: Destination = Field(default=..., description="""The target or endpoint where data is delivered during the ingress process, representing the state of data delivery. Required.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Ingress']} })
     datasets: Optional[list[Dataset]] = Field(default=[], description="""List of datasets involved in the ingress process, each representing a collection of data to be transferred. Optional, can include multiple datasets.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Ingress']} })
 
@@ -371,7 +395,7 @@ class Source(ConfiguredBaseModel):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/data-model'})
 
-    name: Optional[str] = Field(default=None, description="""The name of the data source, used for identification and reference.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
+    name: str = Field(default=..., description="""The name of the data source, used for identification and reference.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
                        'Action',
                        'Source',
                        'Dataset',
@@ -383,9 +407,9 @@ class Source(ConfiguredBaseModel):
                        'SecretRef',
                        'ProtocolMapper',
                        'EnvironmentVariable']} })
-    type: Optional[str] = Field(default=None, description="""The type of data source (e.g., databricks, postgresql, mssql, filestore).""", json_schema_extra = { "linkml_meta": {'domain_of': ['Group', 'Source', 'Destination']} })
-    url: Optional[str] = Field(default=None, description="""The URL or location of the data source, specifying where data can be accessed or retrieved from.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource', 'VDI']} })
-    credentials: Optional[Credential] = Field(default=None, description="""The credentials required to access the data source, including authentication provider and key references.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source']} })
+    type: SourceType = Field(default=..., description="""The type of data source (e.g., databricks, postgresql).""", json_schema_extra = { "linkml_meta": {'domain_of': ['Group', 'Source', 'Destination']} })
+    url: str = Field(default=..., description="""The URL or location of the data source, specifying where data can be accessed or retrieved from.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source', 'Destination', 'Resource', 'VDI']} })
+    credentials: Credential = Field(default=..., description="""The credentials required to access the data source, including authentication provider and key references.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Source']} })
 
 
 class Credential(ConfiguredBaseModel):
@@ -481,7 +505,7 @@ class Deployment(ConfiguredBaseModel):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/deployment-model'})
 
     resources: Optional[list[Union[Resource,Jupyter,Keycloak,VDI,RStudio,Gitea]]] = Field(default=[], description="""List of resource names or identifiers representing the K8TRE applications or services to be deployed as part of the project. Can include multiple resources.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Deployment', 'ProjectSpec', 'VdiScheduling']} })
-    environment: Optional[Environment] = Field(default=None, description="""The environment configuration for the deployment, specifying the target trusted research environment (TRE) and its properties.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Deployment']} })
+    environment: Environment = Field(default=..., description="""The environment configuration for the deployment, specifying the target trusted research environment (TRE) and its properties.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Deployment']} })
 
 
 class Resource(ConfiguredBaseModel):
@@ -641,7 +665,7 @@ class Environment(ConfiguredBaseModel):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/deployment-model'})
 
-    name: Optional[str] = Field(default=None, description="""The name of the environment or TRE where the project will be deployed, used for identification and management.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
+    name: str = Field(default=..., description="""The name of the environment or TRE where the project will be deployed, used for identification and management.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
                        'Action',
                        'Source',
                        'Dataset',

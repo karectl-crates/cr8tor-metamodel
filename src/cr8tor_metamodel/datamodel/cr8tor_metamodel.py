@@ -1,5 +1,5 @@
 # Auto generated from cr8tor_metamodel.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-02-26T15:13:29
+# Generation date: 2026-02-26T17:32:34
 # Schema: cr8tor-metamodel
 #
 # id: https://w3id.org/karectl-crates/cr8tor-metamodel
@@ -56,8 +56,8 @@ from rdflib import (
     URIRef
 )
 
-from linkml_runtime.linkml_model.types import Boolean, Datetime, String, Uri, Uriorcurie
-from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDateTime
+from linkml_runtime.linkml_model.types import Boolean, Date, Datetime, String, Uri, Uriorcurie
+from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate, XSDDateTime
 
 metamodel_version = "1.7.0"
 version = None
@@ -85,10 +85,6 @@ class CreateActionId(ActionId):
 
 
 class AssessActionId(ActionId):
-    pass
-
-
-class UserId(URIorCURIE):
     pass
 
 
@@ -143,7 +139,7 @@ class Governance(YAMLRoot):
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.Governance
 
     project: Union[dict, "Project"] = None
-    users: Optional[Union[dict[Union[str, UserId], Union[dict, "User"]], list[Union[dict, "User"]]]] = empty_dict()
+    users: Union[Union[dict, "User"], list[Union[dict, "User"]]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.project):
@@ -151,7 +147,11 @@ class Governance(YAMLRoot):
         if not isinstance(self.project, Project):
             self.project = Project(**as_dict(self.project))
 
-        self._normalize_inlined_as_list(slot_name="users", slot_type=User, key_name="id", keyed=True)
+        if self._is_empty(self.users):
+            self.MissingRequiredField("users")
+        if not isinstance(self.users, list):
+            self.users = [self.users] if self.users is not None else []
+        self.users = [v if isinstance(v, User) else User(**as_dict(v)) for v in self.users]
 
         super().__post_init__(**kwargs)
 
@@ -377,48 +377,56 @@ class User(YAMLRoot):
     class_name: ClassVar[str] = "User"
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.User
 
-    id: Union[str, UserId] = None
-    username: Optional[Union[str, URIorCURIE]] = None
-    given_name: Optional[str] = None
-    family_name: Optional[str] = None
-    affiliation: Optional[str] = None
-    email: Optional[str] = None
+    username: Union[str, URIorCURIE] = None
+    given_name: str = None
+    family_name: str = None
+    affiliation: str = None
+    email: str = None
+    id: Optional[str] = None
     groups: Optional[Union[Union[dict, "Group"], list[Union[dict, "Group"]]]] = empty_list()
-    start_date: Optional[Union[str, XSDDateTime]] = None
-    expiry_date: Optional[Union[str, XSDDateTime]] = None
+    start_date: Optional[Union[str, XSDDate]] = None
+    expiry_date: Optional[Union[str, XSDDate]] = None
     enabled: Optional[Union[bool, Bool]] = True
     password: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.id):
-            self.MissingRequiredField("id")
-        if not isinstance(self.id, UserId):
-            self.id = UserId(self.id)
-
-        if self.username is not None and not isinstance(self.username, URIorCURIE):
+        if self._is_empty(self.username):
+            self.MissingRequiredField("username")
+        if not isinstance(self.username, URIorCURIE):
             self.username = URIorCURIE(self.username)
 
-        if self.given_name is not None and not isinstance(self.given_name, str):
+        if self._is_empty(self.given_name):
+            self.MissingRequiredField("given_name")
+        if not isinstance(self.given_name, str):
             self.given_name = str(self.given_name)
 
-        if self.family_name is not None and not isinstance(self.family_name, str):
+        if self._is_empty(self.family_name):
+            self.MissingRequiredField("family_name")
+        if not isinstance(self.family_name, str):
             self.family_name = str(self.family_name)
 
-        if self.affiliation is not None and not isinstance(self.affiliation, str):
+        if self._is_empty(self.affiliation):
+            self.MissingRequiredField("affiliation")
+        if not isinstance(self.affiliation, str):
             self.affiliation = str(self.affiliation)
 
-        if self.email is not None and not isinstance(self.email, str):
+        if self._is_empty(self.email):
+            self.MissingRequiredField("email")
+        if not isinstance(self.email, str):
             self.email = str(self.email)
+
+        if self.id is not None and not isinstance(self.id, str):
+            self.id = str(self.id)
 
         if not isinstance(self.groups, list):
             self.groups = [self.groups] if self.groups is not None else []
         self.groups = [v if isinstance(v, Group) else Group(**as_dict(v)) for v in self.groups]
 
-        if self.start_date is not None and not isinstance(self.start_date, XSDDateTime):
-            self.start_date = XSDDateTime(self.start_date)
+        if self.start_date is not None and not isinstance(self.start_date, XSDDate):
+            self.start_date = XSDDate(self.start_date)
 
-        if self.expiry_date is not None and not isinstance(self.expiry_date, XSDDateTime):
-            self.expiry_date = XSDDateTime(self.expiry_date)
+        if self.expiry_date is not None and not isinstance(self.expiry_date, XSDDate):
+            self.expiry_date = XSDDate(self.expiry_date)
 
         if self.enabled is not None and not isinstance(self.enabled, Bool):
             self.enabled = Bool(self.enabled)
@@ -477,18 +485,20 @@ class Ingress(YAMLRoot):
     class_name: ClassVar[str] = "Ingress"
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.Ingress
 
+    source: Union[dict, "Source"] = None
     destination: Union[dict, "Destination"] = None
-    source: Optional[Union[dict, "Source"]] = None
     datasets: Optional[Union[Union[dict, "Dataset"], list[Union[dict, "Dataset"]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.source):
+            self.MissingRequiredField("source")
+        if not isinstance(self.source, Source):
+            self.source = Source(**as_dict(self.source))
+
         if self._is_empty(self.destination):
             self.MissingRequiredField("destination")
         if not isinstance(self.destination, Destination):
             self.destination = Destination(**as_dict(self.destination))
-
-        if self.source is not None and not isinstance(self.source, Source):
-            self.source = Source(**as_dict(self.source))
 
         if not isinstance(self.datasets, list):
             self.datasets = [self.datasets] if self.datasets is not None else []
@@ -510,22 +520,30 @@ class Source(YAMLRoot):
     class_name: ClassVar[str] = "Source"
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.Source
 
-    name: Optional[str] = None
-    type: Optional[str] = None
-    url: Optional[str] = None
-    credentials: Optional[Union[dict, "Credential"]] = None
+    name: str = None
+    type: Union[str, "SourceType"] = None
+    url: str = None
+    credentials: Union[dict, "Credential"] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self.name is not None and not isinstance(self.name, str):
+        if self._is_empty(self.name):
+            self.MissingRequiredField("name")
+        if not isinstance(self.name, str):
             self.name = str(self.name)
 
-        if self.type is not None and not isinstance(self.type, str):
-            self.type = str(self.type)
+        if self._is_empty(self.type):
+            self.MissingRequiredField("type")
+        if not isinstance(self.type, SourceType):
+            self.type = SourceType(self.type)
 
-        if self.url is not None and not isinstance(self.url, str):
+        if self._is_empty(self.url):
+            self.MissingRequiredField("url")
+        if not isinstance(self.url, str):
             self.url = str(self.url)
 
-        if self.credentials is not None and not isinstance(self.credentials, Credential):
+        if self._is_empty(self.credentials):
+            self.MissingRequiredField("credentials")
+        if not isinstance(self.credentials, Credential):
             self.credentials = Credential(**as_dict(self.credentials))
 
         super().__post_init__(**kwargs)
@@ -708,16 +726,18 @@ class Deployment(YAMLRoot):
     class_name: ClassVar[str] = "Deployment"
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.Deployment
 
+    environment: Union[dict, "Environment"] = None
     resources: Optional[Union[Union[dict, "Resource"], list[Union[dict, "Resource"]]]] = empty_list()
-    environment: Optional[Union[dict, "Environment"]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.environment):
+            self.MissingRequiredField("environment")
+        if not isinstance(self.environment, Environment):
+            self.environment = Environment(**as_dict(self.environment))
+
         if not isinstance(self.resources, list):
             self.resources = [self.resources] if self.resources is not None else []
         self.resources = [v if isinstance(v, Resource) else Resource(**as_dict(v)) for v in self.resources]
-
-        if self.environment is not None and not isinstance(self.environment, Environment):
-            self.environment = Environment(**as_dict(self.environment))
 
         super().__post_init__(**kwargs)
 
@@ -973,10 +993,12 @@ class Environment(YAMLRoot):
     class_name: ClassVar[str] = "Environment"
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.Environment
 
-    name: Optional[str] = None
+    name: str = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self.name is not None and not isinstance(self.name, str):
+        if self._is_empty(self.name):
+            self.MissingRequiredField("name")
+        if not isinstance(self.name, str):
             self.name = str(self.name)
 
         super().__post_init__(**kwargs)
@@ -1434,6 +1456,19 @@ class DestinationType(EnumDefinitionImpl):
         name="DestinationType",
     )
 
+class SourceType(EnumDefinitionImpl):
+
+    databricks = PermissibleValue(
+        text="databricks",
+        description="Databricks endpoint")
+    postgresql = PermissibleValue(
+        text="postgresql",
+        description="PostgreSQL database endpoint")
+
+    _defn = EnumDefinition(
+        name="SourceType",
+    )
+
 class ConnectionType(EnumDefinitionImpl):
     """
     VDI connection protocols.
@@ -1473,7 +1508,7 @@ slots.governance__project = Slot(uri=CR8TOR_METAMODEL.project, name="governance_
                    model_uri=CR8TOR_METAMODEL.governance__project, domain=None, range=Union[dict, Project])
 
 slots.governance__users = Slot(uri=CR8TOR_METAMODEL.users, name="governance__users", curie=CR8TOR_METAMODEL.curie('users'),
-                   model_uri=CR8TOR_METAMODEL.governance__users, domain=None, range=Optional[Union[dict[Union[str, UserId], Union[dict, User]], list[Union[dict, User]]]])
+                   model_uri=CR8TOR_METAMODEL.governance__users, domain=None, range=Union[Union[dict, User], list[Union[dict, User]]])
 
 slots.project__id = Slot(uri=CR8TOR_METAMODEL.id, name="project__id", curie=CR8TOR_METAMODEL.curie('id'),
                    model_uri=CR8TOR_METAMODEL.project__id, domain=None, range=Optional[str])
@@ -1524,31 +1559,32 @@ slots.assessAction__additional_type = Slot(uri=CR8TOR_METAMODEL.additional_type,
                    model_uri=CR8TOR_METAMODEL.assessAction__additional_type, domain=None, range=Optional[str])
 
 slots.user__id = Slot(uri=SCHEMAORG.identifier, name="user__id", curie=SCHEMAORG.curie('identifier'),
-                   model_uri=CR8TOR_METAMODEL.user__id, domain=None, range=URIRef)
+                   model_uri=CR8TOR_METAMODEL.user__id, domain=None, range=Optional[str])
 
 slots.user__username = Slot(uri=SCHEMAORG.identifier, name="user__username", curie=SCHEMAORG.curie('identifier'),
-                   model_uri=CR8TOR_METAMODEL.user__username, domain=None, range=Optional[Union[str, URIorCURIE]])
+                   model_uri=CR8TOR_METAMODEL.user__username, domain=None, range=Union[str, URIorCURIE])
 
 slots.user__given_name = Slot(uri=SCHEMAORG.name, name="user__given_name", curie=SCHEMAORG.curie('name'),
-                   model_uri=CR8TOR_METAMODEL.user__given_name, domain=None, range=Optional[str])
+                   model_uri=CR8TOR_METAMODEL.user__given_name, domain=None, range=str)
 
 slots.user__family_name = Slot(uri=CR8TOR_METAMODEL.family_name, name="user__family_name", curie=CR8TOR_METAMODEL.curie('family_name'),
-                   model_uri=CR8TOR_METAMODEL.user__family_name, domain=None, range=Optional[str])
+                   model_uri=CR8TOR_METAMODEL.user__family_name, domain=None, range=str)
 
 slots.user__affiliation = Slot(uri=CR8TOR_METAMODEL.affiliation, name="user__affiliation", curie=CR8TOR_METAMODEL.curie('affiliation'),
-                   model_uri=CR8TOR_METAMODEL.user__affiliation, domain=None, range=Optional[str])
+                   model_uri=CR8TOR_METAMODEL.user__affiliation, domain=None, range=str)
 
 slots.user__email = Slot(uri=CR8TOR_METAMODEL.email, name="user__email", curie=CR8TOR_METAMODEL.curie('email'),
-                   model_uri=CR8TOR_METAMODEL.user__email, domain=None, range=Optional[str])
+                   model_uri=CR8TOR_METAMODEL.user__email, domain=None, range=str,
+                   pattern=re.compile(r'^\S+@\S+\.\S+$'))
 
 slots.user__groups = Slot(uri=CR8TOR_METAMODEL.groups, name="user__groups", curie=CR8TOR_METAMODEL.curie('groups'),
                    model_uri=CR8TOR_METAMODEL.user__groups, domain=None, range=Optional[Union[Union[dict, Group], list[Union[dict, Group]]]])
 
 slots.user__start_date = Slot(uri=CR8TOR_METAMODEL.start_date, name="user__start_date", curie=CR8TOR_METAMODEL.curie('start_date'),
-                   model_uri=CR8TOR_METAMODEL.user__start_date, domain=None, range=Optional[Union[str, XSDDateTime]])
+                   model_uri=CR8TOR_METAMODEL.user__start_date, domain=None, range=Optional[Union[str, XSDDate]])
 
 slots.user__expiry_date = Slot(uri=CR8TOR_METAMODEL.expiry_date, name="user__expiry_date", curie=CR8TOR_METAMODEL.curie('expiry_date'),
-                   model_uri=CR8TOR_METAMODEL.user__expiry_date, domain=None, range=Optional[Union[str, XSDDateTime]])
+                   model_uri=CR8TOR_METAMODEL.user__expiry_date, domain=None, range=Optional[Union[str, XSDDate]])
 
 slots.user__enabled = Slot(uri=CR8TOR_METAMODEL.enabled, name="user__enabled", curie=CR8TOR_METAMODEL.curie('enabled'),
                    model_uri=CR8TOR_METAMODEL.user__enabled, domain=None, range=Optional[Union[bool, Bool]])
@@ -1569,7 +1605,7 @@ slots.group__type = Slot(uri=CR8TOR_METAMODEL.type, name="group__type", curie=CR
                    model_uri=CR8TOR_METAMODEL.group__type, domain=None, range=Optional[Union[str, "GroupMembershipType"]])
 
 slots.ingress__source = Slot(uri=CR8TOR_METAMODEL.source, name="ingress__source", curie=CR8TOR_METAMODEL.curie('source'),
-                   model_uri=CR8TOR_METAMODEL.ingress__source, domain=None, range=Optional[Union[dict, Source]])
+                   model_uri=CR8TOR_METAMODEL.ingress__source, domain=None, range=Union[dict, Source])
 
 slots.ingress__destination = Slot(uri=CR8TOR_METAMODEL.destination, name="ingress__destination", curie=CR8TOR_METAMODEL.curie('destination'),
                    model_uri=CR8TOR_METAMODEL.ingress__destination, domain=None, range=Union[dict, Destination])
@@ -1578,16 +1614,16 @@ slots.ingress__datasets = Slot(uri=CR8TOR_METAMODEL.datasets, name="ingress__dat
                    model_uri=CR8TOR_METAMODEL.ingress__datasets, domain=None, range=Optional[Union[Union[dict, Dataset], list[Union[dict, Dataset]]]])
 
 slots.source__name = Slot(uri=CR8TOR_METAMODEL.name, name="source__name", curie=CR8TOR_METAMODEL.curie('name'),
-                   model_uri=CR8TOR_METAMODEL.source__name, domain=None, range=Optional[str])
+                   model_uri=CR8TOR_METAMODEL.source__name, domain=None, range=str)
 
 slots.source__type = Slot(uri=CR8TOR_METAMODEL.type, name="source__type", curie=CR8TOR_METAMODEL.curie('type'),
-                   model_uri=CR8TOR_METAMODEL.source__type, domain=None, range=Optional[str])
+                   model_uri=CR8TOR_METAMODEL.source__type, domain=None, range=Union[str, "SourceType"])
 
 slots.source__url = Slot(uri=CR8TOR_METAMODEL.url, name="source__url", curie=CR8TOR_METAMODEL.curie('url'),
-                   model_uri=CR8TOR_METAMODEL.source__url, domain=None, range=Optional[str])
+                   model_uri=CR8TOR_METAMODEL.source__url, domain=None, range=str)
 
 slots.source__credentials = Slot(uri=CR8TOR_METAMODEL.credentials, name="source__credentials", curie=CR8TOR_METAMODEL.curie('credentials'),
-                   model_uri=CR8TOR_METAMODEL.source__credentials, domain=None, range=Optional[Union[dict, Credential]])
+                   model_uri=CR8TOR_METAMODEL.source__credentials, domain=None, range=Union[dict, Credential])
 
 slots.credential__provider = Slot(uri=CR8TOR_METAMODEL.provider, name="credential__provider", curie=CR8TOR_METAMODEL.curie('provider'),
                    model_uri=CR8TOR_METAMODEL.credential__provider, domain=None, range=str)
@@ -1632,7 +1668,7 @@ slots.deployment__resources = Slot(uri=CR8TOR_METAMODEL.resources, name="deploym
                    model_uri=CR8TOR_METAMODEL.deployment__resources, domain=None, range=Optional[Union[Union[dict, Resource], list[Union[dict, Resource]]]])
 
 slots.deployment__environment = Slot(uri=CR8TOR_METAMODEL.environment, name="deployment__environment", curie=CR8TOR_METAMODEL.curie('environment'),
-                   model_uri=CR8TOR_METAMODEL.deployment__environment, domain=None, range=Optional[Union[dict, Environment]])
+                   model_uri=CR8TOR_METAMODEL.deployment__environment, domain=None, range=Union[dict, Environment])
 
 slots.resource__name = Slot(uri=CR8TOR_METAMODEL.name, name="resource__name", curie=CR8TOR_METAMODEL.curie('name'),
                    model_uri=CR8TOR_METAMODEL.resource__name, domain=None, range=str)
@@ -1683,7 +1719,7 @@ slots.vDI__storage = Slot(uri=CR8TOR_METAMODEL.storage, name="vDI__storage", cur
                    model_uri=CR8TOR_METAMODEL.vDI__storage, domain=None, range=Optional[Union[dict, ResourceStorage]])
 
 slots.environment__name = Slot(uri=CR8TOR_METAMODEL.name, name="environment__name", curie=CR8TOR_METAMODEL.curie('name'),
-                   model_uri=CR8TOR_METAMODEL.environment__name, domain=None, range=Optional[str])
+                   model_uri=CR8TOR_METAMODEL.environment__name, domain=None, range=str)
 
 slots.projectSpec__description = Slot(uri=CR8TOR_METAMODEL.description, name="projectSpec__description", curie=CR8TOR_METAMODEL.curie('description'),
                    model_uri=CR8TOR_METAMODEL.projectSpec__description, domain=None, range=str)

@@ -40,6 +40,8 @@ classes:
         description: List of users who have access to the project, each with their own roles, permissions, and membership details. Represents the state of project membership and access control.
         range: User
         multivalued: true
+        required: true
+        minimum_cardinality: 1
         inlined_as_list: true
 
   
@@ -55,7 +57,7 @@ classes:
         title: Name
         range: string
         description: The unique name of the Cr8tor project, used for identification and reference within the system.
-        required: false
+        required: true
       description:
         range: string
         description: A brief summary describing the purpose, scope, or objectives of the Cr8tor project.
@@ -165,23 +167,28 @@ classes:
       Models an individual user associated with a Cr8tor project, capturing their identity, contact information, organizational affiliation, group memberships, and access lifecycle. This class represents the state of a user's relationship to the project and their access rights.
     attributes:
       id:
-        identifier: true
         slot_uri: schemaorg:identifier
-        range: uriorcurie
+        range: string
         description: A globally unique identifier for the user, ensuring unambiguous reference within and across systems.
       username:
         slot_uri: schemaorg:identifier
         range: uriorcurie
         description: The user's unique login or account name, used for authentication and identification within the project.
+        required: true
       given_name:
         slot_uri: schemaorg:name
         description: The user's first or given name, representing their personal identity.
+        required: true
       family_name:
         description: The user's last or family name, used for identification and display purposes.
+        required: true
       affiliation:
         description: The name of the organization or institution with which the user is affiliated, representing their organizational context.
+        required: true
       email:
         description: The user's email address, used for communication and notifications related to the project.
+        required: true
+        pattern: "^\\S+@\\S+\\.\\S+$"
       groups:
         description: List of groups to which the user belongs within the project, representing roles, permissions, or organizational units.
         range: Group
@@ -189,11 +196,11 @@ classes:
         multivalued: true
         inlined_as_list: true
       start_date:
-        range: datetime
-        description: The date and time when the user's access to the project becomes active, representing the start of their membership or role.
+        range: date
+        description: The date when the user's access to the project becomes active, representing the start of their membership or role.
       expiry_date:
-        range: datetime
-        description: The date and time when the user's access to the project expires, representing the end of their membership or role.
+        range: date
+        description: The date when the user's access to the project expires, representing the end of their membership or role.
       enabled:
         range: boolean
         required: false
