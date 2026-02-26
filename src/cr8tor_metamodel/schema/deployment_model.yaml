@@ -381,6 +381,100 @@ classes:
         required: false
         description: Whether workspace storage should persist across sessions.
 
+  # -------------------------------------------------------------------------
+  # Data publishing CRD spec classes
+  # -------------------------------------------------------------------------
+
+  DataPublishJobSpec:
+    description: Spec for the DataPublishJob CRD which can trigger the operator based publish pipeline.
+    attributes:
+      project_name:
+        range: string
+        required: true
+      project_start_time:
+        range: string
+        required: true
+      source:
+        range: Source
+        required: true
+      destination:
+        range: Destination
+        required: true
+      dataset:
+        range: Dataset
+        required: true
+      extract_config:
+        range: ExtractConfig
+        required: false
+      job_config:
+        range: PublishJobConfig
+        required: false
+
+  PublishJobConfig:
+    description: Operator-level job execution settings.
+    attributes:
+      backoff_limit:
+        range: integer
+        required: false
+      ttl_after_completion:
+        range: integer
+        required: false
+      staging_pvc_size:
+        range: string
+        required: false
+      staging_storage_class:
+        range: string
+        required: false
+      retain_staging_pvc_on_failure:
+        range: boolean
+        required: false
+
+  OpalProjectSpec:
+    description: Spec for the OpalProject CRD (for declarative Datashield Opal setup).
+    attributes:
+      project_name:
+        range: string
+        required: true
+      group_name:
+        range: string
+        required: true
+      tables:
+        range: OpalTableRef
+        multivalued: true
+        inlined_as_list: true
+      opal_config:
+        range: OpalConfig
+        required: true
+
+  OpalTableRef:
+    description: Reference to a table as an Opal resource.
+    attributes:
+      schema:
+        range: string
+        required: true
+      name:
+        range: string
+        required: true
+
+  OpalConfig:
+    description: Secret references for connecting to an Opal instance.
+    attributes:
+      host_secret_ref:
+        range: string
+        required: true
+      username_secret_ref:
+        range: string
+        required: true
+      password_secret_ref:
+        range: string
+        required: true
+      readonly_username_secret_ref:
+        range: string
+        required: false
+      readonly_password_secret_ref:
+        range: string
+        required: false
+
 enums:
 
   ConnectionType:
