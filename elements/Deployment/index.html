@@ -269,7 +269,7 @@
 
 
 
-        Deployment --&gt; "0..1" Environment : environment
+        Deployment --&gt; "1" Environment : environment
         click Environment href "../Environment/"
 
 
@@ -307,7 +307,7 @@
 </tr>
 <tr>
 <td><a href="../environment/">environment</a></td>
-<td>0..1 <br/> <a href="../Environment/">Environment</a></td>
+<td>1 <br/> <a href="../Environment/">Environment</a></td>
 <td>The environment configuration for the deployment, specifying the target trust...</td>
 <td>direct</td>
 </tr>
@@ -389,6 +389,7 @@ attributes:
     domain_of:
     - Deployment
     range: Environment
+    required: true
 
 </code></pre>
 </details>
@@ -427,6 +428,7 @@ attributes:
     domain_of:
     - Deployment
     range: Environment
+    required: true
 
 </code></pre>
 </details>

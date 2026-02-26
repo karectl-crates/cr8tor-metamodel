@@ -291,7 +291,7 @@
 
 
 
-        Ingress --&gt; "0..1" Source : source
+        Ingress --&gt; "1" Source : source
         click Source href "../Source/"
 
 
@@ -312,7 +312,7 @@
 <tbody>
 <tr>
 <td><a href="../source/">source</a></td>
-<td>0..1 <br/> <a href="../Source/">Source</a></td>
+<td>1 <br/> <a href="../Source/">Source</a></td>
 <td>The origin or source of data for the ingress process, representing where data...</td>
 <td>direct</td>
 </tr>
@@ -392,7 +392,7 @@ attributes:
     domain_of:
     - Ingress
     range: Source
-    required: false
+    required: true
   destination:
     name: destination
     description: The target or endpoint where data is delivered during the ingress
@@ -438,7 +438,7 @@ attributes:
     domain_of:
     - Ingress
     range: Source
-    required: false
+    required: true
   destination:
     name: destination
     description: The target or endpoint where data is delivered during the ingress

@@ -364,6 +364,17 @@ enums:
       postgresql:
         text: postgresql
         description: PostgreSQL database endpoint
+  SourceType:
+    name: SourceType
+    definition_uri: https://w3id.org/karectl-crates/data-model/SourceType
+    from_schema: https://w3id.org/karectl-crates/data-model
+    permissible_values:
+      databricks:
+        text: databricks
+        description: Databricks endpoint
+      postgresql:
+        text: postgresql
+        description: PostgreSQL database endpoint
   ConnectionType:
     name: ConnectionType
     definition_uri: https://w3id.org/karectl-crates/deployment-model/ConnectionType
@@ -471,9 +482,11 @@ slots:
     domain_of:
     - Governance
     range: User
+    required: true
     multivalued: true
     inlined: true
     inlined_as_list: true
+    minimum_cardinality: 1
   project__id:
     name: project__id
     description: Unique identifier for the project
@@ -489,6 +502,7 @@ slots:
     name: project__name
     description: The unique name of the Cr8tor project, used for identification and
       reference within the system.
+    title: Name
     from_schema: https://w3id.org/karectl-crates/governance-model
     slot_uri: cr8tor_metamodel:name
     alias: name
@@ -675,13 +689,11 @@ slots:
     mappings:
     - schemaorg:identifier
     slot_uri: schemaorg:identifier
-    identifier: true
     alias: id
     owner: User
     domain_of:
     - User
-    range: uriorcurie
-    required: true
+    range: string
   user__username:
     name: user__username
     description: The user's unique login or account name, used for authentication
@@ -695,6 +707,7 @@ slots:
     domain_of:
     - User
     range: uriorcurie
+    required: true
   user__given_name:
     name: user__given_name
     description: The user's first or given name, representing their personal identity.
@@ -707,6 +720,7 @@ slots:
     domain_of:
     - User
     range: string
+    required: true
   user__family_name:
     name: user__family_name
     description: The user's last or family name, used for identification and display
@@ -718,6 +732,7 @@ slots:
     domain_of:
     - User
     range: string
+    required: true
   user__affiliation:
     name: user__affiliation
     description: The name of the organization or institution with which the user is
@@ -729,6 +744,7 @@ slots:
     domain_of:
     - User
     range: string
+    required: true
   user__email:
     name: user__email
     description: The user's email address, used for communication and notifications
@@ -740,6 +756,8 @@ slots:
     domain_of:
     - User
     range: string
+    required: true
+    pattern: ^\S+@\S+\.\S+$
   user__groups:
     name: user__groups
     description: List of groups to which the user belongs within the project, representing
@@ -757,26 +775,26 @@ slots:
     inlined_as_list: true
   user__start_date:
     name: user__start_date
-    description: The date and time when the user's access to the project becomes active,
-      representing the start of their membership or role.
+    description: The date when the user's access to the project becomes active, representing
+      the start of their membership or role.
     from_schema: https://w3id.org/karectl-crates/governance-model
     slot_uri: cr8tor_metamodel:start_date
     alias: start_date
     owner: User
     domain_of:
     - User
-    range: datetime
+    range: date
   user__expiry_date:
     name: user__expiry_date
-    description: The date and time when the user's access to the project expires,
-      representing the end of their membership or role.
+    description: The date when the user's access to the project expires, representing
+      the end of their membership or role.
     from_schema: https://w3id.org/karectl-crates/governance-model
     slot_uri: cr8tor_metamodel:expiry_date
     alias: expiry_date
     owner: User
     domain_of:
     - User
-    range: datetime
+    range: date
   user__enabled:
     name: user__enabled
     description: Whether the user account is enabled.
@@ -879,7 +897,7 @@ slots:
     domain_of:
     - Ingress
     range: Source
-    required: false
+    required: true
     inlined: true
     inlined_as_list: true
   ingress__destination:
@@ -921,18 +939,18 @@ slots:
     domain_of:
     - Source
     range: string
-    required: false
+    required: true
   source__type:
     name: source__type
-    description: The type of data source (e.g., databricks, postgresql, mssql, filestore).
+    description: The type of data source (e.g., databricks, postgresql).
     from_schema: https://w3id.org/karectl-crates/data-model
     slot_uri: cr8tor_metamodel:type
     alias: type
     owner: Source
     domain_of:
     - Source
-    range: string
-    required: false
+    range: SourceType
+    required: true
   source__url:
     name: source__url
     description: The URL or location of the data source, specifying where data can
@@ -944,6 +962,7 @@ slots:
     domain_of:
     - Source
     range: string
+    required: true
   source__credentials:
     name: source__credentials
     description: The credentials required to access the data source, including authentication
@@ -955,7 +974,7 @@ slots:
     domain_of:
     - Source
     range: Credential
-    required: false
+    required: true
     inlined: true
     inlined_as_list: true
   credential__provider:
@@ -1149,6 +1168,7 @@ slots:
     domain_of:
     - Deployment
     range: Environment
+    required: true
     inlined: true
     inlined_as_list: true
   resource__name:
@@ -1354,6 +1374,7 @@ slots:
     domain_of:
     - Environment
     range: string
+    required: true
   projectSpec__description:
     name: projectSpec__description
     description: Project description.
@@ -1877,8 +1898,10 @@ classes:
           own roles, permissions, and membership details. Represents the state of
           project membership and access control.
         range: User
+        required: true
         multivalued: true
         inlined_as_list: true
+        minimum_cardinality: 1
     class_uri: cr8tor_metamodel:Governance
   Project:
     name: Project
@@ -1907,6 +1930,7 @@ classes:
         name: name
         description: The unique name of the Cr8tor project, used for identification
           and reference within the system.
+        title: Name
         range: string
         required: true
       description:
@@ -2096,30 +2120,35 @@ classes:
         description: A globally unique identifier for the user, ensuring unambiguous
           reference within and across systems.
         slot_uri: schemaorg:identifier
-        identifier: true
-        range: uriorcurie
+        range: string
       username:
         name: username
         description: The user's unique login or account name, used for authentication
           and identification within the project.
         slot_uri: schemaorg:identifier
         range: uriorcurie
+        required: true
       given_name:
         name: given_name
         description: The user's first or given name, representing their personal identity.
         slot_uri: schemaorg:name
+        required: true
       family_name:
         name: family_name
         description: The user's last or family name, used for identification and display
           purposes.
+        required: true
       affiliation:
         name: affiliation
         description: The name of the organization or institution with which the user
           is affiliated, representing their organizational context.
+        required: true
       email:
         name: email
         description: The user's email address, used for communication and notifications
           related to the project.
+        required: true
+        pattern: ^\S+@\S+\.\S+$
       groups:
         name: groups
         description: List of groups to which the user belongs within the project,
@@ -2130,14 +2159,14 @@ classes:
         inlined_as_list: true
       start_date:
         name: start_date
-        description: The date and time when the user's access to the project becomes
-          active, representing the start of their membership or role.
-        range: datetime
+        description: The date when the user's access to the project becomes active,
+          representing the start of their membership or role.
+        range: date
       expiry_date:
         name: expiry_date
-        description: The date and time when the user's access to the project expires,
-          representing the end of their membership or role.
-        range: datetime
+        description: The date when the user's access to the project expires, representing
+          the end of their membership or role.
+        range: date
       enabled:
         name: enabled
         description: Whether the user account is enabled.
@@ -2228,7 +2257,7 @@ classes:
         description: The origin or source of data for the ingress process, representing
           where data is extracted from. Optional.
         range: Source
-        required: false
+        required: true
       destination:
         name: destination
         description: The target or endpoint where data is delivered during the ingress
@@ -2261,24 +2290,24 @@ classes:
         name: name
         description: The name of the data source, used for identification and reference.
         range: string
-        required: false
+        required: true
       type:
         name: type
-        description: The type of data source (e.g., databricks, postgresql, mssql,
-          filestore).
-        range: string
-        required: false
+        description: The type of data source (e.g., databricks, postgresql).
+        range: SourceType
+        required: true
       url:
         name: url
         description: The URL or location of the data source, specifying where data
           can be accessed or retrieved from.
         range: string
+        required: true
       credentials:
         name: credentials
         description: The credentials required to access the data source, including
           authentication provider and key references.
         range: Credential
-        required: false
+        required: true
     class_uri: cr8tor_metamodel:Source
   Credential:
     name: Credential
@@ -2464,6 +2493,7 @@ classes:
         description: The environment configuration for the deployment, specifying
           the target trusted research environment (TRE) and its properties.
         range: Environment
+        required: true
     class_uri: cr8tor_metamodel:Deployment
   Resource:
     name: Resource
@@ -2662,6 +2692,7 @@ classes:
         name: name
         description: The name of the environment or TRE where the project will be
           deployed, used for identification and management.
+        required: true
     class_uri: cr8tor_metamodel:Environment
   ProjectSpec:
     name: ProjectSpec
@@ -3014,7 +3045,7 @@ classes:
     class_uri: cr8tor_metamodel:ResourceStorage
 metamodel_version: 1.7.0
 source_file: cr8tor_metamodel.yaml
-source_file_date: '2026-02-26T15:13:14'
+source_file_date: '2026-02-26T19:01:55'
 source_file_size: 1519
-generation_date: '2026-02-26T15:13:23'
+generation_date: '2026-02-26T19:02:06'
 

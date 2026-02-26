@@ -281,7 +281,7 @@
 <tbody>
 <tr>
 <td><a href="../name/">name</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>1 <br/> <a href="../String/">String</a></td>
 <td>The name of the environment or TRE where the project will be deployed, used f...</td>
 <td>direct</td>
 </tr>
@@ -357,6 +357,7 @@ attributes:
     - SecretRef
     - ProtocolMapper
     - EnvironmentVariable
+    required: true
 
 </code></pre>
 </details>
@@ -388,6 +389,7 @@ attributes:
     - ProtocolMapper
     - EnvironmentVariable
     range: string
+    required: true
 
 </code></pre>
 </details>

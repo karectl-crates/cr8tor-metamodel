@@ -269,7 +269,7 @@
 
 
 
-        Source --&gt; "0..1" Credential : credentials
+        Source --&gt; "1" Credential : credentials
         click Credential href "../Credential/"
 
 
@@ -277,6 +277,15 @@
       Source : name
 
       Source : type
+
+
+
+
+
+        Source --&gt; "1" SourceType : type
+        click SourceType href "../SourceType/"
+
+
 
       Source : url
 
@@ -296,25 +305,25 @@
 <tbody>
 <tr>
 <td><a href="../name/">name</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>1 <br/> <a href="../String/">String</a></td>
 <td>The name of the data source, used for identification and reference</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../type/">type</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>1 <br/> <a href="../SourceType/">SourceType</a></td>
 <td>The type of data source (e</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../url/">url</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>1 <br/> <a href="../String/">String</a></td>
 <td>The URL or location of the data source, specifying where data can be accessed...</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../credentials/">credentials</a></td>
-<td>0..1 <br/> <a href="../Credential/">Credential</a></td>
+<td>1 <br/> <a href="../Credential/">Credential</a></td>
 <td>The credentials required to access the data source, including authentication ...</td>
 <td>direct</td>
 </tr>
@@ -391,17 +400,17 @@ attributes:
     - ProtocolMapper
     - EnvironmentVariable
     range: string
-    required: false
+    required: true
   type:
     name: type
-    description: The type of data source (e.g., databricks, postgresql, mssql, filestore).
+    description: The type of data source (e.g., databricks, postgresql).
     from_schema: https://w3id.org/karectl-crates/data-model
     domain_of:
     - Group
     - Source
     - Destination
-    range: string
-    required: false
+    range: SourceType
+    required: true
   url:
     name: url
     description: The URL or location of the data source, specifying where data can
@@ -414,6 +423,7 @@ attributes:
     - Resource
     - VDI
     range: string
+    required: true
   credentials:
     name: credentials
     description: The credentials required to access the data source, including authentication
@@ -423,7 +433,7 @@ attributes:
     domain_of:
     - Source
     range: Credential
-    required: false
+    required: true
 
 </code></pre>
 </details>
@@ -455,10 +465,10 @@ attributes:
     - ProtocolMapper
     - EnvironmentVariable
     range: string
-    required: false
+    required: true
   type:
     name: type
-    description: The type of data source (e.g., databricks, postgresql, mssql, filestore).
+    description: The type of data source (e.g., databricks, postgresql).
     from_schema: https://w3id.org/karectl-crates/data-model
     alias: type
     owner: Source
@@ -466,8 +476,8 @@ attributes:
     - Group
     - Source
     - Destination
-    range: string
-    required: false
+    range: SourceType
+    required: true
   url:
     name: url
     description: The URL or location of the data source, specifying where data can
@@ -482,6 +492,7 @@ attributes:
     - Resource
     - VDI
     range: string
+    required: true
   credentials:
     name: credentials
     description: The credentials required to access the data source, including authentication
@@ -493,7 +504,7 @@ attributes:
     domain_of:
     - Source
     range: Credential
-    required: false
+    required: true
 
 </code></pre>
 </details>

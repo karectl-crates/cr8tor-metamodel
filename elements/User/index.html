@@ -310,37 +310,37 @@
 <tbody>
 <tr>
 <td><a href="../id/">id</a></td>
-<td>1 <br/> <a href="../Uriorcurie/">Uriorcurie</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
 <td>A globally unique identifier for the user, ensuring unambiguous reference wit...</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../username/">username</a></td>
-<td>0..1 <br/> <a href="../Uriorcurie/">Uriorcurie</a></td>
+<td>1 <br/> <a href="../Uriorcurie/">Uriorcurie</a></td>
 <td>The user's unique login or account name, used for authentication and identifi...</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../given_name/">given_name</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>1 <br/> <a href="../String/">String</a></td>
 <td>The user's first or given name, representing their personal identity</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../family_name/">family_name</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>1 <br/> <a href="../String/">String</a></td>
 <td>The user's last or family name, used for identification and display purposes</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../affiliation/">affiliation</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>1 <br/> <a href="../String/">String</a></td>
 <td>The name of the organization or institution with which the user is affiliated...</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../email/">email</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>1 <br/> <a href="../String/">String</a></td>
 <td>The user's email address, used for communication and notifications related to...</td>
 <td>direct</td>
 </tr>
@@ -352,14 +352,14 @@
 </tr>
 <tr>
 <td><a href="../start_date/">start_date</a></td>
-<td>0..1 <br/> <a href="../Datetime/">Datetime</a></td>
-<td>The date and time when the user's access to the project becomes active, repre...</td>
+<td>0..1 <br/> <a href="../Date/">Date</a></td>
+<td>The date when the user's access to the project becomes active, representing t...</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../expiry_date/">expiry_date</a></td>
-<td>0..1 <br/> <a href="../Datetime/">Datetime</a></td>
-<td>The date and time when the user's access to the project expires, representing...</td>
+<td>0..1 <br/> <a href="../Date/">Date</a></td>
+<td>The date when the user's access to the project expires, representing the end ...</td>
 <td>direct</td>
 </tr>
 <tr>
@@ -444,13 +444,11 @@ attributes:
       within and across systems.
     from_schema: https://w3id.org/karectl-crates/governance-model
     slot_uri: schemaorg:identifier
-    identifier: true
     domain_of:
     - Project
     - Action
     - User
-    range: uriorcurie
-    required: true
+    range: string
   username:
     name: username
     description: The user's unique login or account name, used for authentication
@@ -461,6 +459,7 @@ attributes:
     domain_of:
     - User
     range: uriorcurie
+    required: true
   given_name:
     name: given_name
     description: The user's first or given name, representing their personal identity.
@@ -469,6 +468,7 @@ attributes:
     slot_uri: schemaorg:name
     domain_of:
     - User
+    required: true
   family_name:
     name: family_name
     description: The user's last or family name, used for identification and display
@@ -477,6 +477,7 @@ attributes:
     rank: 1000
     domain_of:
     - User
+    required: true
   affiliation:
     name: affiliation
     description: The name of the organization or institution with which the user is
@@ -485,6 +486,7 @@ attributes:
     rank: 1000
     domain_of:
     - User
+    required: true
   email:
     name: email
     description: The user's email address, used for communication and notifications
@@ -493,6 +495,8 @@ attributes:
     rank: 1000
     domain_of:
     - User
+    required: true
+    pattern: ^\S+@\S+\.\S+$
   groups:
     name: groups
     description: List of groups to which the user belongs within the project, representing
@@ -508,22 +512,22 @@ attributes:
     inlined_as_list: true
   start_date:
     name: start_date
-    description: The date and time when the user's access to the project becomes active,
-      representing the start of their membership or role.
+    description: The date when the user's access to the project becomes active, representing
+      the start of their membership or role.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     domain_of:
     - User
-    range: datetime
+    range: date
   expiry_date:
     name: expiry_date
-    description: The date and time when the user's access to the project expires,
-      representing the end of their membership or role.
+    description: The date when the user's access to the project expires, representing
+      the end of their membership or role.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     domain_of:
     - User
-    range: datetime
+    range: date
   enabled:
     name: enabled
     description: Whether the user account is enabled.
@@ -568,15 +572,13 @@ attributes:
       within and across systems.
     from_schema: https://w3id.org/karectl-crates/governance-model
     slot_uri: schemaorg:identifier
-    identifier: true
     alias: id
     owner: User
     domain_of:
     - Project
     - Action
     - User
-    range: uriorcurie
-    required: true
+    range: string
   username:
     name: username
     description: The user's unique login or account name, used for authentication
@@ -589,6 +591,7 @@ attributes:
     domain_of:
     - User
     range: uriorcurie
+    required: true
   given_name:
     name: given_name
     description: The user's first or given name, representing their personal identity.
@@ -600,6 +603,7 @@ attributes:
     domain_of:
     - User
     range: string
+    required: true
   family_name:
     name: family_name
     description: The user's last or family name, used for identification and display
@@ -611,6 +615,7 @@ attributes:
     domain_of:
     - User
     range: string
+    required: true
   affiliation:
     name: affiliation
     description: The name of the organization or institution with which the user is
@@ -622,6 +627,7 @@ attributes:
     domain_of:
     - User
     range: string
+    required: true
   email:
     name: email
     description: The user's email address, used for communication and notifications
@@ -633,6 +639,8 @@ attributes:
     domain_of:
     - User
     range: string
+    required: true
+    pattern: ^\S+@\S+\.\S+$
   groups:
     name: groups
     description: List of groups to which the user belongs within the project, representing
@@ -650,26 +658,26 @@ attributes:
     inlined_as_list: true
   start_date:
     name: start_date
-    description: The date and time when the user's access to the project becomes active,
-      representing the start of their membership or role.
+    description: The date when the user's access to the project becomes active, representing
+      the start of their membership or role.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     alias: start_date
     owner: User
     domain_of:
     - User
-    range: datetime
+    range: date
   expiry_date:
     name: expiry_date
-    description: The date and time when the user's access to the project expires,
-      representing the end of their membership or role.
+    description: The date when the user's access to the project expires, representing
+      the end of their membership or role.
     from_schema: https://w3id.org/karectl-crates/governance-model
     rank: 1000
     alias: expiry_date
     owner: User
     domain_of:
     - User
-    range: datetime
+    range: date
   enabled:
     name: enabled
     description: Whether the user account is enabled.

@@ -280,7 +280,7 @@
 
 
 
-        Governance --&gt; "*" User : users
+        Governance --&gt; "1..*" User : users
         click User href "../User/"
 
 
@@ -307,7 +307,7 @@
 </tr>
 <tr>
 <td><a href="../users/">users</a></td>
-<td>* <br/> <a href="../User/">User</a></td>
+<td>1..* <br/> <a href="../User/">User</a></td>
 <td>List of users who have access to the project, each with their own roles, perm...</td>
 <td>direct</td>
 </tr>
@@ -391,9 +391,11 @@ attributes:
     domain_of:
     - Governance
     range: User
+    required: true
     multivalued: true
     inlined: true
     inlined_as_list: true
+    minimum_cardinality: 1
 
 </code></pre>
 </details>
@@ -434,9 +436,11 @@ attributes:
     domain_of:
     - Governance
     range: User
+    required: true
     multivalued: true
     inlined: true
     inlined_as_list: true
+    minimum_cardinality: 1
 
 </code></pre>
 </details>
