@@ -1,5 +1,5 @@
 # Auto generated from cr8tor_metamodel.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-02-19T20:03:55
+# Generation date: 2026-02-26T15:13:29
 # Schema: cr8tor-metamodel
 #
 # id: https://w3id.org/karectl-crates/cr8tor-metamodel
@@ -170,22 +170,26 @@ class Project(YAMLRoot):
     class_name: ClassVar[str] = "Project"
     class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.Project
 
+    name: str = None
+    description: str = None
     id: Optional[str] = None
-    name: Optional[str] = None
-    description: Optional[str] = None
     reference: Optional[str] = None
     start_time: Optional[str] = None
     actions: Optional[Union[dict[Union[str, ActionId], Union[dict, "Action"]], list[Union[dict, "Action"]]]] = empty_dict()
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self.id is not None and not isinstance(self.id, str):
-            self.id = str(self.id)
-
-        if self.name is not None and not isinstance(self.name, str):
+        if self._is_empty(self.name):
+            self.MissingRequiredField("name")
+        if not isinstance(self.name, str):
             self.name = str(self.name)
 
-        if self.description is not None and not isinstance(self.description, str):
+        if self._is_empty(self.description):
+            self.MissingRequiredField("description")
+        if not isinstance(self.description, str):
             self.description = str(self.description)
+
+        if self.id is not None and not isinstance(self.id, str):
+            self.id = str(self.id)
 
         if self.reference is not None and not isinstance(self.reference, str):
             self.reference = str(self.reference)
@@ -1475,10 +1479,10 @@ slots.project__id = Slot(uri=CR8TOR_METAMODEL.id, name="project__id", curie=CR8T
                    model_uri=CR8TOR_METAMODEL.project__id, domain=None, range=Optional[str])
 
 slots.project__name = Slot(uri=CR8TOR_METAMODEL.name, name="project__name", curie=CR8TOR_METAMODEL.curie('name'),
-                   model_uri=CR8TOR_METAMODEL.project__name, domain=None, range=Optional[str])
+                   model_uri=CR8TOR_METAMODEL.project__name, domain=None, range=str)
 
 slots.project__description = Slot(uri=CR8TOR_METAMODEL.description, name="project__description", curie=CR8TOR_METAMODEL.curie('description'),
-                   model_uri=CR8TOR_METAMODEL.project__description, domain=None, range=Optional[str])
+                   model_uri=CR8TOR_METAMODEL.project__description, domain=None, range=str)
 
 slots.project__reference = Slot(uri=CR8TOR_METAMODEL.reference, name="project__reference", curie=CR8TOR_METAMODEL.curie('reference'),
                    model_uri=CR8TOR_METAMODEL.project__reference, domain=None, range=Optional[str])

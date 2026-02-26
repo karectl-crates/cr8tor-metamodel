@@ -207,7 +207,7 @@ class Project(ConfiguredBaseModel):
          'narrow_mappings': ['schemaorg:Project']})
 
     id: Optional[str] = Field(default=None, description="""Unique identifier for the project""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'Action', 'User']} })
-    name: Optional[str] = Field(default=None, description="""The unique name of the Cr8tor project, used for identification and reference within the system.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
+    name: str = Field(default=..., description="""The unique name of the Cr8tor project, used for identification and reference within the system.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
                        'Action',
                        'Source',
                        'Dataset',
@@ -219,7 +219,7 @@ class Project(ConfiguredBaseModel):
                        'SecretRef',
                        'ProtocolMapper',
                        'EnvironmentVariable']} })
-    description: Optional[str] = Field(default=None, description="""A brief summary describing the purpose, scope, or objectives of the Cr8tor project.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'ProjectSpec', 'GroupSpec', 'ProfileConfig']} })
+    description: str = Field(default=..., description="""A brief summary describing the purpose, scope, or objectives of the Cr8tor project.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'ProjectSpec', 'GroupSpec', 'ProfileConfig']} })
     reference: Optional[str] = Field(default=None, description="""An external or internal reference identifier for the Cr8tor project, used for cross-referencing or linking to related resources.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project']} })
     start_time: Optional[str] = Field(default=None, description="""Timestamp when project was created""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'Action']} })
     actions: Optional[list[Union[Action,CreateAction,AssessAction]]] = Field(default=[], description="""List of actions performed on the cr8tor project""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project']} })
