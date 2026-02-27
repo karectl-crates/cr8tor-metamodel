@@ -56,6 +56,7 @@ classes:
       url:
         range: string
         description: The URL or location of the data source, specifying where data can be accessed or retrieved from.
+        required: false
       port:
         range: integer
         description: Port number for the source database connection.
@@ -200,8 +201,13 @@ enums:
 
   SourceType:
     permissible_values:
-      postgresql: {}
-      mysql: {}
-      sqlserver: {}
-      mssql: {}
-      databrickssql: {}
+      postgresql:
+        description: PostgreSQL database source.
+      mysql:
+        description: MySQL database source.
+      sqlserver:
+        description: Microsoft SQL Server source (preferred for new configurations).
+      mssql:
+        description: Microsoft SQL Server source (legacy alias; retained for backward compatibility).
+      databrickssql:
+        description: Databricks SQL endpoint source.

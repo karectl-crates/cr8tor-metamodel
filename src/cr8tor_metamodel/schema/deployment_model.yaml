@@ -391,24 +391,31 @@ classes:
       project_name:
         range: string
         required: true
+        description: The unique name of the data publishing project.
       project_start_time:
         range: string
         required: true
+        description: The timestamp when the data publishing project was initiated.
       source:
         range: Source
         required: true
+        description: The data source configuration specifying where data will be extracted from.
       destination:
         range: Destination
         required: true
+        description: The data destination configuration specifying where the processed data will be delivered.
       dataset:
         range: Dataset
         required: true
+        description: The dataset configuration specifying which tables and schema to process in the publishing pipeline.
       extract_config:
         range: ExtractConfig
         required: false
+        description: Optional configuration for data extraction backend settings.
       job_config:
         range: PublishJobConfig
         required: false
+        description: Optional operator-level job execution settings for the publishing pipeline.
 
   PublishJobConfig:
     description: Operator-level job execution settings.
@@ -416,18 +423,23 @@ classes:
       backoff_limit:
         range: integer
         required: false
+        description: Maximum number of retries before considering the job as failed.
       ttl_after_completion:
         range: integer
         required: false
+        description: Time in seconds to retain the job after completion before automatic cleanup.
       staging_pvc_size:
         range: string
         required: false
+        description: "Size of the persistent volume claim for staging data during the job (e.g., '10Gi')."
       staging_storage_class:
         range: string
         required: false
+        description: Kubernetes storage class to use for the staging PVC.
       retain_staging_pvc_on_failure:
         range: boolean
         required: false
+        description: Whether to retain the staging PVC when the job fails, useful for debugging.
 
   OpalProjectSpec:
     description: Spec for the OpalProject CRD (for declarative Datashield Opal setup).
@@ -435,16 +447,20 @@ classes:
       project_name:
         range: string
         required: true
+        description: The name of the Opal project to be created or managed.
       group_name:
         range: string
         required: true
+        description: The name of the user group associated with this Opal project.
       tables:
         range: OpalTableRef
         multivalued: true
         inlined_as_list: true
+        description: List of table references to be made available in this Opal project.
       opal_config:
         range: OpalConfig
         required: true
+        description: Configuration and secret references for connecting to the Opal instance.
 
   OpalTableRef:
     description: Reference to a table as an Opal resource.
@@ -452,9 +468,11 @@ classes:
       schema:
         range: string
         required: true
+        description: The database schema name where the table is located.
       name:
         range: string
         required: true
+        description: The table name within the Opal schema.
 
   OpalConfig:
     description: Secret references for connecting to an Opal instance.
@@ -462,18 +480,23 @@ classes:
       host_secret_ref:
         range: string
         required: true
+        description: Reference to the Kubernetes secret containing the Opal host URL.
       username_secret_ref:
         range: string
         required: true
+        description: Reference to the Kubernetes secret containing the Opal admin username.
       password_secret_ref:
         range: string
         required: true
+        description: Reference to the Kubernetes secret containing the Opal admin password.
       readonly_username_secret_ref:
         range: string
         required: false
+        description: Reference to the Kubernetes secret containing the Opal read-only username.
       readonly_password_secret_ref:
         range: string
         required: false
+        description: Reference to the Kubernetes secret containing the Opal read-only password.
 
 enums:
 
