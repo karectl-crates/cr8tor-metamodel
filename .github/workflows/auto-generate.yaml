@@ -76,7 +76,7 @@ jobs:
       # Update cr8tor repo as the metamodel has changed
       - name: Trigger cr8tor sync
         if: steps.changes.outputs.changed == 'true'
-        uses: peter-evans/repository-dispatch@v3
+        uses: peter-evans/repository-dispatch@v4
         with:
           token: ${{ secrets.CR8TOR_DISPATCH_TOKEN }}
           repository: karectl-crates/cr8tor
