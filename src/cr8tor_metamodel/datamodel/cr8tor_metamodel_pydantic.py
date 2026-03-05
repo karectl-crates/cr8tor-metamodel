@@ -506,6 +506,7 @@ class Deployment(ConfiguredBaseModel):
 
     resources: Optional[list[Union[Resource,Jupyter,Keycloak,VDI,RStudio,Gitea]]] = Field(default=[], description="""List of resource names or identifiers representing the K8TRE applications or services to be deployed as part of the project. Can include multiple resources.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Deployment', 'ProjectSpec', 'VdiScheduling']} })
     environment: Environment = Field(default=..., description="""The environment configuration for the deployment, specifying the target trusted research environment (TRE) and its properties.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Deployment']} })
+    limit_range: Optional[LimitRangeConfig] = Field(default=None, description="""Default container resource limits for the project namespace.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Deployment', 'ProjectSpec']} })
 
 
 class Resource(ConfiguredBaseModel):
@@ -687,7 +688,7 @@ class ProjectSpec(ConfiguredBaseModel):
 
     description: str = Field(default=..., description="""Project description.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'ProjectSpec', 'GroupSpec', 'ProfileConfig']} })
     resources: Optional[list[Union[Resource,Jupyter,Keycloak,VDI,RStudio,Gitea]]] = Field(default=[], description="""Resources (applications/services) available in this project.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Deployment', 'ProjectSpec', 'VdiScheduling']} })
-    limit_range: Optional[LimitRangeConfig] = Field(default=None, description="""Default container resource limits for the project namespace.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ProjectSpec']} })
+    limit_range: Optional[LimitRangeConfig] = Field(default=None, description="""Default container resource limits for the project namespace.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Deployment', 'ProjectSpec']} })
 
 
 class GroupSpec(ConfiguredBaseModel):

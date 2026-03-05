@@ -1,5 +1,5 @@
 # Auto generated from cr8tor_metamodel.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-03-05T09:10:37
+# Generation date: 2026-03-05T10:18:34
 # Schema: cr8tor-metamodel
 #
 # id: https://w3id.org/karectl-crates/cr8tor-metamodel
@@ -728,6 +728,7 @@ class Deployment(YAMLRoot):
 
     environment: Union[dict, "Environment"] = None
     resources: Optional[Union[Union[dict, "Resource"], list[Union[dict, "Resource"]]]] = empty_list()
+    limit_range: Optional[Union[dict, "LimitRangeConfig"]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.environment):
@@ -738,6 +739,9 @@ class Deployment(YAMLRoot):
         if not isinstance(self.resources, list):
             self.resources = [self.resources] if self.resources is not None else []
         self.resources = [v if isinstance(v, Resource) else Resource(**as_dict(v)) for v in self.resources]
+
+        if self.limit_range is not None and not isinstance(self.limit_range, LimitRangeConfig):
+            self.limit_range = LimitRangeConfig(**as_dict(self.limit_range))
 
         super().__post_init__(**kwargs)
 
@@ -1706,6 +1710,9 @@ slots.deployment__resources = Slot(uri=CR8TOR_METAMODEL.resources, name="deploym
 
 slots.deployment__environment = Slot(uri=CR8TOR_METAMODEL.environment, name="deployment__environment", curie=CR8TOR_METAMODEL.curie('environment'),
                    model_uri=CR8TOR_METAMODEL.deployment__environment, domain=None, range=Union[dict, Environment])
+
+slots.deployment__limit_range = Slot(uri=CR8TOR_METAMODEL.limit_range, name="deployment__limit_range", curie=CR8TOR_METAMODEL.curie('limit_range'),
+                   model_uri=CR8TOR_METAMODEL.deployment__limit_range, domain=None, range=Optional[Union[dict, LimitRangeConfig]])
 
 slots.resource__name = Slot(uri=CR8TOR_METAMODEL.name, name="resource__name", curie=CR8TOR_METAMODEL.curie('name'),
                    model_uri=CR8TOR_METAMODEL.resource__name, domain=None, range=str)
