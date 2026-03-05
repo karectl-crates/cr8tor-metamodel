@@ -7,18 +7,21 @@ governance:
       username: jsmith
       given_name: John
       family_name: Smith
+      affiliation: Example University
       email: jsmith@example.org
 
     - id: https://example.org/users/mjones
       username: mjones
       given_name: Mary
       family_name: Jones
+      affiliation: Example University
       email: mjones@example.org
 
     - id: https://example.org/users/rchen
       username: rchen
       given_name: Robert
       family_name: Chen
+      affiliation: Example University
       email: rchen@example.org
 
   project:
@@ -28,7 +31,13 @@ governance:
 
 ingress:
   source:
+    name: example-source
+    type: postgresql
     url: https://example.org/data/source.csv
+    credentials:
+      provider: azure-key-vault
+      username_key: db-username
+      password_key: db-password
   destination:
     type: filestore
     url: https://example.org/data/sink.csv
