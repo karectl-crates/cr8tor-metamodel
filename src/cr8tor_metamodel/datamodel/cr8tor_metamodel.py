@@ -1,5 +1,5 @@
 # Auto generated from cr8tor_metamodel.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-02-26T17:32:34
+# Generation date: 2026-03-05T09:10:37
 # Schema: cr8tor-metamodel
 #
 # id: https://w3id.org/karectl-crates/cr8tor-metamodel
@@ -1018,6 +1018,7 @@ class ProjectSpec(YAMLRoot):
 
     description: str = None
     resources: Optional[Union[Union[dict, Resource], list[Union[dict, Resource]]]] = empty_list()
+    limit_range: Optional[Union[dict, "LimitRangeConfig"]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.description):
@@ -1028,6 +1029,9 @@ class ProjectSpec(YAMLRoot):
         if not isinstance(self.resources, list):
             self.resources = [self.resources] if self.resources is not None else []
         self.resources = [v if isinstance(v, Resource) else Resource(**as_dict(v)) for v in self.resources]
+
+        if self.limit_range is not None and not isinstance(self.limit_range, LimitRangeConfig):
+            self.limit_range = LimitRangeConfig(**as_dict(self.limit_range))
 
         super().__post_init__(**kwargs)
 
@@ -1292,6 +1296,39 @@ class EnvironmentVariable(YAMLRoot):
             self.MissingRequiredField("value")
         if not isinstance(self.value, str):
             self.value = str(self.value)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class LimitRangeConfig(YAMLRoot):
+    """
+    Default container resource limits for the project namespace.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CR8TOR_METAMODEL["LimitRangeConfig"]
+    class_class_curie: ClassVar[str] = "cr8tor_metamodel:LimitRangeConfig"
+    class_name: ClassVar[str] = "LimitRangeConfig"
+    class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.LimitRangeConfig
+
+    default_memory: Optional[str] = None
+    default_cpu: Optional[str] = None
+    default_request_memory: Optional[str] = None
+    default_request_cpu: Optional[str] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self.default_memory is not None and not isinstance(self.default_memory, str):
+            self.default_memory = str(self.default_memory)
+
+        if self.default_cpu is not None and not isinstance(self.default_cpu, str):
+            self.default_cpu = str(self.default_cpu)
+
+        if self.default_request_memory is not None and not isinstance(self.default_request_memory, str):
+            self.default_request_memory = str(self.default_request_memory)
+
+        if self.default_request_cpu is not None and not isinstance(self.default_request_cpu, str):
+            self.default_request_cpu = str(self.default_request_cpu)
 
         super().__post_init__(**kwargs)
 
@@ -1727,6 +1764,9 @@ slots.projectSpec__description = Slot(uri=CR8TOR_METAMODEL.description, name="pr
 slots.projectSpec__resources = Slot(uri=CR8TOR_METAMODEL.resources, name="projectSpec__resources", curie=CR8TOR_METAMODEL.curie('resources'),
                    model_uri=CR8TOR_METAMODEL.projectSpec__resources, domain=None, range=Optional[Union[Union[dict, Resource], list[Union[dict, Resource]]]])
 
+slots.projectSpec__limit_range = Slot(uri=CR8TOR_METAMODEL.limit_range, name="projectSpec__limit_range", curie=CR8TOR_METAMODEL.curie('limit_range'),
+                   model_uri=CR8TOR_METAMODEL.projectSpec__limit_range, domain=None, range=Optional[Union[dict, LimitRangeConfig]])
+
 slots.groupSpec__description = Slot(uri=CR8TOR_METAMODEL.description, name="groupSpec__description", curie=CR8TOR_METAMODEL.curie('description'),
                    model_uri=CR8TOR_METAMODEL.groupSpec__description, domain=None, range=Optional[str])
 
@@ -1816,6 +1856,18 @@ slots.environmentVariable__name = Slot(uri=CR8TOR_METAMODEL.name, name="environm
 
 slots.environmentVariable__value = Slot(uri=CR8TOR_METAMODEL.value, name="environmentVariable__value", curie=CR8TOR_METAMODEL.curie('value'),
                    model_uri=CR8TOR_METAMODEL.environmentVariable__value, domain=None, range=str)
+
+slots.limitRangeConfig__default_memory = Slot(uri=CR8TOR_METAMODEL.default_memory, name="limitRangeConfig__default_memory", curie=CR8TOR_METAMODEL.curie('default_memory'),
+                   model_uri=CR8TOR_METAMODEL.limitRangeConfig__default_memory, domain=None, range=Optional[str])
+
+slots.limitRangeConfig__default_cpu = Slot(uri=CR8TOR_METAMODEL.default_cpu, name="limitRangeConfig__default_cpu", curie=CR8TOR_METAMODEL.curie('default_cpu'),
+                   model_uri=CR8TOR_METAMODEL.limitRangeConfig__default_cpu, domain=None, range=Optional[str])
+
+slots.limitRangeConfig__default_request_memory = Slot(uri=CR8TOR_METAMODEL.default_request_memory, name="limitRangeConfig__default_request_memory", curie=CR8TOR_METAMODEL.curie('default_request_memory'),
+                   model_uri=CR8TOR_METAMODEL.limitRangeConfig__default_request_memory, domain=None, range=Optional[str])
+
+slots.limitRangeConfig__default_request_cpu = Slot(uri=CR8TOR_METAMODEL.default_request_cpu, name="limitRangeConfig__default_request_cpu", curie=CR8TOR_METAMODEL.curie('default_request_cpu'),
+                   model_uri=CR8TOR_METAMODEL.limitRangeConfig__default_request_cpu, domain=None, range=Optional[str])
 
 slots.vdiSchedulingResources__requests_cpu = Slot(uri=CR8TOR_METAMODEL.requests_cpu, name="vdiSchedulingResources__requests_cpu", curie=CR8TOR_METAMODEL.curie('requests_cpu'),
                    model_uri=CR8TOR_METAMODEL.vdiSchedulingResources__requests_cpu, domain=None, range=Optional[str])

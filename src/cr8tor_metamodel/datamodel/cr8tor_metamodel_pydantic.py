@@ -687,6 +687,7 @@ class ProjectSpec(ConfiguredBaseModel):
 
     description: str = Field(default=..., description="""Project description.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'ProjectSpec', 'GroupSpec', 'ProfileConfig']} })
     resources: Optional[list[Union[Resource,Jupyter,Keycloak,VDI,RStudio,Gitea]]] = Field(default=[], description="""Resources (applications/services) available in this project.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Deployment', 'ProjectSpec', 'VdiScheduling']} })
+    limit_range: Optional[LimitRangeConfig] = Field(default=None, description="""Default container resource limits for the project namespace.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ProjectSpec']} })
 
 
 class GroupSpec(ConfiguredBaseModel):
@@ -819,6 +820,18 @@ class EnvironmentVariable(ConfiguredBaseModel):
     value: str = Field(default=..., description="""Variable value.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Group', 'EnvironmentVariable']} })
 
 
+class LimitRangeConfig(ConfiguredBaseModel):
+    """
+    Default container resource limits for the project namespace.
+    """
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/deployment-model'})
+
+    default_memory: Optional[str] = Field(default=None, description="""Default memory limit (e.g. 4Gi).""", json_schema_extra = { "linkml_meta": {'domain_of': ['LimitRangeConfig']} })
+    default_cpu: Optional[str] = Field(default=None, description="""Default CPU limit (e.g. 500m).""", json_schema_extra = { "linkml_meta": {'domain_of': ['LimitRangeConfig']} })
+    default_request_memory: Optional[str] = Field(default=None, description="""Default memory request (e.g. 1Gi).""", json_schema_extra = { "linkml_meta": {'domain_of': ['LimitRangeConfig']} })
+    default_request_cpu: Optional[str] = Field(default=None, description="""Default CPU request (e.g. 100m).""", json_schema_extra = { "linkml_meta": {'domain_of': ['LimitRangeConfig']} })
+
+
 class VdiSchedulingResources(ConfiguredBaseModel):
     """
     CPU and memory resource requests/limits for a VDI pod.
@@ -895,6 +908,7 @@ ProtocolMapper.model_rebuild()
 ProfileConfig.model_rebuild()
 KubespawnerOverride.model_rebuild()
 EnvironmentVariable.model_rebuild()
+LimitRangeConfig.model_rebuild()
 VdiSchedulingResources.model_rebuild()
 VdiScheduling.model_rebuild()
 ResourceStorage.model_rebuild()
