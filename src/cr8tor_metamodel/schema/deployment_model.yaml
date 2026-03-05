@@ -38,6 +38,11 @@ classes:
         description: The environment configuration for the deployment, specifying the target trusted research environment (TRE) and its properties.
         range: Environment
         required: true
+      limit_range:
+        range: LimitRangeConfig
+        required: false
+        inlined: true
+        description: Default container resource limits for the project namespace.
 
   Resource:
     description: >-
