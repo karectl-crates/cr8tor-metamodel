@@ -372,8 +372,8 @@ attributes:
     name: limit_range
     description: Default container resource limits for the project namespace.
     from_schema: https://w3id.org/karectl-crates/deployment-model
-    rank: 1000
     domain_of:
+    - Deployment
     - ProjectSpec
     range: LimitRangeConfig
     required: false
@@ -419,10 +419,10 @@ attributes:
     name: limit_range
     description: Default container resource limits for the project namespace.
     from_schema: https://w3id.org/karectl-crates/deployment-model
-    rank: 1000
     alias: limit_range
     owner: ProjectSpec
     domain_of:
+    - Deployment
     - ProjectSpec
     range: LimitRangeConfig
     required: false

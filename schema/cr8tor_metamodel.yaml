@@ -1171,6 +1171,19 @@ slots:
     required: true
     inlined: true
     inlined_as_list: true
+  deployment__limit_range:
+    name: deployment__limit_range
+    description: Default container resource limits for the project namespace.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:limit_range
+    alias: limit_range
+    owner: Deployment
+    domain_of:
+    - Deployment
+    range: LimitRangeConfig
+    required: false
+    inlined: true
+    inlined_as_list: true
   resource__name:
     name: resource__name
     description: The requested name of the resource, used for identification and management
@@ -2536,6 +2549,7 @@ classes:
     slots:
     - deployment__resources
     - deployment__environment
+    - deployment__limit_range
     attributes:
       resources:
         name: resources
@@ -2551,6 +2565,12 @@ classes:
           the target trusted research environment (TRE) and its properties.
         range: Environment
         required: true
+      limit_range:
+        name: limit_range
+        description: Default container resource limits for the project namespace.
+        range: LimitRangeConfig
+        required: false
+        inlined: true
     class_uri: cr8tor_metamodel:Deployment
   Resource:
     name: Resource
@@ -3141,7 +3161,7 @@ classes:
     class_uri: cr8tor_metamodel:ResourceStorage
 metamodel_version: 1.7.0
 source_file: cr8tor_metamodel.yaml
-source_file_date: '2026-03-05T09:10:24'
+source_file_date: '2026-03-05T10:18:23'
 source_file_size: 1519
-generation_date: '2026-03-05T09:10:34'
+generation_date: '2026-03-05T10:18:33'
 

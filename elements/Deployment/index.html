@@ -274,6 +274,17 @@
 
 
 
+      Deployment : limit_range
+
+
+
+
+
+        Deployment --&gt; "0..1" LimitRangeConfig : limit_range
+        click LimitRangeConfig href "../LimitRangeConfig/"
+
+
+
       Deployment : resources
 
 
@@ -309,6 +320,12 @@
 <td><a href="../environment/">environment</a></td>
 <td>1 <br/> <a href="../Environment/">Environment</a></td>
 <td>The environment configuration for the deployment, specifying the target trust...</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../limit_range/">limit_range</a></td>
+<td>0..1 <br/> <a href="../LimitRangeConfig/">LimitRangeConfig</a></td>
+<td>Default container resource limits for the project namespace</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -390,6 +407,17 @@ attributes:
     - Deployment
     range: Environment
     required: true
+  limit_range:
+    name: limit_range
+    description: Default container resource limits for the project namespace.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    rank: 1000
+    domain_of:
+    - Deployment
+    - ProjectSpec
+    range: LimitRangeConfig
+    required: false
+    inlined: true
 
 </code></pre>
 </details>
@@ -429,6 +457,19 @@ attributes:
     - Deployment
     range: Environment
     required: true
+  limit_range:
+    name: limit_range
+    description: Default container resource limits for the project namespace.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    rank: 1000
+    alias: limit_range
+    owner: Deployment
+    domain_of:
+    - Deployment
+    - ProjectSpec
+    range: LimitRangeConfig
+    required: false
+    inlined: true
 
 </code></pre>
 </details>
