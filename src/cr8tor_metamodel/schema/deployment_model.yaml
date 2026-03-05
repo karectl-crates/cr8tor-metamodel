@@ -167,6 +167,11 @@ classes:
         multivalued: true
         inlined_as_list: true
         description: Resources (applications/services) available in this project.
+      limit_range:
+        range: LimitRangeConfig
+        required: false
+        inlined: true
+        description: Default container resource limits for the project namespace.
 
   GroupSpec:
     description: >-
@@ -338,6 +343,26 @@ classes:
         range: string
         required: true
         description: Variable value.
+
+  LimitRangeConfig:
+    description: Default container resource limits for the project namespace.
+    attributes:
+      default_memory:
+        range: string
+        required: false
+        description: Default memory limit (e.g. 4Gi).
+      default_cpu:
+        range: string
+        required: false
+        description: Default CPU limit (e.g. 500m).
+      default_request_memory:
+        range: string
+        required: false
+        description: Default memory request (e.g. 1Gi).
+      default_request_cpu:
+        range: string
+        required: false
+        description: Default CPU request (e.g. 100m).
 
   VdiSchedulingResources:
     description: CPU and memory resource requests/limits for a VDI pod.

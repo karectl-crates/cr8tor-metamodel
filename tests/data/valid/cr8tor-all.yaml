@@ -15,12 +15,18 @@ governance:
         - value: researchers
           display: Research Group
           type: Manual
-      start_date: "2024-01-01T00:00:00Z"
-      expiry_date: "2026-01-01T00:00:00Z"
+      start_date: "2024-01-01"
+      expiry_date: "2026-01-01"
 
 ingress:
   source:
+    name: example-source
+    type: postgresql
     url: https://data.example.org/source
+    credentials:
+      provider: azure-key-vault
+      username_key: db-username
+      password_key: db-password
   destination:
     type: postgresql
     url: postgresql://db.example.org:5432/example
