@@ -5,10 +5,10 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<link href="https://karectl-crates.github.io/cr8tor-metamodel/elements/ProjectSpec/" rel="canonical"/>
+<link href="https://karectl-crates.github.io/cr8tor-metamodel/elements/LimitRangeConfig/" rel="canonical"/>
 <link href="../../assets/images/favicon.png" rel="icon"/>
 <meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator"/>
-<title>Class: ProjectSpec - cr8tor-metamodel</title>
+<title>Class: LimitRangeConfig - cr8tor-metamodel</title>
 <link href="../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
@@ -23,7 +23,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#class-projectspec">
+<a class="md-skip" href="#class-limitrangeconfig">
           Skip to content
         </a>
 </div>
@@ -47,7 +47,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Class: ProjectSpec
+              Class: LimitRangeConfig
             
           </span>
 </div>
@@ -180,6 +180,15 @@
 </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#usages">
+<span class="md-ellipsis">
+      
+        Usages
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#identifier-and-mapping-information">
 <span class="md-ellipsis">
       
@@ -248,35 +257,19 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1 id="class-projectspec">Class: ProjectSpec</h1>
-<p><em>Operator project specification to define the resources for a research project namespace.</em></p>
-<p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/ProjectSpec">cr8tor_metamodel:ProjectSpec</a></p>
+<h1 id="class-limitrangeconfig">Class: LimitRangeConfig</h1>
+<p><em>Default container resource limits for the project namespace.</em></p>
+<p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/LimitRangeConfig">cr8tor_metamodel:LimitRangeConfig</a></p>
 <div class="mermaid"> classDiagram
-    class ProjectSpec
-    click ProjectSpec href "../ProjectSpec/"
-      ProjectSpec : description
+    class LimitRangeConfig
+    click LimitRangeConfig href "../LimitRangeConfig/"
+      LimitRangeConfig : default_cpu
 
-      ProjectSpec : limit_range
+      LimitRangeConfig : default_memory
 
+      LimitRangeConfig : default_request_cpu
 
-
-
-
-        ProjectSpec --&gt; "0..1" LimitRangeConfig : limit_range
-        click LimitRangeConfig href "../LimitRangeConfig/"
-
-
-
-      ProjectSpec : resources
-
-
-
-
-
-        ProjectSpec --&gt; "*" Resource : resources
-        click Resource href "../Resource/"
-
-
+      LimitRangeConfig : default_request_memory
 
 
 </div>
@@ -293,22 +286,47 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../description/">description</a></td>
-<td>1 <br/> <a href="../String/">String</a></td>
-<td>Project description</td>
+<td><a href="../default_memory/">default_memory</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Default memory limit (e</td>
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../resources/">resources</a></td>
-<td>* <br/> <a href="../Resource/">Resource</a></td>
-<td>Resources (applications/services) available in this project</td>
+<td><a href="../default_cpu/">default_cpu</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Default CPU limit (e</td>
 <td>direct</td>
 </tr>
 <tr>
+<td><a href="../default_request_memory/">default_request_memory</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Default memory request (e</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../default_request_cpu/">default_request_cpu</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Default CPU request (e</td>
+<td>direct</td>
+</tr>
+</tbody>
+</table>
+<h2 id="usages">Usages</h2>
+<table>
+<thead>
+<tr>
+<th>used by</th>
+<th>used in</th>
+<th>type</th>
+<th>used</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../ProjectSpec/">ProjectSpec</a></td>
 <td><a href="../limit_range/">limit_range</a></td>
-<td>0..1 <br/> <a href="../LimitRangeConfig/">LimitRangeConfig</a></td>
-<td>Default container resource limits for the project namespace</td>
-<td>direct</td>
+<td>range</td>
+<td><a href="./">LimitRangeConfig</a></td>
 </tr>
 </tbody>
 </table>
@@ -328,11 +346,11 @@
 <tbody>
 <tr>
 <td>self</td>
-<td>cr8tor_metamodel:ProjectSpec</td>
+<td>cr8tor_metamodel:LimitRangeConfig</td>
 </tr>
 <tr>
 <td>native</td>
-<td>cr8tor_metamodel:ProjectSpec</td>
+<td>cr8tor_metamodel:LimitRangeConfig</td>
 </tr>
 </tbody>
 </table>
@@ -340,93 +358,99 @@
 <!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
 <h3 id="direct">Direct</h3>
 <details>
-<pre><code class="language-yaml">name: ProjectSpec
-description: Operator project specification to define the resources for a research
-  project namespace.
+<pre><code class="language-yaml">name: LimitRangeConfig
+description: Default container resource limits for the project namespace.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 attributes:
-  description:
-    name: description
-    description: Project description.
-    from_schema: https://w3id.org/karectl-crates/deployment-model
-    domain_of:
-    - Project
-    - ProjectSpec
-    - GroupSpec
-    - ProfileConfig
-    range: string
-    required: true
-  resources:
-    name: resources
-    description: Resources (applications/services) available in this project.
-    from_schema: https://w3id.org/karectl-crates/deployment-model
-    domain_of:
-    - Deployment
-    - ProjectSpec
-    - VdiScheduling
-    range: Resource
-    multivalued: true
-    inlined: true
-    inlined_as_list: true
-  limit_range:
-    name: limit_range
-    description: Default container resource limits for the project namespace.
+  default_memory:
+    name: default_memory
+    description: Default memory limit (e.g. 4Gi).
     from_schema: https://w3id.org/karectl-crates/deployment-model
     rank: 1000
     domain_of:
-    - ProjectSpec
-    range: LimitRangeConfig
+    - LimitRangeConfig
+    range: string
     required: false
-    inlined: true
+  default_cpu:
+    name: default_cpu
+    description: Default CPU limit (e.g. 500m).
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    rank: 1000
+    domain_of:
+    - LimitRangeConfig
+    range: string
+    required: false
+  default_request_memory:
+    name: default_request_memory
+    description: Default memory request (e.g. 1Gi).
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    rank: 1000
+    domain_of:
+    - LimitRangeConfig
+    range: string
+    required: false
+  default_request_cpu:
+    name: default_request_cpu
+    description: Default CPU request (e.g. 100m).
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    rank: 1000
+    domain_of:
+    - LimitRangeConfig
+    range: string
+    required: false
 
 </code></pre>
 </details>
 <h3 id="induced">Induced</h3>
 <details>
-<pre><code class="language-yaml">name: ProjectSpec
-description: Operator project specification to define the resources for a research
-  project namespace.
+<pre><code class="language-yaml">name: LimitRangeConfig
+description: Default container resource limits for the project namespace.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 attributes:
-  description:
-    name: description
-    description: Project description.
-    from_schema: https://w3id.org/karectl-crates/deployment-model
-    alias: description
-    owner: ProjectSpec
-    domain_of:
-    - Project
-    - ProjectSpec
-    - GroupSpec
-    - ProfileConfig
-    range: string
-    required: true
-  resources:
-    name: resources
-    description: Resources (applications/services) available in this project.
-    from_schema: https://w3id.org/karectl-crates/deployment-model
-    alias: resources
-    owner: ProjectSpec
-    domain_of:
-    - Deployment
-    - ProjectSpec
-    - VdiScheduling
-    range: Resource
-    multivalued: true
-    inlined: true
-    inlined_as_list: true
-  limit_range:
-    name: limit_range
-    description: Default container resource limits for the project namespace.
+  default_memory:
+    name: default_memory
+    description: Default memory limit (e.g. 4Gi).
     from_schema: https://w3id.org/karectl-crates/deployment-model
     rank: 1000
-    alias: limit_range
-    owner: ProjectSpec
+    alias: default_memory
+    owner: LimitRangeConfig
     domain_of:
-    - ProjectSpec
-    range: LimitRangeConfig
+    - LimitRangeConfig
+    range: string
     required: false
-    inlined: true
+  default_cpu:
+    name: default_cpu
+    description: Default CPU limit (e.g. 500m).
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    rank: 1000
+    alias: default_cpu
+    owner: LimitRangeConfig
+    domain_of:
+    - LimitRangeConfig
+    range: string
+    required: false
+  default_request_memory:
+    name: default_request_memory
+    description: Default memory request (e.g. 1Gi).
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    rank: 1000
+    alias: default_request_memory
+    owner: LimitRangeConfig
+    domain_of:
+    - LimitRangeConfig
+    range: string
+    required: false
+  default_request_cpu:
+    name: default_request_cpu
+    description: Default CPU request (e.g. 100m).
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    rank: 1000
+    alias: default_request_cpu
+    owner: LimitRangeConfig
+    domain_of:
+    - LimitRangeConfig
+    range: string
+    required: false
 
 </code></pre>
 </details>

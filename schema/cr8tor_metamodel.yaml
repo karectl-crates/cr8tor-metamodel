@@ -1399,6 +1399,19 @@ slots:
     multivalued: true
     inlined: true
     inlined_as_list: true
+  projectSpec__limit_range:
+    name: projectSpec__limit_range
+    description: Default container resource limits for the project namespace.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:limit_range
+    alias: limit_range
+    owner: ProjectSpec
+    domain_of:
+    - ProjectSpec
+    range: LimitRangeConfig
+    required: false
+    inlined: true
+    inlined_as_list: true
   groupSpec__description:
     name: groupSpec__description
     description: Descrption of the group and its purpose.
@@ -1749,6 +1762,50 @@ slots:
     - EnvironmentVariable
     range: string
     required: true
+  limitRangeConfig__default_memory:
+    name: limitRangeConfig__default_memory
+    description: Default memory limit (e.g. 4Gi).
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:default_memory
+    alias: default_memory
+    owner: LimitRangeConfig
+    domain_of:
+    - LimitRangeConfig
+    range: string
+    required: false
+  limitRangeConfig__default_cpu:
+    name: limitRangeConfig__default_cpu
+    description: Default CPU limit (e.g. 500m).
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:default_cpu
+    alias: default_cpu
+    owner: LimitRangeConfig
+    domain_of:
+    - LimitRangeConfig
+    range: string
+    required: false
+  limitRangeConfig__default_request_memory:
+    name: limitRangeConfig__default_request_memory
+    description: Default memory request (e.g. 1Gi).
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:default_request_memory
+    alias: default_request_memory
+    owner: LimitRangeConfig
+    domain_of:
+    - LimitRangeConfig
+    range: string
+    required: false
+  limitRangeConfig__default_request_cpu:
+    name: limitRangeConfig__default_request_cpu
+    description: Default CPU request (e.g. 100m).
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:default_request_cpu
+    alias: default_request_cpu
+    owner: LimitRangeConfig
+    domain_of:
+    - LimitRangeConfig
+    range: string
+    required: false
   vdiSchedulingResources__requests_cpu:
     name: vdiSchedulingResources__requests_cpu
     description: CPU request
@@ -2703,6 +2760,7 @@ classes:
     slots:
     - projectSpec__description
     - projectSpec__resources
+    - projectSpec__limit_range
     attributes:
       description:
         name: description
@@ -2715,6 +2773,12 @@ classes:
         range: Resource
         multivalued: true
         inlined_as_list: true
+      limit_range:
+        name: limit_range
+        description: Default container resource limits for the project namespace.
+        range: LimitRangeConfig
+        required: false
+        inlined: true
     class_uri: cr8tor_metamodel:ProjectSpec
   GroupSpec:
     name: GroupSpec
@@ -2970,6 +3034,38 @@ classes:
         range: string
         required: true
     class_uri: cr8tor_metamodel:EnvironmentVariable
+  LimitRangeConfig:
+    name: LimitRangeConfig
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/LimitRangeConfig
+    description: Default container resource limits for the project namespace.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slots:
+    - limitRangeConfig__default_memory
+    - limitRangeConfig__default_cpu
+    - limitRangeConfig__default_request_memory
+    - limitRangeConfig__default_request_cpu
+    attributes:
+      default_memory:
+        name: default_memory
+        description: Default memory limit (e.g. 4Gi).
+        range: string
+        required: false
+      default_cpu:
+        name: default_cpu
+        description: Default CPU limit (e.g. 500m).
+        range: string
+        required: false
+      default_request_memory:
+        name: default_request_memory
+        description: Default memory request (e.g. 1Gi).
+        range: string
+        required: false
+      default_request_cpu:
+        name: default_request_cpu
+        description: Default CPU request (e.g. 100m).
+        range: string
+        required: false
+    class_uri: cr8tor_metamodel:LimitRangeConfig
   VdiSchedulingResources:
     name: VdiSchedulingResources
     definition_uri: https://w3id.org/karectl-crates/deployment-model/VdiSchedulingResources
@@ -3045,7 +3141,7 @@ classes:
     class_uri: cr8tor_metamodel:ResourceStorage
 metamodel_version: 1.7.0
 source_file: cr8tor_metamodel.yaml
-source_file_date: '2026-02-26T19:01:55'
+source_file_date: '2026-03-05T09:10:24'
 source_file_size: 1519
-generation_date: '2026-02-26T19:02:06'
+generation_date: '2026-03-05T09:10:34'
 

@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://karectl-crates.github.io/cr8tor-metamodel/elements/result/">
+        <link rel="canonical" href="https://karectl-crates.github.io/cr8tor-metamodel/elements/default_memory/">
       
       
       
@@ -21,7 +21,7 @@
     
     
       
-        <title>Slot: result - cr8tor-metamodel</title>
+        <title>Slot: default_memory - cr8tor-metamodel</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-result" class="md-skip">
+        <a href="#slot-default_memory" class="md-skip">
           Skip to content
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: result
+              Slot: default_memory
             
           </span>
         </div>
@@ -416,10 +416,10 @@
   
 
 
-<h1 id="slot-result">Slot: result</h1>
-<p><em>List of result items produced by the action, typically ID references to other  data or context entities created or modified by the action.</em></p>
-<p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/result">cr8tor_metamodel:result</a>
-Alias: result</p>
+<h1 id="slot-default_memory">Slot: default_memory</h1>
+<p><em>Default memory limit (e.g. 4Gi).</em></p>
+<p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/default_memory">cr8tor_metamodel:default_memory</a>
+Alias: default_memory</p>
 <!-- no inheritance hierarchy -->
 
 <h2 id="applicable-classes">Applicable Classes</h2>
@@ -433,30 +433,15 @@ Alias: result</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="../Action/">Action</a></td>
-<td>Represents an action or activity performed on a Cr8tor project, tracking the ...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../AssessAction/">AssessAction</a></td>
-<td>Represents an assessment action performed on a Cr8tor project, used to track ...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../CreateAction/">CreateAction</a></td>
-<td>Represents a create action performed on a Cr8tor project, typically used to t...</td>
+<td><a href="../LimitRangeConfig/">LimitRangeConfig</a></td>
+<td>Default container resource limits for the project namespace</td>
 <td>no</td>
 </tr>
 </tbody>
 </table>
 <h2 id="properties">Properties</h2>
 <ul>
-<li>
-<p>Range: <a href="../String/">String</a></p>
-</li>
-<li>
-<p>Multivalued: True</p>
-</li>
+<li>Range: <a href="../String/">String</a></li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
@@ -474,31 +459,27 @@ Alias: result</p>
 <tbody>
 <tr>
 <td>self</td>
-<td>cr8tor_metamodel:result</td>
+<td>cr8tor_metamodel:default_memory</td>
 </tr>
 <tr>
 <td>native</td>
-<td>cr8tor_metamodel:result</td>
+<td>cr8tor_metamodel:default_memory</td>
 </tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 
-<pre><code class="language-yaml">name: result
-description: List of result items produced by the action, typically ID references
-  to other  data or context entities created or modified by the action.
+<pre><code class="language-yaml">name: default_memory
+description: Default memory limit (e.g. 4Gi).
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
 rank: 1000
-alias: result
-owner: Action
+alias: default_memory
+owner: LimitRangeConfig
 domain_of:
-- Action
+- LimitRangeConfig
 range: string
 required: false
-multivalued: true
-inlined: true
-inlined_as_list: true
 
 </code></pre>
 
