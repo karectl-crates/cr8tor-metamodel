@@ -159,6 +159,20 @@ classes:
   # Operator CRD spec classes
   # -------------------------------------------------------------------------
 
+  EgressRule:
+    description: FQDN egress rule with one or more allowed TCP ports (defaults to [443]).
+    attributes:
+      fqdn:
+        range: string
+        required: true
+        description: Hostname to allow outbound traffic.
+      ports:
+        range: integer
+        multivalued: true
+        inlined_as_list: true
+        required: false
+        description: TCP ports to allow. Defaults to [443] when omitted.
+
   ProjectSpec:
     description: >-
       Operator project specification to define the resources for a research project namespace.
@@ -177,6 +191,12 @@ classes:
         required: false
         inlined: true
         description: Default container resource limits for the project namespace.
+      approved_egress_rules:
+        range: EgressRule
+        multivalued: true
+        inlined_as_list: true
+        required: false
+        description: Per-FQDN egress rules with allowed TCP ports.
 
   GroupSpec:
     description: >-
