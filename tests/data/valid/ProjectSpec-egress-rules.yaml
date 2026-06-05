@@ -1,0 +1,11 @@
+description: Project with per-FQDN egress rules
+resources: []
+approved_egress_rules:
+  - fqdn: pypi.org
+    ports:
+      - 443
+  - fqdn: internal-repo.example.nhs.uk
+    ports:
+      - 443
+      - 8443
+  - fqdn: mirror.example.org
