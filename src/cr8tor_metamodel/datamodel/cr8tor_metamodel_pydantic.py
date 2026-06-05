@@ -680,6 +680,16 @@ class Environment(ConfiguredBaseModel):
                        'EnvironmentVariable']} })
 
 
+class EgressRule(ConfiguredBaseModel):
+    """
+    FQDN egress rule with one or more allowed TCP ports (defaults to [443]).
+    """
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/deployment-model'})
+
+    fqdn: str = Field(default=..., description="""Hostname to allow outbound traffic.""", json_schema_extra = { "linkml_meta": {'domain_of': ['EgressRule']} })
+    ports: Optional[list[int]] = Field(default=[], description="""TCP ports to allow. Defaults to [443] when omitted.""", json_schema_extra = { "linkml_meta": {'domain_of': ['EgressRule']} })
+
+
 class ProjectSpec(ConfiguredBaseModel):
     """
     Operator project specification to define the resources for a research project namespace.
@@ -689,6 +699,7 @@ class ProjectSpec(ConfiguredBaseModel):
     description: str = Field(default=..., description="""Project description.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'ProjectSpec', 'GroupSpec', 'ProfileConfig']} })
     resources: Optional[list[Union[Resource,Jupyter,Keycloak,VDI,RStudio,Gitea]]] = Field(default=[], description="""Resources (applications/services) available in this project.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Deployment', 'ProjectSpec', 'VdiScheduling']} })
     limit_range: Optional[LimitRangeConfig] = Field(default=None, description="""Default container resource limits for the project namespace.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Deployment', 'ProjectSpec']} })
+    approved_egress_rules: Optional[list[EgressRule]] = Field(default=[], description="""Per-FQDN egress rules with allowed TCP ports.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ProjectSpec']} })
 
 
 class GroupSpec(ConfiguredBaseModel):
@@ -901,6 +912,7 @@ VDI.model_rebuild()
 RStudio.model_rebuild()
 Gitea.model_rebuild()
 Environment.model_rebuild()
+EgressRule.model_rebuild()
 ProjectSpec.model_rebuild()
 GroupSpec.model_rebuild()
 KeycloakClientConfig.model_rebuild()

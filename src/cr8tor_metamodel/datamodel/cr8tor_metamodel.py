@@ -1,5 +1,5 @@
 # Auto generated from cr8tor_metamodel.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-03-05T10:18:34
+# Generation date: 2026-06-05T16:58:27
 # Schema: cr8tor-metamodel
 #
 # id: https://w3id.org/karectl-crates/cr8tor-metamodel
@@ -56,7 +56,7 @@ from rdflib import (
     URIRef
 )
 
-from linkml_runtime.linkml_model.types import Boolean, Date, Datetime, String, Uri, Uriorcurie
+from linkml_runtime.linkml_model.types import Boolean, Date, Datetime, Integer, String, Uri, Uriorcurie
 from linkml_runtime.utils.metamodelcore import Bool, URI, URIorCURIE, XSDDate, XSDDateTime
 
 metamodel_version = "1.7.0"
@@ -1009,6 +1009,34 @@ class Environment(YAMLRoot):
 
 
 @dataclass(repr=False)
+class EgressRule(YAMLRoot):
+    """
+    FQDN egress rule with one or more allowed TCP ports (defaults to [443]).
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CR8TOR_METAMODEL["EgressRule"]
+    class_class_curie: ClassVar[str] = "cr8tor_metamodel:EgressRule"
+    class_name: ClassVar[str] = "EgressRule"
+    class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.EgressRule
+
+    fqdn: str = None
+    ports: Optional[Union[int, list[int]]] = empty_list()
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.fqdn):
+            self.MissingRequiredField("fqdn")
+        if not isinstance(self.fqdn, str):
+            self.fqdn = str(self.fqdn)
+
+        if not isinstance(self.ports, list):
+            self.ports = [self.ports] if self.ports is not None else []
+        self.ports = [v if isinstance(v, int) else int(v) for v in self.ports]
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
 class ProjectSpec(YAMLRoot):
     """
     Operator project specification to define the resources for a research project namespace.
@@ -1023,6 +1051,7 @@ class ProjectSpec(YAMLRoot):
     description: str = None
     resources: Optional[Union[Union[dict, Resource], list[Union[dict, Resource]]]] = empty_list()
     limit_range: Optional[Union[dict, "LimitRangeConfig"]] = None
+    approved_egress_rules: Optional[Union[Union[dict, EgressRule], list[Union[dict, EgressRule]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.description):
@@ -1036,6 +1065,10 @@ class ProjectSpec(YAMLRoot):
 
         if self.limit_range is not None and not isinstance(self.limit_range, LimitRangeConfig):
             self.limit_range = LimitRangeConfig(**as_dict(self.limit_range))
+
+        if not isinstance(self.approved_egress_rules, list):
+            self.approved_egress_rules = [self.approved_egress_rules] if self.approved_egress_rules is not None else []
+        self.approved_egress_rules = [v if isinstance(v, EgressRule) else EgressRule(**as_dict(v)) for v in self.approved_egress_rules]
 
         super().__post_init__(**kwargs)
 
@@ -1765,6 +1798,12 @@ slots.vDI__storage = Slot(uri=CR8TOR_METAMODEL.storage, name="vDI__storage", cur
 slots.environment__name = Slot(uri=CR8TOR_METAMODEL.name, name="environment__name", curie=CR8TOR_METAMODEL.curie('name'),
                    model_uri=CR8TOR_METAMODEL.environment__name, domain=None, range=str)
 
+slots.egressRule__fqdn = Slot(uri=CR8TOR_METAMODEL.fqdn, name="egressRule__fqdn", curie=CR8TOR_METAMODEL.curie('fqdn'),
+                   model_uri=CR8TOR_METAMODEL.egressRule__fqdn, domain=None, range=str)
+
+slots.egressRule__ports = Slot(uri=CR8TOR_METAMODEL.ports, name="egressRule__ports", curie=CR8TOR_METAMODEL.curie('ports'),
+                   model_uri=CR8TOR_METAMODEL.egressRule__ports, domain=None, range=Optional[Union[int, list[int]]])
+
 slots.projectSpec__description = Slot(uri=CR8TOR_METAMODEL.description, name="projectSpec__description", curie=CR8TOR_METAMODEL.curie('description'),
                    model_uri=CR8TOR_METAMODEL.projectSpec__description, domain=None, range=str)
 
@@ -1773,6 +1812,9 @@ slots.projectSpec__resources = Slot(uri=CR8TOR_METAMODEL.resources, name="projec
 
 slots.projectSpec__limit_range = Slot(uri=CR8TOR_METAMODEL.limit_range, name="projectSpec__limit_range", curie=CR8TOR_METAMODEL.curie('limit_range'),
                    model_uri=CR8TOR_METAMODEL.projectSpec__limit_range, domain=None, range=Optional[Union[dict, LimitRangeConfig]])
+
+slots.projectSpec__approved_egress_rules = Slot(uri=CR8TOR_METAMODEL.approved_egress_rules, name="projectSpec__approved_egress_rules", curie=CR8TOR_METAMODEL.curie('approved_egress_rules'),
+                   model_uri=CR8TOR_METAMODEL.projectSpec__approved_egress_rules, domain=None, range=Optional[Union[Union[dict, EgressRule], list[Union[dict, EgressRule]]]])
 
 slots.groupSpec__description = Slot(uri=CR8TOR_METAMODEL.description, name="groupSpec__description", curie=CR8TOR_METAMODEL.curie('description'),
                    model_uri=CR8TOR_METAMODEL.groupSpec__description, domain=None, range=Optional[str])
