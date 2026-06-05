@@ -1388,6 +1388,30 @@ slots:
     - Environment
     range: string
     required: true
+  egressRule__fqdn:
+    name: egressRule__fqdn
+    description: Hostname to allow outbound traffic.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:fqdn
+    alias: fqdn
+    owner: EgressRule
+    domain_of:
+    - EgressRule
+    range: string
+    required: true
+  egressRule__ports:
+    name: egressRule__ports
+    description: TCP ports to allow. Defaults to [443] when omitted.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:ports
+    alias: ports
+    owner: EgressRule
+    domain_of:
+    - EgressRule
+    range: integer
+    required: false
+    multivalued: true
+    inlined_as_list: true
   projectSpec__description:
     name: projectSpec__description
     description: Project description.
@@ -1423,6 +1447,20 @@ slots:
     - ProjectSpec
     range: LimitRangeConfig
     required: false
+    inlined: true
+    inlined_as_list: true
+  projectSpec__approved_egress_rules:
+    name: projectSpec__approved_egress_rules
+    description: Per-FQDN egress rules with allowed TCP ports.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:approved_egress_rules
+    alias: approved_egress_rules
+    owner: ProjectSpec
+    domain_of:
+    - ProjectSpec
+    range: EgressRule
+    required: false
+    multivalued: true
     inlined: true
     inlined_as_list: true
   groupSpec__description:
@@ -2771,6 +2809,29 @@ classes:
           deployed, used for identification and management.
         required: true
     class_uri: cr8tor_metamodel:Environment
+  EgressRule:
+    name: EgressRule
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/EgressRule
+    description: FQDN egress rule with one or more allowed TCP ports (defaults to
+      [443]).
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slots:
+    - egressRule__fqdn
+    - egressRule__ports
+    attributes:
+      fqdn:
+        name: fqdn
+        description: Hostname to allow outbound traffic.
+        range: string
+        required: true
+      ports:
+        name: ports
+        description: TCP ports to allow. Defaults to [443] when omitted.
+        range: integer
+        required: false
+        multivalued: true
+        inlined_as_list: true
+    class_uri: cr8tor_metamodel:EgressRule
   ProjectSpec:
     name: ProjectSpec
     definition_uri: https://w3id.org/karectl-crates/deployment-model/ProjectSpec
@@ -2781,6 +2842,7 @@ classes:
     - projectSpec__description
     - projectSpec__resources
     - projectSpec__limit_range
+    - projectSpec__approved_egress_rules
     attributes:
       description:
         name: description
@@ -2799,6 +2861,13 @@ classes:
         range: LimitRangeConfig
         required: false
         inlined: true
+      approved_egress_rules:
+        name: approved_egress_rules
+        description: Per-FQDN egress rules with allowed TCP ports.
+        range: EgressRule
+        required: false
+        multivalued: true
+        inlined_as_list: true
     class_uri: cr8tor_metamodel:ProjectSpec
   GroupSpec:
     name: GroupSpec
@@ -3161,7 +3230,7 @@ classes:
     class_uri: cr8tor_metamodel:ResourceStorage
 metamodel_version: 1.7.0
 source_file: cr8tor_metamodel.yaml
-source_file_date: '2026-03-05T10:18:23'
+source_file_date: '2026-06-05T16:58:18'
 source_file_size: 1519
-generation_date: '2026-03-05T10:18:33'
+generation_date: '2026-06-05T16:58:28'
 
