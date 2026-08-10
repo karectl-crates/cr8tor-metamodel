@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://karectl-crates.github.io/cr8tor-metamodel/elements/type/">
+        <link rel="canonical" href="https://karectl-crates.github.io/cr8tor-metamodel/elements/GiteaVisibility/">
       
       
       
@@ -21,7 +21,7 @@
     
     
       
-        <title>Slot: type - cr8tor-metamodel</title>
+        <title>Enum: GiteaVisibility - cr8tor-metamodel</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-type" class="md-skip">
+        <a href="#enum-giteavisibility" class="md-skip">
           Skip to content
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: type
+              Enum: GiteaVisibility
             
           </span>
         </div>
@@ -325,10 +325,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#applicable-classes" class="md-nav__link">
+  <a href="#permissible-values" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Applicable Classes
+        Permissible Values
       
     </span>
   </a>
@@ -336,10 +336,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#properties" class="md-nav__link">
+  <a href="#slots" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Properties
+        Slots
       
     </span>
   </a>
@@ -355,16 +355,22 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mappings" class="md-nav__link">
+    <nav class="md-nav" aria-label="Identifier and Mapping Information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema-source" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Mappings
+        Schema Source
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -399,72 +405,73 @@
   
 
 
-<h1 id="slot-type">Slot: type</h1>
-<p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/type">cr8tor_metamodel:type</a>
-Alias: type</p>
-<!-- no inheritance hierarchy -->
-
-<h2 id="applicable-classes">Applicable Classes</h2>
+<h1 id="enum-giteavisibility">Enum: GiteaVisibility</h1>
+<p><em>Gitea organisation visibility levels.</em></p>
+<p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/GiteaVisibility">cr8tor_metamodel:GiteaVisibility</a></p>
+<h2 id="permissible-values">Permissible Values</h2>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>private</td>
+<td>None</td>
+<td>Visible only to organisation members</td>
+</tr>
+<tr>
+<td>limited</td>
+<td>None</td>
+<td>Visible to signed-in users only</td>
+</tr>
+<tr>
+<td>public</td>
+<td>None</td>
+<td>Visible to everyone</td>
+</tr>
+</tbody>
+</table>
+<h2 id="slots">Slots</h2>
 <table>
 <thead>
 <tr>
 <th>Name</th>
 <th>Description</th>
-<th>Modifies Slot</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="../Group/">Group</a></td>
-<td>Represents a group or organizational unit within a Cr8tor project, used to or...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Source/">Source</a></td>
-<td>Models a data source within a Cr8tor project, representing the origin of data...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Destination/">Destination</a></td>
-<td>Models a data destination within a Cr8tor project, representing the endpoint ...</td>
-<td>no</td>
+<td><a href="../visibility/">visibility</a></td>
+<td>Organisation visibility</td>
 </tr>
 </tbody>
 </table>
-<h2 id="properties">Properties</h2>
-<ul>
-<li>Range: <a href="../String/">String</a></li>
-</ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
-<h2 id="mappings">Mappings</h2>
-<table>
-<thead>
-<tr>
-<th>Mapping Type</th>
-<th>Mapped Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>self</td>
-<td>cr8tor_metamodel:type</td>
-</tr>
-<tr>
-<td>native</td>
-<td>cr8tor_metamodel:type</td>
-</tr>
-</tbody>
-</table>
+<h3 id="schema-source">Schema Source</h3>
+<ul>
+<li>from schema: https://w3id.org/karectl-crates/cr8tor-metamodel</li>
+</ul>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 
-<pre><code class="language-yaml">name: type
-alias: type
-domain_of:
-- Group
-- Source
-- Destination
-range: string
+<pre><code class="language-yaml">name: GiteaVisibility
+description: Gitea organisation visibility levels.
+from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
+rank: 1000
+permissible_values:
+  private:
+    text: private
+    description: Visible only to organisation members.
+  limited:
+    text: limited
+    description: Visible to signed-in users only.
+  public:
+    text: public
+    description: Visible to everyone.
 
 </code></pre>
 

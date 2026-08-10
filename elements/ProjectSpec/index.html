@@ -278,6 +278,17 @@
 
 
 
+      ProjectSpec : resource_quota
+
+
+
+
+
+        ProjectSpec --&gt; "0..1" ResourceQuotaConfig : resource_quota
+        click ResourceQuotaConfig href "../ResourceQuotaConfig/"
+
+
+
       ProjectSpec : resources
 
 
@@ -313,6 +324,12 @@
 <td><a href="../resources/">resources</a></td>
 <td>* <br/> <a href="../Resource/">Resource</a></td>
 <td>Resources (applications/services) available in this project</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../resource_quota/">resource_quota</a></td>
+<td>0..1 <br/> <a href="../ResourceQuotaConfig/">ResourceQuotaConfig</a></td>
+<td>Aggregate resource quota for the project namespace</td>
 <td>direct</td>
 </tr>
 <tr>
@@ -385,6 +402,17 @@ attributes:
     multivalued: true
     inlined: true
     inlined_as_list: true
+  resource_quota:
+    name: resource_quota
+    description: Aggregate resource quota for the project namespace. When absent no
+      quota is applied.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    rank: 1000
+    domain_of:
+    - ProjectSpec
+    range: ResourceQuotaConfig
+    required: false
+    inlined: true
   limit_range:
     name: limit_range
     description: Default container resource limits for the project namespace.
@@ -444,6 +472,19 @@ attributes:
     multivalued: true
     inlined: true
     inlined_as_list: true
+  resource_quota:
+    name: resource_quota
+    description: Aggregate resource quota for the project namespace. When absent no
+      quota is applied.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    rank: 1000
+    alias: resource_quota
+    owner: ProjectSpec
+    domain_of:
+    - ProjectSpec
+    range: ResourceQuotaConfig
+    required: false
+    inlined: true
   limit_range:
     name: limit_range
     description: Default container resource limits for the project namespace.

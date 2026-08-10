@@ -5,10 +5,10 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<link href="https://karectl-crates.github.io/cr8tor-metamodel/elements/Gitea/" rel="canonical"/>
+<link href="https://karectl-crates.github.io/cr8tor-metamodel/elements/GiteaTeamConfig/" rel="canonical"/>
 <link href="../../assets/images/favicon.png" rel="icon"/>
 <meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator"/>
-<title>Class: Gitea - cr8tor-metamodel</title>
+<title>Class: GiteaTeamConfig - cr8tor-metamodel</title>
 <link href="../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
@@ -23,7 +23,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#class-gitea">
+<a class="md-skip" href="#class-giteateamconfig">
           Skip to content
         </a>
 </div>
@@ -47,7 +47,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Class: Gitea
+              Class: GiteaTeamConfig
             
           </span>
 </div>
@@ -171,19 +171,19 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#inheritance">
+<a class="md-nav__link" href="#slots">
 <span class="md-ellipsis">
       
-        Inheritance
+        Slots
       
     </span>
 </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#slots">
+<a class="md-nav__link" href="#usages">
 <span class="md-ellipsis">
       
-        Slots
+        Usages
       
     </span>
 </a>
@@ -257,56 +257,28 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1 id="class-gitea">Class: Gitea</h1>
-<p><em>Gitea git repository resource for cr8tor project. The operator provisions a per-project organisation, its teams and an optional template repository.</em></p>
-<p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/Gitea">cr8tor_metamodel:Gitea</a></p>
+<h1 id="class-giteateamconfig">Class: GiteaTeamConfig</h1>
+<p><em>Gitea team configuration for a group. The operator maintains a team of this name in each organisation belonging to the group's projects.</em></p>
+<p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/GiteaTeamConfig">cr8tor_metamodel:GiteaTeamConfig</a></p>
 <div class="mermaid"> classDiagram
-    class Gitea
-    click Gitea href "../Gitea/"
-      Resource &lt;|-- Gitea
-        click Resource href "../Resource/"
-
-      Gitea : create_template_repo
-
-      Gitea : default_repo_permission
+    class GiteaTeamConfig
+    click GiteaTeamConfig href "../GiteaTeamConfig/"
+      GiteaTeamConfig : permission
 
 
 
 
 
-        Gitea --&gt; "0..1" GiteaPermission : default_repo_permission
+        GiteaTeamConfig --&gt; "0..1" GiteaPermission : permission
         click GiteaPermission href "../GiteaPermission/"
 
 
 
-      Gitea : enabled
-
-      Gitea : name
-
-      Gitea : resource_type
-
-      Gitea : url
-
-      Gitea : visibility
-
-
-
-
-
-        Gitea --&gt; "0..1" GiteaVisibility : visibility
-        click GiteaVisibility href "../GiteaVisibility/"
-
-
+      GiteaTeamConfig : team_name
 
 
 </div>
-<h2 id="inheritance">Inheritance</h2>
-<ul>
-<li><a href="../Resource/">Resource</a><ul>
-<li><strong>Gitea</strong></li>
-</ul>
-</li>
-</ul>
+<!-- no inheritance hierarchy -->
 <h2 id="slots">Slots</h2>
 <table>
 <thead>
@@ -319,46 +291,35 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../visibility/">visibility</a></td>
-<td>0..1 <br/> <a href="../GiteaVisibility/">GiteaVisibility</a></td>
-<td>Organisation visibility</td>
+<td><a href="../team_name/">team_name</a></td>
+<td>0..1 <br/> <a href="../String/">String</a></td>
+<td>Team name in the Gitea organisation</td>
 <td>direct</td>
 </tr>
 <tr>
-<td><a href="../create_template_repo/">create_template_repo</a></td>
-<td>0..1 <br/> <a href="../Boolean/">Boolean</a></td>
-<td>Create a template repository when the organisation is created</td>
-<td>direct</td>
-</tr>
-<tr>
-<td><a href="../default_repo_permission/">default_repo_permission</a></td>
+<td><a href="../permission/">permission</a></td>
 <td>0..1 <br/> <a href="../GiteaPermission/">GiteaPermission</a></td>
-<td>Default repository permission granted to organisation members</td>
+<td>Team permission level</td>
 <td>direct</td>
 </tr>
+</tbody>
+</table>
+<h2 id="usages">Usages</h2>
+<table>
+<thead>
 <tr>
-<td><a href="../resource_type/">resource_type</a></td>
-<td>1 <br/> <a href="../String/">String</a></td>
-<td>The type of resource (e</td>
-<td><a href="../Resource/">Resource</a></td>
+<th>used by</th>
+<th>used in</th>
+<th>type</th>
+<th>used</th>
 </tr>
+</thead>
+<tbody>
 <tr>
-<td><a href="../name/">name</a></td>
-<td>1 <br/> <a href="../String/">String</a></td>
-<td>The requested name of the resource, used for identification and management wi...</td>
-<td><a href="../Resource/">Resource</a></td>
-</tr>
-<tr>
-<td><a href="../url/">url</a></td>
-<td>1 <br/> <a href="../Uri/">Uri</a></td>
-<td>The URL endpoint for accessing the application or resource after deployment</td>
-<td><a href="../Resource/">Resource</a></td>
-</tr>
-<tr>
-<td><a href="../enabled/">enabled</a></td>
-<td>1 <br/> <a href="../Boolean/">Boolean</a></td>
-<td>Boolean flag indicating whether the application or resource is enabled and av...</td>
-<td><a href="../Resource/">Resource</a></td>
+<td><a href="../GroupSpec/">GroupSpec</a></td>
+<td><a href="../gitea/">gitea</a></td>
+<td>range</td>
+<td><a href="./">GiteaTeamConfig</a></td>
 </tr>
 </tbody>
 </table>
@@ -378,11 +339,11 @@
 <tbody>
 <tr>
 <td>self</td>
-<td>cr8tor_metamodel:Gitea</td>
+<td>cr8tor_metamodel:GiteaTeamConfig</td>
 </tr>
 <tr>
 <td>native</td>
-<td>cr8tor_metamodel:Gitea</td>
+<td>cr8tor_metamodel:GiteaTeamConfig</td>
 </tr>
 </tbody>
 </table>
@@ -390,40 +351,28 @@
 <!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
 <h3 id="direct">Direct</h3>
 <details>
-<pre><code class="language-yaml">name: Gitea
-description: Gitea git repository resource for cr8tor project. The operator provisions
-  a per-project organisation, its teams and an optional template repository.
+<pre><code class="language-yaml">name: GiteaTeamConfig
+description: Gitea team configuration for a group. The operator maintains a team of
+  this name in each organisation belonging to the group's projects.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
-is_a: Resource
 attributes:
-  visibility:
-    name: visibility
-    description: Organisation visibility.
+  team_name:
+    name: team_name
+    description: Team name in the Gitea organisation. Defaults to the group name.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     rank: 1000
-    ifabsent: string(private)
     domain_of:
-    - Gitea
-    range: GiteaVisibility
+    - GiteaTeamConfig
+    range: string
     required: false
-  create_template_repo:
-    name: create_template_repo
-    description: Create a template repository when the organisation is created.
+  permission:
+    name: permission
+    description: Team permission level.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     rank: 1000
-    ifabsent: 'true'
+    ifabsent: string(write)
     domain_of:
-    - Gitea
-    range: boolean
-    required: false
-  default_repo_permission:
-    name: default_repo_permission
-    description: Default repository permission granted to organisation members.
-    from_schema: https://w3id.org/karectl-crates/deployment-model
-    rank: 1000
-    ifabsent: string(read)
-    domain_of:
-    - Gitea
+    - GiteaTeamConfig
     range: GiteaPermission
     required: false
 
@@ -431,109 +380,34 @@ attributes:
 </details>
 <h3 id="induced">Induced</h3>
 <details>
-<pre><code class="language-yaml">name: Gitea
-description: Gitea git repository resource for cr8tor project. The operator provisions
-  a per-project organisation, its teams and an optional template repository.
+<pre><code class="language-yaml">name: GiteaTeamConfig
+description: Gitea team configuration for a group. The operator maintains a team of
+  this name in each organisation belonging to the group's projects.
 from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
-is_a: Resource
 attributes:
-  visibility:
-    name: visibility
-    description: Organisation visibility.
+  team_name:
+    name: team_name
+    description: Team name in the Gitea organisation. Defaults to the group name.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     rank: 1000
-    ifabsent: string(private)
-    alias: visibility
-    owner: Gitea
+    alias: team_name
+    owner: GiteaTeamConfig
     domain_of:
-    - Gitea
-    range: GiteaVisibility
+    - GiteaTeamConfig
+    range: string
     required: false
-  create_template_repo:
-    name: create_template_repo
-    description: Create a template repository when the organisation is created.
+  permission:
+    name: permission
+    description: Team permission level.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     rank: 1000
-    ifabsent: 'true'
-    alias: create_template_repo
-    owner: Gitea
+    ifabsent: string(write)
+    alias: permission
+    owner: GiteaTeamConfig
     domain_of:
-    - Gitea
-    range: boolean
-    required: false
-  default_repo_permission:
-    name: default_repo_permission
-    description: Default repository permission granted to organisation members.
-    from_schema: https://w3id.org/karectl-crates/deployment-model
-    rank: 1000
-    ifabsent: string(read)
-    alias: default_repo_permission
-    owner: Gitea
-    domain_of:
-    - Gitea
+    - GiteaTeamConfig
     range: GiteaPermission
     required: false
-  resource_type:
-    name: resource_type
-    description: The type of resource (e.g., Jupyter, Keycloak, VDI).
-    from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
-    rank: 1000
-    designates_type: true
-    alias: resource_type
-    owner: Gitea
-    domain_of:
-    - Resource
-    range: string
-    required: true
-  name:
-    name: name
-    description: The requested name of the resource, used for identification and management
-      within the deployment.
-    from_schema: https://w3id.org/karectl-crates/deployment-model
-    alias: name
-    owner: Gitea
-    domain_of:
-    - Project
-    - Action
-    - Source
-    - Dataset
-    - Table
-    - Column
-    - Resource
-    - Environment
-    - KeycloakClientConfig
-    - SecretRef
-    - ProtocolMapper
-    - EnvironmentVariable
-    range: string
-    required: true
-  url:
-    name: url
-    description: The URL endpoint for accessing the application or resource after
-      deployment.
-    from_schema: https://w3id.org/karectl-crates/deployment-model
-    alias: url
-    owner: Gitea
-    domain_of:
-    - Source
-    - Destination
-    - Resource
-    - VDI
-    range: uri
-    required: true
-  enabled:
-    name: enabled
-    description: Boolean flag indicating whether the application or resource is enabled
-      and available for use.
-    from_schema: https://w3id.org/karectl-crates/deployment-model
-    alias: enabled
-    owner: Gitea
-    domain_of:
-    - User
-    - Resource
-    - KeycloakClientConfig
-    range: boolean
-    required: true
 
 </code></pre>
 </details>

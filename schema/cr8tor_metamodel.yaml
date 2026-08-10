@@ -387,6 +387,36 @@ enums:
       vnc:
         text: vnc
         description: Virtual Network Computing.
+  GiteaVisibility:
+    name: GiteaVisibility
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/GiteaVisibility
+    description: Gitea organisation visibility levels.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    permissible_values:
+      private:
+        text: private
+        description: Visible only to organisation members.
+      limited:
+        text: limited
+        description: Visible to signed-in users only.
+      public:
+        text: public
+        description: Visible to everyone.
+  GiteaPermission:
+    name: GiteaPermission
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/GiteaPermission
+    description: Gitea team and repository permission levels.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    permissible_values:
+      read:
+        text: read
+        description: Read-only access to organisation repositories.
+      write:
+        text: write
+        description: Read and write access to organisation repositories.
+      admin:
+        text: admin
+        description: Administrative access to the organisation and its repositories.
 slots:
   action_type:
     name: action_type
@@ -1376,6 +1406,42 @@ slots:
     required: false
     inlined: true
     inlined_as_list: true
+  gitea__visibility:
+    name: gitea__visibility
+    description: Organisation visibility.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:visibility
+    ifabsent: string(private)
+    alias: visibility
+    owner: Gitea
+    domain_of:
+    - Gitea
+    range: GiteaVisibility
+    required: false
+  gitea__create_template_repo:
+    name: gitea__create_template_repo
+    description: Create a template repository when the organisation is created.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:create_template_repo
+    ifabsent: 'true'
+    alias: create_template_repo
+    owner: Gitea
+    domain_of:
+    - Gitea
+    range: boolean
+    required: false
+  gitea__default_repo_permission:
+    name: gitea__default_repo_permission
+    description: Default repository permission granted to organisation members.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:default_repo_permission
+    ifabsent: string(read)
+    alias: default_repo_permission
+    owner: Gitea
+    domain_of:
+    - Gitea
+    range: GiteaPermission
+    required: false
   environment__name:
     name: environment__name
     description: The name of the environment or TRE where the project will be deployed,
@@ -1434,6 +1500,20 @@ slots:
     - ProjectSpec
     range: Resource
     multivalued: true
+    inlined: true
+    inlined_as_list: true
+  projectSpec__resource_quota:
+    name: projectSpec__resource_quota
+    description: Aggregate resource quota for the project namespace. When absent no
+      quota is applied.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:resource_quota
+    alias: resource_quota
+    owner: ProjectSpec
+    domain_of:
+    - ProjectSpec
+    range: ResourceQuotaConfig
+    required: false
     inlined: true
     inlined_as_list: true
   projectSpec__limit_range:
@@ -1509,6 +1589,19 @@ slots:
     - GroupSpec
     range: string
     multivalued: true
+    inlined_as_list: true
+  groupSpec__gitea:
+    name: groupSpec__gitea
+    description: Gitea team configuration for this group.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:gitea
+    alias: gitea
+    owner: GroupSpec
+    domain_of:
+    - GroupSpec
+    range: GiteaTeamConfig
+    required: false
+    inlined: true
     inlined_as_list: true
   keycloakClientConfig__client_id:
     name: keycloakClientConfig__client_id
@@ -1813,6 +1906,117 @@ slots:
     - EnvironmentVariable
     range: string
     required: true
+  giteaTeamConfig__team_name:
+    name: giteaTeamConfig__team_name
+    description: Team name in the Gitea organisation. Defaults to the group name.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:team_name
+    alias: team_name
+    owner: GiteaTeamConfig
+    domain_of:
+    - GiteaTeamConfig
+    range: string
+    required: false
+  giteaTeamConfig__permission:
+    name: giteaTeamConfig__permission
+    description: Team permission level.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:permission
+    ifabsent: string(write)
+    alias: permission
+    owner: GiteaTeamConfig
+    domain_of:
+    - GiteaTeamConfig
+    range: GiteaPermission
+    required: false
+  resourceQuotaConfig__requests_cpu:
+    name: resourceQuotaConfig__requests_cpu
+    description: Total CPU requests allowed.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:requests_cpu
+    alias: requests_cpu
+    owner: ResourceQuotaConfig
+    domain_of:
+    - ResourceQuotaConfig
+    range: string
+    required: false
+  resourceQuotaConfig__requests_memory:
+    name: resourceQuotaConfig__requests_memory
+    description: Total memory requests allowed.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:requests_memory
+    alias: requests_memory
+    owner: ResourceQuotaConfig
+    domain_of:
+    - ResourceQuotaConfig
+    range: string
+    required: false
+  resourceQuotaConfig__limits_cpu:
+    name: resourceQuotaConfig__limits_cpu
+    description: Total CPU limits allowed.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:limits_cpu
+    alias: limits_cpu
+    owner: ResourceQuotaConfig
+    domain_of:
+    - ResourceQuotaConfig
+    range: string
+    required: false
+  resourceQuotaConfig__limits_memory:
+    name: resourceQuotaConfig__limits_memory
+    description: Total memory limits allowed.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:limits_memory
+    alias: limits_memory
+    owner: ResourceQuotaConfig
+    domain_of:
+    - ResourceQuotaConfig
+    range: string
+    required: false
+  resourceQuotaConfig__pods:
+    name: resourceQuotaConfig__pods
+    description: Maximum number of pods.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:pods
+    alias: pods
+    owner: ResourceQuotaConfig
+    domain_of:
+    - ResourceQuotaConfig
+    range: string
+    required: false
+  resourceQuotaConfig__services:
+    name: resourceQuotaConfig__services
+    description: Maximum number of services.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:services
+    alias: services
+    owner: ResourceQuotaConfig
+    domain_of:
+    - ResourceQuotaConfig
+    range: string
+    required: false
+  resourceQuotaConfig__persistentvolumeclaims:
+    name: resourceQuotaConfig__persistentvolumeclaims
+    description: Maximum number of PVCs.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:persistentvolumeclaims
+    alias: persistentvolumeclaims
+    owner: ResourceQuotaConfig
+    domain_of:
+    - ResourceQuotaConfig
+    range: string
+    required: false
+  resourceQuotaConfig__requests_storage:
+    name: resourceQuotaConfig__requests_storage
+    description: Total storage requests allowed.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slot_uri: cr8tor_metamodel:requests_storage
+    alias: requests_storage
+    owner: ResourceQuotaConfig
+    domain_of:
+    - ResourceQuotaConfig
+    range: string
+    required: false
   limitRangeConfig__default_memory:
     name: limitRangeConfig__default_memory
     description: Default memory limit (e.g. 4Gi).
@@ -2784,7 +2988,8 @@ classes:
   Gitea:
     name: Gitea
     definition_uri: https://w3id.org/karectl-crates/deployment-model/Gitea
-    description: Gitea git repository resource for cr8tor project.
+    description: Gitea git repository resource for cr8tor project. The operator provisions
+      a per-project organisation, its teams and an optional template repository.
     from_schema: https://w3id.org/karectl-crates/deployment-model
     is_a: Resource
     slots:
@@ -2792,6 +2997,28 @@ classes:
     - resource__name
     - resource__url
     - resource__enabled
+    - gitea__visibility
+    - gitea__create_template_repo
+    - gitea__default_repo_permission
+    attributes:
+      visibility:
+        name: visibility
+        description: Organisation visibility.
+        ifabsent: string(private)
+        range: GiteaVisibility
+        required: false
+      create_template_repo:
+        name: create_template_repo
+        description: Create a template repository when the organisation is created.
+        ifabsent: 'true'
+        range: boolean
+        required: false
+      default_repo_permission:
+        name: default_repo_permission
+        description: Default repository permission granted to organisation members.
+        ifabsent: string(read)
+        range: GiteaPermission
+        required: false
     class_uri: cr8tor_metamodel:Gitea
   Environment:
     name: Environment
@@ -2841,6 +3068,7 @@ classes:
     slots:
     - projectSpec__description
     - projectSpec__resources
+    - projectSpec__resource_quota
     - projectSpec__limit_range
     - projectSpec__approved_egress_rules
     attributes:
@@ -2855,6 +3083,13 @@ classes:
         range: Resource
         multivalued: true
         inlined_as_list: true
+      resource_quota:
+        name: resource_quota
+        description: Aggregate resource quota for the project namespace. When absent
+          no quota is applied.
+        range: ResourceQuotaConfig
+        required: false
+        inlined: true
       limit_range:
         name: limit_range
         description: Default container resource limits for the project namespace.
@@ -2880,6 +3115,7 @@ classes:
     - groupSpec__members
     - groupSpec__projects
     - groupSpec__subgroups
+    - groupSpec__gitea
     attributes:
       description:
         name: description
@@ -2904,6 +3140,12 @@ classes:
         range: string
         multivalued: true
         inlined_as_list: true
+      gitea:
+        name: gitea
+        description: Gitea team configuration for this group.
+        range: GiteaTeamConfig
+        required: false
+        inlined: true
     class_uri: cr8tor_metamodel:GroupSpec
   KeycloakClientConfig:
     name: KeycloakClientConfig
@@ -3123,6 +3365,85 @@ classes:
         range: string
         required: true
     class_uri: cr8tor_metamodel:EnvironmentVariable
+  GiteaTeamConfig:
+    name: GiteaTeamConfig
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/GiteaTeamConfig
+    description: Gitea team configuration for a group. The operator maintains a team
+      of this name in each organisation belonging to the group's projects.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slots:
+    - giteaTeamConfig__team_name
+    - giteaTeamConfig__permission
+    attributes:
+      team_name:
+        name: team_name
+        description: Team name in the Gitea organisation. Defaults to the group name.
+        range: string
+        required: false
+      permission:
+        name: permission
+        description: Team permission level.
+        ifabsent: string(write)
+        range: GiteaPermission
+        required: false
+    class_uri: cr8tor_metamodel:GiteaTeamConfig
+  ResourceQuotaConfig:
+    name: ResourceQuotaConfig
+    definition_uri: https://w3id.org/karectl-crates/deployment-model/ResourceQuotaConfig
+    description: 'Aggregate resource quota for the project namespace. No defaults
+      are defined: a missing quota means no quota is applied.'
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    slots:
+    - resourceQuotaConfig__requests_cpu
+    - resourceQuotaConfig__requests_memory
+    - resourceQuotaConfig__limits_cpu
+    - resourceQuotaConfig__limits_memory
+    - resourceQuotaConfig__pods
+    - resourceQuotaConfig__services
+    - resourceQuotaConfig__persistentvolumeclaims
+    - resourceQuotaConfig__requests_storage
+    attributes:
+      requests_cpu:
+        name: requests_cpu
+        description: Total CPU requests allowed.
+        range: string
+        required: false
+      requests_memory:
+        name: requests_memory
+        description: Total memory requests allowed.
+        range: string
+        required: false
+      limits_cpu:
+        name: limits_cpu
+        description: Total CPU limits allowed.
+        range: string
+        required: false
+      limits_memory:
+        name: limits_memory
+        description: Total memory limits allowed.
+        range: string
+        required: false
+      pods:
+        name: pods
+        description: Maximum number of pods.
+        range: string
+        required: false
+      services:
+        name: services
+        description: Maximum number of services.
+        range: string
+        required: false
+      persistentvolumeclaims:
+        name: persistentvolumeclaims
+        description: Maximum number of PVCs.
+        range: string
+        required: false
+      requests_storage:
+        name: requests_storage
+        description: Total storage requests allowed.
+        range: string
+        required: false
+    class_uri: cr8tor_metamodel:ResourceQuotaConfig
   LimitRangeConfig:
     name: LimitRangeConfig
     definition_uri: https://w3id.org/karectl-crates/deployment-model/LimitRangeConfig
@@ -3230,7 +3551,7 @@ classes:
     class_uri: cr8tor_metamodel:ResourceStorage
 metamodel_version: 1.7.0
 source_file: cr8tor_metamodel.yaml
-source_file_date: '2026-06-05T16:58:18'
+source_file_date: '2026-08-10T16:15:30'
 source_file_size: 1519
-generation_date: '2026-06-05T16:58:28'
+generation_date: '2026-08-10T16:15:41'
 

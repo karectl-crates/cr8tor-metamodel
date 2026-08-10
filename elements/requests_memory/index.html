@@ -355,23 +355,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Identifier and Mapping Information">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#schema-source" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Schema Source
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -417,7 +400,6 @@
 
 
 <h1 id="slot-requests_memory">Slot: requests_memory</h1>
-<p><em>Memory requests</em></p>
 <p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/requests_memory">cr8tor_metamodel:requests_memory</a>
 Alias: requests_memory</p>
 <!-- no inheritance hierarchy -->
@@ -433,6 +415,11 @@ Alias: requests_memory</p>
 </thead>
 <tbody>
 <tr>
+<td><a href="../ResourceQuotaConfig/">ResourceQuotaConfig</a></td>
+<td>Aggregate resource quota for the project namespace</td>
+<td>no</td>
+</tr>
+<tr>
 <td><a href="../VdiSchedulingResources/">VdiSchedulingResources</a></td>
 <td>CPU and memory resource requests/limits for a VDI pod</td>
 <td>no</td>
@@ -444,10 +431,6 @@ Alias: requests_memory</p>
 <li>Range: <a href="../String/">String</a></li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
-<h3 id="schema-source">Schema Source</h3>
-<ul>
-<li>from schema: https://w3id.org/karectl-crates/cr8tor-metamodel</li>
-</ul>
 <h2 id="mappings">Mappings</h2>
 <table>
 <thead>
@@ -471,15 +454,11 @@ Alias: requests_memory</p>
 <details>
 
 <pre><code class="language-yaml">name: requests_memory
-description: Memory requests
-from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
-rank: 1000
 alias: requests_memory
-owner: VdiSchedulingResources
 domain_of:
+- ResourceQuotaConfig
 - VdiSchedulingResources
 range: string
-required: false
 
 </code></pre>
 

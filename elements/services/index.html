@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://karectl-crates.github.io/cr8tor-metamodel/elements/type/">
+        <link rel="canonical" href="https://karectl-crates.github.io/cr8tor-metamodel/elements/services/">
       
       
       
@@ -21,7 +21,7 @@
     
     
       
-        <title>Slot: type - cr8tor-metamodel</title>
+        <title>Slot: services - cr8tor-metamodel</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-type" class="md-skip">
+        <a href="#slot-services" class="md-skip">
           Skip to content
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: type
+              Slot: services
             
           </span>
         </div>
@@ -355,6 +355,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Identifier and Mapping Information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schema Source
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -399,9 +416,10 @@
   
 
 
-<h1 id="slot-type">Slot: type</h1>
-<p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/type">cr8tor_metamodel:type</a>
-Alias: type</p>
+<h1 id="slot-services">Slot: services</h1>
+<p><em>Maximum number of services.</em></p>
+<p>URI: <a href="https://w3id.org/karectl-crates/cr8tor-metamodel/services">cr8tor_metamodel:services</a>
+Alias: services</p>
 <!-- no inheritance hierarchy -->
 
 <h2 id="applicable-classes">Applicable Classes</h2>
@@ -415,18 +433,8 @@ Alias: type</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="../Group/">Group</a></td>
-<td>Represents a group or organizational unit within a Cr8tor project, used to or...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Source/">Source</a></td>
-<td>Models a data source within a Cr8tor project, representing the origin of data...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Destination/">Destination</a></td>
-<td>Models a data destination within a Cr8tor project, representing the endpoint ...</td>
+<td><a href="../ResourceQuotaConfig/">ResourceQuotaConfig</a></td>
+<td>Aggregate resource quota for the project namespace</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -436,6 +444,10 @@ Alias: type</p>
 <li>Range: <a href="../String/">String</a></li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
+<h3 id="schema-source">Schema Source</h3>
+<ul>
+<li>from schema: https://w3id.org/karectl-crates/cr8tor-metamodel</li>
+</ul>
 <h2 id="mappings">Mappings</h2>
 <table>
 <thead>
@@ -447,24 +459,27 @@ Alias: type</p>
 <tbody>
 <tr>
 <td>self</td>
-<td>cr8tor_metamodel:type</td>
+<td>cr8tor_metamodel:services</td>
 </tr>
 <tr>
 <td>native</td>
-<td>cr8tor_metamodel:type</td>
+<td>cr8tor_metamodel:services</td>
 </tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 
-<pre><code class="language-yaml">name: type
-alias: type
+<pre><code class="language-yaml">name: services
+description: Maximum number of services.
+from_schema: https://w3id.org/karectl-crates/cr8tor-metamodel
+rank: 1000
+alias: services
+owner: ResourceQuotaConfig
 domain_of:
-- Group
-- Source
-- Destination
+- ResourceQuotaConfig
 range: string
+required: false
 
 </code></pre>
 

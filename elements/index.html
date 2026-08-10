@@ -567,6 +567,10 @@
 <td>A name-value environment variable pair</td>
 </tr>
 <tr>
+<td><a href="GiteaTeamConfig/">GiteaTeamConfig</a></td>
+<td>Gitea team configuration for a group</td>
+</tr>
+<tr>
 <td><a href="Governance/">Governance</a></td>
 <td>Represents the governance structure of a Cr8tor project, encapsulating user a...</td>
 </tr>
@@ -637,6 +641,10 @@
 <tr>
 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="VDI/">VDI</a></td>
 <td>Virtual Desktop Infrastructure resource for cr8tor project</td>
+</tr>
+<tr>
+<td><a href="ResourceQuotaConfig/">ResourceQuotaConfig</a></td>
+<td>Aggregate resource quota for the project namespace</td>
 </tr>
 <tr>
 <td><a href="ResourceStorage/">ResourceStorage</a></td>
@@ -734,6 +742,10 @@
 <td></td>
 </tr>
 <tr>
+<td><a href="create_template_repo/">create_template_repo</a></td>
+<td>Create a template repository when the organisation is created</td>
+</tr>
+<tr>
 <td><a href="credentials/">credentials</a></td>
 <td>The credentials required to access the data source, including authentication ...</td>
 </tr>
@@ -760,6 +772,10 @@
 <tr>
 <td><a href="default_notebook_size/">default_notebook_size</a></td>
 <td>Default PVC size for notebook workspaces</td>
+</tr>
+<tr>
+<td><a href="default_repo_permission/">default_repo_permission</a></td>
+<td>Default repository permission granted to organisation members</td>
 </tr>
 <tr>
 <td><a href="default_request_cpu/">default_request_cpu</a></td>
@@ -830,6 +846,10 @@
 <td>Hostname to allow outbound traffic</td>
 </tr>
 <tr>
+<td><a href="gitea/">gitea</a></td>
+<td>Gitea team configuration for this group</td>
+</tr>
+<tr>
 <td><a href="given_name/">given_name</a></td>
 <td>The user's first or given name, representing their personal identity</td>
 </tr>
@@ -871,11 +891,11 @@
 </tr>
 <tr>
 <td><a href="limits_cpu/">limits_cpu</a></td>
-<td>CPU limit</td>
+<td>Total CPU limits allowed</td>
 </tr>
 <tr>
 <td><a href="limits_memory/">limits_memory</a></td>
-<td>Memory limit</td>
+<td>Total memory limits allowed</td>
 </tr>
 <tr>
 <td><a href="locations/">locations</a></td>
@@ -902,8 +922,20 @@
 <td>The key or identifier used to retrieve the password from the credential provi...</td>
 </tr>
 <tr>
+<td><a href="permission/">permission</a></td>
+<td>Team permission level</td>
+</tr>
+<tr>
 <td><a href="persist/">persist</a></td>
 <td>Whether workspace storage should persist across sessions</td>
+</tr>
+<tr>
+<td><a href="persistentvolumeclaims/">persistentvolumeclaims</a></td>
+<td>Maximum number of PVCs</td>
+</tr>
+<tr>
+<td><a href="pods/">pods</a></td>
+<td>Maximum number of pods</td>
 </tr>
 <tr>
 <td><a href="ports/">ports</a></td>
@@ -959,11 +991,19 @@
 </tr>
 <tr>
 <td><a href="requests_cpu/">requests_cpu</a></td>
-<td>CPU request</td>
+<td>Total CPU requests allowed</td>
 </tr>
 <tr>
 <td><a href="requests_memory/">requests_memory</a></td>
-<td>Memory requests</td>
+<td>Total memory requests allowed</td>
+</tr>
+<tr>
+<td><a href="requests_storage/">requests_storage</a></td>
+<td>Total storage requests allowed</td>
+</tr>
+<tr>
+<td><a href="resource_quota/">resource_quota</a></td>
+<td>Aggregate resource quota for the project namespace</td>
 </tr>
 <tr>
 <td><a href="resource_type/">resource_type</a></td>
@@ -994,6 +1034,10 @@
 <td>Reference to a k8s Secret containing the client secret</td>
 </tr>
 <tr>
+<td><a href="services/">services</a></td>
+<td>Maximum number of services</td>
+</tr>
+<tr>
 <td><a href="slug/">slug</a></td>
 <td>URL-safe profile identifier</td>
 </tr>
@@ -1022,6 +1066,10 @@
 <td>List of tables that make up the dataset, each representing a structured colle...</td>
 </tr>
 <tr>
+<td><a href="team_name/">team_name</a></td>
+<td>Team name in the Gitea organisation</td>
+</tr>
+<tr>
 <td><a href="type/">type</a></td>
 <td>The type of group membership, indicating how the user was assigned to the gro...</td>
 </tr>
@@ -1048,6 +1096,10 @@
 <tr>
 <td><a href="value/">value</a></td>
 <td>The unique identifier of the group, typically used as the group ID for refere...</td>
+</tr>
+<tr>
+<td><a href="visibility/">visibility</a></td>
+<td>Organisation visibility</td>
 </tr>
 <tr>
 <td><a href="web_origins/">web_origins</a></td>
@@ -1079,6 +1131,14 @@
 <tr>
 <td><a href="DestinationType/">DestinationType</a></td>
 <td></td>
+</tr>
+<tr>
+<td><a href="GiteaPermission/">GiteaPermission</a></td>
+<td>Gitea team and repository permission levels</td>
+</tr>
+<tr>
+<td><a href="GiteaVisibility/">GiteaVisibility</a></td>
+<td>Gitea organisation visibility levels</td>
 </tr>
 <tr>
 <td><a href="GroupMembershipType/">GroupMembershipType</a></td>

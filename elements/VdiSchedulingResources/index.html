@@ -366,8 +366,8 @@ attributes:
     name: requests_cpu
     description: CPU request
     from_schema: https://w3id.org/karectl-crates/deployment-model
-    rank: 1000
     domain_of:
+    - ResourceQuotaConfig
     - VdiSchedulingResources
     range: string
     required: false
@@ -375,8 +375,8 @@ attributes:
     name: requests_memory
     description: Memory requests
     from_schema: https://w3id.org/karectl-crates/deployment-model
-    rank: 1000
     domain_of:
+    - ResourceQuotaConfig
     - VdiSchedulingResources
     range: string
     required: false
@@ -384,8 +384,8 @@ attributes:
     name: limits_cpu
     description: CPU limit
     from_schema: https://w3id.org/karectl-crates/deployment-model
-    rank: 1000
     domain_of:
+    - ResourceQuotaConfig
     - VdiSchedulingResources
     range: string
     required: false
@@ -393,8 +393,8 @@ attributes:
     name: limits_memory
     description: Memory limit
     from_schema: https://w3id.org/karectl-crates/deployment-model
-    rank: 1000
     domain_of:
+    - ResourceQuotaConfig
     - VdiSchedulingResources
     range: string
     required: false
@@ -411,10 +411,10 @@ attributes:
     name: requests_cpu
     description: CPU request
     from_schema: https://w3id.org/karectl-crates/deployment-model
-    rank: 1000
     alias: requests_cpu
     owner: VdiSchedulingResources
     domain_of:
+    - ResourceQuotaConfig
     - VdiSchedulingResources
     range: string
     required: false
@@ -422,10 +422,10 @@ attributes:
     name: requests_memory
     description: Memory requests
     from_schema: https://w3id.org/karectl-crates/deployment-model
-    rank: 1000
     alias: requests_memory
     owner: VdiSchedulingResources
     domain_of:
+    - ResourceQuotaConfig
     - VdiSchedulingResources
     range: string
     required: false
@@ -433,10 +433,10 @@ attributes:
     name: limits_cpu
     description: CPU limit
     from_schema: https://w3id.org/karectl-crates/deployment-model
-    rank: 1000
     alias: limits_cpu
     owner: VdiSchedulingResources
     domain_of:
+    - ResourceQuotaConfig
     - VdiSchedulingResources
     range: string
     required: false
@@ -444,10 +444,10 @@ attributes:
     name: limits_memory
     description: Memory limit
     from_schema: https://w3id.org/karectl-crates/deployment-model
-    rank: 1000
     alias: limits_memory
     owner: VdiSchedulingResources
     domain_of:
+    - ResourceQuotaConfig
     - VdiSchedulingResources
     range: string
     required: false

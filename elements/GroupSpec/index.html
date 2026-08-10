@@ -256,6 +256,17 @@
     click GroupSpec href "../GroupSpec/"
       GroupSpec : description
 
+      GroupSpec : gitea
+
+
+
+
+
+        GroupSpec --&gt; "0..1" GiteaTeamConfig : gitea
+        click GiteaTeamConfig href "../GiteaTeamConfig/"
+
+
+
       GroupSpec : members
 
       GroupSpec : projects
@@ -298,6 +309,12 @@
 <td><a href="../subgroups/">subgroups</a></td>
 <td>* <br/> <a href="../String/">String</a></td>
 <td>Child group names</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../gitea/">gitea</a></td>
+<td>0..1 <br/> <a href="../GiteaTeamConfig/">GiteaTeamConfig</a></td>
+<td>Gitea team configuration for this group</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -379,6 +396,16 @@ attributes:
     multivalued: true
     inlined: true
     inlined_as_list: true
+  gitea:
+    name: gitea
+    description: Gitea team configuration for this group.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    rank: 1000
+    domain_of:
+    - GroupSpec
+    range: GiteaTeamConfig
+    required: false
+    inlined: true
 
 </code></pre>
 </details>
@@ -441,6 +468,18 @@ attributes:
     multivalued: true
     inlined: true
     inlined_as_list: true
+  gitea:
+    name: gitea
+    description: Gitea team configuration for this group.
+    from_schema: https://w3id.org/karectl-crates/deployment-model
+    rank: 1000
+    alias: gitea
+    owner: GroupSpec
+    domain_of:
+    - GroupSpec
+    range: GiteaTeamConfig
+    required: false
+    inlined: true
 
 </code></pre>
 </details>
