@@ -145,7 +145,24 @@ classes:
   Gitea:
     is_a: Resource
     description: >-
-      Gitea git repository resource for cr8tor project.
+      Gitea git repository resource for cr8tor project. The operator provisions a
+      per-project organisation, its teams and an optional template repository.
+    attributes:
+      visibility:
+        range: GiteaVisibility
+        required: false
+        ifabsent: "string(private)"
+        description: Organisation visibility.
+      create_template_repo:
+        range: boolean
+        required: false
+        ifabsent: "true"
+        description: Create a template repository when the organisation is created.
+      default_repo_permission:
+        range: GiteaPermission
+        required: false
+        ifabsent: "string(read)"
+        description: Default repository permission granted to organisation members.
 
   Environment:
     description: >-
@@ -186,6 +203,13 @@ classes:
         multivalued: true
         inlined_as_list: true
         description: Resources (applications/services) available in this project.
+      resource_quota:
+        range: ResourceQuotaConfig
+        required: false
+        inlined: true
+        description: >-
+          Aggregate resource quota for the project namespace. When absent no quota is
+          applied.
       limit_range:
         range: LimitRangeConfig
         required: false
@@ -221,6 +245,11 @@ classes:
         multivalued: true
         inlined_as_list: true
         description: Child group names.
+      gitea:
+        range: GiteaTeamConfig
+        required: false
+        inlined: true
+        description: Gitea team configuration for this group.
 
   # -------------------------------------------------------------------------
   # Supporting classes referenced by Resource subclasses
@@ -369,6 +398,59 @@ classes:
         required: true
         description: Variable value.
 
+  GiteaTeamConfig:
+    description: >-
+      Gitea team configuration for a group. The operator maintains a team of this name in
+      each organisation belonging to the group's projects.
+    attributes:
+      team_name:
+        range: string
+        required: false
+        description: Team name in the Gitea organisation. Defaults to the group name.
+      permission:
+        range: GiteaPermission
+        required: false
+        ifabsent: "string(write)"
+        description: Team permission level.
+
+  ResourceQuotaConfig:
+    description: >-
+      Aggregate resource quota for the project namespace. No defaults are defined: a
+      missing quota means no quota is applied.
+    attributes:
+      requests_cpu:
+        range: string
+        required: false
+        description: Total CPU requests allowed.
+      requests_memory:
+        range: string
+        required: false
+        description: Total memory requests allowed.
+      limits_cpu:
+        range: string
+        required: false
+        description: Total CPU limits allowed.
+      limits_memory:
+        range: string
+        required: false
+        description: Total memory limits allowed.
+      pods:
+        range: string
+        required: false
+        description: Maximum number of pods.
+      services:
+        range: string
+        required: false
+        description: Maximum number of services.
+      persistentvolumeclaims:
+        range: string
+        required: false
+        description: Maximum number of PVCs.
+      requests_storage:
+        range: string
+        required: false
+        description: Total storage requests allowed.
+
   LimitRangeConfig:
     description: Default container resource limits for the project namespace.
     attributes:
@@ -441,3 +523,23 @@ enums:
         description: Remote Desktop Protocol.
       vnc:
         description: Virtual Network Computing.
+
+  GiteaVisibility:
+    description: Gitea organisation visibility levels.
+    permissible_values:
+      private:
+        description: Visible only to organisation members.
+      limited:
+        description: Visible to signed-in users only.
+      public:
+        description: Visible to everyone.
+
+  GiteaPermission:
+    description: Gitea team and repository permission levels.
+    permissible_values:
+      read:
+        description: Read-only access to organisation repositories.
+      write:
+        description: Read and write access to organisation repositories.
+      admin:
+        description: Administrative access to the organisation and its repositories.
