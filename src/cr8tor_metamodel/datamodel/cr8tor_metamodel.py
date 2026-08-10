@@ -1,5 +1,5 @@
 # Auto generated from cr8tor_metamodel.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-06-05T16:58:27
+# Generation date: 2026-08-10T16:15:50
 # Schema: cr8tor-metamodel
 #
 # id: https://w3id.org/karectl-crates/cr8tor-metamodel
@@ -962,7 +962,8 @@ class RStudio(Resource):
 @dataclass(repr=False)
 class Gitea(Resource):
     """
-    Gitea git repository resource for cr8tor project.
+    Gitea git repository resource for cr8tor project. The operator provisions a per-project organisation, its teams
+    and an optional template repository.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -975,8 +976,19 @@ class Gitea(Resource):
     name: str = None
     url: Union[str, URI] = None
     enabled: Union[bool, Bool] = None
+    visibility: Optional[Union[str, "GiteaVisibility"]] = 'private'
+    create_template_repo: Optional[Union[bool, Bool]] = True
+    default_repo_permission: Optional[Union[str, "GiteaPermission"]] = 'read'
 
     def __post_init__(self, *_: str, **kwargs: Any):
+        if self.visibility is not None and not isinstance(self.visibility, GiteaVisibility):
+            self.visibility = getattr(GiteaVisibility, self.visibility)
+
+        if self.create_template_repo is not None and not isinstance(self.create_template_repo, Bool):
+            self.create_template_repo = Bool(self.create_template_repo)
+
+        if self.default_repo_permission is not None and not isinstance(self.default_repo_permission, GiteaPermission):
+            self.default_repo_permission = getattr(GiteaPermission, self.default_repo_permission)
 
         super().__post_init__(**kwargs)
         if self._is_empty(self.resource_type):
@@ -1050,6 +1062,7 @@ class ProjectSpec(YAMLRoot):
 
     description: str = None
     resources: Optional[Union[Union[dict, Resource], list[Union[dict, Resource]]]] = empty_list()
+    resource_quota: Optional[Union[dict, "ResourceQuotaConfig"]] = None
     limit_range: Optional[Union[dict, "LimitRangeConfig"]] = None
     approved_egress_rules: Optional[Union[Union[dict, EgressRule], list[Union[dict, EgressRule]]]] = empty_list()
 
@@ -1062,6 +1075,9 @@ class ProjectSpec(YAMLRoot):
         if not isinstance(self.resources, list):
             self.resources = [self.resources] if self.resources is not None else []
         self.resources = [v if isinstance(v, Resource) else Resource(**as_dict(v)) for v in self.resources]
+
+        if self.resource_quota is not None and not isinstance(self.resource_quota, ResourceQuotaConfig):
+            self.resource_quota = ResourceQuotaConfig(**as_dict(self.resource_quota))
 
         if self.limit_range is not None and not isinstance(self.limit_range, LimitRangeConfig):
             self.limit_range = LimitRangeConfig(**as_dict(self.limit_range))
@@ -1089,6 +1105,7 @@ class GroupSpec(YAMLRoot):
     members: Optional[Union[str, list[str]]] = empty_list()
     projects: Optional[Union[str, list[str]]] = empty_list()
     subgroups: Optional[Union[str, list[str]]] = empty_list()
+    gitea: Optional[Union[dict, "GiteaTeamConfig"]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self.description is not None and not isinstance(self.description, str):
@@ -1105,6 +1122,9 @@ class GroupSpec(YAMLRoot):
         if not isinstance(self.subgroups, list):
             self.subgroups = [self.subgroups] if self.subgroups is not None else []
         self.subgroups = [v if isinstance(v, str) else str(v) for v in self.subgroups]
+
+        if self.gitea is not None and not isinstance(self.gitea, GiteaTeamConfig):
+            self.gitea = GiteaTeamConfig(**as_dict(self.gitea))
 
         super().__post_init__(**kwargs)
 
@@ -1338,6 +1358,82 @@ class EnvironmentVariable(YAMLRoot):
 
 
 @dataclass(repr=False)
+class GiteaTeamConfig(YAMLRoot):
+    """
+    Gitea team configuration for a group. The operator maintains a team of this name in each organisation belonging to
+    the group's projects.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CR8TOR_METAMODEL["GiteaTeamConfig"]
+    class_class_curie: ClassVar[str] = "cr8tor_metamodel:GiteaTeamConfig"
+    class_name: ClassVar[str] = "GiteaTeamConfig"
+    class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.GiteaTeamConfig
+
+    team_name: Optional[str] = None
+    permission: Optional[Union[str, "GiteaPermission"]] = 'write'
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self.team_name is not None and not isinstance(self.team_name, str):
+            self.team_name = str(self.team_name)
+
+        if self.permission is not None and not isinstance(self.permission, GiteaPermission):
+            self.permission = getattr(GiteaPermission, self.permission)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class ResourceQuotaConfig(YAMLRoot):
+    """
+    Aggregate resource quota for the project namespace. No defaults are defined: a missing quota means no quota is
+    applied.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CR8TOR_METAMODEL["ResourceQuotaConfig"]
+    class_class_curie: ClassVar[str] = "cr8tor_metamodel:ResourceQuotaConfig"
+    class_name: ClassVar[str] = "ResourceQuotaConfig"
+    class_model_uri: ClassVar[URIRef] = CR8TOR_METAMODEL.ResourceQuotaConfig
+
+    requests_cpu: Optional[str] = None
+    requests_memory: Optional[str] = None
+    limits_cpu: Optional[str] = None
+    limits_memory: Optional[str] = None
+    pods: Optional[str] = None
+    services: Optional[str] = None
+    persistentvolumeclaims: Optional[str] = None
+    requests_storage: Optional[str] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self.requests_cpu is not None and not isinstance(self.requests_cpu, str):
+            self.requests_cpu = str(self.requests_cpu)
+
+        if self.requests_memory is not None and not isinstance(self.requests_memory, str):
+            self.requests_memory = str(self.requests_memory)
+
+        if self.limits_cpu is not None and not isinstance(self.limits_cpu, str):
+            self.limits_cpu = str(self.limits_cpu)
+
+        if self.limits_memory is not None and not isinstance(self.limits_memory, str):
+            self.limits_memory = str(self.limits_memory)
+
+        if self.pods is not None and not isinstance(self.pods, str):
+            self.pods = str(self.pods)
+
+        if self.services is not None and not isinstance(self.services, str):
+            self.services = str(self.services)
+
+        if self.persistentvolumeclaims is not None and not isinstance(self.persistentvolumeclaims, str):
+            self.persistentvolumeclaims = str(self.persistentvolumeclaims)
+
+        if self.requests_storage is not None and not isinstance(self.requests_storage, str):
+            self.requests_storage = str(self.requests_storage)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
 class LimitRangeConfig(YAMLRoot):
     """
     Default container resource limits for the project namespace.
@@ -1557,6 +1653,44 @@ class ConnectionType(EnumDefinitionImpl):
     _defn = EnumDefinition(
         name="ConnectionType",
         description="VDI connection protocols.",
+    )
+
+class GiteaVisibility(EnumDefinitionImpl):
+    """
+    Gitea organisation visibility levels.
+    """
+    private = PermissibleValue(
+        text="private",
+        description="Visible only to organisation members.")
+    limited = PermissibleValue(
+        text="limited",
+        description="Visible to signed-in users only.")
+    public = PermissibleValue(
+        text="public",
+        description="Visible to everyone.")
+
+    _defn = EnumDefinition(
+        name="GiteaVisibility",
+        description="Gitea organisation visibility levels.",
+    )
+
+class GiteaPermission(EnumDefinitionImpl):
+    """
+    Gitea team and repository permission levels.
+    """
+    read = PermissibleValue(
+        text="read",
+        description="Read-only access to organisation repositories.")
+    write = PermissibleValue(
+        text="write",
+        description="Read and write access to organisation repositories.")
+    admin = PermissibleValue(
+        text="admin",
+        description="Administrative access to the organisation and its repositories.")
+
+    _defn = EnumDefinition(
+        name="GiteaPermission",
+        description="Gitea team and repository permission levels.",
     )
 
 # Slots
@@ -1795,6 +1929,15 @@ slots.vDI__scheduling = Slot(uri=CR8TOR_METAMODEL.scheduling, name="vDI__schedul
 slots.vDI__storage = Slot(uri=CR8TOR_METAMODEL.storage, name="vDI__storage", curie=CR8TOR_METAMODEL.curie('storage'),
                    model_uri=CR8TOR_METAMODEL.vDI__storage, domain=None, range=Optional[Union[dict, ResourceStorage]])
 
+slots.gitea__visibility = Slot(uri=CR8TOR_METAMODEL.visibility, name="gitea__visibility", curie=CR8TOR_METAMODEL.curie('visibility'),
+                   model_uri=CR8TOR_METAMODEL.gitea__visibility, domain=None, range=Optional[Union[str, "GiteaVisibility"]])
+
+slots.gitea__create_template_repo = Slot(uri=CR8TOR_METAMODEL.create_template_repo, name="gitea__create_template_repo", curie=CR8TOR_METAMODEL.curie('create_template_repo'),
+                   model_uri=CR8TOR_METAMODEL.gitea__create_template_repo, domain=None, range=Optional[Union[bool, Bool]])
+
+slots.gitea__default_repo_permission = Slot(uri=CR8TOR_METAMODEL.default_repo_permission, name="gitea__default_repo_permission", curie=CR8TOR_METAMODEL.curie('default_repo_permission'),
+                   model_uri=CR8TOR_METAMODEL.gitea__default_repo_permission, domain=None, range=Optional[Union[str, "GiteaPermission"]])
+
 slots.environment__name = Slot(uri=CR8TOR_METAMODEL.name, name="environment__name", curie=CR8TOR_METAMODEL.curie('name'),
                    model_uri=CR8TOR_METAMODEL.environment__name, domain=None, range=str)
 
@@ -1809,6 +1952,9 @@ slots.projectSpec__description = Slot(uri=CR8TOR_METAMODEL.description, name="pr
 
 slots.projectSpec__resources = Slot(uri=CR8TOR_METAMODEL.resources, name="projectSpec__resources", curie=CR8TOR_METAMODEL.curie('resources'),
                    model_uri=CR8TOR_METAMODEL.projectSpec__resources, domain=None, range=Optional[Union[Union[dict, Resource], list[Union[dict, Resource]]]])
+
+slots.projectSpec__resource_quota = Slot(uri=CR8TOR_METAMODEL.resource_quota, name="projectSpec__resource_quota", curie=CR8TOR_METAMODEL.curie('resource_quota'),
+                   model_uri=CR8TOR_METAMODEL.projectSpec__resource_quota, domain=None, range=Optional[Union[dict, ResourceQuotaConfig]])
 
 slots.projectSpec__limit_range = Slot(uri=CR8TOR_METAMODEL.limit_range, name="projectSpec__limit_range", curie=CR8TOR_METAMODEL.curie('limit_range'),
                    model_uri=CR8TOR_METAMODEL.projectSpec__limit_range, domain=None, range=Optional[Union[dict, LimitRangeConfig]])
@@ -1827,6 +1973,9 @@ slots.groupSpec__projects = Slot(uri=CR8TOR_METAMODEL.projects, name="groupSpec_
 
 slots.groupSpec__subgroups = Slot(uri=CR8TOR_METAMODEL.subgroups, name="groupSpec__subgroups", curie=CR8TOR_METAMODEL.curie('subgroups'),
                    model_uri=CR8TOR_METAMODEL.groupSpec__subgroups, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.groupSpec__gitea = Slot(uri=CR8TOR_METAMODEL.gitea, name="groupSpec__gitea", curie=CR8TOR_METAMODEL.curie('gitea'),
+                   model_uri=CR8TOR_METAMODEL.groupSpec__gitea, domain=None, range=Optional[Union[dict, GiteaTeamConfig]])
 
 slots.keycloakClientConfig__client_id = Slot(uri=CR8TOR_METAMODEL.client_id, name="keycloakClientConfig__client_id", curie=CR8TOR_METAMODEL.curie('client_id'),
                    model_uri=CR8TOR_METAMODEL.keycloakClientConfig__client_id, domain=None, range=str)
@@ -1905,6 +2054,36 @@ slots.environmentVariable__name = Slot(uri=CR8TOR_METAMODEL.name, name="environm
 
 slots.environmentVariable__value = Slot(uri=CR8TOR_METAMODEL.value, name="environmentVariable__value", curie=CR8TOR_METAMODEL.curie('value'),
                    model_uri=CR8TOR_METAMODEL.environmentVariable__value, domain=None, range=str)
+
+slots.giteaTeamConfig__team_name = Slot(uri=CR8TOR_METAMODEL.team_name, name="giteaTeamConfig__team_name", curie=CR8TOR_METAMODEL.curie('team_name'),
+                   model_uri=CR8TOR_METAMODEL.giteaTeamConfig__team_name, domain=None, range=Optional[str])
+
+slots.giteaTeamConfig__permission = Slot(uri=CR8TOR_METAMODEL.permission, name="giteaTeamConfig__permission", curie=CR8TOR_METAMODEL.curie('permission'),
+                   model_uri=CR8TOR_METAMODEL.giteaTeamConfig__permission, domain=None, range=Optional[Union[str, "GiteaPermission"]])
+
+slots.resourceQuotaConfig__requests_cpu = Slot(uri=CR8TOR_METAMODEL.requests_cpu, name="resourceQuotaConfig__requests_cpu", curie=CR8TOR_METAMODEL.curie('requests_cpu'),
+                   model_uri=CR8TOR_METAMODEL.resourceQuotaConfig__requests_cpu, domain=None, range=Optional[str])
+
+slots.resourceQuotaConfig__requests_memory = Slot(uri=CR8TOR_METAMODEL.requests_memory, name="resourceQuotaConfig__requests_memory", curie=CR8TOR_METAMODEL.curie('requests_memory'),
+                   model_uri=CR8TOR_METAMODEL.resourceQuotaConfig__requests_memory, domain=None, range=Optional[str])
+
+slots.resourceQuotaConfig__limits_cpu = Slot(uri=CR8TOR_METAMODEL.limits_cpu, name="resourceQuotaConfig__limits_cpu", curie=CR8TOR_METAMODEL.curie('limits_cpu'),
+                   model_uri=CR8TOR_METAMODEL.resourceQuotaConfig__limits_cpu, domain=None, range=Optional[str])
+
+slots.resourceQuotaConfig__limits_memory = Slot(uri=CR8TOR_METAMODEL.limits_memory, name="resourceQuotaConfig__limits_memory", curie=CR8TOR_METAMODEL.curie('limits_memory'),
+                   model_uri=CR8TOR_METAMODEL.resourceQuotaConfig__limits_memory, domain=None, range=Optional[str])
+
+slots.resourceQuotaConfig__pods = Slot(uri=CR8TOR_METAMODEL.pods, name="resourceQuotaConfig__pods", curie=CR8TOR_METAMODEL.curie('pods'),
+                   model_uri=CR8TOR_METAMODEL.resourceQuotaConfig__pods, domain=None, range=Optional[str])
+
+slots.resourceQuotaConfig__services = Slot(uri=CR8TOR_METAMODEL.services, name="resourceQuotaConfig__services", curie=CR8TOR_METAMODEL.curie('services'),
+                   model_uri=CR8TOR_METAMODEL.resourceQuotaConfig__services, domain=None, range=Optional[str])
+
+slots.resourceQuotaConfig__persistentvolumeclaims = Slot(uri=CR8TOR_METAMODEL.persistentvolumeclaims, name="resourceQuotaConfig__persistentvolumeclaims", curie=CR8TOR_METAMODEL.curie('persistentvolumeclaims'),
+                   model_uri=CR8TOR_METAMODEL.resourceQuotaConfig__persistentvolumeclaims, domain=None, range=Optional[str])
+
+slots.resourceQuotaConfig__requests_storage = Slot(uri=CR8TOR_METAMODEL.requests_storage, name="resourceQuotaConfig__requests_storage", curie=CR8TOR_METAMODEL.curie('requests_storage'),
+                   model_uri=CR8TOR_METAMODEL.resourceQuotaConfig__requests_storage, domain=None, range=Optional[str])
 
 slots.limitRangeConfig__default_memory = Slot(uri=CR8TOR_METAMODEL.default_memory, name="limitRangeConfig__default_memory", curie=CR8TOR_METAMODEL.curie('default_memory'),
                    model_uri=CR8TOR_METAMODEL.limitRangeConfig__default_memory, domain=None, range=Optional[str])

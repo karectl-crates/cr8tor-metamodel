@@ -199,6 +199,42 @@ class ConnectionType(str, Enum):
     """
 
 
+class GiteaVisibility(str, Enum):
+    """
+    Gitea organisation visibility levels.
+    """
+    private = "private"
+    """
+    Visible only to organisation members.
+    """
+    limited = "limited"
+    """
+    Visible to signed-in users only.
+    """
+    public = "public"
+    """
+    Visible to everyone.
+    """
+
+
+class GiteaPermission(str, Enum):
+    """
+    Gitea team and repository permission levels.
+    """
+    read = "read"
+    """
+    Read-only access to organisation repositories.
+    """
+    write = "write"
+    """
+    Read and write access to organisation repositories.
+    """
+    admin = "admin"
+    """
+    Administrative access to the organisation and its repositories.
+    """
+
+
 
 class Governance(ConfiguredBaseModel):
     """
@@ -639,10 +675,13 @@ class RStudio(Resource):
 
 class Gitea(Resource):
     """
-    Gitea git repository resource for cr8tor project.
+    Gitea git repository resource for cr8tor project. The operator provisions a per-project organisation, its teams and an optional template repository.
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/deployment-model'})
 
+    visibility: Optional[GiteaVisibility] = Field(default=GiteaVisibility.private, description="""Organisation visibility.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Gitea'], 'ifabsent': 'string(private)'} })
+    create_template_repo: Optional[bool] = Field(default=True, description="""Create a template repository when the organisation is created.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Gitea'], 'ifabsent': 'true'} })
+    default_repo_permission: Optional[GiteaPermission] = Field(default=GiteaPermission.read, description="""Default repository permission granted to organisation members.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Gitea'], 'ifabsent': 'string(read)'} })
     resource_type: Literal["Gitea"] = Field(default="Gitea", description="""The type of resource (e.g., Jupyter, Keycloak, VDI).""", json_schema_extra = { "linkml_meta": {'designates_type': True, 'domain_of': ['Resource']} })
     name: str = Field(default=..., description="""The requested name of the resource, used for identification and management within the deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project',
                        'Action',
@@ -698,6 +737,7 @@ class ProjectSpec(ConfiguredBaseModel):
 
     description: str = Field(default=..., description="""Project description.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Project', 'ProjectSpec', 'GroupSpec', 'ProfileConfig']} })
     resources: Optional[list[Union[Resource,Jupyter,Keycloak,VDI,RStudio,Gitea]]] = Field(default=[], description="""Resources (applications/services) available in this project.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Deployment', 'ProjectSpec', 'VdiScheduling']} })
+    resource_quota: Optional[ResourceQuotaConfig] = Field(default=None, description="""Aggregate resource quota for the project namespace. When absent no quota is applied.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ProjectSpec']} })
     limit_range: Optional[LimitRangeConfig] = Field(default=None, description="""Default container resource limits for the project namespace.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Deployment', 'ProjectSpec']} })
     approved_egress_rules: Optional[list[EgressRule]] = Field(default=[], description="""Per-FQDN egress rules with allowed TCP ports.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ProjectSpec']} })
 
@@ -712,6 +752,7 @@ class GroupSpec(ConfiguredBaseModel):
     members: Optional[list[str]] = Field(default=[], description="""Usernames of group members.""", json_schema_extra = { "linkml_meta": {'domain_of': ['GroupSpec']} })
     projects: Optional[list[str]] = Field(default=[], description="""Project names this group grants access to.""", json_schema_extra = { "linkml_meta": {'domain_of': ['GroupSpec']} })
     subgroups: Optional[list[str]] = Field(default=[], description="""Child group names.""", json_schema_extra = { "linkml_meta": {'domain_of': ['GroupSpec']} })
+    gitea: Optional[GiteaTeamConfig] = Field(default=None, description="""Gitea team configuration for this group.""", json_schema_extra = { "linkml_meta": {'domain_of': ['GroupSpec']} })
 
 
 class KeycloakClientConfig(ConfiguredBaseModel):
@@ -832,6 +873,32 @@ class EnvironmentVariable(ConfiguredBaseModel):
     value: str = Field(default=..., description="""Variable value.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Group', 'EnvironmentVariable']} })
 
 
+class GiteaTeamConfig(ConfiguredBaseModel):
+    """
+    Gitea team configuration for a group. The operator maintains a team of this name in each organisation belonging to the group's projects.
+    """
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/deployment-model'})
+
+    team_name: Optional[str] = Field(default=None, description="""Team name in the Gitea organisation. Defaults to the group name.""", json_schema_extra = { "linkml_meta": {'domain_of': ['GiteaTeamConfig']} })
+    permission: Optional[GiteaPermission] = Field(default=GiteaPermission.write, description="""Team permission level.""", json_schema_extra = { "linkml_meta": {'domain_of': ['GiteaTeamConfig'], 'ifabsent': 'string(write)'} })
+
+
+class ResourceQuotaConfig(ConfiguredBaseModel):
+    """
+    Aggregate resource quota for the project namespace. No defaults are defined: a missing quota means no quota is applied.
+    """
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/deployment-model'})
+
+    requests_cpu: Optional[str] = Field(default=None, description="""Total CPU requests allowed.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceQuotaConfig', 'VdiSchedulingResources']} })
+    requests_memory: Optional[str] = Field(default=None, description="""Total memory requests allowed.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceQuotaConfig', 'VdiSchedulingResources']} })
+    limits_cpu: Optional[str] = Field(default=None, description="""Total CPU limits allowed.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceQuotaConfig', 'VdiSchedulingResources']} })
+    limits_memory: Optional[str] = Field(default=None, description="""Total memory limits allowed.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceQuotaConfig', 'VdiSchedulingResources']} })
+    pods: Optional[str] = Field(default=None, description="""Maximum number of pods.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceQuotaConfig']} })
+    services: Optional[str] = Field(default=None, description="""Maximum number of services.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceQuotaConfig']} })
+    persistentvolumeclaims: Optional[str] = Field(default=None, description="""Maximum number of PVCs.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceQuotaConfig']} })
+    requests_storage: Optional[str] = Field(default=None, description="""Total storage requests allowed.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceQuotaConfig']} })
+
+
 class LimitRangeConfig(ConfiguredBaseModel):
     """
     Default container resource limits for the project namespace.
@@ -850,10 +917,10 @@ class VdiSchedulingResources(ConfiguredBaseModel):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/karectl-crates/deployment-model'})
 
-    requests_cpu: Optional[str] = Field(default=None, description="""CPU request""", json_schema_extra = { "linkml_meta": {'domain_of': ['VdiSchedulingResources']} })
-    requests_memory: Optional[str] = Field(default=None, description="""Memory requests""", json_schema_extra = { "linkml_meta": {'domain_of': ['VdiSchedulingResources']} })
-    limits_cpu: Optional[str] = Field(default=None, description="""CPU limit""", json_schema_extra = { "linkml_meta": {'domain_of': ['VdiSchedulingResources']} })
-    limits_memory: Optional[str] = Field(default=None, description="""Memory limit""", json_schema_extra = { "linkml_meta": {'domain_of': ['VdiSchedulingResources']} })
+    requests_cpu: Optional[str] = Field(default=None, description="""CPU request""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceQuotaConfig', 'VdiSchedulingResources']} })
+    requests_memory: Optional[str] = Field(default=None, description="""Memory requests""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceQuotaConfig', 'VdiSchedulingResources']} })
+    limits_cpu: Optional[str] = Field(default=None, description="""CPU limit""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceQuotaConfig', 'VdiSchedulingResources']} })
+    limits_memory: Optional[str] = Field(default=None, description="""Memory limit""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceQuotaConfig', 'VdiSchedulingResources']} })
 
 
 class VdiScheduling(ConfiguredBaseModel):
@@ -921,6 +988,8 @@ ProtocolMapper.model_rebuild()
 ProfileConfig.model_rebuild()
 KubespawnerOverride.model_rebuild()
 EnvironmentVariable.model_rebuild()
+GiteaTeamConfig.model_rebuild()
+ResourceQuotaConfig.model_rebuild()
 LimitRangeConfig.model_rebuild()
 VdiSchedulingResources.model_rebuild()
 VdiScheduling.model_rebuild()
