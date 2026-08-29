@@ -164,6 +164,18 @@ classes:
         ifabsent: "string(read)"
         description: Default repository permission granted to organisation members.
 
+  DataSHIELD:
+    is_a: Resource
+    description: >-
+      Datashield federated analytics resource. When present and enabled in a
+      project's resources list, the operator grants the project namespace
+      network access to the Datashield/OPAL service namespace.
+    attributes:
+      url:
+        range: uri
+        required: false
+        description: Opal endpoint is configured at the infrastructure level.
+
   Environment:
     description: >-
       Models the configuration of the target trusted research environment (TRE) for a Cr8tor project deployment, including environment-specific settings and metadata.
